@@ -1,0 +1,39 @@
+/* Landscape game: the entire round stays inside the safe viewport. */
+html,body{overscroll-behavior:none}
+body{height:100vh;height:100dvh;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px);overflow:hidden}
+@supports(height:100dvh){.game{width:min(100%,177.7778dvh);height:min(100%,56.25vw)}}
+.rotate-prompt{display:none}
+@media(orientation:portrait){
+ .game{visibility:hidden;pointer-events:none}
+ dialog[open],dialog::backdrop{visibility:hidden}
+ .rotate-prompt{position:fixed;inset:0;z-index:100;background:#d9f4ef;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;text-align:center;padding:30px;color:#245e6d;font-family:Nunito,sans-serif}
+ .rotate-prompt svg{width:100px;height:100px;fill:none;stroke:#29849a;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+ .rotate-prompt h1{font-size:clamp(22px,6vw,36px);margin:0}.rotate-prompt p{font-size:18px;line-height:1.5;max-width:280px;margin:0}
+}
+@media(orientation:landscape) and (max-height:600px){
+ .game{width:100%;height:100%;background-size:cover;touch-action:none}
+ .game-button{width:44px;height:44px;min-width:44px;min-height:44px;padding:0;touch-action:manipulation}
+ .sound{left:6px;top:6px}.exit{right:6px;top:6px}.next{right:6px;bottom:8px}
+ .puzzle-frame{left:clamp(76px,15vw,160px);right:58px;top:6px;bottom:6px;width:auto;height:auto;padding:0}
+ .mascot{left:0;top:26%;width:14%;height:64%}.mascot canvas{transform:scale(1.35)}
+ .round-banner{left:26%;top:0;width:54%;max-height:48px}.round-banner span{font-size:clamp(12px,2.4vw,22px)}
+ .board.vertical .piece{border-width:5px}.board.vertical .card-name{font-size:clamp(10px,1.7vw,17px)}
+ .board.vertical .slot-target{font-size:clamp(26px,5vw,48px)}.board.vertical .card-letter{font-size:clamp(18px,3vw,30px)}.card-grip{width:22px}
+ .puzzle-frame .board.counting-board{inset:8% 7% 9%}
+ .quantity-rows{width:78%;height:100%;grid-template-rows:repeat(4,minmax(0,1fr));gap:3%;overflow:hidden}
+ .quantity-row{min-height:0;border-width:4px}
+ .quantity-objects{inset:3% 24% 3% 2%;grid-template-columns:repeat(5,minmax(0,1fr));grid-template-rows:repeat(var(--count-rows,1),minmax(0,1fr));gap:2px}
+ .quantity-dock{right:1%;width:22%;max-width:none;height:92%;padding:0;font-size:26px}
+ .object-ordinal{width:20px;height:20px}
+ .quantity-numbers{max-width:19%}
+ .quantity-numbers .number-chip{left:8%;width:84%}
+ .quantity-numbers .number-art{width:62%;height:auto;aspect-ratio:1;justify-self:center;align-self:center}
+ .assembly-tray .assembly-choice{touch-action:none}
+ dialog{max-width:calc(100vw - 24px);max-height:calc(100dvh - 24px);padding:12px}
+}
+/* Measured sizes preserve complete pictures and the exact strip aspect ratio. */
+.assembly-art{width:var(--assembly-size,59%);height:auto;aspect-ratio:1;left:0;top:50%;transform:translateY(-50%)}
+.assembly-tray{width:var(--assembly-tray-width,28%);height:auto;aspect-ratio:2/3}
+.difference-pictures{display:flex;align-items:center;justify-content:center;gap:4%;overflow:hidden}
+.difference-panel{width:var(--difference-width,48%);flex:0 0 var(--difference-width,48%)}
+@media(orientation:landscape) and (max-height:360px){.round-banner{max-height:40px}.round-banner span{font-size:14px}.object-ordinal{width:16px;height:16px}.quantity-row{border-width:3px}}

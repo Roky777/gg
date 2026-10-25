@@ -1,0 +1,245 @@
+{
+  "ready": true,
+  "images": [
+    {
+      "id": "kitten",
+      "file": "kitten.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "puppy",
+      "file": "puppy.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "bunny",
+      "file": "bunny.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "panda",
+      "file": "panda.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "elephant",
+      "file": "elephant.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "whale",
+      "file": "whale.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "giraffe",
+      "file": "giraffe.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "monkey",
+      "file": "monkey.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "turtle",
+      "file": "turtle.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "penguin",
+      "file": "penguin.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "owl",
+      "file": "owl.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "parrot",
+      "file": "parrot.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "butterfly",
+      "file": "butterfly.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "ladybird",
+      "file": "ladybird.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "bee",
+      "file": "bee.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "snail",
+      "file": "snail.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "dolphin",
+      "file": "dolphin.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "octopus",
+      "file": "octopus.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "crab",
+      "file": "crab.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "seahorse",
+      "file": "seahorse.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "rocket",
+      "file": "rocket.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "train",
+      "file": "train.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "sailboat",
+      "file": "sailboat.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "airplane",
+      "file": "airplane.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "tractor",
+      "file": "tractor.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "fire-engine",
+      "file": "fire-engine.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "teapot",
+      "file": "teapot.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "watering-can",
+      "file": "watering-can.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "backpack",
+      "file": "backpack.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "teddy-bear",
+      "file": "teddy-bear.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "robot",
+      "file": "robot.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "castle",
+      "file": "castle.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "mushroom",
+      "file": "mushroom.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "pineapple",
+      "file": "pineapple.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "strawberry",
+      "file": "strawberry.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "cupcake",
+      "file": "cupcake.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "ice-pop",
+      "file": "ice-pop.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "drum",
+      "file": "drum.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "guitar",
+      "file": "guitar.png",
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "hot-air-balloon",
+      "file": "hot-air-balloon.png",
+      "width": 768,
+      "height": 768
+    }
+  ]
+}
