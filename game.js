@@ -1,4 +1,4 @@
-import {cardReadings,bindCardReading} from './card-audio.js?v=card-audio-50';
+import {cardReadings,bindCardReading} from './card-audio.js?v=card-audio-51';
 import {BreakSchedule,PlayBreak,makeFunBoard} from './play-breaks.js?v=play-breaks-48';
 import {reviewVoices,pictureVoice,RECORDINGS,recordingFor} from './voice-cues.js?v=lip-sync-40';
 import {syncLayout} from './responsive-layout.js?v=board-ribbon-43';
@@ -9,9 +9,9 @@ import {MascotDirector,CLIPS} from './mascot-director.js?v=lip-sync-40';
 import {GameAudio} from './game-audio.js?v=play-breaks-48';
 import {makeBoard} from './puzzle-generator.js?v=drag-only-47';
 import {LearningVoice} from './learning-voice.js?v=lip-sync-40';
-import {AssemblyRound,createAssemblyBoard} from './assembly-game.js?v=card-audio-50';
+import {AssemblyRound,createAssemblyBoard} from './assembly-game.js?v=card-audio-51';
 import {AssemblyDeck} from './assembly-catalog.js?v=lip-sync-40';
-import {CountingRound,makeCountingBoard,COUNT_WORDS} from './counting-game.js?v=card-audio-50';
+import {CountingRound,makeCountingBoard,COUNT_WORDS} from './counting-game.js?v=card-audio-51';
 import {RoundBanner} from './round-banner.js?v=lip-sync-40';
 import {DifferenceRound,createDifferenceBoard} from './differences-game.js?v=lip-sync-40';
 const $=id=>document.getElementById(id),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;

@@ -1,4 +1,4 @@
-import {bindCardReading} from './card-audio.js?v=card-audio-50';
+import {bindCardReading} from './card-audio.js?v=card-audio-51';
 /** Three exact image sections, with drag-only placement. */
 export function createAssemblyBoard(item){
  const image=`assembly/${item.id}.png`;

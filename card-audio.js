@@ -4,7 +4,7 @@ import {RECORDINGS,pictureVoice} from './voice-cues.js?v=lip-sync-40';
 export function cardReadings(picture,card){
  let cues=[];
  if(picture.topic==='letters')cues=['letter_'+String(card.value).toLowerCase()];
- else if(picture.topic==='numbers')cues=Array.from({length:Math.max(0,Math.min(10,Number(card.amount)||0))},(_,i)=>'number_'+String(i+1).padStart(2,'0'));
+ else if(picture.topic==='numbers')cues=['number_'+String(card.amount).padStart(2,'0')];
  else if(picture.topic==='assembly')cues=[pictureVoice(picture.item.id)];
  else if(picture.topic==='count-groups')cues=['number_'+String(card.amount).padStart(2,'0')];
  return cues.filter(cue=>cue&&RECORDINGS[cue]);

@@ -1,4 +1,4 @@
-import {bindCardReading} from './card-audio.js?v=card-audio-50';
+import {bindCardReading} from './card-audio.js?v=card-audio-51';
 /** Optional tap-to-count and drag-only number placement. No counting gate. */
 export const COUNTING_ITEMS=[
  ['jelly','जेली'],['rabbit','खरगोश'],['duckling','बत्तख'],['toy-car','खिलौना गाड़ी'],
