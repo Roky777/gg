@@ -15,7 +15,7 @@ export class GameAudio {
  cue(kind='swap'){
   if(!this.enabled||!this.unlocked||this.paused||this.hidden||!this.context||this.context.state!=='running')return;
   const c=this.context,t=c.currentTime;if(t-this.lastCue<.045&&kind!=='win')return;this.lastCue=t;
-  const voices={select:[[523,.0,.10]],swap:[[392,0,.13],[523,.065,.17]],tap:[[659,0,.09]],next:[[523,0,.13],[784,.10,.19]],friend:[[659,0,.16],[784,.11,.18]],win:[[523,0,.24],[659,.12,.26],[784,.24,.30],[1047,.38,.42]]}[kind]||[[523,0,.12]];
+  const voices={pop:[[880,0,.07],[440,.035,.09]],jelly:[[330,0,.10],[494,.045,.13]],select:[[523,.0,.10]],swap:[[392,0,.13],[523,.065,.17]],tap:[[659,0,.09]],next:[[523,0,.13],[784,.10,.19]],friend:[[659,0,.16],[784,.11,.18]],win:[[523,0,.24],[659,.12,.26],[784,.24,.30],[1047,.38,.42]]}[kind]||[[523,0,.12]];
   if(kind==='win'){const g=this.musicGain.gain;g.cancelScheduledValues(t);const level=this.targetMusicLevel;g.setValueAtTime(Math.min(g.value,level),t);g.linearRampToValueAtTime(level*.55,t+.07);g.setValueAtTime(level*.55,t+.65);g.linearRampToValueAtTime(level,t+1.5);}
   for(const [hz,delay,duration]of voices){const osc=c.createOscillator(),g=c.createGain(),start=t+delay;osc.type='sine';osc.frequency.setValueAtTime(hz,start);osc.frequency.exponentialRampToValueAtTime(hz*.998,start+duration);g.gain.setValueAtTime(0,start);g.gain.linearRampToValueAtTime(kind==='win'?.10:.065,start+.012);g.gain.exponentialRampToValueAtTime(.0001,start+duration);osc.connect(g);g.connect(this.effects);osc.onended=()=>{osc.disconnect();g.disconnect();};osc.start(start);osc.stop(start+duration+.02);}
  }

@@ -1,0 +1,13 @@
+{
+  "id": "52-sequence-4-water-splash-one",
+  "name": "Sequence/4/Water_Splash_One",
+  "title": "Water Splash One",
+  "category": "Activities",
+  "duration": 0,
+  "kind": "pose",
+  "loop": false,
+  "manifest": "../manifest.json",
+  "skeleton": "../assets/Lucas_Activity_Icecream.skel",
+  "atlas": "../assets/Lucas_Activity_Icecream.atlas",
+  "texture": "../assets/Lucas_Activity_Icecream.png"
+}

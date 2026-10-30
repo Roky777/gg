@@ -1,0 +1,17 @@
+/* Large, quiet play objects stay inside the illustrated board opening. */
+.puzzle-frame .board.fun-board{position:absolute;margin:0;inset:12% 9% 11%;width:auto;height:auto;display:grid;grid-template-rows:auto minmax(0,1fr);gap:3%;background:transparent;border:0;overflow:hidden}
+.fun-heading{text-align:center;pointer-events:none}
+.fun-heading h2{display:grid;place-items:center;width:70%;max-width:460px;aspect-ratio:2142/349;margin:0 auto;color:#fffdf3;font-size:clamp(15px,2.1vw,32px);line-height:1;background:url('assets/art/ui-board/round-ribbon.png') center/100% 100% no-repeat;text-shadow:0 1px 2px #532787}
+.fun-heading p{margin:4px 0 0;color:#255d68;font-weight:800;font-size:clamp(12px,1.35vw,20px)}
+.fun-toys{min-height:0;display:grid;grid-template:repeat(2,minmax(0,1fr))/repeat(3,minmax(0,1fr));gap:4% 6%;padding:2% 6%}
+.fun-toy{position:relative;min-height:44px;min-width:44px;width:100%;height:100%;padding:2%;border:0;background:none;border-radius:25%;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.fun-toy img{display:block;width:100%;height:100%;object-fit:contain;filter:hue-rotate(var(--hue));pointer-events:none;user-select:none;transform-origin:50% 85%}
+.fun-toy:focus-visible{outline:3px solid #217e8b;outline-offset:-3px;background:#ffffff60}
+.balloon-pop .fun-toy img{animation:balloon-bob 2.8s ease-in-out var(--delay) infinite alternate}
+.fun-toy.popped img{visibility:hidden}.fun-toy.popped{cursor:default}
+.pop-spark{position:absolute;left:50%;top:42%;width:8px;height:13px;border-radius:3px;background:#efb936;pointer-events:none;animation:balloon-spark .45s ease-out both}
+.pop-spark:nth-child(even){background:#e675ad}.pop-spark:nth-child(3n){background:#25b9bc}
+@keyframes balloon-bob{from{transform:translateY(-3px) rotate(-3deg)}to{transform:translateY(3px) rotate(3deg)}}
+@keyframes balloon-spark{from{opacity:1;transform:rotate(var(--angle)) translateY(-8px)}to{opacity:0;transform:rotate(var(--angle)) translateY(-55px) scale(.4)}}
+@media(prefers-reduced-motion:reduce){.balloon-pop .fun-toy img{animation:none}}
+@media(orientation:landscape) and (max-height:360px){.fun-heading h2{width:65%;font-size:15px}.fun-heading p{font-size:12px;margin-top:1px}.fun-toys{gap:2% 5%;padding:1% 6%}}

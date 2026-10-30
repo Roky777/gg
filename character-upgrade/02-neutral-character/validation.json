@@ -1,0 +1,95 @@
+{
+  "stage": 2,
+  "scope": "Neutral appearance and source-part package only. Animation and bend coverage not certified.",
+  "source": "Sparky_Idle_EB_4_Keys.png, top-left 512\u00d7640 pose",
+  "sourceSheetSha256": "90491a45cf5350d85fb022956dc2ee6c8cf46fbb5dc1c2b6eeb083abf221c33c",
+  "neutralComparison": {
+    "canvas": [
+      512,
+      640
+    ],
+    "visibleBounds": [
+      138,
+      191,
+      374,
+      594
+    ],
+    "visibleResolution": [
+      236,
+      403
+    ],
+    "differentPixels": 5002,
+    "maxRGBDifference": 3,
+    "maxAlphaDifference": 3,
+    "method": "Native RGBA comparison without resampling. Source-transparent RGB is normalized to zero. Up to 3/255 differences from alpha-over compositing are permitted in the interior face; exterior alpha must be identical."
+  },
+  "repair": {
+    "part": "Face",
+    "previousDifferentPixels": 8230,
+    "changedFacePaintPixels": 3265,
+    "outerAlphaUnchanged": true,
+    "oldFacialFeaturesBakedIntoFace": false
+  },
+  "parts": 31,
+  "neutralVisibleParts": 25,
+  "byteUnchangedSourceParts": [
+    "Flame_Crown",
+    "Eyebrow_L",
+    "Eyebrow_R",
+    "Nose",
+    "Smile",
+    "Neck",
+    "Torso",
+    "Sleeve_L",
+    "Sleeve_R",
+    "Upper_Arm_L",
+    "Upper_Arm_R",
+    "Forearm_L",
+    "Forearm_R",
+    "Glove_L",
+    "Glove_R",
+    "Shorts",
+    "Thigh_L",
+    "Thigh_R",
+    "Shin_L",
+    "Shin_R",
+    "Shoe_L",
+    "Shoe_R",
+    "Eye_L_open",
+    "Eye_R_open",
+    "Eye_L_half_closed",
+    "Eye_L_closed",
+    "Eye_L_half_open",
+    "Eye_R_half_closed",
+    "Eye_R_closed",
+    "Eye_R_half_open"
+  ],
+  "atlas": {
+    "size": [
+      512,
+      512
+    ],
+    "alpha": "straight",
+    "packedRegionsVerified": 31,
+    "gutterPixels": 2
+  },
+  "hiddenOverlap": {
+    "sourcePaintedCapRows": 5,
+    "locations": [
+      "upper arm beneath sleeve",
+      "forearm beneath upper arm",
+      "glove beneath forearm",
+      "thigh beneath shorts",
+      "shin beneath thigh",
+      "shoe beneath shin/sock"
+    ],
+    "outerBlurAdded": false,
+    "note": "Reused source-painted overlap caps. Coverage during extreme bends must be tested in stage 3."
+  },
+  "limits": [
+    "Native visible source art is 236\u00d7403, not a full-HD redraw.",
+    "Alternate eye states are preserved as source parts; expressive/blink alignment is deferred.",
+    "No alternate gesture hands or side/back artwork supplied.",
+    "No game assets or animation timelines changed."
+  ]
+}

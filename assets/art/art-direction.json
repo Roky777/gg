@@ -1,0 +1,22 @@
+{
+  "style": "Soft storybook meadow, rounded shapes, turquoise/mint/butter/coral palette; one generated four-picture atlas for consistent illustrations.",
+  "backgroundPrompt": "Asset type: seamless-feeling landscape background illustration for a premium preschool picture puzzle browser game, landscape 16:10 composition, high resolution. ORIGINAL cheerful storybook meadow amusement garden under a clear pastel turquoise-blue sky. Soft warm sunlight, rounded mint and teal rolling hills, a tiny distant pastel Ferris wheel far LEFT, one small coral and cream hot-air balloon in far upper RIGHT, cute white puffy clouds, a pale golden walking path curving along the very bottom, tiny daisies and round flower bushes at the lower corners, gentle grassy foreground. Composition is essential: CENTER and RIGHT middle 75 percent is calm open sky with very low contrast so a large puzzle board can overlay it; LEFT lower third has clear empty grassy ground for an animated mascot overlay. Sky fills top70 percent. Whimsical hand-painted gouache meets clean rounded game illustration, softly textured, crisp pleasant edges, charming stylized shapes, restrained outlines, no photorealism. Palette: powder aqua #BCEEF0, sky blue #A3DFEF, mint #9DD8AC, forest teal #4A9485, butter cream #FFF3CE, gentle coral #F6A07A. More sophisticated soft educational game aesthetic, not neon, not cluttered. Absolutely NO characters, NO text, NO letters, NO frame, NO board, NO buttons, NO UI, NO watermark, NO logos. Full-bleed beautiful finished illustration.",
+  "puzzlePrompt": {
+    "referenced_image_paths": [
+      "/Users/rax/.codex/generated_images/01a14e28-eaa9-7fb1-bdf9-d1d4e31a18c4/exec-a78a430d-ef18-47d9-850f-0a2bf40353b4.png"
+    ],
+    "transparent_background": false,
+    "prompt": "Create ONE square game art atlas, EXACT 2 columns by 2 rows of FOUR square illustrations, edge-to-edge quadrants, NO margins, NO gutters, NO dividing lines, NO labels. Each quadrant is a complete separate preschool puzzle illustration. Input image is supporting palette/environment reference only. Use ONE consistent charming rounded children's game illustration style across all four, softly textured painted fills with clear dark teal medium outlines and simple bold readable shapes, friendly warm faces. Palette shares turquoise, mint, butter yellow and coral with reference; brighter clear foreground subjects. These images will each be split into three vertical strips and moved up/down, so make every quadrant have strong recognizable imagery crossing both one-third and two-third vertical seams, composed centrally. Each scene has an uncluttered background but fills the entire square. No words, no numbers, no UI, no frames, no watermark. Prefer 2048x2048.\nTOP LEFT quadrant: SUNNY HELLO — large cute golden-yellow smiling sun with round brown friendly eyes and cheeks, coral-orange scalloped rays, centered filling 65% of square, cheerful aqua sky, two puffy cream clouds along lower corners and a small cloud upper-left. Sun circle and rays extend across all three thirds of this quadrant; exactly one sun.\nTOP RIGHT quadrant: LITTLE ROCKET — big rounded coral-and-cream toy rocket pointing slightly diagonally up-right, turquoise circular window, butter-yellow flame, deep periwinkle twilight sky, mint ringed planet at upper left and scattered small cream stars. Rocket large and crosses all three thirds. Cute playful, no person.\nBOTTOM LEFT quadrant: DUCK POND — one big adorable golden-yellow duck with coral beak smiling on a bright mint/turquoise pond, soft green reeds at corners and a little pink water lily, pale blue sky, broad gentle ripples that cross the full width. Duck centered fills 65% and crosses all three thirds.\nBOTTOM RIGHT quadrant: COZY TREEHOUSE — one charming little coral-orange roofed treehouse on a rounded branching brown trunk, giant mint green leafy canopy, little golden window and cream door, a short tiny rope ladder reaching lime grass, blue sky and small cream clouds. Large central composition with canopy and house crossing all three thirds. Consistent outline and surface style with the sun, rocket and duck. All four quadrants must remain exactly square and separate; no shared subject spanning quadrant boundaries."
+  },
+  "animationSource": "Existing Sparky Animation Library; no regenerated mascot.",
+  "sourceAtlasGrid": {
+    "columns": 2,
+    "rows": 2,
+    "order": [
+      "sunshine",
+      "rocket",
+      "duck",
+      "treehouse"
+    ]
+  }
+}

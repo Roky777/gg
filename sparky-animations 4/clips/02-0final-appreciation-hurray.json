@@ -1,0 +1,13 @@
+{
+  "id": "02-0final-appreciation-hurray",
+  "name": "0Final/Appreciation/Hurray",
+  "title": "Hurray",
+  "category": "Celebrations",
+  "duration": 2,
+  "kind": "animation",
+  "loop": false,
+  "manifest": "../manifest.json",
+  "skeleton": "../assets/Lucas_Activity_Icecream.skel",
+  "atlas": "../assets/Lucas_Activity_Icecream.atlas",
+  "texture": "../assets/Lucas_Activity_Icecream.png"
+}

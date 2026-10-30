@@ -1,0 +1,1522 @@
+{
+  "anchors": {
+    "root": [
+      256,
+      594
+    ],
+    "pelvis": [
+      256,
+      498
+    ],
+    "torso": [
+      256,
+      472
+    ],
+    "neck": [
+      256,
+      408
+    ],
+    "head": [
+      256,
+      402
+    ],
+    "shoulder_L": [
+      214,
+      425
+    ],
+    "upper_arm_L": [
+      214,
+      425
+    ],
+    "forearm_L": [
+      202,
+      448
+    ],
+    "hand_L": [
+      192,
+      470
+    ],
+    "thigh_L": [
+      229,
+      505
+    ],
+    "shin_L": [
+      228,
+      522
+    ],
+    "foot_L": [
+      224,
+      539
+    ],
+    "shoulder_R": [
+      299,
+      425
+    ],
+    "upper_arm_R": [
+      299,
+      425
+    ],
+    "forearm_R": [
+      311,
+      448
+    ],
+    "hand_R": [
+      321,
+      470
+    ],
+    "thigh_R": [
+      282,
+      505
+    ],
+    "shin_R": [
+      284,
+      522
+    ],
+    "foot_R": [
+      288,
+      539
+    ],
+    "brow_L": [
+      218,
+      314
+    ],
+    "brow_R": [
+      299,
+      314
+    ],
+    "eye_L": [
+      218,
+      349
+    ],
+    "eye_R": [
+      299,
+      349
+    ],
+    "nose": [
+      258,
+      363
+    ],
+    "mouth": [
+      259,
+      376
+    ]
+  },
+  "rects": {
+    "Head": [
+      138,
+      191,
+      236,
+      211
+    ],
+    "Torso": [
+      211,
+      403,
+      91,
+      78
+    ],
+    "Neck": [
+      240,
+      397,
+      34,
+      19
+    ],
+    "Shorts": [
+      206,
+      471,
+      103,
+      48
+    ],
+    "Upper_L": [
+      190,
+      410,
+      43,
+      51
+    ],
+    "Lower_L": [
+      182,
+      440,
+      32,
+      40
+    ],
+    "Hand_L": [
+      166,
+      461,
+      51,
+      58
+    ],
+    "Clap_L": [
+      168,
+      453,
+      46,
+      55
+    ],
+    "Thumb_L": [
+      166,
+      457,
+      51,
+      55
+    ],
+    "Wave_L": [
+      163,
+      453,
+      56,
+      60
+    ],
+    "Point_L": [
+      161,
+      459,
+      62,
+      43
+    ],
+    "Fist_L": [
+      169,
+      463,
+      46,
+      46
+    ],
+    "Thigh_L": [
+      213,
+      499,
+      33,
+      35
+    ],
+    "Shin_L": [
+      210,
+      516,
+      37,
+      37
+    ],
+    "Shoe_L": [
+      175,
+      535,
+      80,
+      59
+    ],
+    "EyeWhite_L": [
+      192,
+      323,
+      50,
+      46
+    ],
+    "Iris_L": [
+      206,
+      331,
+      30,
+      37
+    ],
+    "EyeHalf_L": [
+      192,
+      323,
+      50,
+      46
+    ],
+    "EyeClosed_L": [
+      192,
+      327,
+      50,
+      38
+    ],
+    "Brow_L": [
+      202,
+      307,
+      32,
+      12
+    ],
+    "Upper_R": [
+      287,
+      410,
+      43,
+      51
+    ],
+    "Lower_R": [
+      299,
+      440,
+      32,
+      40
+    ],
+    "Hand_R": [
+      299,
+      461,
+      51,
+      58
+    ],
+    "Clap_R": [
+      301,
+      453,
+      46,
+      55
+    ],
+    "Thumb_R": [
+      298,
+      457,
+      51,
+      55
+    ],
+    "Wave_R": [
+      297,
+      453,
+      56,
+      60
+    ],
+    "Point_R": [
+      294,
+      459,
+      62,
+      43
+    ],
+    "Fist_R": [
+      301,
+      463,
+      46,
+      46
+    ],
+    "Thigh_R": [
+      266,
+      499,
+      33,
+      35
+    ],
+    "Shin_R": [
+      269,
+      516,
+      37,
+      37
+    ],
+    "Shoe_R": [
+      257,
+      535,
+      80,
+      59
+    ],
+    "EyeWhite_R": [
+      275,
+      323,
+      50,
+      46
+    ],
+    "Iris_R": [
+      289,
+      331,
+      30,
+      37
+    ],
+    "EyeHalf_R": [
+      275,
+      323,
+      50,
+      46
+    ],
+    "EyeClosed_R": [
+      275,
+      327,
+      50,
+      38
+    ],
+    "Brow_R": [
+      283,
+      307,
+      32,
+      12
+    ],
+    "Nose": [
+      249,
+      357,
+      19,
+      12
+    ],
+    "Mouth_Smile": [
+      238,
+      372,
+      41,
+      12
+    ],
+    "Mouth_Happy": [
+      238,
+      372,
+      41,
+      28
+    ],
+    "Mouth_Teeth": [
+      238,
+      372,
+      41,
+      20
+    ],
+    "Mouth_Talk": [
+      238,
+      372,
+      41,
+      28
+    ],
+    "Mouth_A": [
+      248,
+      368,
+      20,
+      28
+    ],
+    "Mouth_O": [
+      248,
+      368,
+      20,
+      28
+    ],
+    "Mouth_U": [
+      248,
+      368,
+      20,
+      28
+    ],
+    "Mouth_FV": [
+      238,
+      372,
+      41,
+      20
+    ],
+    "Mouth_Sad": [
+      238,
+      372,
+      41,
+      20
+    ],
+    "Mouth_Laugh": [
+      238,
+      372,
+      41,
+      28
+    ]
+  },
+  "origins": {
+    "Head": {
+      "sheet": "05-head.png",
+      "cell": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "nativePixels": [
+        1168,
+        1012
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        118,
+        69
+      ]
+    },
+    "Torso": {
+      "sheet": "01-body.png",
+      "cell": [
+        0,
+        0,
+        4,
+        2
+      ],
+      "nativePixels": [
+        431,
+        388
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        162,
+        28
+      ]
+    },
+    "Neck": {
+      "sheet": "01-body.png",
+      "cell": [
+        3,
+        0,
+        4,
+        2
+      ],
+      "nativePixels": [
+        176,
+        148
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        231,
+        977
+      ]
+    },
+    "Shorts": {
+      "sheet": "01-body.png",
+      "cell": [
+        1,
+        0,
+        4,
+        2
+      ],
+      "nativePixels": [
+        430,
+        213
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        162,
+        455
+      ]
+    },
+    "Upper_L": {
+      "sheet": "02-arms-join-v2.png",
+      "cell": [
+        0,
+        0,
+        4,
+        2
+      ],
+      "nativePixels": [
+        302,
+        308
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        213,
+        10
+      ]
+    },
+    "Lower_L": {
+      "sheet": "02-arms-join-v2.png",
+      "cell": [
+        1,
+        1,
+        4,
+        2
+      ],
+      "nativePixels": [
+        259,
+        239
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        741,
+        338
+      ]
+    },
+    "Hand_L": {
+      "sheet": "03-hands-a.png",
+      "cell": [
+        0,
+        0,
+        3,
+        2
+      ],
+      "nativePixels": [
+        343,
+        345
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        237,
+        59
+      ]
+    },
+    "Clap_L": {
+      "sheet": "03-hands-a.png",
+      "cell": [
+        1,
+        0,
+        3,
+        2
+      ],
+      "nativePixels": [
+        304,
+        360
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        268,
+        431
+      ]
+    },
+    "Thumb_L": {
+      "sheet": "03-hands-a.png",
+      "cell": [
+        2,
+        0,
+        3,
+        2
+      ],
+      "nativePixels": [
+        352,
+        351
+      ],
+      "rotation": 90,
+      "cropOrigin": [
+        223,
+        802
+      ]
+    },
+    "Wave_L": {
+      "sheet": "03-hands-b.png",
+      "cell": [
+        1,
+        0,
+        3,
+        2
+      ],
+      "nativePixels": [
+        487,
+        532
+      ],
+      "rotation": -70,
+      "cropOrigin": [
+        177,
+        452
+      ]
+    },
+    "Point_L": {
+      "sheet": "03-hands-b.png",
+      "cell": [
+        0,
+        0,
+        3,
+        2
+      ],
+      "nativePixels": [
+        485,
+        326
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        125,
+        60
+      ]
+    },
+    "Fist_L": {
+      "sheet": "03-hands-b.png",
+      "cell": [
+        2,
+        0,
+        3,
+        2
+      ],
+      "nativePixels": [
+        389,
+        290
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        215,
+        869
+      ]
+    },
+    "Thigh_L": {
+      "sheet": "04-legs-shoes.png",
+      "cell": [
+        0,
+        0,
+        4,
+        2
+      ],
+      "nativePixels": [
+        261,
+        299
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        200,
+        25
+      ]
+    },
+    "Shin_L": {
+      "sheet": "04-legs-shoes.png",
+      "cell": [
+        1,
+        0,
+        4,
+        2
+      ],
+      "nativePixels": [
+        242,
+        361
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        202,
+        361
+      ]
+    },
+    "Shoe_L": {
+      "sheet": "04-legs-shoes.png",
+      "cell": [
+        2,
+        0,
+        4,
+        2
+      ],
+      "nativePixels": [
+        404,
+        347
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        63,
+        735
+      ]
+    },
+    "EyeWhite_L": {
+      "sheet": "06-eyes-features.png",
+      "cell": [
+        0,
+        0,
+        6,
+        2
+      ],
+      "nativePixels": [
+        318,
+        274
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        118,
+        40
+      ]
+    },
+    "Iris_L": {
+      "sheet": "06-eyes-features.png",
+      "cell": [
+        1,
+        0,
+        6,
+        2
+      ],
+      "nativePixels": [
+        209,
+        217
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        195,
+        350
+      ]
+    },
+    "EyeHalf_L": {
+      "sheet": "06-eyes-features.png",
+      "cell": [
+        2,
+        0,
+        6,
+        2
+      ],
+      "nativePixels": [
+        335,
+        253
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        114,
+        586
+      ]
+    },
+    "EyeClosed_L": {
+      "sheet": "06-eyes-features.png",
+      "cell": [
+        3,
+        0,
+        6,
+        2
+      ],
+      "nativePixels": [
+        304,
+        227
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        134,
+        873
+      ]
+    },
+    "Brow_L": {
+      "sheet": "06-eyes-features.png",
+      "cell": [
+        4,
+        0,
+        6,
+        2
+      ],
+      "nativePixels": [
+        242,
+        90
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        171,
+        1164
+      ]
+    },
+    "Upper_R": {
+      "sheet": "02-arms-join-v2.png",
+      "cell": [
+        0,
+        1,
+        4,
+        2
+      ],
+      "nativePixels": [
+        301,
+        308
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        726,
+        10
+      ]
+    },
+    "Lower_R": {
+      "sheet": "02-arms-join-v2.png",
+      "cell": [
+        1,
+        0,
+        4,
+        2
+      ],
+      "nativePixels": [
+        260,
+        239
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        241,
+        338
+      ]
+    },
+    "Hand_R": {
+      "sheet": "03-hands-a.png",
+      "cell": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "nativePixels": [
+        342,
+        345
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        731,
+        59
+      ]
+    },
+    "Clap_R": {
+      "sheet": "03-hands-a.png",
+      "cell": [
+        1,
+        1,
+        3,
+        2
+      ],
+      "nativePixels": [
+        302,
+        360
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        741,
+        431
+      ]
+    },
+    "Thumb_R": {
+      "sheet": "03-hands-a.png",
+      "cell": [
+        2,
+        1,
+        3,
+        2
+      ],
+      "nativePixels": [
+        352,
+        352
+      ],
+      "rotation": -90,
+      "cropOrigin": [
+        737,
+        802
+      ]
+    },
+    "Wave_R": {
+      "sheet": "03-hands-b.png",
+      "cell": [
+        1,
+        1,
+        3,
+        2
+      ],
+      "nativePixels": [
+        488,
+        536
+      ],
+      "rotation": 70,
+      "cropOrigin": [
+        704,
+        454
+      ]
+    },
+    "Point_R": {
+      "sheet": "03-hands-b.png",
+      "cell": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "nativePixels": [
+        488,
+        324
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        704,
+        62
+      ]
+    },
+    "Fist_R": {
+      "sheet": "03-hands-b.png",
+      "cell": [
+        2,
+        1,
+        3,
+        2
+      ],
+      "nativePixels": [
+        393,
+        290
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        705,
+        869
+      ]
+    },
+    "Thigh_R": {
+      "sheet": "04-legs-shoes.png",
+      "cell": [
+        0,
+        1,
+        4,
+        2
+      ],
+      "nativePixels": [
+        256,
+        299
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        568,
+        25
+      ]
+    },
+    "Shin_R": {
+      "sheet": "04-legs-shoes.png",
+      "cell": [
+        1,
+        1,
+        4,
+        2
+      ],
+      "nativePixels": [
+        236,
+        361
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        612,
+        361
+      ]
+    },
+    "Shoe_R": {
+      "sheet": "04-legs-shoes.png",
+      "cell": [
+        2,
+        1,
+        4,
+        2
+      ],
+      "nativePixels": [
+        404,
+        347
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        573,
+        735
+      ]
+    },
+    "EyeWhite_R": {
+      "sheet": "06-eyes-features.png",
+      "cell": [
+        0,
+        1,
+        6,
+        2
+      ],
+      "nativePixels": [
+        318,
+        274
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        587,
+        40
+      ]
+    },
+    "Iris_R": {
+      "sheet": "06-eyes-features.png",
+      "cell": [
+        1,
+        1,
+        6,
+        2
+      ],
+      "nativePixels": [
+        207,
+        218
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        631,
+        349
+      ]
+    },
+    "EyeHalf_R": {
+      "sheet": "06-eyes-features.png",
+      "cell": [
+        2,
+        1,
+        6,
+        2
+      ],
+      "nativePixels": [
+        333,
+        253
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        575,
+        586
+      ]
+    },
+    "EyeClosed_R": {
+      "sheet": "06-eyes-features.png",
+      "cell": [
+        3,
+        1,
+        6,
+        2
+      ],
+      "nativePixels": [
+        302,
+        227
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        582,
+        873
+      ]
+    },
+    "Brow_R": {
+      "sheet": "06-eyes-features.png",
+      "cell": [
+        4,
+        1,
+        6,
+        2
+      ],
+      "nativePixels": [
+        241,
+        89
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        613,
+        1164
+      ]
+    },
+    "Nose": {
+      "sheet": "06-eyes-features.png",
+      "cell": [
+        5,
+        0,
+        6,
+        2
+      ],
+      "nativePixels": [
+        150,
+        90
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        277,
+        1361
+      ]
+    },
+    "Mouth_Smile": {
+      "sheet": "07-mouths.png",
+      "cell": [
+        0,
+        0,
+        5,
+        2
+      ],
+      "nativePixels": [
+        358,
+        87
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        207,
+        134
+      ]
+    },
+    "Mouth_Happy": {
+      "sheet": "07-mouths.png",
+      "cell": [
+        0,
+        1,
+        5,
+        2
+      ],
+      "nativePixels": [
+        343,
+        144
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        729,
+        105
+      ]
+    },
+    "Mouth_Teeth": {
+      "sheet": "07-mouths.png",
+      "cell": [
+        1,
+        0,
+        5,
+        2
+      ],
+      "nativePixels": [
+        358,
+        111
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        204,
+        374
+      ]
+    },
+    "Mouth_Talk": {
+      "sheet": "07-mouths.png",
+      "cell": [
+        1,
+        1,
+        5,
+        2
+      ],
+      "nativePixels": [
+        309,
+        128
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        743,
+        368
+      ]
+    },
+    "Mouth_A": {
+      "sheet": "07-mouths.png",
+      "cell": [
+        2,
+        0,
+        5,
+        2
+      ],
+      "nativePixels": [
+        180,
+        208
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        306,
+        554
+      ]
+    },
+    "Mouth_O": {
+      "sheet": "07-mouths.png",
+      "cell": [
+        2,
+        1,
+        5,
+        2
+      ],
+      "nativePixels": [
+        140,
+        146
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        824,
+        596
+      ]
+    },
+    "Mouth_U": {
+      "sheet": "07-mouths.png",
+      "cell": [
+        3,
+        0,
+        5,
+        2
+      ],
+      "nativePixels": [
+        177,
+        111
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        286,
+        852
+      ]
+    },
+    "Mouth_FV": {
+      "sheet": "07-mouths.png",
+      "cell": [
+        3,
+        1,
+        5,
+        2
+      ],
+      "nativePixels": [
+        309,
+        82
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        743,
+        854
+      ]
+    },
+    "Mouth_Sad": {
+      "sheet": "07-mouths.png",
+      "cell": [
+        4,
+        0,
+        5,
+        2
+      ],
+      "nativePixels": [
+        262,
+        48
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        252,
+        1080
+      ]
+    },
+    "Mouth_Laugh": {
+      "sheet": "07-mouths.png",
+      "cell": [
+        4,
+        1,
+        5,
+        2
+      ],
+      "nativePixels": [
+        290,
+        170
+      ],
+      "rotation": 0,
+      "cropOrigin": [
+        752,
+        1002
+      ]
+    }
+  },
+  "packed": {
+    "Head": [
+      4,
+      4,
+      1168,
+      1012
+    ],
+    "Torso": [
+      1180,
+      4,
+      431,
+      388
+    ],
+    "Neck": [
+      1619,
+      4,
+      176,
+      148
+    ],
+    "Shorts": [
+      1803,
+      4,
+      430,
+      213
+    ],
+    "Upper_L": [
+      2241,
+      4,
+      302,
+      308
+    ],
+    "Lower_L": [
+      2551,
+      4,
+      259,
+      239
+    ],
+    "Hand_L": [
+      2818,
+      4,
+      343,
+      345
+    ],
+    "Clap_L": [
+      3169,
+      4,
+      304,
+      360
+    ],
+    "Thumb_L": [
+      3481,
+      4,
+      352,
+      351
+    ],
+    "Wave_L": [
+      4,
+      1024,
+      487,
+      532
+    ],
+    "Point_L": [
+      499,
+      1024,
+      485,
+      326
+    ],
+    "Fist_L": [
+      992,
+      1024,
+      389,
+      290
+    ],
+    "Thigh_L": [
+      1389,
+      1024,
+      261,
+      299
+    ],
+    "Shin_L": [
+      1658,
+      1024,
+      242,
+      361
+    ],
+    "Shoe_L": [
+      1908,
+      1024,
+      404,
+      347
+    ],
+    "EyeWhite_L": [
+      2320,
+      1024,
+      318,
+      274
+    ],
+    "Iris_L": [
+      2646,
+      1024,
+      209,
+      217
+    ],
+    "EyeHalf_L": [
+      2863,
+      1024,
+      335,
+      253
+    ],
+    "EyeClosed_L": [
+      3206,
+      1024,
+      304,
+      227
+    ],
+    "Brow_L": [
+      3518,
+      1024,
+      242,
+      90
+    ],
+    "Upper_R": [
+      3768,
+      1024,
+      301,
+      308
+    ],
+    "Lower_R": [
+      4,
+      1564,
+      260,
+      239
+    ],
+    "Hand_R": [
+      272,
+      1564,
+      342,
+      345
+    ],
+    "Clap_R": [
+      622,
+      1564,
+      302,
+      360
+    ],
+    "Thumb_R": [
+      932,
+      1564,
+      352,
+      352
+    ],
+    "Wave_R": [
+      1292,
+      1564,
+      488,
+      536
+    ],
+    "Point_R": [
+      1788,
+      1564,
+      488,
+      324
+    ],
+    "Fist_R": [
+      2284,
+      1564,
+      393,
+      290
+    ],
+    "Thigh_R": [
+      2685,
+      1564,
+      256,
+      299
+    ],
+    "Shin_R": [
+      2949,
+      1564,
+      236,
+      361
+    ],
+    "Shoe_R": [
+      3193,
+      1564,
+      404,
+      347
+    ],
+    "EyeWhite_R": [
+      3605,
+      1564,
+      318,
+      274
+    ],
+    "Iris_R": [
+      4,
+      2108,
+      207,
+      218
+    ],
+    "EyeHalf_R": [
+      219,
+      2108,
+      333,
+      253
+    ],
+    "EyeClosed_R": [
+      560,
+      2108,
+      302,
+      227
+    ],
+    "Brow_R": [
+      870,
+      2108,
+      241,
+      89
+    ],
+    "Nose": [
+      1119,
+      2108,
+      150,
+      90
+    ],
+    "Mouth_Smile": [
+      1277,
+      2108,
+      358,
+      87
+    ],
+    "Mouth_Happy": [
+      1643,
+      2108,
+      343,
+      144
+    ],
+    "Mouth_Teeth": [
+      1994,
+      2108,
+      358,
+      111
+    ],
+    "Mouth_Talk": [
+      2360,
+      2108,
+      309,
+      128
+    ],
+    "Mouth_A": [
+      2677,
+      2108,
+      180,
+      208
+    ],
+    "Mouth_O": [
+      2865,
+      2108,
+      140,
+      146
+    ],
+    "Mouth_U": [
+      3013,
+      2108,
+      177,
+      111
+    ],
+    "Mouth_FV": [
+      3198,
+      2108,
+      309,
+      82
+    ],
+    "Mouth_Sad": [
+      3515,
+      2108,
+      262,
+      48
+    ],
+    "Mouth_Laugh": [
+      3785,
+      2108,
+      290,
+      170
+    ]
+  },
+  "meshes": 8,
+  "parts": 47
+}

@@ -1,0 +1,69 @@
+{
+  "boneTableEnd": 14211,
+  "animationAndMeshBytesIdentical": true,
+  "changes": [
+    {
+      "name": "T_shirt",
+      "field": "scaleX",
+      "before": 0.8500000238418579,
+      "after": 0.6800000190734864,
+      "offset": 4097
+    },
+    {
+      "name": "Face",
+      "field": "scaleX",
+      "before": 1.141176462173462,
+      "after": 1.4264705777168274,
+      "offset": 5354
+    },
+    {
+      "name": "Neck",
+      "field": "scaleX",
+      "before": 1,
+      "after": 1.25,
+      "offset": 9037
+    },
+    {
+      "name": "T_shirt39",
+      "field": "scaleX",
+      "before": 1.1764706373214722,
+      "after": 1.4705882966518402,
+      "offset": 4248
+    },
+    {
+      "name": "T_shirt40",
+      "field": "scaleX",
+      "before": 1.1764706373214722,
+      "after": 1.4705882966518402,
+      "offset": 4564
+    },
+    {
+      "name": "Palm_R",
+      "field": "scaleX",
+      "before": 1,
+      "after": 0.85,
+      "offset": 4513
+    },
+    {
+      "name": "Palm_R",
+      "field": "scaleY",
+      "before": 1,
+      "after": 1.9,
+      "offset": 4517
+    },
+    {
+      "name": "Palm_R2",
+      "field": "scaleX",
+      "before": 1,
+      "after": 0.85,
+      "offset": 4828
+    },
+    {
+      "name": "Palm_R2",
+      "field": "scaleY",
+      "before": 1,
+      "after": 1.9,
+      "offset": 4832
+    }
+  ]
+}

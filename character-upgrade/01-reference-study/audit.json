@@ -1,0 +1,786 @@
+{
+  "stage": 1,
+  "status": "Reference study only. No game assets modified; no similarity score asserted.",
+  "preserved": [
+    {
+      "path": "sparky-picture-play/sparky-animations 4/manifest.json",
+      "bytes": 15313,
+      "sha256": "d93d70fe34b7c3045c6bf32190faf5c5886b3fec7e6496408d27fc75cafb2c7c"
+    },
+    {
+      "path": "sparky-picture-play/sparky-animations 4/rig-player.js",
+      "bytes": 7079,
+      "sha256": "b7db1080bac7ca27f97712b361d94e975ee47bfd2c70e185e307f1d1dbeae343"
+    },
+    {
+      "path": "sparky-picture-play/sparky-animations 4/assets/Lucas_Activity_Icecream.skel",
+      "bytes": 1855501,
+      "sha256": "6184287cdf7a43248c99e61fc7b0dfc19b5b7325c474baa2a9879b4a4a049692"
+    },
+    {
+      "path": "sparky-picture-play/sparky-animations 4/assets/Lucas_Activity_Icecream.atlas",
+      "bytes": 6717,
+      "sha256": "582b5b11b3d27fec34fe1c941376201d6fc0d8a577cb5a0e4543b1c1d5148648"
+    },
+    {
+      "path": "sparky-picture-play/sparky-animations 4/assets/Lucas_Activity_Icecream.png",
+      "bytes": 6063817,
+      "sha256": "29abe11d4460017a9fd95d9fe427a7a68939206b828715a733267ea91f69c56d"
+    },
+    {
+      "path": "sparky-picture-play/sparky-animations 4/vendor/SPINE-LICENSE.txt",
+      "bytes": 1468,
+      "sha256": "435774fb793b0f67892899fc934f98009e64fd90ad3ab964117274e279a0f50e"
+    }
+  ],
+  "current": {
+    "spine": "4.2.36",
+    "bones": 201,
+    "slots": 113,
+    "skins": 1,
+    "animations": 60,
+    "meshes": 91,
+    "weightedMeshes": 65,
+    "regionAttachments": 133,
+    "clippingAttachments": 6,
+    "ik": 20,
+    "transformConstraints": 12,
+    "paths": 0,
+    "clips": [
+      {
+        "name": "0Final/Appreciation/Clapping",
+        "duration": 2.133333444595337,
+        "timelines": 935
+      },
+      {
+        "name": "0Final/Appreciation/Hurray",
+        "duration": 2,
+        "timelines": 943
+      },
+      {
+        "name": "0Final/Appreciation/Thumbs_Up_2",
+        "duration": 1,
+        "timelines": 937
+      },
+      {
+        "name": "0Final/Appreciation/Yeahh_1",
+        "duration": 1.2000000476837158,
+        "timelines": 937
+      },
+      {
+        "name": "0Final/Idle/Idle",
+        "duration": 1.3333333730697632,
+        "timelines": 932
+      },
+      {
+        "name": "0Final/Idle/Idle_EB",
+        "duration": 1.3333333730697632,
+        "timelines": 938
+      },
+      {
+        "name": "0Final/Idle/Lookaround_Wow",
+        "duration": 3.266666889190674,
+        "timelines": 941
+      },
+      {
+        "name": "0Final/Vocal/Every scoop you make is a",
+        "duration": 3.6000001430511475,
+        "timelines": 938
+      },
+      {
+        "name": "0Final/Vocal/Great choice! How about",
+        "duration": 4.366666793823242,
+        "timelines": 942
+      },
+      {
+        "name": "0Final/Vocal/I can't wait to taste it",
+        "duration": 2.7333335876464844,
+        "timelines": 937
+      },
+      {
+        "name": "0Final/Vocal/I wonder what magical flavor",
+        "duration": 4.600000381469727,
+        "timelines": 945
+      },
+      {
+        "name": "0Final/Vocal/Let's make this ice cream",
+        "duration": 4.300000190734863,
+        "timelines": 941
+      },
+      {
+        "name": "0Final/Vocal/Let’s add some sprinkles!",
+        "duration": 3.4000000953674316,
+        "timelines": 938
+      },
+      {
+        "name": "0Final/Vocal/Thank you for making this for me",
+        "duration": 2.3333334922790527,
+        "timelines": 939
+      },
+      {
+        "name": "0Final/Vocal/What a fantastic flavor",
+        "duration": 4.233333587646484,
+        "timelines": 939
+      },
+      {
+        "name": "0Final/Vocal/Wow, you're a true ice",
+        "duration": 4.366666793823242,
+        "timelines": 943
+      },
+      {
+        "name": "0Final/Vocal/You're doing amazing! This",
+        "duration": 6.40000057220459,
+        "timelines": 945
+      },
+      {
+        "name": "0Final/Vocal/Your ice cream is looking",
+        "duration": 6.100000381469727,
+        "timelines": 940
+      },
+      {
+        "name": "0Final/Vocal/Yum I can almost taste it3",
+        "duration": 4.9666666984558105,
+        "timelines": 939
+      },
+      {
+        "name": "0Final/Eat_Icecream",
+        "duration": 10.933334350585938,
+        "timelines": 945
+      },
+      {
+        "name": "0Final/Look_Stall",
+        "duration": 4.400000095367432,
+        "timelines": 940
+      },
+      {
+        "name": "0Final/N_Front_Run",
+        "duration": 0.6666666865348816,
+        "timelines": 941
+      },
+      {
+        "name": "0Final/N_Front_Run_P",
+        "duration": 1.0666667222976685,
+        "timelines": 947
+      },
+      {
+        "name": "0Final/N_Front_Run_R",
+        "duration": 0.5,
+        "timelines": 939
+      },
+      {
+        "name": "0Final/Super_Happy",
+        "duration": 3.700000286102295,
+        "timelines": 942
+      },
+      {
+        "name": "0Final/Woohoo",
+        "duration": 1.8333333730697632,
+        "timelines": 950
+      },
+      {
+        "name": "0Final/Wow_2",
+        "duration": 2.9000000953674316,
+        "timelines": 937
+      },
+      {
+        "name": "0Final/Yummy_2",
+        "duration": 3.200000286102295,
+        "timelines": 938
+      },
+      {
+        "name": "Sequence/1/Eat_Candy_1",
+        "duration": 1.2666667699813843,
+        "timelines": 938
+      },
+      {
+        "name": "Sequence/1/Eat_Candy_2",
+        "duration": 3.566666841506958,
+        "timelines": 938
+      },
+      {
+        "name": "Sequence/1/Eat_Candy_One",
+        "duration": 0,
+        "timelines": 934
+      },
+      {
+        "name": "Sequence/1/Lookaround_Sad",
+        "duration": 2.6666667461395264,
+        "timelines": 926
+      },
+      {
+        "name": "Sequence/1/Lookaround_Sad_One",
+        "duration": 0,
+        "timelines": 925
+      },
+      {
+        "name": "Sequence/1/Look_Dr_Happy",
+        "duration": 1.3333333730697632,
+        "timelines": 926
+      },
+      {
+        "name": "Sequence/1/Look_Dr_Happy_Loop",
+        "duration": 1.3333333730697632,
+        "timelines": 925
+      },
+      {
+        "name": "Sequence/1/Look_Dr_Happy_Loop_EB",
+        "duration": 1.3333333730697632,
+        "timelines": 925
+      },
+      {
+        "name": "Sequence/1/Lu_Teeth_Pain_1",
+        "duration": 2,
+        "timelines": 939
+      },
+      {
+        "name": "Sequence/1/Lu_Teeth_Pain_2",
+        "duration": 0.6666666865348816,
+        "timelines": 935
+      },
+      {
+        "name": "Sequence/1/Lu_Teeth_Pain_2_EB",
+        "duration": 0.6666666865348816,
+        "timelines": 939
+      },
+      {
+        "name": "Sequence/1/Lu_Teeth_Pain_One",
+        "duration": 0,
+        "timelines": 935
+      },
+      {
+        "name": "Sequence/3/Lu_Pinata_Hit",
+        "duration": 1.100000023841858,
+        "timelines": 933
+      },
+      {
+        "name": "Sequence/3/Lu_Pinata_Hit_One",
+        "duration": 0,
+        "timelines": 932
+      },
+      {
+        "name": "Sequence/3/Lu_Pinata_Hit_P",
+        "duration": 1.3333333730697632,
+        "timelines": 937
+      },
+      {
+        "name": "Sequence/3/Lu_Pinata_Hit_R",
+        "duration": 3.1666667461395264,
+        "timelines": 937
+      },
+      {
+        "name": "Sequence/4/Brush",
+        "duration": 1.6666667461395264,
+        "timelines": 941
+      },
+      {
+        "name": "Sequence/4/Brush_One",
+        "duration": 0,
+        "timelines": 945
+      },
+      {
+        "name": "Sequence/4/Sleep",
+        "duration": 3.3333334922790527,
+        "timelines": 936
+      },
+      {
+        "name": "Sequence/4/Sleep_Wakeup",
+        "duration": 5.1666669845581055,
+        "timelines": 942
+      },
+      {
+        "name": "Sequence/4/Sleep_Wakeup_One",
+        "duration": 0,
+        "timelines": 939
+      },
+      {
+        "name": "Sequence/4/Water_Look",
+        "duration": 2.6000001430511475,
+        "timelines": 973
+      },
+      {
+        "name": "Sequence/4/Water_Splash",
+        "duration": 0.6666666865348816,
+        "timelines": 965
+      },
+      {
+        "name": "Sequence/4/Water_Splash_One",
+        "duration": 0,
+        "timelines": 964
+      },
+      {
+        "name": "Sequence/4/Water_Splash_P",
+        "duration": 0.6666666865348816,
+        "timelines": 972
+      },
+      {
+        "name": "Sequence/5/Pancake_Decore",
+        "duration": 2.2333333492279053,
+        "timelines": 944
+      },
+      {
+        "name": "Sequence/5/Pancake_Decore_One",
+        "duration": 0,
+        "timelines": 936
+      },
+      {
+        "name": "Sequence/5/Pancake_Decore_R",
+        "duration": 3.500000238418579,
+        "timelines": 941
+      },
+      {
+        "name": "Sequence/5/Pancake_Mix",
+        "duration": 1.3333333730697632,
+        "timelines": 943
+      },
+      {
+        "name": "Sequence/5/Pancake_Mix_One",
+        "duration": 0,
+        "timelines": 943
+      },
+      {
+        "name": "Sequence/5/Water_Look",
+        "duration": 3.3000001907348633,
+        "timelines": 944
+      },
+      {
+        "name": "Sequence/5/Water_Look_One",
+        "duration": 0,
+        "timelines": 943
+      }
+    ]
+  },
+  "lucas": {
+    "spine": "4.2.36",
+    "bones": 201,
+    "slots": 113,
+    "skins": 1,
+    "animations": 60,
+    "meshes": 91,
+    "weightedMeshes": 65,
+    "regionAttachments": 133,
+    "clippingAttachments": 6,
+    "ik": 20,
+    "transformConstraints": 12,
+    "paths": 0,
+    "clips": [
+      {
+        "name": "0Final/Appreciation/Clapping",
+        "duration": 2.133333444595337,
+        "timelines": 935
+      },
+      {
+        "name": "0Final/Appreciation/Hurray",
+        "duration": 2,
+        "timelines": 943
+      },
+      {
+        "name": "0Final/Appreciation/Thumbs_Up_2",
+        "duration": 1,
+        "timelines": 937
+      },
+      {
+        "name": "0Final/Appreciation/Yeahh_1",
+        "duration": 1.2000000476837158,
+        "timelines": 937
+      },
+      {
+        "name": "0Final/Idle/Idle",
+        "duration": 1.3333333730697632,
+        "timelines": 932
+      },
+      {
+        "name": "0Final/Idle/Idle_EB",
+        "duration": 1.3333333730697632,
+        "timelines": 938
+      },
+      {
+        "name": "0Final/Idle/Lookaround_Wow",
+        "duration": 3.266666889190674,
+        "timelines": 941
+      },
+      {
+        "name": "0Final/Vocal/Every scoop you make is a",
+        "duration": 3.6000001430511475,
+        "timelines": 938
+      },
+      {
+        "name": "0Final/Vocal/Great choice! How about",
+        "duration": 4.366666793823242,
+        "timelines": 942
+      },
+      {
+        "name": "0Final/Vocal/I can't wait to taste it",
+        "duration": 2.7333335876464844,
+        "timelines": 937
+      },
+      {
+        "name": "0Final/Vocal/I wonder what magical flavor",
+        "duration": 4.600000381469727,
+        "timelines": 945
+      },
+      {
+        "name": "0Final/Vocal/Let's make this ice cream",
+        "duration": 4.300000190734863,
+        "timelines": 941
+      },
+      {
+        "name": "0Final/Vocal/Let’s add some sprinkles!",
+        "duration": 3.4000000953674316,
+        "timelines": 938
+      },
+      {
+        "name": "0Final/Vocal/Thank you for making this for me",
+        "duration": 2.3333334922790527,
+        "timelines": 939
+      },
+      {
+        "name": "0Final/Vocal/What a fantastic flavor",
+        "duration": 4.233333587646484,
+        "timelines": 939
+      },
+      {
+        "name": "0Final/Vocal/Wow, you're a true ice",
+        "duration": 4.366666793823242,
+        "timelines": 943
+      },
+      {
+        "name": "0Final/Vocal/You're doing amazing! This",
+        "duration": 6.40000057220459,
+        "timelines": 945
+      },
+      {
+        "name": "0Final/Vocal/Your ice cream is looking",
+        "duration": 6.100000381469727,
+        "timelines": 940
+      },
+      {
+        "name": "0Final/Vocal/Yum I can almost taste it3",
+        "duration": 4.9666666984558105,
+        "timelines": 939
+      },
+      {
+        "name": "0Final/Eat_Icecream",
+        "duration": 10.933334350585938,
+        "timelines": 945
+      },
+      {
+        "name": "0Final/Look_Stall",
+        "duration": 4.400000095367432,
+        "timelines": 940
+      },
+      {
+        "name": "0Final/N_Front_Run",
+        "duration": 0.6666666865348816,
+        "timelines": 941
+      },
+      {
+        "name": "0Final/N_Front_Run_P",
+        "duration": 1.0666667222976685,
+        "timelines": 947
+      },
+      {
+        "name": "0Final/N_Front_Run_R",
+        "duration": 0.5,
+        "timelines": 939
+      },
+      {
+        "name": "0Final/Super_Happy",
+        "duration": 3.700000286102295,
+        "timelines": 942
+      },
+      {
+        "name": "0Final/Woohoo",
+        "duration": 1.8333333730697632,
+        "timelines": 950
+      },
+      {
+        "name": "0Final/Wow_2",
+        "duration": 2.9000000953674316,
+        "timelines": 937
+      },
+      {
+        "name": "0Final/Yummy_2",
+        "duration": 3.200000286102295,
+        "timelines": 938
+      },
+      {
+        "name": "Sequence/1/Eat_Candy_1",
+        "duration": 1.2666667699813843,
+        "timelines": 938
+      },
+      {
+        "name": "Sequence/1/Eat_Candy_2",
+        "duration": 3.566666841506958,
+        "timelines": 938
+      },
+      {
+        "name": "Sequence/1/Eat_Candy_One",
+        "duration": 0,
+        "timelines": 934
+      },
+      {
+        "name": "Sequence/1/Lookaround_Sad",
+        "duration": 2.6666667461395264,
+        "timelines": 926
+      },
+      {
+        "name": "Sequence/1/Lookaround_Sad_One",
+        "duration": 0,
+        "timelines": 925
+      },
+      {
+        "name": "Sequence/1/Look_Dr_Happy",
+        "duration": 1.3333333730697632,
+        "timelines": 926
+      },
+      {
+        "name": "Sequence/1/Look_Dr_Happy_Loop",
+        "duration": 1.3333333730697632,
+        "timelines": 925
+      },
+      {
+        "name": "Sequence/1/Look_Dr_Happy_Loop_EB",
+        "duration": 1.3333333730697632,
+        "timelines": 925
+      },
+      {
+        "name": "Sequence/1/Lu_Teeth_Pain_1",
+        "duration": 2,
+        "timelines": 939
+      },
+      {
+        "name": "Sequence/1/Lu_Teeth_Pain_2",
+        "duration": 0.6666666865348816,
+        "timelines": 935
+      },
+      {
+        "name": "Sequence/1/Lu_Teeth_Pain_2_EB",
+        "duration": 0.6666666865348816,
+        "timelines": 939
+      },
+      {
+        "name": "Sequence/1/Lu_Teeth_Pain_One",
+        "duration": 0,
+        "timelines": 935
+      },
+      {
+        "name": "Sequence/3/Lu_Pinata_Hit",
+        "duration": 1.100000023841858,
+        "timelines": 933
+      },
+      {
+        "name": "Sequence/3/Lu_Pinata_Hit_One",
+        "duration": 0,
+        "timelines": 932
+      },
+      {
+        "name": "Sequence/3/Lu_Pinata_Hit_P",
+        "duration": 1.3333333730697632,
+        "timelines": 937
+      },
+      {
+        "name": "Sequence/3/Lu_Pinata_Hit_R",
+        "duration": 3.1666667461395264,
+        "timelines": 937
+      },
+      {
+        "name": "Sequence/4/Brush",
+        "duration": 1.6666667461395264,
+        "timelines": 941
+      },
+      {
+        "name": "Sequence/4/Brush_One",
+        "duration": 0,
+        "timelines": 945
+      },
+      {
+        "name": "Sequence/4/Sleep",
+        "duration": 3.3333334922790527,
+        "timelines": 936
+      },
+      {
+        "name": "Sequence/4/Sleep_Wakeup",
+        "duration": 5.1666669845581055,
+        "timelines": 942
+      },
+      {
+        "name": "Sequence/4/Sleep_Wakeup_One",
+        "duration": 0,
+        "timelines": 939
+      },
+      {
+        "name": "Sequence/4/Water_Look",
+        "duration": 2.6000001430511475,
+        "timelines": 973
+      },
+      {
+        "name": "Sequence/4/Water_Splash",
+        "duration": 0.6666666865348816,
+        "timelines": 965
+      },
+      {
+        "name": "Sequence/4/Water_Splash_One",
+        "duration": 0,
+        "timelines": 964
+      },
+      {
+        "name": "Sequence/4/Water_Splash_P",
+        "duration": 0.6666666865348816,
+        "timelines": 972
+      },
+      {
+        "name": "Sequence/5/Pancake_Decore",
+        "duration": 2.2333333492279053,
+        "timelines": 944
+      },
+      {
+        "name": "Sequence/5/Pancake_Decore_One",
+        "duration": 0,
+        "timelines": 936
+      },
+      {
+        "name": "Sequence/5/Pancake_Decore_R",
+        "duration": 3.500000238418579,
+        "timelines": 941
+      },
+      {
+        "name": "Sequence/5/Pancake_Mix",
+        "duration": 1.3333333730697632,
+        "timelines": 943
+      },
+      {
+        "name": "Sequence/5/Pancake_Mix_One",
+        "duration": 0,
+        "timelines": 943
+      },
+      {
+        "name": "Sequence/5/Water_Look",
+        "duration": 3.3000001907348633,
+        "timelines": 944
+      },
+      {
+        "name": "Sequence/5/Water_Look_One",
+        "duration": 0,
+        "timelines": 943
+      }
+    ]
+  },
+  "reference": {
+    "parts": 31,
+    "bones": 26,
+    "slots": 25,
+    "animations": [
+      "Idle_EB",
+      "Joint_Test"
+    ],
+    "nativeVisibleResolution": "236×403; not full-HD source art",
+    "limits": [
+      "Front-facing reference only",
+      "No alternate hand gestures or unseen side/back art",
+      "Clean face background contains reconstructed paint"
+    ],
+    "metrics": {
+      "coordinateSystem": "source 512×640, origin top-left; measurements are artwork landmarks, not inferred anatomy",
+      "visibleBounds": [
+        138,
+        191,
+        374,
+        594
+      ],
+      "visibleWidth": 236,
+      "visibleHeight": 403,
+      "headBounds": [
+        138,
+        191,
+        374,
+        402
+      ],
+      "headHeight": 211,
+      "headToTotalHeight": 0.5235732009925558,
+      "bodyBelowHead": 192,
+      "eyeCenters": [
+        [
+          218,
+          349
+        ],
+        [
+          299,
+          349
+        ]
+      ],
+      "eyeCenterDistance": 81,
+      "eyeLineFraction": 0.3920595533498759,
+      "neckHeadPivot": [
+        256,
+        402
+      ],
+      "footOrigin": [
+        256,
+        594
+      ],
+      "shirtBox": [
+        215,
+        402,
+        83,
+        75
+      ],
+      "shortsBox": [
+        168,
+        477,
+        177,
+        38
+      ],
+      "joints": {
+        "shoulder_L": [
+          214,
+          425
+        ],
+        "elbow_L": [
+          199,
+          456
+        ],
+        "wrist_L": [
+          192,
+          470
+        ],
+        "hip_L": [
+          229,
+          514
+        ],
+        "knee_L": [
+          228,
+          525
+        ],
+        "ankle_L": [
+          224,
+          540
+        ],
+        "shoulder_R": [
+          299,
+          425
+        ],
+        "elbow_R": [
+          314,
+          456
+        ],
+        "wrist_R": [
+          321,
+          470
+        ],
+        "hip_R": [
+          282,
+          514
+        ],
+        "knee_R": [
+          284,
+          525
+        ],
+        "ankle_R": [
+          288,
+          540
+        ]
+      },
+      "jointNote": "Existing cutout rig anchors are starting points for refitting; they require bend/contact validation."
+    }
+  }
+}

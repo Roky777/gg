@@ -1,0 +1,22 @@
+/* Illustrated garden controls. The full square remains the touch target. */
+.game-button{
+ width:var(--control-size,8.8%);height:auto;aspect-ratio:1;
+ min-width:56px;min-height:56px;display:grid;place-items:center;
+ padding:0;border:0;border-radius:26%;box-shadow:none;
+ background:transparent url('assets/art/ui-controls/button-teal-v1.png') center/100% 100% no-repeat;
+ transition:transform .12s ease,filter .12s ease;
+ -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+}
+.game-button img{width:52%;height:52%;object-fit:contain;pointer-events:none;filter:drop-shadow(0 1px 1px #073d4c60)}
+.game-button.next{background-image:url('assets/art/ui-controls/button-gold-v1.png')}
+.game-button.next img{width:54%;height:54%;filter:none}
+.game-button:before,.game-button:after{display:none}
+.game-button.sound{left:8px;top:8px}
+.game-button.exit{right:8px;top:8px;opacity:1}
+.game-button.next{right:8px;bottom:8px}
+.game-button:focus-visible{outline:3px solid #fffdf0;outline-offset:0;box-shadow:0 0 0 5px #175768}
+.game-button:active:not(:disabled){transform:translateY(2px) scale(.96);scale:1;filter:brightness(.94)}
+.game-button.next:not(:disabled){animation:none}
+.game-button.next.round-ready{filter:drop-shadow(0 0 5px #fff4ac80)}
+@media(hover:hover){.game-button:hover:not(:disabled){filter:brightness(1.07)}}
+@media(prefers-reduced-motion:reduce){.game-button{transition:none}}

@@ -1,0 +1,258 @@
+{
+  "generator": "Built-in image_gen",
+  "style": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: ",
+  "pictures": [
+    {
+      "id": "cat",
+      "name": "Playful kitten",
+      "image": "puzzles/cat.webp",
+      "axis": "vertical",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A cheerful orange kitten sitting beside a ball of blue yarn in a sunny flower garden."
+    },
+    {
+      "id": "dog",
+      "name": "Puppy playtime",
+      "image": "puzzles/dog.webp",
+      "axis": "horizontal",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A friendly floppy-eared golden puppy with a red ball on bright green grass."
+    },
+    {
+      "id": "rabbit",
+      "name": "Bunny garden",
+      "image": "puzzles/rabbit.webp",
+      "axis": "vertical",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A cute white rabbit with long ears beside a large carrot in a vegetable garden."
+    },
+    {
+      "id": "elephant",
+      "name": "Elephant splash",
+      "image": "puzzles/elephant.webp",
+      "axis": "horizontal",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A smiling baby elephant spraying a curved stream of water from its trunk by a small pond."
+    },
+    {
+      "id": "lion",
+      "name": "Little lion",
+      "image": "puzzles/lion.webp",
+      "axis": "vertical",
+      "prompt": "A friendly cartoon lion sitting on green grass under a blue sky. A single full-bleed landscape 4:3 children's picture-book illustration with bold dark outlines, bright cheerful colors and simple shapes. Show the entire lion with generous margins. No text or borders."
+    },
+    {
+      "id": "giraffe",
+      "name": "Gentle giraffe",
+      "image": "puzzles/giraffe.webp",
+      "axis": "horizontal",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A gentle baby giraffe with orange spots standing beside a leafy acacia tree under a bright blue sky."
+    },
+    {
+      "id": "zebra",
+      "name": "Zebra meadow",
+      "image": "puzzles/zebra.webp",
+      "axis": "vertical",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A smiling zebra with clear black and white stripes standing in a green meadow with colorful wildflowers."
+    },
+    {
+      "id": "bear",
+      "name": "Bear picnic",
+      "image": "puzzles/bear.webp",
+      "axis": "horizontal",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A friendly brown bear cub sitting beside a red checked picnic blanket and a small basket of berries in a forest clearing."
+    },
+    {
+      "id": "panda",
+      "name": "Panda bamboo",
+      "image": "puzzles/panda.webp",
+      "axis": "vertical",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A cute black and white panda holding one green bamboo shoot in a peaceful bamboo garden."
+    },
+    {
+      "id": "monkey",
+      "name": "Monkey bananas",
+      "image": "puzzles/monkey.webp",
+      "axis": "horizontal",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A playful brown monkey sitting on a low tropical branch, curling its tail and holding a yellow banana."
+    },
+    {
+      "id": "fox",
+      "name": "Woodland fox",
+      "image": "puzzles/fox.webp",
+      "axis": "vertical",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A friendly orange fox with a large white-tipped tail sitting by mushrooms and autumn leaves in a woodland clearing."
+    },
+    {
+      "id": "owl",
+      "name": "Sleepy owl",
+      "image": "puzzles/owl.webp",
+      "axis": "horizontal",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A round friendly purple owl with large eyes perched on a branch against a deep blue early evening sky with a crescent moon and a few stars."
+    },
+    {
+      "id": "penguin",
+      "name": "Penguin snow",
+      "image": "puzzles/penguin.webp",
+      "axis": "vertical",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A cheerful baby penguin standing on a pale blue ice floe, with snowy hills and a small bright fish visible in the water."
+    },
+    {
+      "id": "parrot",
+      "name": "Colorful parrot",
+      "image": "puzzles/parrot.webp",
+      "axis": "horizontal",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A cheerful red green and blue parrot with folded wings perched on a tropical branch surrounded by broad leaves and pink flowers."
+    },
+    {
+      "id": "turtle",
+      "name": "Turtle stroll",
+      "image": "puzzles/turtle.webp",
+      "axis": "vertical",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A smiling green turtle with a patterned rounded shell walking along a sandy path beside pond flowers."
+    },
+    {
+      "id": "dolphin",
+      "name": "Dolphin leap",
+      "image": "puzzles/dolphin.webp",
+      "axis": "horizontal",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A joyful blue dolphin leaping in a gentle arc over turquoise ocean waves, with a sandy island and palm tree far behind."
+    },
+    {
+      "id": "whale",
+      "name": "Whale hello",
+      "image": "puzzles/whale.webp",
+      "axis": "vertical",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A friendly round blue whale at the ocean surface making a small fountain spray, with soft clouds and turquoise waves."
+    },
+    {
+      "id": "octopus",
+      "name": "Octopus garden",
+      "image": "puzzles/octopus.webp",
+      "axis": "horizontal",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A cheerful purple octopus with eight clear rounded arms on a sandy seabed surrounded by orange coral, seaweed and tiny bubbles."
+    },
+    {
+      "id": "crab",
+      "name": "Beach crab",
+      "image": "puzzles/crab.webp",
+      "axis": "vertical",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A smiling red crab with two large claws on a golden sandy beach beside a seashell and gentle blue waves."
+    },
+    {
+      "id": "butterfly",
+      "name": "Butterfly flowers",
+      "image": "puzzles/butterfly.webp",
+      "axis": "horizontal",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A large cheerful butterfly with orange yellow and purple patterned wings open fully, hovering above colorful garden flowers."
+    },
+    {
+      "id": "ladybug",
+      "name": "Lucky ladybug",
+      "image": "puzzles/ladybug.webp",
+      "axis": "vertical",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A cute shiny red ladybug with black spots on a large green leaf, with white daisies and blue sky in the background."
+    },
+    {
+      "id": "bee",
+      "name": "Busy bee",
+      "image": "puzzles/bee.webp",
+      "axis": "horizontal",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A friendly yellow and black striped bee with two clear wings hovering beside one big sunflower in a sunny garden."
+    },
+    {
+      "id": "snail",
+      "name": "Snail trail",
+      "image": "puzzles/snail.webp",
+      "axis": "vertical",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A friendly little snail with a large colorful spiral shell on a broad leaf beside dew drops and small flowers."
+    },
+    {
+      "id": "frog",
+      "name": "Frog pond",
+      "image": "puzzles/frog.webp",
+      "axis": "horizontal",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A cheerful bright green frog sitting on a large lily pad beside a pink water lily in a blue pond."
+    },
+    {
+      "id": "train",
+      "name": "Rainbow train",
+      "image": "puzzles/train.webp",
+      "axis": "vertical",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A colorful friendly toy steam train engine with a red cab, blue boiler, yellow wheels and one small green carriage on curved tracks through rolling hills."
+    },
+    {
+      "id": "firetruck",
+      "name": "Brave fire truck",
+      "image": "puzzles/firetruck.webp",
+      "axis": "horizontal",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A bright red friendly fire engine, side three-quarter view, with clear large wheels, a ladder safely folded on top, parked by a cheerful simple fire station. No emergency or fire."
+    },
+    {
+      "id": "airplane",
+      "name": "Cloud airplane",
+      "image": "puzzles/airplane.webp",
+      "axis": "vertical",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A cheerful red and yellow small propeller airplane flying above rounded green hills beneath soft white clouds. The complete wings and tail are clearly visible."
+    },
+    {
+      "id": "sailboat",
+      "name": "Sunny sailboat",
+      "image": "puzzles/sailboat.webp",
+      "axis": "horizontal",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A cheerful small blue sailboat with one large yellow sail and a smaller red sail floating on calm turquoise water near a green island."
+    },
+    {
+      "id": "tractor",
+      "name": "Farm tractor",
+      "image": "puzzles/tractor.webp",
+      "axis": "vertical",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A bright green tractor with large black rear wheels and smaller front wheels, side three-quarter view, on a farm path beside a red barn and a sunflower."
+    },
+    {
+      "id": "bus",
+      "name": "School bus",
+      "image": "puzzles/bus.webp",
+      "axis": "horizontal",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A bright yellow friendly school bus in side three-quarter view on a quiet road beside green trees and a small colorful school building. No letters or signage."
+    },
+    {
+      "id": "hotairballoon",
+      "name": "Balloon adventure",
+      "image": "puzzles/hotairballoon.webp",
+      "axis": "vertical",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A large rainbow-striped hot air balloon with a woven brown basket floating above rolling green hills and a tiny winding river under white clouds."
+    },
+    {
+      "id": "strawberry",
+      "name": "Sweet strawberry",
+      "image": "puzzles/strawberry.webp",
+      "axis": "horizontal",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: One large cheerful red strawberry with clear seeds and leafy green cap in a sunny strawberry patch with white blossoms and a smaller berry."
+    },
+    {
+      "id": "watermelon",
+      "name": "Watermelon picnic",
+      "image": "puzzles/watermelon.webp",
+      "axis": "vertical",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: One large juicy triangular watermelon slice with red flesh, black seeds and green rind on a blue picnic cloth beside a whole small watermelon and sunny garden flowers."
+    },
+    {
+      "id": "icecream",
+      "name": "Ice cream treat",
+      "image": "puzzles/icecream.webp",
+      "axis": "horizontal",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A large cheerful waffle cone with three rounded scoops of strawberry pink, vanilla cream and mint green ice cream, a cherry and a few colorful sprinkles, against a sunny pastel park background."
+    },
+    {
+      "id": "rainbow",
+      "name": "Rainbow sky",
+      "image": "puzzles/rainbow.webp",
+      "axis": "vertical",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A large vivid rainbow arch spanning a green meadow, soft white clouds at both ends, small flowers in the foreground and a smiling golden sun peeking above a cloud."
+    },
+    {
+      "id": "castle",
+      "name": "Storybook castle",
+      "image": "puzzles/castle.webp",
+      "axis": "horizontal",
+      "prompt": "Use case: illustration-story. Asset: a single full-bleed landscape 4:3 preschool picture puzzle illustration, one finished image. Style: polished cheerful cartoon, bold dark outlines, smooth bright saturated colors, gentle glossy shading, big expressive eyes, simple rounded forms, clear recognizable silhouette, playful painted storybook background. Composition: one large main subject centered and fully visible with generous safe margins, filling about 65 percent of the frame; distinct colorful details across left, center and right thirds AND top, middle and bottom thirds so three swapped strips are easy to recognize. Friendly and inviting for ages 3\u20135. No text, letters, numbers, borders, grid, puzzle seams, watermark, logo or collage. Scene: A friendly pastel fairytale toy castle with three clear towers, purple cone roofs, pink walls, a large blue arched door, a little bridge over a blue stream and bright green lawns. No characters or lettering."
+    }
+  ]
+}

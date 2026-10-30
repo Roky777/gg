@@ -1,0 +1,13 @@
+{
+  "id": "22-0final-n-front-run",
+  "name": "0Final/N_Front_Run",
+  "title": "N Front Run",
+  "category": "Movement",
+  "duration": 0.6666666865348816,
+  "kind": "animation",
+  "loop": true,
+  "manifest": "../manifest.json",
+  "skeleton": "../assets/Lucas_Activity_Icecream.skel",
+  "atlas": "../assets/Lucas_Activity_Icecream.atlas",
+  "texture": "../assets/Lucas_Activity_Icecream.png"
+}

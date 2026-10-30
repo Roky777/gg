@@ -1,0 +1,49 @@
+{
+  "status": "candidate; do not promote",
+  "method": "Built-in image_gen edits, alpha retained. No Python raster edits; Python used only for measurements.",
+  "files": [
+    {
+      "file": "01-body-join-v2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "transparentPixels": 951467,
+      "partiallyTransparentPixels": 63521,
+      "alphaOver32Beyond8PixelsFromOpaqueCore": 867,
+      "sha256": "702074db006892a1dc195c01653ee1e2c01e15cea4c2a616fafb20bb9474dd73"
+    },
+    {
+      "file": "02-arms-join-v2.png",
+      "size": [
+        1241,
+        1268
+      ],
+      "mode": "RGBA",
+      "transparentPixels": 1099760,
+      "partiallyTransparentPixels": 47931,
+      "alphaOver32Beyond8PixelsFromOpaqueCore": 3277,
+      "sha256": "cb30c06a248af6c7c298383638a0214494784f7c5c106312083770eb1d581ee5"
+    },
+    {
+      "file": "04-legs-join-v2.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "transparentPixels": 918327,
+      "partiallyTransparentPixels": 46548,
+      "alphaOver32Beyond8PixelsFromOpaqueCore": 0,
+      "sha256": "90a6d800b5df4ad870fb37d5fb697180dbe169d7234c02b2920615645a99c7aa"
+    }
+  ],
+  "visualFindings": [
+    "Arm revision restored sharp visible cuff hems while retaining softened wrist ends.",
+    "Leg revision still has excessive upper-end haze and broad outline termination; not approved.",
+    "Body revision has bright/soft neck and waistband rims; not approved.",
+    "All sheets need registered assembly and bend tests; rendered sheet quality alone does not prove smooth joins."
+  ],
+  "workingGameAssetsChanged": false
+}

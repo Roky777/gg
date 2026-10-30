@@ -14,7 +14,16 @@ export function applyRigPose(v,time){
  v.skeleton.setToSetupPose();v.state.apply(v.skeleton);
  for(const [slot,attachment] of v.preservedAttachments)slot.setAttachment(attachment);
  if(time<v.preserveUntil)for(const [slot,attachment] of v.retiringAttachments)if(!slot.getAttachment())slot.setAttachment(attachment);
- if(v.speaking&&v.speechAnimation)v.speechAnimation.apply(v.skeleton,-1,Math.max(0,time-v.speechStarted),true,null,1,spine.MixBlend.replace,spine.MixDirection.mixIn);
+ if(v.speaking&&v.speechAnimation){
+  const frame=v.speechSource?.();
+  if(frame){
+   const shape='ABCDEFX'.includes(frame.shape)?frame.shape:'X';
+   // Reuse the rig's own facial placement and mouth masks. Only D is a mesh
+   // with a jaw control; sample its neutral authored placement, not a talk loop.
+   v.speechAnimation.apply(v.skeleton,-1,shape==='D'?.30:0,false,null,1,spine.MixBlend.replace,spine.MixDirection.mixIn);
+   const slot=v.skeleton.findSlot('mouth');slot.setAttachment(v.skeleton.getAttachment(slot.data.index,'mouth/'+shape));
+  }else v.speechAnimation.apply(v.skeleton,-1,Math.max(0,time-v.speechStarted),true,null,1,spine.MixBlend.replace,spine.MixDirection.mixIn);
+ }
  v.skeleton.updateWorldTransform(spine.Physics.none);
  if(v.poseModifier){v.poseModifier(v.skeleton,{time,elapsed,dt});v.skeleton.updateWorldTransform(spine.Physics.none);}
 }
@@ -33,7 +42,7 @@ export class SparkyRigPlayer {
    loadAssets(c){c.assetManager.loadBinary(skel);c.assetManager.loadTextureAtlas(atlas,undefined,undefined,{[manifest.texture.split('/').at(-1)]:texture})},
    initialize(c){self.data=new spine.SkeletonBinary(new spine.AtlasAttachmentLoader(c.assetManager.get(atlas))).readSkeletonData(c.assetManager.get(skel));const m=manifest.camera;c.renderer.camera.position.set(m.x,m.y,0);c.renderer.camera.viewportWidth=m.width;c.renderer.camera.viewportHeight=m.height;c.renderer.camera.update();resolve(self)},
    update(){const now=performance.now(),dt=Math.min((now-self.last)/1000,.1);self.last=now;if(!self.paused&&!document.hidden)self.time+=dt*self.speed},
-   render(c){if(!self.data||document.hidden)return;for(const v of self.views){if(!v.visible||(!v.dirty&&self.paused))continue;applyRigPose(v,self.time);c.clear(0,0,0,0);c.renderer.resize(spine.ResizeMode.Fit);c.renderer.begin();c.renderer.drawSkeleton(v.skeleton,true);c.renderer.end();v.context.clearRect(0,0,v.canvas.width,v.canvas.height);v.context.drawImage(canvas,0,0,v.canvas.width,v.canvas.height);v.dirty=false}},
+   render(c){if(!self.data||document.hidden)return;for(const v of self.views){if(!v.visible||(!v.dirty&&self.paused&&!v.speaking))continue;applyRigPose(v,self.time);c.clear(0,0,0,0);c.renderer.resize(spine.ResizeMode.Fit);c.renderer.begin();c.renderer.drawSkeleton(v.skeleton,true);c.renderer.end();v.context.clearRect(0,0,v.canvas.width,v.canvas.height);v.context.drawImage(canvas,0,0,v.canvas.width,v.canvas.height);v.dirty=false}},
    error(c,e){reject(Error('Rig load failed: '+JSON.stringify(e)))}
   }});
  }
@@ -51,6 +60,7 @@ export class SparkyRigPlayer {
   const v={speechAnimation,speaking:false,speechStarted:0,poseModifier:null,canvas,context:canvas.getContext('2d'),skeleton,state,stateData,track,baseAttachments,preservedAttachments:attachments(preserveSlots),retiringAttachments:[],preserveUntil:0,entry:state.setAnimation(track,clip,loop),visible:true,dirty:true,start:this.time,previousTime:this.time,fixedTime:null};
   this.views.add(v);
   return {
+   setSpeechSource:fn=>{v.speechSource=fn;v.dirty=true;},
    setSpeech:value=>{if(v.speaking!==value){v.speaking=value;v.speechStarted=this.time;v.dirty=true;}},
    setPoseModifier:fn=>{v.poseModifier=fn;v.dirty=true;},
    setAnimation:(name,{loop=true,mixSeconds=.35,preserveSlots=[]}={})=>{

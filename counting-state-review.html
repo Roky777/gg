@@ -1,0 +1,14 @@
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Counting state fitting</title><link rel="stylesheet" href="game.css?v=answer-fit-42"><link rel="stylesheet" href="responsive.css?v=count-card-fit-45"><link rel="stylesheet" href="controls.css?v=garden-controls-46"><script type="module">
+import{CountingRound,makeCountingBoard}from './counting-game.js?v=answer-fit-42';import{syncLayout}from './responsive-layout.js?v=answer-fit-42';import{MascotDirector,CLIPS}from './mascot-director.js?v=lip-sync-40';
+const template=new DOMParser().parseFromString(await(await fetch('index.html')).text(),'text/html');document.body.append(template.querySelector('.rotate-prompt'),template.querySelector('.game'));const game=document.querySelector('.game'),board=document.querySelector('#board');game.querySelector('audio').remove();game.querySelector('#round-banner').hidden=true;
+const picture=makeCountingBoard({wins:0,maxQuantity:5});const round=new CountingRound({element:board,picture});
+const director=new MascotDirector(document.querySelector('#mascot'),CLIPS);await director.ready;await director.show('idle');
+window.reviewCountingState=state=>{
+ if(state==='counted'||state==='partial'||state==='complete')picture.cards.forEach((c,row)=>{for(let i=0;i<c.amount;i++)round.count(row,i);});
+ if(state==='partial'||state==='complete')picture.cards.forEach((c,row)=>{if(state==='complete'||row<3)round.place(c.amount,row);});
+ syncLayout(board);
+};
+window.reviewCountingState(new URLSearchParams(location.search).get('state')||'partial');
+new ResizeObserver(()=>syncLayout(board)).observe(board);document.querySelector('#loading').hidden=true;
+const orient=()=>{game.inert=matchMedia('(orientation:portrait)').matches;syncLayout(board);};addEventListener('resize',orient);orient();
+</script>

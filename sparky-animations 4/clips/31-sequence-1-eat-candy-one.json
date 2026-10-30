@@ -1,0 +1,13 @@
+{
+  "id": "31-sequence-1-eat-candy-one",
+  "name": "Sequence/1/Eat_Candy_One",
+  "title": "Eat Candy One",
+  "category": "Activities",
+  "duration": 0,
+  "kind": "pose",
+  "loop": false,
+  "manifest": "../manifest.json",
+  "skeleton": "../assets/Lucas_Activity_Icecream.skel",
+  "atlas": "../assets/Lucas_Activity_Icecream.atlas",
+  "texture": "../assets/Lucas_Activity_Icecream.png"
+}

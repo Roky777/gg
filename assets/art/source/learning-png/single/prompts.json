@@ -1,0 +1,14 @@
+[
+  {
+    "key": "kite",
+    "prompt": "Use case: stylized-concept. One standalone isolated PNG illustration: a single colourful diamond kite with a short fully visible ribbon tail, no tail extending outside the image. Match the polished shaded children's game objects of the reference sheet: richly coloured rounded shapes, dimensional soft upper-left lighting, smooth detailed painted surface, subtle warm charcoal outline, premium storybook game finish. The ENTIRE object silhouette must be inside a square frame with generous 18% TRANSPARENT PADDING on EVERY side. Absolutely no cropped edges. Subject occupies at most 65% of canvas width/height. No other objects, letters, labels, numbers, sheet cells, cards, circles, ground, platforms, shadows on ground, backdrop, speckles or decorative fragments. Actual transparent background. This is a SINGLE object, not a grid. Crisp antialiased edges, no blur halos."
+  },
+  {
+    "key": "quilt",
+    "prompt": "Use case: stylized-concept. One standalone isolated PNG illustration: one neatly folded soft patchwork quilt, the entire folded stack with all corners visible. Match the polished shaded children's game objects of the reference sheet: richly coloured rounded shapes, dimensional soft upper-left lighting, smooth detailed painted surface, subtle warm charcoal outline, premium storybook game finish. The ENTIRE object silhouette must be inside a square frame with generous 18% TRANSPARENT PADDING on EVERY side. Absolutely no cropped edges. Subject occupies at most 65% of canvas width/height. No other objects, letters, labels, numbers, sheet cells, cards, circles, ground, platforms, shadows on ground, backdrop, speckles or decorative fragments. Actual transparent background. This is a SINGLE object, not a grid. Crisp antialiased edges, no blur halos."
+  },
+  {
+    "key": "van",
+    "prompt": "Use case: stylized-concept. One standalone isolated PNG illustration: one small rounded mint-green toy delivery van in three-quarter view, complete front bumper and all wheels visible. Match the polished shaded children's game objects of the reference sheet: richly coloured rounded shapes, dimensional soft upper-left lighting, smooth detailed painted surface, subtle warm charcoal outline, premium storybook game finish. The ENTIRE object silhouette must be inside a square frame with generous 18% TRANSPARENT PADDING on EVERY side. Absolutely no cropped edges. Subject occupies at most 65% of canvas width/height. No other objects, letters, labels, numbers, sheet cells, cards, circles, ground, platforms, shadows on ground, backdrop, speckles or decorative fragments. Actual transparent background. This is a SINGLE object, not a grid. Crisp antialiased edges, no blur halos."
+  }
+]

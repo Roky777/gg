@@ -1,4 +1,4 @@
-import {SparkyRigPlayer} from './sparky-animations%204/rig-player.js?v=mouth-replace-36';
+import {SparkyRigPlayer} from './sparky-animations%204/rig-player.js?v=lip-sync-40';
 
 export const CLIPS={
  idle:'0Final/Idle/Idle_EB',
@@ -23,7 +23,11 @@ export class MascotDirector {
   this.canvas=canvas;this.clips=clips;this.reduced=reduced;this.restMs=restMs;
   this.active=null;this.actor=null;this.queue=[];this.paused=false;this.destroyed=false;
   this.serial=0;this.loading=false;this.idleUntil=0;this.drainTimer=null;this.requestId=null;
-  this.ready=SparkyRigPlayer.load(new URL('./sparky-animations%204/manifest.json',import.meta.url).href).then(rig=>{
+  const manifestURL=new URL('./sparky-animations%204/manifest.json',import.meta.url).href;
+  const loading=new URLSearchParams(location.search).get('character')==='sports-candidate'
+   ? import('./character-upgrade/03-joint-fit/load-candidate.js').then(m=>m.loadCandidate(manifestURL))
+   : SparkyRigPlayer.load(manifestURL);
+  this.ready=loading.then(rig=>{
    if(this.destroyed){rig.destroy();return rig;}
    this.rig=rig;
    this.animations=new Map(rig.manifest.animations.map(clip=>[clip.name,clip]));
@@ -43,6 +47,7 @@ export class MascotDirector {
    if(this.actor)this.actor.setAnimation(clip.name,{...options,mixSeconds:name==='idle'?.45:.22});
    else this.actor=this.rig.add(this.canvas,clip.name,options);
    this.actor.setPoseModifier?.((skeleton,frame)=>this.poseModifier?.(skeleton,{...frame,active:this.active}));
+   this.actor.setSpeechSource?.(()=>this.speechSource?.());
    this.actor.setSpeech?.(!!this.speaking);
    this.canvas.dataset.animation=name;this.canvas.dataset.clip=clip.name;
    this.canvas.dataset.motionState=name==='idle'?'resting':'action';
@@ -66,6 +71,7 @@ export class MascotDirector {
   if(this.active===name)this.actionDuration=Math.min(this.clip.duration,seconds);
  }
  setPoseModifier(fn){this.poseModifier=fn;}
+ setSpeechSource(fn){this.speechSource=fn;this.actor?.setSpeechSource?.(fn);}
  setSpeaking(value){this.speaking=value;this.actor?.setSpeech?.(value);}
  request(name,{priority=false}={}){
   if(this.destroyed||!this.clips[name]||(this.reduced&&name!=='idle'))return;

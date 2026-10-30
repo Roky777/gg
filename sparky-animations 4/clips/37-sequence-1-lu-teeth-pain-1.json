@@ -1,0 +1,13 @@
+{
+  "id": "37-sequence-1-lu-teeth-pain-1",
+  "name": "Sequence/1/Lu_Teeth_Pain_1",
+  "title": "Lu Teeth Pain 1",
+  "category": "Expressions",
+  "duration": 2,
+  "kind": "animation",
+  "loop": false,
+  "manifest": "../manifest.json",
+  "skeleton": "../assets/Lucas_Activity_Icecream.skel",
+  "atlas": "../assets/Lucas_Activity_Icecream.atlas",
+  "texture": "../assets/Lucas_Activity_Icecream.png"
+}

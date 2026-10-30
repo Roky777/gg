@@ -1,0 +1,58 @@
+[
+  {
+    "name": "Face gold",
+    "sourcePoint": [
+      256,
+      335
+    ],
+    "hex": "#f9c708"
+  },
+  {
+    "name": "Flame orange",
+    "sourcePoint": [
+      245,
+      250
+    ],
+    "hex": "#fa6803"
+  },
+  {
+    "name": "Flame red",
+    "sourcePoint": [
+      150,
+      350
+    ],
+    "hex": "#fb3118"
+  },
+  {
+    "name": "Shirt blue",
+    "sourcePoint": [
+      254,
+      435
+    ],
+    "hex": "#0089fa"
+  },
+  {
+    "name": "Shorts navy",
+    "sourcePoint": [
+      248,
+      492
+    ],
+    "hex": "#002e7c"
+  },
+  {
+    "name": "Glove white",
+    "sourcePoint": [
+      192,
+      490
+    ],
+    "hex": "#f9fafa"
+  },
+  {
+    "name": "Outline",
+    "sourcePoint": [
+      141,
+      349
+    ],
+    "hex": "#660000"
+  }
+]

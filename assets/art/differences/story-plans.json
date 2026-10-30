@@ -1,0 +1,302 @@
+[
+  {
+    "id": "pirate",
+    "name": "Pirate Playroom",
+    "scene": "",
+    "changes": [
+      "Change the blue shorts to bright green, preserving their exact folds and shape.",
+      "Remove the single white feather from the pirate hat; leave the hat and plain mint wall unchanged.",
+      "Change only the yellow panels of the beach ball to bright pink; keep the cream panels and seams."
+    ],
+    "targets": [
+      "Shorts",
+      "Feather",
+      "Beach ball"
+    ]
+  },
+  {
+    "id": "garden",
+    "name": "Garden Helper",
+    "scene": "A happy little girl kneels in a sunny flower garden. She wears a yellow shirt and blue dungarees. She holds one large GREEN watering can at lower left. A single large PINK flower in a terracotta pot stands at lower right. One large ORANGE butterfly floats in the upper right, clearly separated from her head. Quiet green bushes, a little white fence and a soft blue sky. Full character and all three important items fully visible.",
+    "changes": [
+      "Change the green watering can to bright blue; keep shape and position.",
+      "Change the pink flower petals to purple; keep its pot, leaves and shape.",
+      "Remove the single orange butterfly from the upper right, leaving plain blue sky."
+    ],
+    "targets": [
+      "Watering can",
+      "Flower",
+      "Butterfly"
+    ]
+  },
+  {
+    "id": "astronaut",
+    "name": "Space Explorer",
+    "scene": "A happy little boy in a white pretend astronaut suit stands in his space-themed playroom, full body visible, with a large round clear helmet showing his friendly face. He wears large YELLOW boots at bottom center. One RED toy rocket stands on the floor at lower left. A large simple YELLOW crescent moon decoration hangs at upper right, clearly separate from the helmet. Quiet blue violet wall with only a few small stars, warm pale floor.",
+    "changes": [
+      "Change only the yellow boots to green, preserving their shape.",
+      "Change the red toy rocket at lower left to bright blue, leaving its window and details.",
+      "Remove the large yellow crescent moon at upper right; keep the small background stars unchanged."
+    ],
+    "targets": [
+      "Boots",
+      "Rocket",
+      "Moon"
+    ]
+  },
+  {
+    "id": "beach",
+    "name": "Beach Adventure",
+    "scene": "A happy little girl with a straw sunhat kneels beside a sandcastle at the beach, full body visible. One large RED beach umbrella occupies the upper-left background. One BLUE sand bucket sits at lower left, clearly separate from the sandcastle. One YELLOW and cream beach ball sits at lower right. Calm turquoise sea, pale blue sky, warm sand, simple believable beach scene.",
+    "changes": [
+      "Change all red fabric of the beach umbrella to green, preserving its shape and pole.",
+      "Change the blue bucket to yellow, keeping handle and position.",
+      "Remove the yellow and cream beach ball at lower right, replacing only it with matching sand."
+    ],
+    "targets": [
+      "Umbrella",
+      "Bucket",
+      "Beach ball"
+    ]
+  },
+  {
+    "id": "bakery",
+    "name": "Little Baker",
+    "scene": "A happy little boy chef stands behind a low kitchen work table, face and body clearly visible. He wears a large WHITE chef hat at upper center and a turquoise apron. One cupcake with large PINK icing sits on the tabletop at lower right. ONE large red strawberry sits on a small cream plate on the tabletop at lower left. Soft mint kitchen wall and window, no shelves, calm uncluttered warm bakery scene.",
+    "changes": [
+      "Change the white chef hat to pale blue, keeping the exact shape.",
+      "Change the pink cupcake icing to chocolate brown; keep its wrapper and decorations unchanged.",
+      "Remove the single red strawberry at lower left; keep the small cream plate."
+    ],
+    "targets": [
+      "Chef hat",
+      "Cupcake",
+      "Strawberry"
+    ]
+  },
+  {
+    "id": "rainy-walk",
+    "name": "Rainy Day Walk",
+    "scene": "A happy little boy in a green raincoat stands on a wet park path, full body visible. He holds a large YELLOW umbrella above his head. His rain boots at bottom center are bright BLUE. One large cute YELLOW duck stands beside him at lower left, clearly separate from the boots. Simple pale blue rainy sky, quiet bushes, a small puddle and gentle raindrops, no writing.",
+    "changes": [
+      "Change the yellow umbrella canopy to red, preserving its outline and ribs.",
+      "Change the blue rain boots to orange, keeping their shape.",
+      "Remove the yellow duck at lower left, leaving the same wet path."
+    ],
+    "targets": [
+      "Umbrella",
+      "Boots",
+      "Duck"
+    ]
+  },
+  {
+    "id": "music",
+    "name": "Music Time",
+    "scene": "A happy little girl stands in her cosy music room playing a large RED toy acoustic guitar in front of her body. She wears a yellow top and blue skirt, full body visible. A large YELLOW toy drum sits on the floor at lower left. One GREEN ball sits at lower right. Soft blue wall and simple window, warm wooden floor, calm coherent room, no shelves or written symbols.",
+    "changes": [
+      "Change the red guitar body to bright blue, preserving strings, neck, holes and shape.",
+      "Change the red drum body to green, preserving the drum shape and other details.",
+      "Remove the green ball at lower right, leaving the same wooden floor."
+    ],
+    "targets": [
+      "Guitar",
+      "Drum",
+      "Ball"
+    ]
+  },
+  {
+    "id": "farm",
+    "name": "Farm Friends",
+    "scene": "A happy little boy in BLUE overalls and a yellow shirt stands on a sunny farm path, full body visible. One large friendly PINK piglet stands at lower left, clearly separate from him. One RED bucket sits at lower right. A simple barn and white fence in the distance, pale blue sky and calm green grass, warm friendly scene.",
+    "changes": [
+      "Change the boy's blue overalls to green, preserving the shirt and all garment shapes.",
+      "Change the pink piglet's body to light brown, keeping its face and exact pose.",
+      "Change the red bucket to yellow, keeping its handle and outline."
+    ],
+    "targets": [
+      "Overalls",
+      "Piglet",
+      "Bucket"
+    ]
+  },
+  {
+    "id": "picnic",
+    "name": "Picnic Day",
+    "scene": "A happy little girl sits on a red checked picnic blanket in a sunny park. She wears a yellow top and blue shorts. One large BLUE picnic basket sits at lower right. ONE RED apple rests on the blanket at lower left, clearly separate from the girl and basket. A large ORANGE kite floats in the sky at upper right with a simple string. Quiet tree canopy and green grass, no shelves.",
+    "changes": [
+      "Change the blue picnic basket to purple, preserving its shape and handle.",
+      "Remove the single red apple at lower left; preserve the blanket pattern underneath.",
+      "Change the orange kite to blue, keeping the exact kite shape and string."
+    ],
+    "targets": [
+      "Basket",
+      "Apple",
+      "Kite"
+    ]
+  },
+  {
+    "id": "snow",
+    "name": "Snow Day",
+    "scene": "A happy little boy in a blue winter jacket and large RED scarf stands in a snowy park, full body visible. A friendly small snowman at left wears a BLACK top hat. A large BLUE sled rests on the snow at lower right. Simple pale blue sky, quiet distant pines and soft snow, bright friendly rather than dark.",
+    "changes": [
+      "Change only the boy’s red scarf to yellow; keep the snowman’s scarf unchanged.",
+      "Change the snowman's black hat to green; keep the snowman unchanged.",
+      "Change the blue sled at lower right to orange, preserving its frame and shape."
+    ],
+    "targets": [
+      "Scarf",
+      "Snowman hat",
+      "Sled"
+    ]
+  },
+  {
+    "id": "camping",
+    "name": "Camping Fun",
+    "scene": "A happy little girl in a blue jacket and RED cap stands on a campsite, full body visible. A large ORANGE tent is behind her at the left, unobstructed enough to see its triangular shape. One large YELLOW camping lantern sits at lower right. Quiet pine trees and pale blue sky, green grass and warm path, daytime friendly scene with no fire.",
+    "changes": [
+      "Change the red cap on the girl's head to green, preserving its shape.",
+      "Change the orange tent fabric to purple, keeping seams, door and poles.",
+      "Change the yellow lantern at lower right to turquoise, preserving its glass and shape."
+    ],
+    "targets": [
+      "Cap",
+      "Tent",
+      "Lantern"
+    ]
+  },
+  {
+    "id": "artist",
+    "name": "Little Artist",
+    "scene": "A happy little boy artist wears a red painting smock and a large BLUE beret at upper center, full body visible. He holds a large YELLOW wooden paint palette at lower left with a few colourful paint spots. A framed painting leaning on the floor at lower right shows exactly ONE large PINK flower on a plain cream background. Quiet pale mint art room and warm floor, no shelves and no writing.",
+    "changes": [
+      "Change the blue beret to red, preserving its shape.",
+      "Change the yellow palette base to blue; keep every coloured paint spot and brush unchanged.",
+      "Remove the single pink flower from the framed painting, leaving its plain cream background; keep the frame."
+    ],
+    "targets": [
+      "Beret",
+      "Palette",
+      "Flower painting"
+    ]
+  },
+  {
+    "id": "birthday",
+    "name": "Birthday Party",
+    "scene": "A happy little girl in a blue party dress stands in a cheerful birthday room, full body visible. She wears one large PURPLE cone party hat at upper center. A small table at lower left holds one large cake with PINK icing and one plain candle. A large BLUE balloon floats at upper right with a simple string. Warm peach wall and a few bunting flags at the top, no text or number candles.",
+    "changes": [
+      "Change the purple party hat to yellow, preserving its shape.",
+      "Change the pink cake icing to chocolate brown, keeping the candle and decorations.",
+      "Change the blue balloon at upper right to red, keeping its size and string."
+    ],
+    "targets": [
+      "Party hat",
+      "Cake",
+      "Balloon"
+    ]
+  },
+  {
+    "id": "zoo",
+    "name": "Zoo Visit",
+    "scene": "A happy little girl in a RED T-shirt and green shorts stands in a friendly zoo garden, full body visible. One large GREEN parrot sits on a branch in the upper left, clearly separated from the girl. One BLUE picnic backpack stands on the path at lower right. A gentle giraffe is far behind a simple fence at upper right, quiet greenery and blue sky. No signage or written text.",
+    "changes": [
+      "Change the girl's red T-shirt to blue, keeping the shorts and pose unchanged.",
+      "Remove the single green parrot from the upper-left branch; keep the branch and leaves.",
+      "Change the blue backpack at lower right to yellow, preserving its exact shape."
+    ],
+    "targets": [
+      "T-shirt",
+      "Parrot",
+      "Backpack"
+    ]
+  },
+  {
+    "id": "station",
+    "name": "Train Station",
+    "scene": "A happy little boy in a yellow shirt and blue shorts stands on a bright railway platform, full body visible. He wears a large GREEN cap. A YELLOW suitcase sits at lower left. A large friendly BLUE train engine stands behind him at the right, with large simple windows and wheels, clearly visible. Soft blue sky and a clean pale station canopy. No signs, text or numbers anywhere.",
+    "changes": [
+      "Change the green cap to purple, preserving its shape.",
+      "Change the yellow suitcase at lower left to orange, preserving handles and seams.",
+      "Change the train engine's blue body to red, preserving every window and wheel."
+    ],
+    "targets": [
+      "Cap",
+      "Suitcase",
+      "Train"
+    ]
+  },
+  {
+    "id": "underwater",
+    "name": "Underwater Adventure",
+    "scene": "A happy child scuba explorer swims upright in a bright friendly underwater scene, full body visible, clear diving mask showing innocent brown eyes and a cheerful face, simple blue diving suit. Large YELLOW swim fins are at the bottom center. One large ORANGE fish swims at left middle. One large PINK starfish rests on sand at lower right, clearly separate from coral. Quiet turquoise water, a few bubbles and simple rounded coral at the edges.",
+    "changes": [
+      "Change the yellow swim fins to green, preserving their exact shape.",
+      "Change the orange fish at left middle to blue; keep its eyes, fins and pose.",
+      "Remove the pink starfish at lower right, leaving the same sand."
+    ],
+    "targets": [
+      "Swim fins",
+      "Fish",
+      "Starfish"
+    ]
+  },
+  {
+    "id": "kitepark",
+    "name": "Kite Park",
+    "scene": "A happy little boy in a red T-shirt and blue shorts stands in a sunny park holding a kite string, full body visible. A large RED diamond kite floats at upper right. The boy wears bright GREEN shoes at bottom center. One large PURPLE ball rests on grass at lower right, clearly separate from his shoes. Quiet distant trees, soft blue sky and green grass, no text.",
+    "changes": [
+      "Change the red kite to blue, preserving its exact shape and string.",
+      "Change the boy's green shoes to yellow, preserving their shape.",
+      "Remove the purple ball at lower right, leaving the same grass."
+    ],
+    "targets": [
+      "Kite",
+      "Shoes",
+      "Ball"
+    ]
+  },
+  {
+    "id": "treehouse",
+    "name": "Treehouse Adventure",
+    "scene": "A happy little girl in an ORANGE T-shirt and blue shorts stands on grass near a cosy wooden treehouse, full body visible. A large BLUE bird perches on a branch at upper left, clearly separate from her head. One RED backpack stands on grass at lower right. The treehouse is in the background at upper right with a small ladder, quiet foliage and a pale blue sky, no text or shelves.",
+    "changes": [
+      "Change the girl's orange T-shirt to blue, keeping its shape and the shorts unchanged.",
+      "Change the blue bird at upper left to yellow, keeping the same pose and branch.",
+      "Change the red backpack at lower right to green, preserving its shape."
+    ],
+    "targets": [
+      "T-shirt",
+      "Bird",
+      "Backpack"
+    ]
+  },
+  {
+    "id": "robotplay",
+    "name": "Robot Playtime",
+    "scene": "A happy little boy in a yellow shirt and blue shorts stands in a cosy playroom holding one large BLUE toy robot in front of his body. Full character visible. One large GREEN ball rests on the floor at lower left. One large YELLOW crescent moon decoration hangs on the wall at upper right, clearly separate from the boy. Quiet pale mint wall and warm wooden floor, no shelves, writing or other toys.",
+    "changes": [
+      "Change the blue toy robot body to red, preserving its face, buttons and exact pose.",
+      "Change the green ball at lower left to pink, keeping its size and panels.",
+      "Remove the yellow crescent moon decoration at upper right, leaving plain mint wall."
+    ],
+    "targets": [
+      "Robot",
+      "Ball",
+      "Moon"
+    ]
+  },
+  {
+    "id": "bedtime",
+    "name": "Bedtime Story",
+    "scene": "A happy little girl in pale BLUE pajamas sits on her bed in a cosy bedtime room, full figure visible and facing the viewer. A large YELLOW teddy bear sits at lower left on the bed. A large GREEN star-shaped pillow rests at lower right on the bed, clearly separate from the girl. Quiet lavender wall and a small window showing a soft evening sky, warm bedside light, bright enough for a preschool picture puzzle. No shelves or writing.",
+    "changes": [
+      "Change the girl's pale blue pajamas to light green, preserving all folds and shapes.",
+      "Change the yellow teddy bear to pink, keeping its face, bow and pose.",
+      "Remove the green star-shaped pillow at lower right, leaving the same bedspread."
+    ],
+    "targets": [
+      "Pajamas",
+      "Teddy bear",
+      "Star pillow"
+    ]
+  }
+]

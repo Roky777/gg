@@ -21,14 +21,14 @@ export function makeBoard({letterWins=0,numberWins=0,lastTopic=null,recent=[],pr
    const pool=letterWins<3?ALPHABET.slice(0,6):ALPHABET;
    const chosen=shuffled(pool,random).slice(0,3).sort((a,b)=>a[0].localeCompare(b[0]));
    const lower=letterWins>=6;const cards=chosen.map(([letter,name])=>({image:imageFor(name),label:name,letter,value:letter,say:`${LETTER_NAMES[letter.charCodeAt(0)-65]} फॉर ${OBJECT_SPEECH[letter.charCodeAt(0)-65]}।`,kind:'object'}));
-   board={id:'letters:'+chosen.map(v=>v[0]).join('')+':'+Number(lower),topic,axis:'vertical',cards,targets:chosen.map(v=>lower?v[0].toLowerCase():v[0]),intro:lower?'ऊपर छोटे अक्षर देखो। हर तस्वीर पर बड़े अक्षर को उसके जैसे छोटे अक्षर से मिलाओ। दो तस्वीरों पर टैप करके उनकी जगह बदलो।':'ऊपर के अक्षर देखो। हर तस्वीर को उसके जैसे अक्षर के नीचे लगाओ। दो तस्वीरों पर टैप करके उनकी जगह बदलो।',learn:'वाह! तुमने सही मिलाया! चलो, साथ में पढ़ें। '+cards.map(c=>c.say).join(' उसके बाद… '),rule:'तस्वीर का अक्षर ऊपर वाले अक्षर से मिलाओ।'};
+   board={id:'letters:'+chosen.map(v=>v[0]).join('')+':'+Number(lower),topic,axis:'vertical',cards,targets:chosen.map(v=>lower?v[0].toLowerCase():v[0]),intro:lower?'ऊपर छोटे अक्षर देखो। हर तस्वीर पर बड़े अक्षर को उसके जैसे छोटे अक्षर से मिलाओ। तस्वीर को खींचकर सही जगह पर रखो।':'ऊपर के अक्षर देखो। हर तस्वीर को उसके जैसे अक्षर के नीचे लगाओ। तस्वीर को खींचकर सही जगह पर रखो।',learn:'वाह! तुमने सही मिलाया! चलो, साथ में पढ़ें। '+cards.map(c=>c.say).join(' उसके बाद… '),rule:'तस्वीर का अक्षर ऊपर वाले अक्षर से मिलाओ।'};
   }else{
    const max=numberWins<4?5:numberWins<8?7:10;
    const quantities=shuffled(Array.from({length:max},(_,i)=>i+1),random).slice(0,3).sort((a,b)=>a-b);
    const item=COUNTABLES[Math.floor(random()*COUNTABLES.length)];
    // One object type per board keeps the counting goal clear; fresh type next time.
    const cards=quantities.map(n=>({image:imageFor(item[1]),object:item[1],plural:item[2],label:`${n} ${n===1?item[1]:item[2]}`,value:n,amount:n,kind:'count',say:`इस तस्वीर में ${NUMBER_WORDS[n]} हैं। ऊपर ${NUMBER_WORDS[n]} ढूँढो।`}));
-   board={id:`numbers:${item[1]}:${quantities.join(',')}`,topic,axis:'vertical',cards,targets:quantities.map(String),maxQuantity:max,intro:`चलो, ${COUNT_SPEECH[item[1]]} गिनें! हर तस्वीर में कितने हैं? एक-एक करके गिनो। फिर उसे सही नंबर के नीचे लगाओ। दो तस्वीरों पर टैप करके उनकी जगह बदलो।`,learn:numberReview(quantities),rule:'एक-एक करके गिनो। फिर ऊपर के सही नंबर से मिलाओ।'};
+   board={id:`numbers:${item[1]}:${quantities.join(',')}`,topic,axis:'vertical',cards,targets:quantities.map(String),maxQuantity:max,intro:`चलो, ${COUNT_SPEECH[item[1]]} गिनें! हर तस्वीर में कितने हैं? एक-एक करके गिनो। फिर उसे सही नंबर के नीचे लगाओ। तस्वीर को खींचकर सही जगह पर रखो।`,learn:numberReview(quantities),rule:'एक-एक करके गिनो। फिर ऊपर के सही नंबर से मिलाओ।'};
   }
   if(!recent.includes(board.id))break;
  }

@@ -11,11 +11,11 @@ body{height:100vh;height:100dvh;padding:env(safe-area-inset-top,0px) env(safe-ar
  .rotate-prompt h1{font-size:clamp(22px,6vw,36px);margin:0}.rotate-prompt p{font-size:18px;line-height:1.5;max-width:280px;margin:0}
 }
 @media(orientation:landscape) and (max-height:600px){
- .game{width:100%;height:100%;background-size:cover;touch-action:none}
- .game-button{width:44px;height:44px;min-width:44px;min-height:44px;padding:0;touch-action:manipulation}
- .sound{left:6px;top:6px}.exit{right:6px;top:6px}.next{right:6px;bottom:8px}
- .puzzle-frame{left:clamp(76px,15vw,160px);right:58px;top:6px;bottom:6px;width:auto;height:auto;padding:0}
- .mascot{left:0;top:26%;width:14%;height:64%}.mascot canvas{transform:scale(1.35)}
+ .game{--control-size:clamp(56px,16vh,88px);width:100%;height:100%;background-size:cover;touch-action:none}
+ .game-button{width:var(--control-size);height:var(--control-size);min-width:56px;min-height:56px;padding:0;touch-action:manipulation}
+ .sound{left:8px;top:8px}.exit{right:8px;top:8px}.next{right:8px;bottom:8px}
+ .puzzle-frame{left:22.5%;right:calc(var(--control-size) + 20px);top:8px;bottom:8px;width:auto;height:auto;padding:0}
+ .mascot{left:1%;top:20%;width:19%;height:74%}.mascot canvas{transform:scale(1.65);transform-origin:50% 50%}
  .round-banner{left:26%;top:0;width:54%;max-height:48px}.round-banner span{font-size:clamp(12px,2.4vw,22px)}
  .board.vertical .piece{border-width:5px}.board.vertical .card-name{font-size:clamp(10px,1.7vw,17px)}
  .board.vertical .slot-target{font-size:clamp(26px,5vw,48px)}.board.vertical .card-letter{font-size:clamp(18px,3vw,30px)}.card-grip{width:22px}
@@ -37,3 +37,25 @@ body{height:100vh;height:100dvh;padding:env(safe-area-inset-top,0px) env(safe-ar
 .difference-pictures{display:flex;align-items:center;justify-content:center;gap:4%;overflow:hidden}
 .difference-panel{width:var(--difference-width,48%);flex:0 0 var(--difference-width,48%)}
 @media(orientation:landscape) and (max-height:360px){.round-banner{max-height:40px}.round-banner span{font-size:14px}.object-ordinal{width:16px;height:16px}.quantity-row{border-width:3px}}
+
+@supports(height:100dvh){@media(orientation:landscape) and (max-height:600px){.game{--control-size:clamp(56px,16dvh,88px)}}}
+
+/* Solved tiles must never contribute an intrinsic size to the answer grid. */
+.quantity-row .quantity-dock{width:var(--answer-size,44px);height:var(--answer-size,44px);min-width:0;min-height:0;aspect-ratio:1;overflow:hidden}
+.quantity-dock .number-art{position:absolute;inset:0;width:100%;height:100%;min-width:0;min-height:0;aspect-ratio:1;background-size:contain;background-position:center}
+.quantity-row.answered .quantity-dock{font-size:0}
+@media(prefers-reduced-motion:no-preference){.quantity-row.answered .quantity-dock .number-art{animation:answer-fit .18s ease-out both}@keyframes answer-fit{from{transform:scale(.88);opacity:.7}to{transform:scale(1);opacity:1}}}
+
+/* The title belongs to the illustrated board, not to the viewport. */
+.puzzle-frame .round-banner{left:var(--ribbon-left,15%);right:auto;top:2%;width:var(--ribbon-width,70%);height:var(--ribbon-height,44px);max-height:none;aspect-ratio:auto;transform-origin:50% 50%}
+.puzzle-frame .round-banner img{object-fit:contain}
+.puzzle-frame .round-banner span{font-size:var(--ribbon-font,18px);line-height:1.2}
+.puzzle-frame .round-banner.visible{animation:board-title-arrive .22s ease-out both}
+.puzzle-frame .round-banner.leaving{animation:board-title-leave .16s ease-in both}
+@keyframes board-title-arrive{from{transform:translateY(-10px) scale(.97);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+@keyframes board-title-leave{to{transform:translateY(-8px);opacity:0}}
+
+/* Leave a real mounting margin inside the illustrated frame, including its
+   rounded corners. Keep every counting row within the same safe opening. */
+.puzzle-frame .board.counting-board{inset:12% 11% 12%}
+.quantity-rows{top:0;left:0;height:100%;grid-template-rows:repeat(4,minmax(0,1fr));gap:3.5%}

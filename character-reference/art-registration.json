@@ -1,0 +1,99 @@
+[
+  {
+    "region": "Body",
+    "retainsJointCoverage": true
+  },
+  {
+    "region": "Body_2",
+    "retainsJointCoverage": true
+  },
+  {
+    "region": "Leg_R",
+    "retainsJointCoverage": true
+  },
+  {
+    "region": "Leg_L_2",
+    "retainsJointCoverage": true
+  },
+  {
+    "region": "Side_Body_New",
+    "retainsJointCoverage": true
+  },
+  {
+    "region": "Foots/Foot_L",
+    "retainsJointCoverage": true
+  },
+  {
+    "region": "Foots/Foot_R",
+    "retainsJointCoverage": true
+  },
+  {
+    "region": "Foots/Foot_Side",
+    "retainsJointCoverage": true
+  },
+  {
+    "region": "Foots/Foot_Cross_L",
+    "retainsJointCoverage": true
+  },
+  {
+    "region": "T_shirt_2",
+    "retainsJointCoverage": true
+  },
+  {
+    "region": "Hand_R",
+    "retainsJointCoverage": true
+  },
+  {
+    "region": "Hand_R(2)",
+    "retainsJointCoverage": true
+  },
+  {
+    "region": "Hand_R_Blur1",
+    "retainsJointCoverage": true
+  },
+  {
+    "region": "Hand_Sep_1_2",
+    "retainsJointCoverage": true
+  },
+  {
+    "region": "Hand_Sep_1_3",
+    "retainsJointCoverage": true
+  },
+  {
+    "region": "Hand_Sep_1_3_Blur",
+    "retainsJointCoverage": true
+  },
+  {
+    "region": "Hand_Sep_2",
+    "retainsJointCoverage": true
+  },
+  {
+    "region": "Hand_Sep_2_3",
+    "retainsJointCoverage": true
+  },
+  {
+    "region": "Face",
+    "retainsJointCoverage": false
+  },
+  {
+    "region": "Neck",
+    "retainsJointCoverage": true
+  },
+  {
+    "region": "Palms/Palm_R",
+    "retainsJointCoverage": false
+  },
+  {
+    "region": "Lips/Lips_N",
+    "retainsJointCoverage": false
+  },
+  {
+    "region": "Nose",
+    "retainsJointCoverage": false
+  },
+  {
+    "region": "Eyepart_R",
+    "registration": "inner eye opening",
+    "haloRemoved": true
+  }
+]

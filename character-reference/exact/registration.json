@@ -1,0 +1,12 @@
+{
+  "source": "animation/sparky/godot-parts",
+  "uniformScale": 3.55,
+  "sourceOrigin": [
+    256,
+    594
+  ],
+  "sourcePixelHeight": 403,
+  "parts": 31,
+  "externalAlpha": "unaltered source alpha",
+  "jointWeights": "shared elbow and knee fields"
+}
