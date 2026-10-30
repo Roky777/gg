@@ -1,3 +1,4 @@
+import {cardReadings,bindCardReading} from './card-audio.js?v=card-audio-50';
 import {BreakSchedule,PlayBreak,makeFunBoard} from './play-breaks.js?v=play-breaks-48';
 import {reviewVoices,pictureVoice,RECORDINGS,recordingFor} from './voice-cues.js?v=lip-sync-40';
 import {syncLayout} from './responsive-layout.js?v=board-ribbon-43';
@@ -8,9 +9,9 @@ import {MascotDirector,CLIPS} from './mascot-director.js?v=lip-sync-40';
 import {GameAudio} from './game-audio.js?v=play-breaks-48';
 import {makeBoard} from './puzzle-generator.js?v=drag-only-47';
 import {LearningVoice} from './learning-voice.js?v=lip-sync-40';
-import {AssemblyRound,createAssemblyBoard} from './assembly-game.js?v=drag-only-47';
+import {AssemblyRound,createAssemblyBoard} from './assembly-game.js?v=card-audio-50';
 import {AssemblyDeck} from './assembly-catalog.js?v=lip-sync-40';
-import {CountingRound,makeCountingBoard,COUNT_WORDS} from './counting-game.js?v=drag-only-47';
+import {CountingRound,makeCountingBoard,COUNT_WORDS} from './counting-game.js?v=card-audio-50';
 import {RoundBanner} from './round-banner.js?v=lip-sync-40';
 import {DifferenceRound,createDifferenceBoard} from './differences-game.js?v=lip-sync-40';
 const $=id=>document.getElementById(id),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -72,6 +73,13 @@ async function advance(){
  try{await loadPicture(next);roundCount++;sound('next');start(next);syncOrientation();}
  catch(e){busy=false;say('Could not load the next picture. Tap the arrow to try again.');console.error(e);}
  finally{navigationLoading=false;if(!done)introduce();warmNextRound();}
+}
+
+function readCard(picture,card){
+ if(navigationLoading||done||busy||document.hidden||$('pause-dialog').open||!soundOn)return;
+ const cues=cardReadings(picture,card);if(!cues.length)return;
+ idleSchedule();flow.requestedSpeech();voiceUnlocked=true;voice.unlock();countVoiceRow=null;
+ voice.saySequence(cues,{volume:.9});
 }
 
 function cancelReactions(){clearTimeout(idleTimer);director.clearQueue();}
@@ -144,10 +152,10 @@ function start(index){
  }
  if(topic==='count-groups'){
   const token=roundToken;
-  activeRound=new CountingRound({element:$('board'),picture:pic,sound,tell,onActivity:idleSchedule,isPaused:()=>navigationLoading||document.hidden||$('pause-dialog').open,onWrong:()=>flow.mistake(),onCount:(ordinal,row)=>{companion.look(.55,(row+.5)/4);flow.requestedSpeech();if(!soundOn)return;voiceUnlocked=true;if(countVoiceRow!==row){voice.cancel();countVoiceRow=row;}voice.say(COUNT_WORDS[ordinal],{queue:true,rate:1.05});},onMatch:matchCelebration,onComplete:()=>{if(token===roundToken&&!done)finish();}});
+  activeRound=new CountingRound({element:$('board'),picture:pic,sound,tell,onActivity:idleSchedule,isPaused:()=>navigationLoading||document.hidden||$('pause-dialog').open,onWrong:()=>flow.mistake(),onRead:number=>readCard(pic,{amount:number}),onCount:(ordinal,row)=>{companion.look(.55,(row+.5)/4);flow.requestedSpeech();if(!soundOn)return;voiceUnlocked=true;if(countVoiceRow!==row){voice.cancel();countVoiceRow=row;}voice.say(COUNT_WORDS[ordinal],{queue:true,rate:1.05});},onMatch:matchCelebration,onComplete:()=>{if(token===roundToken&&!done)finish();}});
   updateLearningUI();$('task-rule').textContent=pic.rule;tell(pic.intro,{speak:false});layoutArt();idleSchedule();introduce();say(pic.rule);return;
  }
- if(topic==='assembly'){const token=roundToken;activeRound=new AssemblyRound({element:$('board'),picture:pic,director,sound,tell,reduced,onActivity:idleSchedule,isPaused:()=>navigationLoading||document.hidden||$('pause-dialog').open,onWrong:()=>flow.mistake(),onMatch:matchCelebration,onComplete:()=>{if(token===roundToken&&!done)finish();}});updateLearningUI();$('task-rule').textContent=pic.rule;tell(pic.intro,{speak:false});layoutArt();idleSchedule();introduce();say(pic.rule);return;}
+ if(topic==='assembly'){const token=roundToken;activeRound=new AssemblyRound({element:$('board'),picture:pic,onRead:()=>readCard(pic),director,sound,tell,reduced,onActivity:idleSchedule,isPaused:()=>navigationLoading||document.hidden||$('pause-dialog').open,onWrong:()=>flow.mistake(),onMatch:matchCelebration,onComplete:()=>{if(token===roundToken&&!done)finish();}});updateLearningUI();$('task-rule').textContent=pic.rule;tell(pic.intro,{speak:false});layoutArt();idleSchedule();introduce();say(pic.rule);return;}
 
  for(let id=0;id<3;id++){
   const card=pic.cards[id],piece=document.createElement('button');piece.className='piece';piece.type='button';piece.style.width='29.333334%';piece.style.height='61%';const grip=document.createElement('span');grip.className='card-grip';grip.setAttribute('aria-hidden','true');piece.append(grip);
@@ -160,6 +168,7 @@ function start(index){
    for(let n=0;n<card.amount;n++){const cell=document.createElement('span');cell.className='count-item';if(card.amount%2&&n===card.amount-1)cell.classList.add('odd-last');const image=document.createElement('img');image.src='assets/art/'+card.image;image.alt='';image.draggable=false;cell.append(image);mat.append(cell);}piece.append(mat);
   }
   pieces.push(piece);$('board').append(piece);
+  bindCardReading(piece,()=>readCard(pic,card),()=>!navigationLoading&&!done&&!busy&&!$('pause-dialog').open);
   piece.addEventListener('pointerdown',e=>{
    if(navigationLoading||done||busy||$('pause-dialog').open||e.button!==0)return;e.preventDefault();idleSchedule();sound('select');piece.focus({preventScroll:true});drag={id,slot:order.indexOf(id),x:e.clientX,y:e.clientY,pointer:e.pointerId,moved:false,target:order.indexOf(id)};piece.setPointerCapture(e.pointerId);
   });

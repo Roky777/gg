@@ -1,3 +1,4 @@
+import {bindCardReading} from './card-audio.js?v=card-audio-50';
 /** Three exact image sections, with drag-only placement. */
 export function createAssemblyBoard(item){
  const image=`assembly/${item.id}.png`;
@@ -6,8 +7,8 @@ export function createAssemblyBoard(item){
 export function sectionAt(y,rect){if(y<rect.top||y>rect.bottom)return -1;return Math.min(2,Math.floor((y-rect.top)/rect.height*3));}
 export function shuffledSections(random=Math.random){const a=[0,1,2];for(let i=2;i>0;i--){const j=Math.floor(random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}if(a.every((v,i)=>v===i))[a[0],a[2]]=[a[2],a[0]];return a;}
 export class AssemblyRound{
- constructor({element,picture,sound,tell,director,onComplete,onMatch=()=>{},onWrong=()=>{},onActivity=()=>{},isPaused=()=>false,reduced=false,random=Math.random}){
-  Object.assign(this,{element,picture,sound,tell,director,onComplete,onMatch,onWrong,onActivity,isPaused,reduced});this.placed=new Set();this.selected=null;this.misses=0;this.destroyed=false;this.drag=null;this.timers=[];
+ constructor({element,picture,onRead=()=>{},sound,tell,director,onComplete,onMatch=()=>{},onWrong=()=>{},onActivity=()=>{},isPaused=()=>false,reduced=false,random=Math.random}){
+  Object.assign(this,{element,picture,onRead,sound,tell,director,onComplete,onMatch,onWrong,onActivity,isPaused,reduced});this.placed=new Set();this.selected=null;this.misses=0;this.destroyed=false;this.drag=null;this.timers=[];
   element.className='board assembly-board';element.replaceChildren();element.setAttribute('aria-label',picture.rule);
   const progress=document.createElement('div');progress.className='assembly-progress sr-only';progress.setAttribute('aria-label','तीन में से शून्य टुकड़े लगे');this.progress=progress;for(let i=0;i<3;i++){const dot=document.createElement('span');dot.textContent='★';dot.setAttribute('aria-hidden','true');progress.append(dot);}element.append(progress);
   const shell=document.createElement('div');shell.className='assembly-art';element.append(shell);const target=document.createElement('div');target.className='assembly-surface';shell.append(target);this.target=target;const silhouette=document.createElement('img');silhouette.src='assets/art/'+picture.cards[0].image;silhouette.className='assembly-silhouette';silhouette.alt='तस्वीर की छाया';silhouette.draggable=false;target.append(silhouette);
@@ -19,6 +20,7 @@ export class AssemblyRound{
   const tray=document.createElement('div');tray.className='assembly-tray';tray.setAttribute('aria-label','तस्वीर के तीन टुकड़े');element.append(tray);
   for(const id of shuffledSections(random)){
    const card=document.createElement('button');card.type='button';card.className='assembly-choice';card.setAttribute('aria-label',`तस्वीर का ${picture.targets[id]} का टुकड़ा। Drag this piece onto its matching shadow.`);card.setAttribute('aria-pressed','false');card.append(this.art(id));const grip=document.createElement('span');grip.className='assembly-grip';grip.textContent='⠿';grip.setAttribute('aria-hidden','true');card.append(grip);tray.append(card);this.sources[id]=card;
+   bindCardReading(card,()=>this.onRead(),()=>this.allowed()&&!this.placed.has(id));
    card.addEventListener('pointerdown',e=>this.begin(e,id));card.addEventListener('pointermove',e=>this.move(e));card.addEventListener('pointerup',e=>this.end(e));card.addEventListener('pointercancel',()=>this.cancelDrag());card.addEventListener('lostpointercapture',()=>this.cancelDrag());
    card.addEventListener('keydown',e=>{if(e.key==='Escape'){this.selected=null;this.updateSelection();}});
   }

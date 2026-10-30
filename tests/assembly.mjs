@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';import fs from 'node:fs';
-const load=async file=>import('data:text/javascript;base64,'+Buffer.from(fs.readFileSync(new URL('../'+file,import.meta.url),'utf8')).toString('base64'));
+const load=file=>import(new URL('../'+file,import.meta.url));
 const {AssemblyDeck,ASSEMBLY_PICTURES}=await load('assembly-catalog.js');
 const {AssemblyRound,createAssemblyBoard,sectionAt,shuffledSections}=await load('assembly-game.js');
 const manifest=JSON.parse(fs.readFileSync(new URL('../assets/art/assembly/manifest.json',import.meta.url)));assert.equal(manifest.ready,true);assert.equal(manifest.images.length,40);
@@ -16,7 +16,7 @@ class Element{
 globalThis.document={createElement:tag=>new Element(tag),body:new Element('body')};
 const calls=[],spoken=[];let finished=0,matched=0,paused=false;
 const round=new AssemblyRound({element:new Element('main'),picture:createAssemblyBoard(ASSEMBLY_PICTURES[0]),sound:kind=>calls.push(kind),tell:(text,options)=>spoken.push({text,options}),director:{request:(name)=>calls.push(name)},onComplete:()=>finished++,onMatch:()=>matched++,isPaused:()=>paused,random});
-assert.equal(round.sources[0].events.click,undefined);assert.equal(round.zones[0].events.click,undefined);round.place(0,2);assert.equal(round.placed.size,0);round.place(0,1);assert(round.zones[0].classList.contains('hint'));assert.equal(round.placed.size,0);assert.equal(spoken.at(-1).options.speak,false);
+round.sources[0].events.click[0]({detail:0});assert.equal(round.selected,null);assert.equal(round.placed.size,0);assert.equal(round.zones[0].events.click,undefined);round.place(0,2);assert.equal(round.placed.size,0);round.place(0,1);assert(round.zones[0].classList.contains('hint'));assert.equal(round.placed.size,0);assert.equal(spoken.at(-1).options.speak,false);
 round.place(0,0);assert.equal(round.placed.size,1);assert(round.sources[0].disabled);assert.equal(round.selected,null);round.place(0,0);assert.equal(round.placed.size,1);
 paused=true;round.place(1,1);assert.equal(round.placed.size,1);paused=false;
 round.place(1,1);round.place(2,2);assert.equal(finished,1);assert.equal(round.placed.size,3);assert.equal(matched,2);assert(spoken.every(line=>line.options.speak===false));round.place(2,2);assert.equal(finished,1);round.destroy();assert.equal(round.allowed(),false);

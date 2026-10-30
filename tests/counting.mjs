@@ -1,5 +1,5 @@
 import fs from 'node:fs';import assert from 'node:assert/strict';
-const load=async file=>import('data:text/javascript;base64,'+Buffer.from(fs.readFileSync(new URL('../'+file,import.meta.url),'utf8')).toString('base64'));
+const load=file=>import(new URL('../'+file,import.meta.url));
 const {COUNTING_ITEMS,makeCountingBoard,RowCount,CountingRound}=await load('counting-game.js');
 const assets=JSON.parse(fs.readFileSync(new URL('../assets/art/counting/manifest.json',import.meta.url)));assert.equal(assets.ready,true);assert.equal(assets.images.length,20);
 for(const item of COUNTING_ITEMS){const png=fs.readFileSync(new URL('../assets/art/counting/'+item.id+'.png',import.meta.url));assert.equal(png.subarray(1,4).toString(),'PNG');assert.equal(png.readUInt32BE(16),512);assert.equal(png.readUInt32BE(20),512);}
@@ -37,7 +37,7 @@ for(const [number,chip] of round.chips){assert.equal(chip.querySelector('.number
 for(const rowIndex of round.answers){const amount=picture.cards[rowIndex].amount;assert.equal(round.docks[rowIndex].querySelector('.number-art').style.backgroundImage,`url('assets/art/ui-board/numbers/${amount}.png')`);}
 
 const taps=new CountingRound({element:new Element('main'),picture});
-for(const chip of taps.chips.values())assert.equal(chip.events.click,undefined,'Number taps must not select a tile');
+for(const chip of taps.chips.values()){chip.events.click[0]({detail:0});assert.equal(taps.selected,null,'Reading a number must not select a tile');}
 for(const dock of taps.docks)assert.equal(dock.events.click,undefined,'Dock taps must not place a tile');
 taps.begin(event(500,150),picture.cards[0].amount);taps.end(event(500,150));assert.equal(taps.selected,null);assert.equal(taps.answers.size,0);
 taps.objects[0][0].events.click[0]();assert.equal(taps.counts[0].ordinals.size,1,'Picture taps still count');taps.destroy();

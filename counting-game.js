@@ -1,3 +1,4 @@
+import {bindCardReading} from './card-audio.js?v=card-audio-50';
 /** Optional tap-to-count and drag-only number placement. No counting gate. */
 export const COUNTING_ITEMS=[
  ['jelly','जेली'],['rabbit','खरगोश'],['duckling','बत्तख'],['toy-car','खिलौना गाड़ी'],
@@ -31,8 +32,8 @@ export function numberArt(number){
  tile.style.backgroundImage=`url('assets/art/ui-board/numbers/${number}.png')`;return tile;
 }
 export class CountingRound{
- constructor({element,picture,onCount=()=>{},onMatch=()=>{},onWrong=()=>{},onComplete=()=>{},onActivity=()=>{},sound=()=>{},tell=()=>{},isPaused=()=>false,random=Math.random}){
-  Object.assign(this,{element,picture,onCount,onMatch,onWrong,onComplete,onActivity,sound,tell,isPaused});this.selected=null;this.answers=new Set();this.counts=picture.cards.map(c=>new RowCount(c.amount));this.destroyed=false;this.drag=null;this.timers=[];this.misses=0;
+ constructor({element,picture,onRead=()=>{},onCount=()=>{},onMatch=()=>{},onWrong=()=>{},onComplete=()=>{},onActivity=()=>{},sound=()=>{},tell=()=>{},isPaused=()=>false,random=Math.random}){
+  Object.assign(this,{element,picture,onRead,onCount,onMatch,onWrong,onComplete,onActivity,sound,tell,isPaused});this.selected=null;this.answers=new Set();this.counts=picture.cards.map(c=>new RowCount(c.amount));this.destroyed=false;this.drag=null;this.timers=[];this.misses=0;
   element.className='board counting-board';element.replaceChildren();element.setAttribute('aria-label',picture.intro);
   this.rows=[];this.docks=[];this.objects=[];this.chips=new Map();const rows=document.createElement('div');rows.className='quantity-rows';element.append(rows);
   picture.cards.forEach((card,rowIndex)=>{
@@ -47,6 +48,7 @@ export class CountingRound{
   const tray=document.createElement('div');tray.className='quantity-numbers';tray.setAttribute('aria-label','Drag each number to the matching group.');element.append(tray);
   for(const number of picture.numbers){
    const chip=document.createElement('button');chip.type='button';chip.className='number-chip';chip.textContent=String(number);chip.append(numberArt(number));chip.setAttribute('aria-label',`${COUNT_WORDS[number]}। Drag to the matching picture group.`);chip.setAttribute('aria-pressed','false');tray.append(chip);this.chips.set(number,chip);
+   bindCardReading(chip,()=>this.onRead(number),()=>this.allowed()&&!chip.disabled);
    chip.addEventListener('pointerdown',e=>this.begin(e,number));chip.addEventListener('pointermove',e=>this.move(e));chip.addEventListener('pointerup',e=>this.end(e));chip.addEventListener('pointercancel',()=>this.cancelDrag());chip.addEventListener('lostpointercapture',()=>this.cancelDrag());
    chip.addEventListener('keydown',e=>{if(e.key==='Escape'){this.selected=null;this.updateSelection();}});
   }
