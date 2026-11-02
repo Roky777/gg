@@ -1,4 +1,0 @@
-import fs from 'node:fs';import vm from 'node:vm';
-const context={console,window:{},self:{},navigator:{},document:{}};vm.createContext(context);vm.runInContext(fs.readFileSync(new URL('../sparky-animations%204/vendor/spine-webgl.min.js',import.meta.url),'utf8'),context);export const S=context.spine;
-export function load(dir){const n='Lucas_Activity_Icecream';return new S.SkeletonBinary(new S.AtlasAttachmentLoader(new S.TextureAtlas(fs.readFileSync(new URL(n+'.atlas',dir),'utf8')))).readSkeletonData(new Uint8Array(fs.readFileSync(new URL(n+'.skel',dir))));}
-export function pose(data,clip='0Final/Idle/Idle_EB',time=0){const sk=new S.Skeleton(data),state=new S.AnimationState(new S.AnimationStateData(data));state.setAnimation(0,clip,false).trackTime=time;state.apply(sk);sk.updateWorldTransform(S.Physics.none);return sk;}

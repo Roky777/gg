@@ -1,4 +1,4 @@
-import {bindCardReading} from './card-audio.js?v=card-audio-51';
+import {bindCardReading} from './card-audio.js?v=polish-52';
 /** Optional tap-to-count and drag-only number placement. No counting gate. */
 export const COUNTING_ITEMS=[
  ['jelly','जेली'],['rabbit','खरगोश'],['duckling','बत्तख'],['toy-car','खिलौना गाड़ी'],
@@ -43,11 +43,12 @@ export class CountingRound{
     object.addEventListener('click',()=>this.count(rowIndex,index));grid.append(object);objects.push(object);
    }
    const dock=document.createElement('button');dock.type='button';dock.className='quantity-dock';dock.textContent='?';dock.setAttribute('aria-label',`${card.name} के लिए नंबर यहाँ रखो`);row.append(dock);rows.append(row);this.rows.push(row);this.docks.push(dock);this.objects.push(objects);
+   bindCardReading(dock,()=>this.onRead(card.amount),()=>!this.destroyed&&!this.isPaused()&&this.answers.has(rowIndex));
    dock.addEventListener('keydown',e=>{if(['ArrowUp','ArrowDown'].includes(e.key)){e.preventDefault();this.docks[Math.max(0,Math.min(3,rowIndex+(e.key==='ArrowDown'?1:-1)))].focus();}else if(e.key==='Escape'){this.selected=null;this.updateSelection();}});
   });
   const tray=document.createElement('div');tray.className='quantity-numbers';tray.setAttribute('aria-label','Drag each number to the matching group.');element.append(tray);
   for(const number of picture.numbers){
-   const chip=document.createElement('button');chip.type='button';chip.className='number-chip';chip.textContent=String(number);chip.append(numberArt(number));chip.setAttribute('aria-label',`${COUNT_WORDS[number]}। Drag to the matching picture group.`);chip.setAttribute('aria-pressed','false');tray.append(chip);this.chips.set(number,chip);
+   const chip=document.createElement('button');chip.type='button';chip.className='number-chip';chip.append(numberArt(number));chip.setAttribute('aria-label',`${COUNT_WORDS[number]}। Drag to the matching picture group.`);chip.setAttribute('aria-pressed','false');tray.append(chip);this.chips.set(number,chip);
    bindCardReading(chip,()=>this.onRead(number),()=>this.allowed()&&!chip.disabled);
    chip.addEventListener('pointerdown',e=>this.begin(e,number));chip.addEventListener('pointermove',e=>this.move(e));chip.addEventListener('pointerup',e=>this.end(e));chip.addEventListener('pointercancel',()=>this.cancelDrag());chip.addEventListener('lostpointercapture',()=>this.cancelDrag());
    chip.addEventListener('keydown',e=>{if(e.key==='Escape'){this.selected=null;this.updateSelection();}});
@@ -62,7 +63,7 @@ export class CountingRound{
  end(e){const drag=this.drag;if(!drag||drag.pointer!==e.pointerId)return;const row=this.dropRow(e.clientX,e.clientY);this.cancelDrag();if(!this.allowed())return;if(drag.moved||Math.hypot(e.clientX-drag.x,e.clientY-drag.y)>7){if(row>=0)this.place(drag.number,row);}}
  cancelDrag(){this.ghost?.remove();this.ghost=null;this.drag=null;this.selected=null;this.updateSelection();this.docks.forEach(dock=>dock.classList.remove('drop-active'));}
  place(number,row){if(!this.allowed()||this.answers.has(row)||!this.chips.has(number)||this.chips.get(number).disabled)return;this.onActivity();if(this.picture.cards[row].amount!==number){this.misses++;this.onWrong();this.sound('tap');this.tell('फिर से देखो। चाहो तो तस्वीरों पर टैप करके गिनो।',{speak:false});if(this.misses>=2){this.rows[row].classList.add('count-hint');this.timers.push(setTimeout(()=>this.rows[row].classList.remove('count-hint'),1500));}return;}
-  this.answers.add(row);this.misses=0;this.selected=null;const chip=this.chips.get(number);chip.disabled=true;chip.classList.add('used');const dock=this.docks[row];dock.textContent=String(number);dock.append(numberArt(number));dock.disabled=true;dock.setAttribute('aria-label',`${this.picture.cards[row].name}… ${COUNT_WORDS[number]}। सही!`);this.rows[row].classList.add('answered');this.rows[row].classList.remove('count-hint');this.updateSelection();
+  this.answers.add(row);this.misses=0;this.selected=null;const chip=this.chips.get(number);chip.disabled=true;chip.classList.add('used');const dock=this.docks[row];dock.textContent=String(number);dock.append(numberArt(number));dock.setAttribute('aria-label',`${this.picture.cards[row].name}… ${COUNT_WORDS[number]}। सही!`);this.rows[row].classList.add('answered');this.rows[row].classList.remove('count-hint');this.updateSelection();
   if(this.answers.size===4){this.element.classList.add('counting-complete');this.onComplete();}else{this.onMatch();this.tell('सही! ✓',{speak:false});[...this.chips.values()].find(c=>!c.disabled)?.focus({preventScroll:true});}
  }
  destroy(){this.destroyed=true;this.cancelDrag();this.timers.forEach(clearTimeout);}

@@ -3,7 +3,7 @@ import {RECORDINGS,pictureVoice} from './voice-cues.js?v=lip-sync-40';
 /** Use the supplied recordings for the card the child actually touched. */
 export function cardReadings(picture,card){
  let cues=[];
- if(picture.topic==='letters')cues=['letter_'+String(card.value).toLowerCase()];
+ if(picture.topic==='letters')cues=['letter_'+String(card.value).toLowerCase(),pictureVoice(card.label)];
  else if(picture.topic==='numbers')cues=['number_'+String(card.amount).padStart(2,'0')];
  else if(picture.topic==='assembly')cues=[pictureVoice(picture.item.id)];
  else if(picture.topic==='count-groups')cues=['number_'+String(card.amount).padStart(2,'0')];

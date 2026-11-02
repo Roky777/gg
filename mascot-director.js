@@ -1,4 +1,4 @@
-import {SparkyRigPlayer} from './sparky-animations%204/rig-player.js?v=lip-sync-40';
+import {SparkyRigPlayer} from './sparky-current/player.js?v=companion-57';
 
 export const CLIPS={
  idle:'0Final/Idle/Idle_EB',
@@ -23,9 +23,9 @@ export class MascotDirector {
   this.canvas=canvas;this.clips=clips;this.reduced=reduced;this.restMs=restMs;
   this.active=null;this.actor=null;this.queue=[];this.paused=false;this.destroyed=false;
   this.serial=0;this.loading=false;this.idleUntil=0;this.drainTimer=null;this.requestId=null;
-  const manifestURL=new URL('./sparky-animations%204/manifest.json',import.meta.url).href;
+  const manifestURL=new URL('./sparky-current/manifest.json',import.meta.url).href;
   const loading=new URLSearchParams(location.search).get('character')==='sports-candidate'
-   ? import('./character-upgrade/03-joint-fit/load-candidate.js').then(m=>m.loadCandidate(manifestURL))
+   ? import('./character-upgrade/03-joint-fit/load-candidate.js').then(m=>m.loadCandidate(new URL('./sparky-animations%204/manifest.json',import.meta.url).href))
    : SparkyRigPlayer.load(manifestURL);
   this.ready=loading.then(rig=>{
    if(this.destroyed){rig.destroy();return rig;}

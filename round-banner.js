@@ -1,5 +1,7 @@
 /** Brief, non-modal round announcements. The board stays interactive throughout. */
 export const ROUND_INTROS={
+ 'balloon-pop':{title:'Balloon Pop',speech:'गुब्बारों पर टैप करो।'},
+ 'jelly-wiggle':{title:'Jelly Wiggle',speech:'जेली पर टैप करो।'},
  differences:{title:'Find 3 Differences',speech:'दोनों तस्वीरों में तीन अंतर ढूँढो।'},
  letters:{title:'Match the Letters',speech:'अक्षर से तस्वीर मिलाओ।'},
  numbers:{title:'Match the Numbers',speech:'गिनो और सही नंबर से मिलाओ।'},

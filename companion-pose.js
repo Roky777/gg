@@ -17,11 +17,9 @@ export class CompanionPose{
   const g=this.gesture;if(!g)return;if(g.start===null)g.start=time;const t=(time-g.start)/g.duration;if(t>=1){this.gesture=null;if(g.kind==='wave')this.look(.5,.5);return;}
   const envelope=ease(Math.min(1,t*5))*ease(Math.min(1,(1-t)*5));
   if(b.face){const nod=g.kind==='nod'?-2.3*Math.sin(t*Math.PI*2):g.kind==='ponder'?1.8*Math.sin(t*Math.PI):-.8*Math.sin(t*Math.PI);b.face.rotation+=nod*envelope;}
-  if((g.kind==='guide'||g.kind==='wave')&&b.wrist){
-   const goal=g.kind==='wave'?{x:300+Math.sin(t*Math.PI*6)*14,y:620}:{x:285,y:650+this.target.y*130};
-   this.worldOffset(b.wrist,(goal.x-b.wrist.worldX)*envelope,(goal.y-b.wrist.worldY)*envelope);
-   if(b.palm&&g.kind==='wave')b.palm.rotation+=Math.sin(t*Math.PI*6)*9*envelope;
-  }
+  // Attention gestures stay on the face. Old absolute IK goals belonged to
+  // Lucas's proportions and pulled Sparky's sleeve into a repeated shrug.
+
  }
  worldOffset(bone,dx,dy){const p=bone.parent;if(!p)return;const det=p.a*p.d-p.b*p.c;if(Math.abs(det)<1e-7)return;bone.x+=(p.d*dx-p.b*dy)/det;bone.y+=(p.a*dy-p.c*dx)/det;}
 }

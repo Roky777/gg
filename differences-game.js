@@ -34,7 +34,7 @@ export class DifferenceRound{
    for(const button of this.buttons[side].get(id)){button.disabled=true;button.classList.add('found');button.setAttribute('aria-label',`${region.sides[side].name}: difference found!`);}
    const ns='http://www.w3.org/2000/svg',glow=document.createElementNS(ns,'svg');glow.setAttribute('class','difference-found-outline');glow.setAttribute('viewBox','0 0 900 1200');glow.setAttribute('preserveAspectRatio','none');glow.setAttribute('aria-hidden','true');
    const outline=region.sides[side].outline;
-   if(outline){const shape=document.createElementNS(ns,'path');for(const [key,value]of Object.entries({d:outline,fill:'none',stroke:'#ffd341','stroke-width':2.5,'stroke-linejoin':'round','stroke-linecap':'round','vector-effect':'non-scaling-stroke'}))shape.setAttribute(key,String(value));glow.append(shape);this.wraps[side].append(glow);}
+   if(outline){const shape=document.createElementNS(ns,'path');for(const [key,value]of Object.entries({d:outline,fill:'none',stroke:'#ed352f','stroke-width':2.5,'stroke-linejoin':'round','stroke-linecap':'round','vector-effect':'non-scaling-stroke'}))shape.setAttribute(key,String(value));glow.append(shape);this.wraps[side].append(glow);}
 
   }
   this.status.textContent=`${this.progress.found.size} of 3 differences found.`;

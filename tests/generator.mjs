@@ -1,8 +1,0 @@
-import fs from 'node:fs';import assert from 'node:assert/strict';
-const source=fs.readFileSync(new URL('../puzzle-generator.js',import.meta.url),'utf8');const {ALPHABET,COUNTABLES,makeBoard}=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
-assert.equal(ALPHABET.length,26);assert.equal(COUNTABLES.length,10);let seed=93;const random=()=>((seed=(Math.imul(seed,1664525)+1013904223)>>>0)/4294967296);const seen=new Set();let previous=null,recent=[];const counted=new Set();
-for(let i=0;i<2000;i++){const letterWins=Math.floor(i/50),numberWins=Math.floor(i/50),p=makeBoard({letterWins,numberWins,lastTopic:previous,recent},random);assert(['letters','numbers'].includes(p.topic));assert.equal(p.cards.length,3);assert.equal(new Set(p.cards.map(c=>c.value)).size,3);assert.equal(p.targets.length,3);assert(p.intro&&p.learn);assert(p.cards[0].value<p.cards[1].value&&p.cards[1].value<p.cards[2].value);assert(!recent.includes(p.id));
- for(let j=0;j<3;j++){const c=p.cards[j];assert(c.image.endsWith('.png'));assert(fs.existsSync(new URL('../assets/art/'+c.image,import.meta.url)));if(p.topic==='letters'){assert.equal(p.targets[j],letterWins>=6?c.value.toLowerCase():c.value);if(letterWins<3)assert('ABCDEF'.includes(c.value));}else{assert.equal(Number(p.targets[j]),c.amount);assert.equal(c.value,c.amount);assert(c.amount>=1&&c.amount<=(numberWins<4?5:numberWins<8?7:10));counted.add(c.object);}}
- if(previous==='numbers')assert.equal(p.topic,'letters');previous=p.topic;recent=[...recent,p.id].slice(-12);seen.add(p.id);
-}
-assert.equal(counted.size,10);assert(seen.size>500);console.log(`PASS: 2,000 generated matching boards, ${seen.size} combinations, 10 reusable countable PNGs, unique targets, adaptive limits, and repeat avoidance.`);

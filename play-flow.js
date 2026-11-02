@@ -34,7 +34,7 @@ export class PlayFlow{
  speechGesture(category){
   if(category?.endsWith('_intro'))return null; // Entry already supplies the board gesture.
   if(category?.endsWith('_help')||category==='controls')return this.responses.next('help-pose',['guide','nod','ponder']);
-  if(category==='counting'||category==='letter_reading')return 'nod';
+  if(category==='counting'||category==='letter_reading')return null;
   if(category==='welcome')return 'invite';return null;
  }
  help(){return this.line('help');}
@@ -51,10 +51,10 @@ export class PlayFlow{
  }
  activity(){this.cancelIntro();}
  requestedSpeech(){this.cancelIntro();this.lastSpeech=this.now();}
- match(){this.activity();if(this.round?.done)return;this.matchCount++;this.react(this.responses.next('match',['nod','ponder','attend']),.85);}
+ match(){this.activity();if(this.round?.done)return;this.matchCount++;this.react(this.responses.next('match',['nod','attend']),.85);}
  mistake(){this.activity();if(!this.round||this.round.done)return;this.round.mistakes++;if(this.round.mistakes<2||this.round.hinted)return;this.round.hinted=true;this.react('guide',1.6);this.automatic(this.help(),{gap:20000});return true;}
  complete(){if(!this.round||this.round.done)return;this.activity();this.round.done=true;this.wins++;
-  const gesture=this.responses.next('celebration',['yes','proud','win','encourage','hurray']);
+  const gesture=this.responses.next('celebration',['yes','win','encourage','hurray','woohoo']);
   this.react(gesture,1.8);
   const success=this.line('win');
   this.later(()=>{if(this.canSpeak()){this.lastSpeech=this.now();this.cheer({text:success,reaction:gesture,rate:1,pitch:1,volume:.8});}},120);

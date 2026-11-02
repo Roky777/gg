@@ -1,4 +1,4 @@
-import {bindCardReading} from './card-audio.js?v=card-audio-51';
+import {bindCardReading} from './card-audio.js?v=polish-52';
 /** Three exact image sections, with drag-only placement. */
 export function createAssemblyBoard(item){
  const image=`assembly/${item.id}.png`;
@@ -15,6 +15,7 @@ export class AssemblyRound{
   this.zones=[];this.sources=[];
   for(let id=0;id<3;id++){
    const zone=document.createElement('button');zone.type='button';zone.className='assembly-zone';zone.style.top=`${id*100/3}%`;zone.setAttribute('aria-label',picture.targets[id]+' का टुकड़ा यहाँ रखो');this.zones[id]=zone;target.append(zone);
+   bindCardReading(zone,()=>this.onRead(),()=>!this.destroyed&&!this.isPaused()&&this.placed.has(id));
   }
   const guides=document.createElement('div');guides.className='assembly-guides';guides.setAttribute('aria-hidden','true');for(let i=1;i<3;i++){const line=document.createElement('span');line.style.top=`${i*100/3}%`;guides.append(line);}target.append(guides);
   const tray=document.createElement('div');tray.className='assembly-tray';tray.setAttribute('aria-label','तस्वीर के तीन टुकड़े');element.append(tray);
@@ -37,7 +38,7 @@ export class AssemblyRound{
  end(e){const drag=this.drag;if(!drag||drag.pointer!==e.pointerId)return;const rect=this.target.getBoundingClientRect();const zone=e.clientX>=rect.left&&e.clientX<=rect.right?sectionAt(e.clientY,rect):-1;this.cancelDrag();if(!this.allowed())return;if(drag.moved||Math.hypot(e.clientX-drag.x,e.clientY-drag.y)>7){if(zone>=0)this.place(drag.id,zone);}}
  cancelDrag(){this.ghost?.remove();this.ghost=null;this.drag=null;this.selected=null;this.updateSelection();this.zones.forEach(z=>z.classList.remove('drop-active'));}
  place(id,zone){if(!this.allowed()||this.placed.has(id)||this.placed.has(zone))return;this.onActivity();if(id!==zone){this.misses++;this.onWrong();this.sound('tap');this.tell('दूसरी जगह कोशिश करो।',{speak:false});if(this.misses>=2){this.zones[id].classList.add('hint');this.timers.push(setTimeout(()=>this.zones[id].classList.remove('hint'),2400));}return;}
-  this.placed.add(id);this.misses=0;this.selected=null;this.updateSelection();const source=this.sources[id];source.disabled=true;source.classList.add('used');this.zones[id].append(this.art(id));this.zones[id].classList.add('filled');this.zones[id].disabled=true;this.zones[id].classList.remove('hint');this.sound('swap');this.progress.setAttribute('aria-label',`तीन में से ${this.placed.size} टुकड़े लगे`);[...this.progress.children].forEach((dot,i)=>dot.classList.toggle('earned',i<this.placed.size));
+  this.placed.add(id);this.misses=0;this.selected=null;this.updateSelection();const source=this.sources[id];source.disabled=true;source.classList.add('used');this.zones[id].append(this.art(id));this.zones[id].classList.add('filled');this.zones[id].classList.remove('hint');this.sound('swap');this.progress.setAttribute('aria-label',`तीन में से ${this.placed.size} टुकड़े लगे`);[...this.progress.children].forEach((dot,i)=>dot.classList.toggle('earned',i<this.placed.size));
   if(this.placed.size===3){this.element.classList.add('assembly-complete');const whole=document.createElement('img');whole.className='assembly-full-image';whole.src='assets/art/'+this.picture.cards[0].image;whole.alt=this.picture.item.name;whole.draggable=false;this.target.append(whole);this.onComplete();}else{this.tell('सही! ✓',{speak:false});this.onMatch();const next=this.sources.find(s=>!s.disabled);next?.focus({preventScroll:true});}
  }
  destroy(){this.destroyed=true;this.cancelDrag();this.timers.forEach(clearTimeout);}

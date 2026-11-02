@@ -1,19 +1,19 @@
-import {cardReadings,bindCardReading} from './card-audio.js?v=card-audio-51';
-import {BreakSchedule,PlayBreak,makeFunBoard} from './play-breaks.js?v=play-breaks-48';
+import {cardReadings,bindCardReading} from './card-audio.js?v=polish-52';
+import {BreakSchedule,createPlayBreak,makeFunBoard,FUN_KINDS} from './play-breaks.js?v=soil-anchor-55';
 import {reviewVoices,pictureVoice,RECORDINGS,recordingFor} from './voice-cues.js?v=lip-sync-40';
-import {syncLayout} from './responsive-layout.js?v=board-ribbon-43';
-import {CompanionPose} from './companion-pose.js?v=lip-sync-40';
-import {PlayFlow,ModeDeck} from './play-flow.js?v=companion-variety-44';
+import {syncLayout} from './responsive-layout.js?v=companion-57';
+import {CompanionPose} from './companion-pose.js?v=companion-57';
+import {PlayFlow,ModeDeck} from './play-flow.js?v=companion-57';
 import {solved,swap,scramble,slotAt,swapFeedback} from './model.js?v=lip-sync-40';
-import {MascotDirector,CLIPS} from './mascot-director.js?v=lip-sync-40';
-import {GameAudio} from './game-audio.js?v=play-breaks-48';
+import {MascotDirector,CLIPS} from './mascot-director.js?v=current-sparky-1';
+import {GameAudio} from './game-audio.js?v=activities-53';
 import {makeBoard} from './puzzle-generator.js?v=drag-only-47';
-import {LearningVoice} from './learning-voice.js?v=lip-sync-40';
-import {AssemblyRound,createAssemblyBoard} from './assembly-game.js?v=card-audio-51';
+import {LearningVoice} from './learning-voice.js?v=companion-57';
+import {AssemblyRound,createAssemblyBoard} from './assembly-game.js?v=polish-52';
 import {AssemblyDeck} from './assembly-catalog.js?v=lip-sync-40';
-import {CountingRound,makeCountingBoard,COUNT_WORDS} from './counting-game.js?v=card-audio-51';
+import {CountingRound,makeCountingBoard,COUNT_WORDS} from './counting-game.js?v=pocket-centres-58';
 import {RoundBanner} from './round-banner.js?v=lip-sync-40';
-import {DifferenceRound,createDifferenceBoard} from './differences-game.js?v=lip-sync-40';
+import {DifferenceRound,createDifferenceBoard} from './differences-game.js?v=red-contours-55';
 const $=id=>document.getElementById(id),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const director=new MascotDirector($('mascot'),CLIPS,{reduced});
 const companion=new CompanionPose({reduced});director.setPoseModifier((skeleton,frame)=>companion.apply(skeleton,frame));
@@ -38,7 +38,7 @@ let activeRound=null,assemblyEnabled=false,countingEnabled=false,countVoiceRow=n
 const roundBanner=new RoundBanner($('round-banner'),$('round-banner-title'));
 let bannerRound=-1;
 function introduce(){
- if(currentPicture?.fun){if(!activeRound?.announced&&voiceUnlocked&&soundOn&&activeRound){activeRound.announced=true;voice.say(currentPicture.topic==='balloon-pop'?'transition_02':'transition_01');}return;}
+ if(currentPicture?.fun){if(!activeRound?.announced&&voiceUnlocked&&soundOn&&activeRound){activeRound.announced=true;voice.say(currentPicture.intro,{volume:.85});}return;}
  if(bannerRound!==roundToken){roundBanner.show(topic);bannerRound=roundToken;}
  flow.offerIntro();
 }
@@ -54,7 +54,7 @@ let wins=0,topic='letters',voiceUnlocked=false,lastSpoken='',completed=new Set()
 try{const saved=JSON.parse(localStorage.getItem('sparky-learning-pictures-v1')||'[]');if(Array.isArray(saved))completed=new Set(saved.filter(id=>typeof id==='string').slice(-200));}catch{}
 
 let reviewActive=false;
-const voice=new LearningVoice({onStart(cue){gameAudio.setSpeaking(true);director.setSpeaking(true);const gesture=flow.speechGesture(cue?.category);if(gesture)respond(gesture);},onEnd(){gameAudio.setSpeaking(false);director.setSpeaking(false);if(reviewActive){reviewActive=false;if(!navigationLoading&&!document.hidden&&!matchMedia('(orientation:portrait)').matches&&!$('pause-dialog').open)flow.resume();}},onUnavailable(){$('voice-note').textContent='इस ब्राउज़र में आवाज़ उपलब्ध नहीं है।';}});
+const voice=new LearningVoice({onStart(cue){gameAudio.setSpeaking(true);director.setSpeaking(true);const gesture=flow.speechGesture(cue?.category);if(gesture)respond(gesture);},onEnd(){gameAudio.setSpeaking(false);director.setSpeaking(false);if(reviewActive){reviewActive=false;if(!navigationLoading&&!document.hidden&&!matchMedia('(orientation:portrait)').matches&&!$('pause-dialog').open)flow.resume();}},onUnavailable(){$('voice-note').textContent='Audio is unavailable in this browser.';}});
 director.setSpeechSource(()=>voice.speechFrame());
 function tell(message,{speak=true,display=message}={}){lastSpoken=message;$('learning-caption').textContent=display;if(speak&&voiceUnlocked&&soundOn)voice.say(message);}
 function saveLearning(){try{localStorage.setItem('sparky-learning-pictures-v1',JSON.stringify([...completed]));}catch{}}
@@ -76,10 +76,11 @@ async function advance(){
 }
 
 function readCard(picture,card){
- if(navigationLoading||done||busy||document.hidden||$('pause-dialog').open||!soundOn)return;
+ if(navigationLoading||busy||document.hidden||$('pause-dialog').open||!soundOn)return;
  const cues=cardReadings(picture,card);if(!cues.length)return;
  idleSchedule();flow.requestedSpeech();voiceUnlocked=true;voice.unlock();countVoiceRow=null;
  voice.saySequence(cues,{volume:.9});
+ if(done&&voice.pending>0){flow.pause();reviewActive=true;}
 }
 
 function cancelReactions(){clearTimeout(idleTimer);director.clearQueue();}
@@ -104,7 +105,7 @@ function respond(name,seconds=1.2){
  if(['nod','guide','invite','ponder','attend'].includes(name)){
   if(name==='invite')companion.faceChild();else companion.look(.5,.5);
   if(name!=='attend')companion.act(name==='invite'?'wave':name);
- }else{companion.faceChild();void director.react(name,{seconds}).catch(()=>{});}
+ }else{companion.faceChild();void director.react(name,{seconds:Math.max(seconds,director.animations?.get(director.clips[name])?.duration||0)}).catch(()=>{});}
 }
 function attendTo(element){if(!element?.getBoundingClientRect)return;const r=element.getBoundingClientRect(),b=$('board').getBoundingClientRect();if(b.width&&b.height)companion.look((r.left+r.width/2-b.left)/b.width,(r.top+r.height/2-b.top)/b.height);}
 $('board').addEventListener('pointerdown',e=>{if(!done)attendTo(e.target.closest('button')||e.target);},{capture:true});
@@ -122,7 +123,7 @@ function confetti({small=false}={}){
 }
 function matchCelebration(){roundBanner.hide({immediate:true});voice.cancel();confetti({small:true});flow.match();sound('friend');}
 
-function finish(){roundBanner.hide({immediate:true});cancelReactions();done=true;wins++;updateLearningUI();completed.add(currentPicture.id);saveLearning();if(topic==='letters')letterWins++;else if(topic==='numbers')numberWins++;else if(topic==='count-groups')groupWins++;upcomingBoard=null;warmNextRound();voice.cancel();tell('बहुत बढ़िया! ✓',{speak:false});$('task-rule').textContent='Well done! ✓';$('board').classList.add('solved');$('next').disabled=false;say('Well done! A new puzzle is coming. You can also choose Next now.');pieces.forEach(p=>p.disabled=true);flow.complete();sound('win');confetti();}
+function finish(){roundBanner.hide({immediate:true});cancelReactions();done=true;wins++;updateLearningUI();completed.add(currentPicture.id);saveLearning();if(topic==='letters')letterWins++;else if(topic==='numbers')numberWins++;else if(topic==='count-groups')groupWins++;upcomingBoard=null;warmNextRound();voice.cancel();tell('बहुत बढ़िया! ✓',{speak:false});$('task-rule').textContent='Well done! ✓';$('board').classList.add('solved');$('next').disabled=false;say('Well done! A new puzzle is coming. You can also choose Next now.');flow.complete();sound('win');confetti();}
 
 function exchange(a,b){
  if(navigationLoading||done||busy||$('pause-dialog').open)return;clearDrag();
@@ -137,12 +138,14 @@ function showMatchHint(){
 }
 
 function start(index){
- voice.cancel();cancelReactions();clearTimeout(settle);clearTimeout(celebration);clearDrag();activeRound?.destroy();activeRound=null;countVoiceRow=null;idleCount=0;void director.show('idle').catch(()=>{});roundToken++;currentPicture=index;topic=currentPicture.topic;flow.start(topic);companion.clear();flow.entry();done=false;busy=false;order=scramble();const pic=currentPicture,vertical=true;
+ voice.cancel();cancelReactions();clearTimeout(settle);clearTimeout(celebration);clearDrag();activeRound?.destroy();activeRound=null;countVoiceRow=null;idleCount=0;void director.show('idle').catch(()=>{});roundToken++;currentPicture=index;topic=currentPicture.topic;$('board').dataset.topic=topic;flow.start(topic);companion.clear();flow.entry();done=false;busy=false;order=scramble();const pic=currentPicture,vertical=true;
+ document.querySelector('.game').classList.toggle('activity-scene',!!pic.fun);
  if(pic.fun){
+  let lastActivityGesture=-Infinity;
   pieces=[];$('next').disabled=false;$('board').setAttribute('aria-busy','false');
-  activeRound=new PlayBreak({element:$('board'),picture:pic,reduced,isPaused:()=>navigationLoading||document.hidden||portraitScreen.matches||$('pause-dialog').open,
-   onPlay:({index,taps,kind})=>{sound(kind==='balloon-pop'?'pop':'jelly');companion.look((index%3+.5)/3,(Math.floor(index/3)+.5)/2);if(taps===1||taps%3===0)companion.act(kind==='balloon-pop'?'nod':'ponder');},
-   onComplete:()=>{done=true;confetti();sound('friend');respond(pic.topic==='balloon-pop'?'delight':'encourage',1.2);if(soundOn&&voiceUnlocked)voice.say('small_success_03',{volume:.8});},onNext:()=>void advance()});
+  activeRound=createPlayBreak({element:$('board'),picture:pic,reduced,isPaused:()=>navigationLoading||document.hidden||portraitScreen.matches||$('pause-dialog').open,
+   onPlay:({index=0,taps,kind,effect,x,y,demo})=>{sound(effect||(kind==='balloon-pop'?'pop':'jelly'));companion.look(x??(index%3+.5)/3,y??(Math.floor(index/3)+.5)/2);const now=performance.now();if(now-lastActivityGesture>1200&&(demo||taps===1||taps%3===0)){lastActivityGesture=now;companion.act(kind==='jelly-wiggle'?'ponder':'nod');}},
+   onComplete:({played})=>{done=true;if(played){confetti();sound('friend');respond(pic.topic==='balloon-pop'?'delight':'encourage',1.2);if(soundOn&&voiceUnlocked)voice.say('small_success_03',{volume:.8});}},onNext:()=>void advance()});
   layoutArt();tell(pic.intro,{speak:false});say(pic.rule);introduce();return;
  }
  $('next').disabled=false;$('board').setAttribute('aria-busy','false');$('board').className='board '+(vertical?'vertical':'horizontal');$('board').setAttribute('aria-label',`${pic.rule} Drag a whole picture onto another to swap their positions.`);$('confetti').replaceChildren();$('board').replaceChildren();pieces=[];
@@ -152,7 +155,7 @@ function start(index){
  }
  if(topic==='count-groups'){
   const token=roundToken;
-  activeRound=new CountingRound({element:$('board'),picture:pic,sound,tell,onActivity:idleSchedule,isPaused:()=>navigationLoading||document.hidden||$('pause-dialog').open,onWrong:()=>flow.mistake(),onRead:number=>readCard(pic,{amount:number}),onCount:(ordinal,row)=>{companion.look(.55,(row+.5)/4);flow.requestedSpeech();if(!soundOn)return;voiceUnlocked=true;if(countVoiceRow!==row){voice.cancel();countVoiceRow=row;}voice.say(COUNT_WORDS[ordinal],{queue:true,rate:1.05});},onMatch:matchCelebration,onComplete:()=>{if(token===roundToken&&!done)finish();}});
+  activeRound=new CountingRound({element:$('board'),picture:pic,sound,tell,onActivity:idleSchedule,isPaused:()=>navigationLoading||document.hidden||$('pause-dialog').open,onWrong:()=>flow.mistake(),onRead:number=>readCard(pic,{amount:number}),onCount:(ordinal,row)=>{companion.look(.55,(row+.5)/4);flow.requestedSpeech();if(!soundOn)return;voiceUnlocked=true;voice.unlock();if(countVoiceRow!==row){voice.cancel();countVoiceRow=row;}voice.say(COUNT_WORDS[ordinal],{queue:true,rate:1.05});},onMatch:matchCelebration,onComplete:()=>{if(token===roundToken&&!done)finish();}});
   updateLearningUI();$('task-rule').textContent=pic.rule;tell(pic.intro,{speak:false});layoutArt();idleSchedule();introduce();say(pic.rule);return;
  }
  if(topic==='assembly'){const token=roundToken;activeRound=new AssemblyRound({element:$('board'),picture:pic,onRead:()=>readCard(pic),director,sound,tell,reduced,onActivity:idleSchedule,isPaused:()=>navigationLoading||document.hidden||$('pause-dialog').open,onWrong:()=>flow.mistake(),onMatch:matchCelebration,onComplete:()=>{if(token===roundToken&&!done)finish();}});updateLearningUI();$('task-rule').textContent=pic.rule;tell(pic.intro,{speak:false});layoutArt();idleSchedule();introduce();say(pic.rule);return;}
@@ -168,7 +171,7 @@ function start(index){
    for(let n=0;n<card.amount;n++){const cell=document.createElement('span');cell.className='count-item';if(card.amount%2&&n===card.amount-1)cell.classList.add('odd-last');const image=document.createElement('img');image.src='assets/art/'+card.image;image.alt='';image.draggable=false;cell.append(image);mat.append(cell);}piece.append(mat);
   }
   pieces.push(piece);$('board').append(piece);
-  bindCardReading(piece,()=>readCard(pic,card),()=>!navigationLoading&&!done&&!busy&&!$('pause-dialog').open);
+  bindCardReading(piece,()=>readCard(pic,card),()=>!navigationLoading&&!busy&&!$('pause-dialog').open);
   piece.addEventListener('pointerdown',e=>{
    if(navigationLoading||done||busy||$('pause-dialog').open||e.button!==0)return;e.preventDefault();idleSchedule();sound('select');piece.focus({preventScroll:true});drag={id,slot:order.indexOf(id),x:e.clientX,y:e.clientY,pointer:e.pointerId,moved:false,target:order.indexOf(id)};piece.setPointerCapture(e.pointerId);
   });
@@ -181,7 +184,7 @@ function start(index){
  position();layoutArt();updateLearningUI();$('task-rule').textContent=currentPicture.rule;tell(currentPicture.intro,{speak:false});idleSchedule();introduce();say(pic.rule);
 }
 function closePause(){$('pause-dialog').close();flow.resume();director.resume();gameAudio.setPaused(false);sound('tap');idleSchedule();}
-function pause(){flow.pause();companion.clear();roundBanner.hide({immediate:true});voice.cancel();cancelReactions();clearDrag();activeRound?.cancelDrag();if(!$('pause-dialog').open){sound('tap');gameAudio.setPaused(true);director.pause();$('pause-dialog').showModal();}}
+function pause(){reviewActive=false;flow.pause();companion.clear();roundBanner.hide({immediate:true});voice.cancel();cancelReactions();clearDrag();activeRound?.cancelDrag();if(!$('pause-dialog').open){sound('tap');gameAudio.setPaused(true);director.pause();$('pause-dialog').showModal();}}
 $('mascot-button').onclick=()=>{
  if($('pause-dialog').open||navigationLoading)return;if(currentPicture?.fun){if(soundOn){voiceUnlocked=true;voice.unlock();voice.say(currentPicture.intro);}return;}idleSchedule();sound('tap');companion.faceChild();flow.requestedSpeech();
  let explanation=currentPicture.intro;
@@ -194,7 +197,7 @@ $('mascot-button').onclick=()=>{
 $('exit').onclick=pause;$('resume').onclick=closePause;$('restart').onclick=()=>{closePause();sound('swap');start(currentPicture);};$('pause-dialog').addEventListener('cancel',e=>{e.preventDefault();closePause();});
 $('next').onclick=advance;
 function muteUI(){$('sound').setAttribute('aria-label',soundOn?'Mute sound':'Turn sound on');$('sound').setAttribute('aria-pressed',String(!soundOn));$('sound').querySelector('img').src=`assets/art/ui-controls/${soundOn?'sound-on':'sound-off'}-v1.svg`;}
-$('sound').onclick=()=>{soundOn=!soundOn;try{localStorage.setItem('sparky-swap-sound',soundOn?'on':'off');}catch{}muteUI();gameAudio.setEnabled(soundOn);voice.setEnabled(soundOn);if(soundOn)sound('tap');};muteUI();voice.setEnabled(soundOn);
+$('sound').onclick=()=>{soundOn=!soundOn;try{localStorage.setItem('sparky-swap-sound',soundOn?'on':'off');}catch{}muteUI();gameAudio.setEnabled(soundOn);voice.setEnabled(soundOn);if(soundOn){sound('tap');introduce();}};muteUI();voice.setEnabled(soundOn);
 addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('pause-dialog').open){e.preventDefault();pause();}});
 document.addEventListener('visibilitychange',()=>{clearDrag();activeRound?.cancelDrag();gameAudio.setHidden(document.hidden);if(document.hidden){flow.pause();companion.clear();roundBanner.hide({immediate:true});voice.cancel();clearTimeout(idleTimer);director.pause();}else if(!$('pause-dialog').open&&!portraitScreen.matches){director.resume();flow.resume();idleSchedule();}});
 const portraitScreen=matchMedia('(orientation:portrait)');
@@ -211,9 +214,9 @@ async function boot(){try{
  await Promise.all([
   (async()=>{try{const response=await fetch('assets/art/assembly/manifest.json?v=lip-sync-40');if(response.ok){const catalog=await response.json();assemblyEnabled=catalog.ready===true&&catalog.images?.length===40;}}catch{}})(),
   (async()=>{try{const response=await fetch('assets/art/counting/manifest.json?v=lip-sync-40');if(response.ok){const catalog=await response.json();countingEnabled=catalog.ready===true&&catalog.images?.length===20;}}catch{}})(),
-  (async()=>{try{const response=await fetch('assets/art/differences/manifest.json?v=lip-sync-40');if(response.ok){const catalog=await response.json();differencesEnabled=catalog.ready===true&&catalog.boards?.length===20&&catalog.boards.every(p=>p.images?.length===2&&p.regions?.filter(r=>r.changed).length===3);if(differencesEnabled)differenceDeck=new AssemblyDeck(catalog.boards);}}catch{}})()
+  (async()=>{try{const response=await fetch('assets/art/differences/manifest.json?v=red-contours-55');if(response.ok){const catalog=await response.json();differencesEnabled=catalog.ready===true&&catalog.boards?.length===20&&catalog.boards.every(p=>p.images?.length===2&&p.regions?.filter(r=>r.changed).length===3);if(differencesEnabled)differenceDeck=new AssemblyDeck(catalog.boards);}}catch{}})()
  ]);
- const previewKind=new URLSearchParams(location.search).get('game');const first=['balloon-pop','jelly-wiggle'].includes(previewKind)?makeFunBoard(previewKind):newBoard();await Promise.all([director.ready,loadPicture(first),loadOpeningArt()]);await director.show('idle');roundCount=1;start(first);$('loading').hidden=true;syncOrientation();warmNextRound();
+ const previewKind=new URLSearchParams(location.search).get('game');const first=FUN_KINDS.includes(previewKind)?makeFunBoard(previewKind):newBoard();await Promise.all([director.ready,loadPicture(first),loadOpeningArt()]);await director.show('idle');roundCount=1;start(first);$('loading').hidden=true;syncOrientation();warmNextRound();
  }catch(e){$('loading').querySelector('p').textContent='Could not load the game. Please refresh.';console.error(e);}}
 
 boot();

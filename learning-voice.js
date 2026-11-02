@@ -20,7 +20,18 @@ export class LearningVoice {
   this.synth?.cancel();this.onEnd();
  }
  speechFrame(){
-  const job=this.current;if(!job||!job.recording||job.fallback)return null;
+  const job=this.current;if(!job)return null;
+  if(job.fallback){
+   const playing=!!job.playing&&!job.ttsPaused;
+   // System speech has no media clock/phoneme track. Use its word boundaries
+   // as a modest approximation; never pretend these are recorded visemes.
+   const elapsed=Math.max(0,performance.now()-(job.boundaryAt||0));
+   const word=job.word||'';
+   const letter=word[Math.min(word.length-1,Math.floor(elapsed/110))]||'';
+   const shape=/[mbpमबप]/i.test(letter)?'A':/[uूुऊउw]/i.test(letter)?'F':/[oोौओऔ]/i.test(letter)?'E':/[aाआअ]/i.test(letter)?'D':/[eिीेैईइएऐ]/i.test(letter)?'C':'B';
+   return {playing,shape:playing&&word&&elapsed<Math.max(250,word.length*130)?shape:'X',id:null};
+  }
+  if(!job.recording)return null;
   const playing=!!job.playing&&!this.audio.paused;
   return {playing,shape:playing?mouthShapeAt(job.id,this.audio.currentTime):'X',time:this.audio.currentTime||0,id:job.id};
  }
@@ -42,7 +53,11 @@ export class LearningVoice {
    if(!this.synth||!this.Utterance){this.onUnavailable();finish();return;}
    const u=new this.Utterance(job.text);u.lang='hi-IN';u.rate=job.rate;u.pitch=Math.max(.8,Math.min(1.3,job.pitch));u.volume=job.volume;
    const voices=this.synth.getVoices();u.voice=voices.find(v=>/^hi[-_]IN$/i.test(v.lang)&&/Google|Swara|Kalpana|Lekha/i.test(v.name))||voices.find(v=>/^hi(?:[-_]|$)/i.test(v.lang))||null;
-   u.onstart=start;u.onend=finish;u.onerror=e=>{if(valid()&&!['canceled','interrupted'].includes(e.error))this.onUnavailable();finish();};this.synth.speak(u);
+   const wordAt=index=>{job.boundaryAt=performance.now();job.word=job.text.slice(index).match(/^\S+/)?.[0]||'';};
+   u.onstart=()=>{if(!valid())return;wordAt(0);start();};
+   u.onboundary=e=>{if(valid()&&e.name==='word')wordAt(e.charIndex);};
+   u.onpause=()=>{if(valid())job.ttsPaused=true;};u.onresume=()=>{if(valid())job.ttsPaused=false;};
+   u.onend=finish;u.onerror=e=>{if(valid()&&!['canceled','interrupted'].includes(e.error))this.onUnavailable();finish();};this.synth.speak(u);
   };
   if(!job.recording||!this.audio){fallback();return;}
   const audio=this.audio;let failed=false;

@@ -1,0 +1,42 @@
+/* Green success glow belongs only to letter-card matching. */
+.board[data-topic="letters"] .piece.in-place::after{
+ content:'';position:absolute;inset:0;border:3px solid #32b96b;
+ border-radius:10px;box-shadow:inset 0 0 9px #4ee98c90;
+ width:auto;height:auto;font-size:0;pointer-events:none;z-index:4;
+}
+.board[data-topic="letters"] .piece.in-place:not(.dragging){
+ outline:2px solid #32b96b;outline-offset:-2px;
+ filter:drop-shadow(0 0 5px #3bdb7bbb) drop-shadow(0 0 10px #3bdb7b66);
+}
+.board .piece.dragging::after{display:none}
+.board:not([data-topic="letters"]) .piece.in-place{outline:none;border-color:#e3dcc5;box-shadow:0 5px 0 #d3c8a4,0 8px 12px #355e5c1c}
+.quantity-row.answered::after{content:none}
+.quantity-row.answered .quantity-dock{filter:none}
+.assembly-zone.filled{box-shadow:none}
+.assembly-complete .assembly-direction::after{content:none}
+.assembly-complete .assembly-surface{outline:none}
+.assembly-complete .assembly-art{box-shadow:none}
+.difference-found-outline{filter:drop-shadow(0 0 2px #ff443b80) drop-shadow(0 0 4px #ed352f40)}
+/* The pause panel uses the same illustrated garden controls as the game. */
+#pause-dialog{color:#255f65;background:#fffbed;border:3px solid #9cd3b4;border-radius:26px;
+ padding:clamp(18px,3vh,32px) clamp(22px,4vw,48px);text-align:center;
+ width:min(440px,90vw);max-height:92dvh;box-shadow:0 10px 0 #215d5870,0 20px 60px #123e4b60}
+#pause-dialog::backdrop{background:#123f4a80;backdrop-filter:blur(4px)}
+#pause-dialog h1{font-size:clamp(20px,3.5vh,28px);line-height:1.2;margin:0 0 8px;font-weight:900}
+#pause-dialog p{font-size:clamp(13px,2.6vh,16px);margin:0 0 20px;color:#527c77}
+.pause-actions{display:flex;justify-content:center;gap:clamp(28px,5vw,56px)}
+.pause-actions>div{display:grid;justify-items:center;gap:8px}
+#pause-dialog .pause-action{position:relative;inset:auto;display:grid;place-items:center;margin:0;
+ width:clamp(64px,18vh,100px);height:auto;min-width:56px;min-height:56px;aspect-ratio:1;
+ background:transparent url('assets/art/ui-controls/button-teal-v1.png') center/100% 100% no-repeat;
+ border:0;padding:0;box-shadow:none;border-radius:26%}
+#pause-dialog .pause-action img{width:52%;height:52%;object-fit:contain}
+.pause-actions span{font-size:clamp(13px,2.8vh,17px);font-weight:800}
+#pause-dialog .pause-action:focus-visible{outline:3px solid #267c65;outline-offset:3px}
+@media(orientation:landscape) and (max-height:360px){#pause-dialog{padding:14px 24px}#pause-dialog p{margin-bottom:12px}.pause-actions>div{gap:4px}}
+
+.loading p{letter-spacing:0;line-height:1.5}
+.quantity-row.answered .quantity-dock,.assembly-zone.filled{cursor:pointer;touch-action:manipulation}
+
+/* No ground shadow or duplicate silhouette behind Sparky. */
+.mascot .shadow{display:none!important}

@@ -1,1 +1,0 @@
-Nunito variable font, bundled locally for all visible English game text. Source: https://github.com/google/fonts/tree/main/ofl/nunito . License: SIL Open Font License 1.1, in OFL-Nunito.txt. Hindi speech is generated separately by the device voice.
