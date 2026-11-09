@@ -1,4 +1,5 @@
 import{FOODS,shuffled,randomFor}from'./content.mjs';
+import{dealContent,contentSeed}from'./content-deck.mjs';
 import{feedingResponse,feedingIdle,feedingById}from'../animation-studio/feeding-clips.mjs';
 import{servingPlan}from'./serving-rules.mjs';
 import{servingNode,utensilCarry,portionNode}from'./food-serving.mjs';
@@ -12,7 +13,8 @@ import{foodFollowTarget,advanceFoodFollow,resetFoodFollow}from'./feeding-interac
 import{feedingInteractionById,foodSuggestionClip}from'../animation-studio/feeding-interaction-clips.mjs';
 // Rotate through fixed shuffled catalogues: every supplied food appears without
 // preloading the complete pack, with two everyday foods and two treats per tray.
-export function feedingFoods(round=0){const pick=(pool,count)=>{const deck=shuffled(pool,randomFor(6817));return Array.from({length:count},(_,i)=>deck[(round*count+i)%deck.length])};return shuffled([...pick(FOODS.filter(f=>f.category==='everyday'),2),...pick(FOODS.filter(f=>f.reaction==='tooth'),1),...pick(FOODS.filter(f=>f.reaction==='no'),1)],randomFor(811+round*71))}
+export function feedingFoods(round=0){return shuffled([...dealContent('food-everyday',FOODS.filter(f=>f.category==='everyday'),2,round),...dealContent('food-sweet',FOODS.filter(f=>f.reaction==='tooth'),1,round),...dealContent('food-occasional',FOODS.filter(f=>f.reaction==='no'),1,round)],randomFor(contentSeed('food-order-'+round)))}
+
 const reactionDeck=new FeedingReactionDeck(),waitingDeck=new FeedingWaitClock();
 export class FoodChoices{
  constructor(round){this.tools=new Map();this.round=round;this.interaction={gaze:[0,0],ready:0,active:false};this.followTarget={gaze:[0,0],ready:0};this.greetingIndex=0;this.childToken=0;const r=round;r.body.classList.add('feeding-board');this.avatar=document.createElement('div');this.avatar.className='feeding-avatar';const tray=document.createElement('div');tray.className='feeding-tray';this.choices=document.createElement('div');this.choices.className='food-choice-grid';this.progress=r.text('p','feeding-progress','Choose a food, then offer it to Sparky.');this.next=r.text('button','feeding-continue','Continue');this.next.type='button';this.next.hidden=true;r.listen(this.next,'click',()=>this.settle());tray.append(this.choices,this.progress,this.next);r.body.append(this.avatar,tray);this.target=r.text('button','feeding-target','');this.target.type='button';this.target.dataset.target='feed';this.target.setAttribute('aria-label','Offer the selected food to Sparky');this.target.append(r.text('span','feeding-target-label','Feed Sparky'));r.listen(this.target,'click',()=>this.offer());this.avatar.append(this.target);r.player.container=this.avatar;this.buttons=[];

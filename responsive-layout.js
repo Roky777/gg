@@ -1,6 +1,6 @@
 /** Fit complete artwork inside the board opening, without cropping or scrolling. */
 export function fitArtwork(width,height){
- return {assembly:Math.max(0,Math.min(width*.62,height)),tray:Math.max(0,Math.min(width*.28,height*2/3)),difference:Math.max(0,Math.min(width*.48,height/(.18+.82*4/3)))};
+ return {assembly:Math.max(0,Math.min(width*.49,height*.78)),tray:Math.max(0,Math.min(width*.28,height*2/3)),difference:Math.max(0,Math.min(width*.48,height/(.18+.82*4/3)))};
 }
 export function syncLayout(board){
  if(!board)return;
@@ -13,6 +13,7 @@ export function syncLayout(board){
   frame.style.setProperty('--ribbon-font',height*.44+'px');
  }
  const fit=fitArtwork(board.clientWidth,board.clientHeight);
+ board.style.setProperty('--count-tray-width',Math.min(board.clientWidth*.2575,board.clientHeight*.96*882/1784)+'px');
  board.style.setProperty('--assembly-size',fit.assembly+'px');
  board.style.setProperty('--assembly-tray-width',fit.tray+'px');
  const gallery=board.querySelector('.difference-pictures');

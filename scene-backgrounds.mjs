@@ -1,4 +1,4 @@
-const scene=(name,surface='grass',life={clouds:true,vegetation:1})=>({name,image:'worlds-v3/'+name+'.webp',surface,mode:'background',life});
+const scene=(name,surface='grass',life={clouds:true,vegetation:1})=>({name,image:'worlds-v3/shared-playroom-v1.webp',surface:'floor',mode:'background',life:{sunlight:1}});
 export const SCENES={
  amusement:scene('amusement'),
  playroom:scene('playroom','floor',{sunlight:1}),
@@ -8,14 +8,14 @@ export const SCENES={
  market:scene('market','floor',{clouds:true,vegetation:.35}),
  farm:scene('farm'),
  art:scene('art','floor',{sunlight:1}),
- kitchen:{name:'kitchen',image:'figma-ui/feeding-wall.webp',surface:'floor',mode:'dedicated'},
- chalkboard:{name:'chalkboard',image:'play-kit/studio-backdrop.svg',surface:'floor',mode:'dedicated'}
+ kitchen:{name:'kitchen',image:'worlds-v3/shared-playroom-v1.webp',surface:'floor',mode:'dedicated'},
+ chalkboard:{name:'chalkboard',image:'worlds-v3/shared-playroom-v1.webp',surface:'floor',mode:'dedicated'}
 };
 export const GAME_SCENES={
- letters:'garden',counting:'farm',assembly:'playroom',differences:'beach',
- 'count-connect':'garden','equal-groups':'market','colour-match':'art',
- 'word-picture':'market','letter-case':'garden','letter-picture':'amusement',
- 'food-sort':'kitchen','accessory-grid':'chalkboard','story-order':'stage'
+ letters:'playroom',counting:'playroom',assembly:'playroom',differences:'playroom',
+ 'count-connect':'playroom','equal-groups':'playroom','colour-match':'playroom',
+ 'word-picture':'playroom','letter-case':'playroom','letter-picture':'playroom',
+ 'food-sort':'kitchen','accessory-grid':'chalkboard'
 };
 const TOPICS={letters:'letters',numbers:'counting','count-groups':'counting',assembly:'assembly',differences:'differences'};
 export function backgroundFor(picture){
