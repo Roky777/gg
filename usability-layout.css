@@ -5,7 +5,7 @@
 }
 .game{--layout-board-left:18.5%;--layout-board-top:7%;--layout-board-width:73%;--layout-board-height:86%}
 .game:not(.feeding-room):not(.sticker-room):not(.activity-scene)>.mascot{left:.5%!important;top:21%!important;width:17%!important;height:69%!important}
-.game:not(.feeding-room):not(.sticker-room):not(.activity-scene)>.mascot{top:auto!important;height:auto!important;aspect-ratio:432/540;bottom:calc(100% - var(--room-floor-y,79%) + 3vw)!important}
+.game:not(.feeding-room):not(.sticker-room):not(.activity-scene)>.mascot{top:auto!important;height:auto!important;aspect-ratio:432/540;bottom:var(--mascot-ground-bottom,12%)!important}
 .game>.game-button.sound{left:1.2%!important;top:3%!important}
 .game>.game-button.exit{right:1.2%!important;top:3%!important}
 .game>.game-button.next{right:1.2%!important;bottom:3%!important}
@@ -25,8 +25,9 @@
 .game .counting-board .quantity-numbers .number-chip{height:17%;max-height:19%;width:auto;min-width:44px;min-height:44px}
 .game:not(.activity-scene) .puzzle-frame .assembly-art{left:5%!important;top:50%!important;width:var(--assembly-size)!important;height:var(--assembly-size)!important;aspect-ratio:1;box-sizing:border-box}
 /* One common room across all board games; activity-specific props stay useful. */
-.game[data-scene-mode=background]{background-position:left top}
-.game.feeding-room,.game.sticker-room{background-image:url('assets/art/worlds-v3/shared-playroom-v1.webp')!important;background-size:cover!important;background-position:left top!important}
+.game[data-scene-mode=background]{background-position:center}
+.game:is([data-scene-background=playroom],[data-scene-background=art]){background-position:left top}
+.game .mascot .finish-footing{top:112%;left:24%;width:52%;height:4%}
 /* A taller tablet still needs the dining table to reach the bottom edge. */
 .game.feeding-room .dining-table{height:max(34%,calc(106.951872cqw * 366 / 1800));min-height:39%;aspect-ratio:auto;object-fit:fill}
 @media(min-aspect-ratio:2/1){.game{--layout-board-left:18%;--layout-board-width:74%}}
