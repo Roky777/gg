@@ -15,7 +15,11 @@ export function syncLayout(board){
  const fit=fitArtwork(board.clientWidth,board.clientHeight);
  board.style.setProperty('--assembly-size',fit.assembly+'px');
  board.style.setProperty('--assembly-tray-width',fit.tray+'px');
- board.style.setProperty('--difference-width',fit.difference+'px');
+ const gallery=board.querySelector('.difference-pictures');
+ // Six-pixel frame on each side; fit the actual 3:4 photo, not an old
+ // percentage-based card whose margins changed under the responsive styles.
+ const photoWidth=gallery?Math.max(0,Math.min(gallery.clientWidth*.465,(gallery.clientHeight-12)*.75+12)):fit.difference;
+ board.style.setProperty('--difference-width',photoWidth+'px');
  // The answer is square and constrained by the row's height, in every state.
  // Measuring the parent prevents a placed tile's intrinsic grid size feeding
  // back into (and enlarging) its answer container.

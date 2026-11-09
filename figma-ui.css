@@ -1,0 +1,44 @@
+/* Source: DUPE-GAMES-UI, page 2017:337, feeding frame 2095:10.
+   Coordinates use that frame's 1920 x 1080 design space. */
+.game .game-button,.game .game-button.next,#pause-dialog .pause-action{background:transparent url('assets/art/figma-ui/control-shell.svg') center/contain no-repeat;box-shadow:none;border:0}
+.game .game-button img{position:absolute;object-fit:contain;filter:none}
+.game .game-button.sound img{width:48.736%;height:47.566%;left:25%;top:19.447%}
+.game .game-button.exit img{width:39.652%;height:53.792%;left:30.174%;top:18%}
+.game .game-button.next img{width:60.309%;height:56.466%;left:19.663%;top:15.9%;transform:scaleX(-1)}
+.game .game-button.pause-action img{position:static;width:48%;height:50%;transform:none}
+.game .game-button.sound[aria-pressed=true]::after{content:'';display:block;position:absolute;left:17%;top:44%;width:65.86%;height:6.33%;background:url('assets/art/figma-ui/sound-off-2.svg') center/contain no-repeat;transform:rotate(35.15deg) skewX(-2.82deg);pointer-events:none}
+
+.game.feeding-room{background:#ffeac8 url('assets/art/figma-ui/feeding-wall.webp') center/100% 100% no-repeat}
+.figma-kitchen-decoration{position:absolute;pointer-events:none;object-fit:fill;z-index:1}
+.figma-kitchen-shelf{left:69.896%;top:8.611%;width:23.802%;height:35%}
+.figma-kitchen-notes{left:6.719%;top:16.296%;width:17.5%;height:27.315%}
+.game.feeding-room .variant-heading{left:31.406%!important;top:4.815%!important;width:38.49%!important;max-width:none!important;height:9.259%;margin:0;padding:0 3%;display:flex;align-items:center;justify-content:center;background:transparent url('assets/art/figma-ui/instruction-banner.svg') center/100% 100% no-repeat;border:0;border-radius:0;color:#fffdf0;font-size:clamp(17px,2.2vw,36px)}
+.game.feeding-room .game-button.sound{left:3.333%;top:4.259%;width:5.833%;min-width:44px;min-height:44px}
+.game.feeding-room .game-button.next{right:2.031%;bottom:3.796%;width:5.833%;min-width:44px;min-height:44px}
+.game.feeding-room>.game-button.exit{visibility:hidden;pointer-events:none}
+.game.feeding-room .game-hub-button{position:absolute;left:auto;right:2.031%;top:4.259%;width:5.833%;height:auto;aspect-ratio:1;min-width:44px;min-height:44px;padding:0;border:0;border-radius:26%;font-size:0;color:transparent;background:transparent url('assets/art/figma-ui/control-shell.svg') center/contain no-repeat;z-index:8}
+.game.feeding-room .game-hub-button::after{content:'';position:absolute;left:20.38%;top:15.06%;width:59.26%;height:51.95%;background:url('assets/art/figma-ui/home-icon.svg') center/contain no-repeat}
+.game.feeding-room .game-hub-button:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.game.feeding-room .feeding-avatar .teaching-stage canvas{top:0;height:100%!important}
+.game.feeding-room .feeding-target{top:44.5%}
+.game.feeding-room .feeding-companion-touch{top:15%}
+.game.feeding-room .dining-table{left:0;top:62.963%;width:100%;height:37.037%;object-fit:cover}
+.game.feeding-room .dining-mat{left:35.99%;top:65%;width:27.969%;height:31.204%;object-fit:fill}
+.game.feeding-room .dining-plate{left:43.021%;top:69.352%;width:13.958%;height:19.722%;object-fit:fill}
+.game.feeding-room .dining-fork{position:absolute;left:57.917%;top:70.278%;width:2.552%;height:16.019%;object-fit:fill;transform:scaleY(-1);z-index:4;pointer-events:none}
+.game.feeding-room .dining-spoon{left:39.583%;top:70.648%;width:2.552%;height:14.63%;rotate:0deg;transform:scaleY(-1);object-fit:fill}
+.game.feeding-room .dining-serving{left:45%;top:74%;width:10%;height:10%}
+.game.feeding-room .feeding-tray{inset:0;pointer-events:none}
+.game.feeding-room .feeding-tray .food-choice-grid{inset:0;display:block}
+.game.feeding-room .feeding-tray .variant-card{position:absolute;width:12.5%;height:13.889%;min-width:0;min-height:44px;padding:0;background:#fff;border:clamp(2px,.3125vw,6px) solid #00bfe9;border-radius:clamp(12px,2.292vw,44px);pointer-events:auto;overflow:hidden;transition:transform .15s}
+.game.feeding-room .feeding-tray .variant-card:nth-child(1){left:22.604%;top:65.556%}
+.game.feeding-room .feeding-tray .variant-card:nth-child(2){left:22.604%;top:81.852%}
+.game.feeding-room .feeding-tray .variant-card:nth-child(3){left:64.844%;top:65.556%}
+.game.feeding-room .feeding-tray .variant-card:nth-child(4){left:64.844%;top:81.852%}
+.game.feeding-room .feeding-tray .variant-card>.variant-art{position:absolute;left:7.5%;bottom:22%;width:85%;height:76%;max-width:85%;filter:none}
+.game.feeding-room .feeding-tray .variant-card>.food-sprite{left:15%;width:70%;height:70%;background-color:transparent}
+.game.feeding-room .feeding-tray .food-choice-grid .variant-label{left:2%;bottom:1%;width:96%;max-width:96%;padding:0 2%;font-size:clamp(9px,.9vw,16px);line-height:1.1;background:transparent;color:#365866}
+.game.feeding-room .variant-feedback{left:74%!important;top:49%!important;width:22%!important;font-size:clamp(10px,1.2vw,19px)}
+.game.feeding-room .variant-hear{top:17%!important;right:2.2%!important;bottom:auto!important;font-size:clamp(10px,.9vw,14px)}
+.game.feeding-room .feeding-continue{position:absolute;left:37%;bottom:1.5%;width:26%;pointer-events:auto;min-height:32px}
+@media(prefers-reduced-motion:reduce){.game.feeding-room .feeding-tray .variant-card{transition:none}}

@@ -1,5 +1,5 @@
-# Sparky learning games
+# Sparky Learning Games
 
-Standalone browser build. Serve this directory over HTTP/HTTPS and open `index.html`. No installation or compilation is needed. Supports GitHub Pages at the repository root.
+Open index.html through a static web server. No install or build service is needed. The default route plays all 12 active games. Use ?debug=1 for the developer selector.
 
-The game is landscape-only. Sparky uses bundled Hinglish recordings, with device speech as fallback. Audio starts after interaction. Includes the bundled Spine runtime and its license notice.
+Unrecorded dialogue remains silent. Original source artwork, reviews and authoring data are excluded from this runtime build.

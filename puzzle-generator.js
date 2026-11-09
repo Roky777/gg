@@ -10,7 +10,7 @@ export function numberReview(quantities){
  return `वाह! सही गिना! चलो, छोटे से बड़े की ओर पढ़ें। इन तीनों में ${a} सबसे छोटा है। उससे बड़ा ${b} है। और उससे बड़ा ${c} है। ${a}… ${b}… ${c}। बहुत बढ़िया!`;
 }
 export const COUNTABLES=['apple','orange','pear','carrot','balloon','duck','fish','egg','leaf','van'].map(name=>ALPHABET.find(v=>v[1]===name));
-export const imageFor=name=>name==='ice cream'?'objects/ice-cream-whole-v2.png':'objects/'+name.replaceAll(' ','-')+'.png';
+export const imageFor=name=>name==='ice cream'?'objects/ice-cream-whole-v2.webp':'objects/'+name.replaceAll(' ','-')+'.webp';
 export function shuffled(values,random=Math.random){const a=[...values];for(let i=a.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 export function makeBoard({letterWins=0,numberWins=0,lastTopic=null,recent=[],preferredTopic=null}={},random=Math.random){
  // Mix both skills, but avoid long runs of one type. Numbers begin within five.

@@ -1,0 +1,65 @@
+[
+    {
+        "file":  "scene-0.webp",
+        "nodeId":  "2094:8",
+        "hash":  "2c50526c1240da6a8b95d12a4018aec66c38209f",
+        "width":  1672,
+        "height":  941
+    },
+    {
+        "file":  "scene-1.webp",
+        "nodeId":  "2095:15",
+        "hash":  "204d925b31a5e5fc2db710b682b8db880077fb28",
+        "width":  1672,
+        "height":  941
+    },
+    {
+        "file":  "scene-2.webp",
+        "nodeId":  "2095:18",
+        "hash":  "c29d4608870335bb43ad5e2ef7c8ee1dda6d9577",
+        "width":  1672,
+        "height":  941
+    },
+    {
+        "file":  "scene-3.webp",
+        "nodeId":  "2095:21",
+        "hash":  "d9439dce77a175ad338d5b0a133d95e2aeca5777",
+        "width":  1672,
+        "height":  941
+    },
+    {
+        "file":  "scene-4.webp",
+        "nodeId":  "2095:24",
+        "hash":  "be4698025b6bd3cf79f85413d44d86e5d61ae9c2",
+        "width":  1672,
+        "height":  941
+    },
+    {
+        "file":  "scene-5.webp",
+        "nodeId":  "2095:27",
+        "hash":  "ed06d5c0a9cfc8c3dc7e5f361e6e508c7a939424",
+        "width":  1672,
+        "height":  941
+    },
+    {
+        "file":  "scene-6.webp",
+        "nodeId":  "2095:30",
+        "hash":  "7363ef45191afc02ba37e85e8740a3a10bb20dfe",
+        "width":  1672,
+        "height":  941
+    },
+    {
+        "file":  "scene-7.webp",
+        "nodeId":  "2095:33",
+        "hash":  "c3bc43d0962261600ceb26f78015f6fc2e8f460a",
+        "width":  1672,
+        "height":  941
+    },
+    {
+        "file":  "scene-8.webp",
+        "nodeId":  "2095:36",
+        "hash":  "de6254613cea576183bf1bf56a248c87b37131f1",
+        "width":  1672,
+        "height":  941
+    }
+]

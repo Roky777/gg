@@ -1,0 +1,24 @@
+/* Illustrated local SVG assets. Puzzle content remains live and interactive. */
+.game:not(.activity-scene):not(.feeding-room):not(.sticker-room) .puzzle-frame{background:transparent url('assets/art/play-kit/board.svg') center/100% 100% no-repeat!important;clip-path:none!important;border:0;box-shadow:none}
+.game .puzzle-frame .variant-heading,.game .puzzle-frame .variant-instruction,.game .puzzle-frame .variant-feedback,.game .puzzle-frame .feeding-progress,.game .puzzle-frame .feeding-target-label,.game .puzzle-frame .variant-label,.game .puzzle-frame .card-name,.game .puzzle-frame .teaching-caption,.game .round-banner{position:absolute!important;width:1px!important;height:1px!important;min-height:0!important;max-width:1px!important;inset:auto!important;margin:-1px!important;padding:0!important;border:0!important;overflow:hidden!important;clip-path:inset(50%)!important;white-space:nowrap!important;background:none!important}
+.game:not(.feeding-room):not(.sticker-room) .puzzle-frame .variant-body{inset:12% 8% 12%}
+.game:not(.feeding-room):not(.sticker-room) .variant-card,.game:not(.feeding-room):not(.sticker-room) .story-slot,.game:not(.feeding-room):not(.sticker-room) .board .piece,.game:not(.feeding-room):not(.sticker-room) .quantity-row,.game:not(.feeding-room):not(.sticker-room) .assembly-choice,.variant-drag-ghost.variant-card:not(.sticker-piece){--skin-border:clamp(10px,1.15vw,18px);background:transparent!important;border:var(--skin-border) solid transparent!important;border-image:url('assets/art/play-kit/card.svg') 32 fill stretch!important;border-image-width:1!important;box-shadow:none!important;border-radius:16px}
+.game:not(.feeding-room):not(.sticker-room) .variant-card.selected,.game:not(.feeding-room):not(.sticker-room) .board .piece.selected,.game:not(.feeding-room):not(.sticker-room) .board .piece.target,.game:not(.feeding-room):not(.sticker-room) .assembly-choice.selected{border-image-source:url('assets/art/play-kit/card-selected.svg')!important;outline:0}
+.game:not(.feeding-room):not(.sticker-room) .variant-card.matched,.game:not(.feeding-room):not(.sticker-room) .story-slot.matched,.game:not(.feeding-room):not(.sticker-room) .board .piece.in-place,.game:not(.feeding-room):not(.sticker-room) .quantity-row.answered{border-image-source:url('assets/art/play-kit/card-correct.svg')!important}
+.game .variant-card:focus-visible,.game .story-slot:focus-visible,.game .assembly-choice:focus-visible{outline:3px solid #f7ae42!important;outline-offset:2px}
+.game .variant-columns [data-source]::before{right:calc(-7px - var(--skin-border,0px))}
+.game .variant-columns [data-target]::before{left:calc(-7px - var(--skin-border,0px))}
+.game .variant-group img{max-height:clamp(72px,12vh,120px)}
+.game .variant-columns .variant-card{padding:2%}
+.game #board[data-variant=word-picture] .variant-card{container-type:inline-size}
+.game #board[data-variant=word-picture] .variant-text{font-size:clamp(14px,calc(125cqw / var(--word-length,8)),48px)}
+.game .story-tray .variant-art,.game .story-slot .variant-art{height:94%}
+.game:not(.activity-scene) .assembly-art,.game:not(.activity-scene) .assembly-complete .assembly-art,.game:not(.activity-scene) .difference-panel,.game:not(.activity-scene) .quantity-dock{background-image:url('assets/art/play-kit/socket.svg')}
+.game .puzzle-frame .variant-hear{width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important;padding:0!important;font-size:0!important;color:transparent!important;background:transparent url('assets/art/play-kit/listen.svg') center/contain no-repeat!important;border:0!important;box-shadow:none!important;border-radius:14px!important;right:4.3%!important;bottom:3.5%!important;top:auto!important;z-index:5}
+.game.feeding-room .puzzle-frame .variant-hear{right:13%!important;top:5%!important;bottom:auto!important}
+.game.sticker-room .puzzle-frame .variant-hear{right:26%!important;bottom:2%!important}
+.game .puzzle-frame .teaching-tools button,.game .puzzle-frame .feeding-continue{width:48px;min-width:44px;height:48px;min-height:44px;padding:0;border:0!important;border-radius:14px;background:transparent url('assets/art/play-kit/next.svg') center/contain no-repeat!important;font-size:0!important;color:transparent!important}
+.game .puzzle-frame .teaching-tools button:first-child{background-image:url('assets/art/play-kit/replay.svg')!important}
+.game.feeding-room .feeding-continue{left:calc(50% - 24px);width:48px}
+@media(orientation:landscape) and (max-height:600px){.game:not(.feeding-room):not(.sticker-room) .puzzle-frame .variant-body{inset:10% 8% 18%}}
+@media(prefers-reduced-motion:reduce){.game .variant-card,.game .story-slot{transition:none}}

@@ -1,7 +1,7 @@
 /* Large, quiet play objects stay inside the illustrated board opening. */
 .puzzle-frame .board.fun-board{position:absolute;margin:0;inset:12% 9% 11%;width:auto;height:auto;display:grid;grid-template-rows:auto minmax(0,1fr);gap:3%;background:transparent;border:0;overflow:hidden}
 .fun-heading{text-align:center;pointer-events:none}
-.fun-heading h2{display:grid;place-items:center;width:70%;max-width:460px;aspect-ratio:2142/349;margin:0 auto;color:#fffdf3;font-size:clamp(15px,2.1vw,32px);line-height:1;background:url('assets/art/ui-board/round-ribbon.png') center/100% 100% no-repeat;text-shadow:0 1px 2px #532787}
+.fun-heading h2{display:grid;place-items:center;width:70%;max-width:460px;aspect-ratio:2142/349;margin:0 auto;color:#fffdf3;font-size:clamp(15px,2.1vw,32px);line-height:1;background:url('assets/art/ui-board/round-ribbon.webp') center/100% 100% no-repeat;text-shadow:0 1px 2px #532787}
 .fun-heading p{margin:4px 0 0;color:#255d68;font-weight:800;font-size:clamp(12px,1.35vw,20px)}
 .fun-toys{min-height:0;display:grid;grid-template:repeat(2,minmax(0,1fr))/repeat(3,minmax(0,1fr));gap:4% 6%;padding:2% 6%}
 .fun-toy{position:relative;min-height:44px;min-width:44px;width:100%;height:100%;padding:2%;border:0;background:none;border-radius:25%;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}

@@ -6,19 +6,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/object-apple.png",
+        "image": "ordering-png/object-apple.webp",
         "label": "apple",
         "value": "A",
         "say": "apple. A is for apple."
       },
       {
-        "image": "ordering-png/object-balloon.png",
+        "image": "ordering-png/object-balloon.webp",
         "label": "balloon",
         "value": "B",
         "say": "balloon. B is for balloon."
       },
       {
-        "image": "ordering-png/object-carrot.png",
+        "image": "ordering-png/object-carrot.webp",
         "label": "carrot",
         "value": "C",
         "say": "carrot. C is for carrot."
@@ -35,19 +35,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/object-balloon.png",
+        "image": "ordering-png/object-balloon.webp",
         "label": "balloon",
         "value": "B",
         "say": "balloon. B is for balloon."
       },
       {
-        "image": "ordering-png/object-carrot.png",
+        "image": "ordering-png/object-carrot.webp",
         "label": "carrot",
         "value": "C",
         "say": "carrot. C is for carrot."
       },
       {
-        "image": "ordering-png/object-duck.png",
+        "image": "ordering-png/object-duck.webp",
         "label": "duck",
         "value": "D",
         "say": "duck. D is for duck."
@@ -64,19 +64,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/object-carrot.png",
+        "image": "ordering-png/object-carrot.webp",
         "label": "carrot",
         "value": "C",
         "say": "carrot. C is for carrot."
       },
       {
-        "image": "ordering-png/object-duck.png",
+        "image": "ordering-png/object-duck.webp",
         "label": "duck",
         "value": "D",
         "say": "duck. D is for duck."
       },
       {
-        "image": "ordering-png/object-egg.png",
+        "image": "ordering-png/object-egg.webp",
         "label": "egg",
         "value": "E",
         "say": "egg. E is for egg."
@@ -93,19 +93,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/object-duck.png",
+        "image": "ordering-png/object-duck.webp",
         "label": "duck",
         "value": "D",
         "say": "duck. D is for duck."
       },
       {
-        "image": "ordering-png/object-egg.png",
+        "image": "ordering-png/object-egg.webp",
         "label": "egg",
         "value": "E",
         "say": "egg. E is for egg."
       },
       {
-        "image": "ordering-png/object-fish.png",
+        "image": "ordering-png/object-fish.webp",
         "label": "fish",
         "value": "F",
         "say": "fish. F is for fish."
@@ -122,19 +122,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/object-egg.png",
+        "image": "ordering-png/object-egg.webp",
         "label": "egg",
         "value": "E",
         "say": "egg. E is for egg."
       },
       {
-        "image": "ordering-png/object-fish.png",
+        "image": "ordering-png/object-fish.webp",
         "label": "fish",
         "value": "F",
         "say": "fish. F is for fish."
       },
       {
-        "image": "ordering-png/object-grapes.png",
+        "image": "ordering-png/object-grapes.webp",
         "label": "grapes",
         "value": "G",
         "say": "grapes. G is for grapes."
@@ -151,19 +151,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/object-fish.png",
+        "image": "ordering-png/object-fish.webp",
         "label": "fish",
         "value": "F",
         "say": "fish. F is for fish."
       },
       {
-        "image": "ordering-png/object-grapes.png",
+        "image": "ordering-png/object-grapes.webp",
         "label": "grapes",
         "value": "G",
         "say": "grapes. G is for grapes."
       },
       {
-        "image": "ordering-png/object-house.png",
+        "image": "ordering-png/object-house.webp",
         "label": "house",
         "value": "H",
         "say": "house. H is for house."
@@ -180,19 +180,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/object-grapes.png",
+        "image": "ordering-png/object-grapes.webp",
         "label": "grapes",
         "value": "G",
         "say": "grapes. G is for grapes."
       },
       {
-        "image": "ordering-png/object-house.png",
+        "image": "ordering-png/object-house.webp",
         "label": "house",
         "value": "H",
         "say": "house. H is for house."
       },
       {
-        "image": "ordering-png/object-ice-cream.png",
+        "image": "ordering-png/object-ice-cream.webp",
         "label": "ice cream",
         "value": "I",
         "say": "ice cream. I is for ice cream."
@@ -209,19 +209,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/object-house.png",
+        "image": "ordering-png/object-house.webp",
         "label": "house",
         "value": "H",
         "say": "house. H is for house."
       },
       {
-        "image": "ordering-png/object-ice-cream.png",
+        "image": "ordering-png/object-ice-cream.webp",
         "label": "ice cream",
         "value": "I",
         "say": "ice cream. I is for ice cream."
       },
       {
-        "image": "ordering-png/object-jellyfish.png",
+        "image": "ordering-png/object-jellyfish.webp",
         "label": "jellyfish",
         "value": "J",
         "say": "jellyfish. J is for jellyfish."
@@ -238,19 +238,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/object-ice-cream.png",
+        "image": "ordering-png/object-ice-cream.webp",
         "label": "ice cream",
         "value": "I",
         "say": "ice cream. I is for ice cream."
       },
       {
-        "image": "ordering-png/object-jellyfish.png",
+        "image": "ordering-png/object-jellyfish.webp",
         "label": "jellyfish",
         "value": "J",
         "say": "jellyfish. J is for jellyfish."
       },
       {
-        "image": "ordering-png/object-kite.png",
+        "image": "ordering-png/object-kite.webp",
         "label": "kite",
         "value": "K",
         "say": "kite. K is for kite."
@@ -267,19 +267,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/object-jellyfish.png",
+        "image": "ordering-png/object-jellyfish.webp",
         "label": "jellyfish",
         "value": "J",
         "say": "jellyfish. J is for jellyfish."
       },
       {
-        "image": "ordering-png/object-kite.png",
+        "image": "ordering-png/object-kite.webp",
         "label": "kite",
         "value": "K",
         "say": "kite. K is for kite."
       },
       {
-        "image": "ordering-png/object-leaf.png",
+        "image": "ordering-png/object-leaf.webp",
         "label": "leaf",
         "value": "L",
         "say": "leaf. L is for leaf."
@@ -296,19 +296,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/object-kite.png",
+        "image": "ordering-png/object-kite.webp",
         "label": "kite",
         "value": "K",
         "say": "kite. K is for kite."
       },
       {
-        "image": "ordering-png/object-leaf.png",
+        "image": "ordering-png/object-leaf.webp",
         "label": "leaf",
         "value": "L",
         "say": "leaf. L is for leaf."
       },
       {
-        "image": "ordering-png/object-moon.png",
+        "image": "ordering-png/object-moon.webp",
         "label": "moon",
         "value": "M",
         "say": "moon. M is for moon."
@@ -325,19 +325,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/object-leaf.png",
+        "image": "ordering-png/object-leaf.webp",
         "label": "leaf",
         "value": "L",
         "say": "leaf. L is for leaf."
       },
       {
-        "image": "ordering-png/object-moon.png",
+        "image": "ordering-png/object-moon.webp",
         "label": "moon",
         "value": "M",
         "say": "moon. M is for moon."
       },
       {
-        "image": "ordering-png/object-nest.png",
+        "image": "ordering-png/object-nest.webp",
         "label": "nest",
         "value": "N",
         "say": "nest. N is for nest."
@@ -354,19 +354,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/object-moon.png",
+        "image": "ordering-png/object-moon.webp",
         "label": "moon",
         "value": "M",
         "say": "moon. M is for moon."
       },
       {
-        "image": "ordering-png/object-nest.png",
+        "image": "ordering-png/object-nest.webp",
         "label": "nest",
         "value": "N",
         "say": "nest. N is for nest."
       },
       {
-        "image": "ordering-png/object-orange.png",
+        "image": "ordering-png/object-orange.webp",
         "label": "orange",
         "value": "O",
         "say": "orange. O is for orange."
@@ -383,19 +383,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/object-nest.png",
+        "image": "ordering-png/object-nest.webp",
         "label": "nest",
         "value": "N",
         "say": "nest. N is for nest."
       },
       {
-        "image": "ordering-png/object-orange.png",
+        "image": "ordering-png/object-orange.webp",
         "label": "orange",
         "value": "O",
         "say": "orange. O is for orange."
       },
       {
-        "image": "ordering-png/object-pear.png",
+        "image": "ordering-png/object-pear.webp",
         "label": "pear",
         "value": "P",
         "say": "pear. P is for pear."
@@ -412,19 +412,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/object-orange.png",
+        "image": "ordering-png/object-orange.webp",
         "label": "orange",
         "value": "O",
         "say": "orange. O is for orange."
       },
       {
-        "image": "ordering-png/object-pear.png",
+        "image": "ordering-png/object-pear.webp",
         "label": "pear",
         "value": "P",
         "say": "pear. P is for pear."
       },
       {
-        "image": "ordering-png/object-quilt.png",
+        "image": "ordering-png/object-quilt.webp",
         "label": "quilt",
         "value": "Q",
         "say": "quilt. Q is for quilt."
@@ -441,19 +441,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/object-pear.png",
+        "image": "ordering-png/object-pear.webp",
         "label": "pear",
         "value": "P",
         "say": "pear. P is for pear."
       },
       {
-        "image": "ordering-png/object-quilt.png",
+        "image": "ordering-png/object-quilt.webp",
         "label": "quilt",
         "value": "Q",
         "say": "quilt. Q is for quilt."
       },
       {
-        "image": "ordering-png/object-rainbow.png",
+        "image": "ordering-png/object-rainbow.webp",
         "label": "rainbow",
         "value": "R",
         "say": "rainbow. R is for rainbow."
@@ -470,19 +470,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/object-quilt.png",
+        "image": "ordering-png/object-quilt.webp",
         "label": "quilt",
         "value": "Q",
         "say": "quilt. Q is for quilt."
       },
       {
-        "image": "ordering-png/object-rainbow.png",
+        "image": "ordering-png/object-rainbow.webp",
         "label": "rainbow",
         "value": "R",
         "say": "rainbow. R is for rainbow."
       },
       {
-        "image": "ordering-png/object-sun.png",
+        "image": "ordering-png/object-sun.webp",
         "label": "sun",
         "value": "S",
         "say": "sun. S is for sun."
@@ -499,19 +499,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/object-rainbow.png",
+        "image": "ordering-png/object-rainbow.webp",
         "label": "rainbow",
         "value": "R",
         "say": "rainbow. R is for rainbow."
       },
       {
-        "image": "ordering-png/object-sun.png",
+        "image": "ordering-png/object-sun.webp",
         "label": "sun",
         "value": "S",
         "say": "sun. S is for sun."
       },
       {
-        "image": "ordering-png/object-tree.png",
+        "image": "ordering-png/object-tree.webp",
         "label": "tree",
         "value": "T",
         "say": "tree. T is for tree."
@@ -528,19 +528,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/object-sun.png",
+        "image": "ordering-png/object-sun.webp",
         "label": "sun",
         "value": "S",
         "say": "sun. S is for sun."
       },
       {
-        "image": "ordering-png/object-tree.png",
+        "image": "ordering-png/object-tree.webp",
         "label": "tree",
         "value": "T",
         "say": "tree. T is for tree."
       },
       {
-        "image": "ordering-png/object-umbrella.png",
+        "image": "ordering-png/object-umbrella.webp",
         "label": "umbrella",
         "value": "U",
         "say": "umbrella. U is for umbrella."
@@ -557,19 +557,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/object-tree.png",
+        "image": "ordering-png/object-tree.webp",
         "label": "tree",
         "value": "T",
         "say": "tree. T is for tree."
       },
       {
-        "image": "ordering-png/object-umbrella.png",
+        "image": "ordering-png/object-umbrella.webp",
         "label": "umbrella",
         "value": "U",
         "say": "umbrella. U is for umbrella."
       },
       {
-        "image": "ordering-png/object-van.png",
+        "image": "ordering-png/object-van.webp",
         "label": "van",
         "value": "V",
         "say": "van. V is for van."
@@ -586,19 +586,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/object-umbrella.png",
+        "image": "ordering-png/object-umbrella.webp",
         "label": "umbrella",
         "value": "U",
         "say": "umbrella. U is for umbrella."
       },
       {
-        "image": "ordering-png/object-van.png",
+        "image": "ordering-png/object-van.webp",
         "label": "van",
         "value": "V",
         "say": "van. V is for van."
       },
       {
-        "image": "ordering-png/object-watermelon.png",
+        "image": "ordering-png/object-watermelon.webp",
         "label": "watermelon",
         "value": "W",
         "say": "watermelon. W is for watermelon."
@@ -615,19 +615,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/object-van.png",
+        "image": "ordering-png/object-van.webp",
         "label": "van",
         "value": "V",
         "say": "van. V is for van."
       },
       {
-        "image": "ordering-png/object-watermelon.png",
+        "image": "ordering-png/object-watermelon.webp",
         "label": "watermelon",
         "value": "W",
         "say": "watermelon. W is for watermelon."
       },
       {
-        "image": "ordering-png/object-xylophone.png",
+        "image": "ordering-png/object-xylophone.webp",
         "label": "xylophone",
         "value": "X",
         "say": "xylophone. X is for xylophone."
@@ -644,19 +644,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/object-watermelon.png",
+        "image": "ordering-png/object-watermelon.webp",
         "label": "watermelon",
         "value": "W",
         "say": "watermelon. W is for watermelon."
       },
       {
-        "image": "ordering-png/object-xylophone.png",
+        "image": "ordering-png/object-xylophone.webp",
         "label": "xylophone",
         "value": "X",
         "say": "xylophone. X is for xylophone."
       },
       {
-        "image": "ordering-png/object-yarn.png",
+        "image": "ordering-png/object-yarn.webp",
         "label": "yarn",
         "value": "Y",
         "say": "yarn. Y is for yarn."
@@ -673,19 +673,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/object-xylophone.png",
+        "image": "ordering-png/object-xylophone.webp",
         "label": "xylophone",
         "value": "X",
         "say": "xylophone. X is for xylophone."
       },
       {
-        "image": "ordering-png/object-yarn.png",
+        "image": "ordering-png/object-yarn.webp",
         "label": "yarn",
         "value": "Y",
         "say": "yarn. Y is for yarn."
       },
       {
-        "image": "ordering-png/object-zebra.png",
+        "image": "ordering-png/object-zebra.webp",
         "label": "zebra",
         "value": "Z",
         "say": "zebra. Z is for zebra."
@@ -702,19 +702,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/count-1.png",
+        "image": "ordering-png/count-1.webp",
         "label": "1 apples",
         "value": 1,
         "say": "1 apples on this mat. Count each apple once."
       },
       {
-        "image": "ordering-png/count-2.png",
+        "image": "ordering-png/count-2.webp",
         "label": "2 apples",
         "value": 2,
         "say": "2 apples on this mat. Count each apple once."
       },
       {
-        "image": "ordering-png/count-3.png",
+        "image": "ordering-png/count-3.webp",
         "label": "3 apples",
         "value": 3,
         "say": "3 apples on this mat. Count each apple once."
@@ -731,19 +731,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/count-2.png",
+        "image": "ordering-png/count-2.webp",
         "label": "2 apples",
         "value": 2,
         "say": "2 apples on this mat. Count each apple once."
       },
       {
-        "image": "ordering-png/count-3.png",
+        "image": "ordering-png/count-3.webp",
         "label": "3 apples",
         "value": 3,
         "say": "3 apples on this mat. Count each apple once."
       },
       {
-        "image": "ordering-png/count-4.png",
+        "image": "ordering-png/count-4.webp",
         "label": "4 apples",
         "value": 4,
         "say": "4 apples on this mat. Count each apple once."
@@ -760,19 +760,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/count-3.png",
+        "image": "ordering-png/count-3.webp",
         "label": "3 apples",
         "value": 3,
         "say": "3 apples on this mat. Count each apple once."
       },
       {
-        "image": "ordering-png/count-4.png",
+        "image": "ordering-png/count-4.webp",
         "label": "4 apples",
         "value": 4,
         "say": "4 apples on this mat. Count each apple once."
       },
       {
-        "image": "ordering-png/count-5.png",
+        "image": "ordering-png/count-5.webp",
         "label": "5 apples",
         "value": 5,
         "say": "5 apples on this mat. Count each apple once."
@@ -789,19 +789,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/count-4.png",
+        "image": "ordering-png/count-4.webp",
         "label": "4 apples",
         "value": 4,
         "say": "4 apples on this mat. Count each apple once."
       },
       {
-        "image": "ordering-png/count-5.png",
+        "image": "ordering-png/count-5.webp",
         "label": "5 apples",
         "value": 5,
         "say": "5 apples on this mat. Count each apple once."
       },
       {
-        "image": "ordering-png/count-6.png",
+        "image": "ordering-png/count-6.webp",
         "label": "6 apples",
         "value": 6,
         "say": "6 apples on this mat. Count each apple once."
@@ -818,19 +818,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/count-5.png",
+        "image": "ordering-png/count-5.webp",
         "label": "5 apples",
         "value": 5,
         "say": "5 apples on this mat. Count each apple once."
       },
       {
-        "image": "ordering-png/count-6.png",
+        "image": "ordering-png/count-6.webp",
         "label": "6 apples",
         "value": 6,
         "say": "6 apples on this mat. Count each apple once."
       },
       {
-        "image": "ordering-png/count-7.png",
+        "image": "ordering-png/count-7.webp",
         "label": "7 apples",
         "value": 7,
         "say": "7 apples on this mat. Count each apple once."
@@ -847,19 +847,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/count-6.png",
+        "image": "ordering-png/count-6.webp",
         "label": "6 apples",
         "value": 6,
         "say": "6 apples on this mat. Count each apple once."
       },
       {
-        "image": "ordering-png/count-7.png",
+        "image": "ordering-png/count-7.webp",
         "label": "7 apples",
         "value": 7,
         "say": "7 apples on this mat. Count each apple once."
       },
       {
-        "image": "ordering-png/count-8.png",
+        "image": "ordering-png/count-8.webp",
         "label": "8 apples",
         "value": 8,
         "say": "8 apples on this mat. Count each apple once."
@@ -876,19 +876,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/count-7.png",
+        "image": "ordering-png/count-7.webp",
         "label": "7 apples",
         "value": 7,
         "say": "7 apples on this mat. Count each apple once."
       },
       {
-        "image": "ordering-png/count-8.png",
+        "image": "ordering-png/count-8.webp",
         "label": "8 apples",
         "value": 8,
         "say": "8 apples on this mat. Count each apple once."
       },
       {
-        "image": "ordering-png/count-9.png",
+        "image": "ordering-png/count-9.webp",
         "label": "9 apples",
         "value": 9,
         "say": "9 apples on this mat. Count each apple once."
@@ -905,19 +905,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/count-8.png",
+        "image": "ordering-png/count-8.webp",
         "label": "8 apples",
         "value": 8,
         "say": "8 apples on this mat. Count each apple once."
       },
       {
-        "image": "ordering-png/count-9.png",
+        "image": "ordering-png/count-9.webp",
         "label": "9 apples",
         "value": 9,
         "say": "9 apples on this mat. Count each apple once."
       },
       {
-        "image": "ordering-png/count-10.png",
+        "image": "ordering-png/count-10.webp",
         "label": "10 apples",
         "value": 10,
         "say": "10 apples on this mat. Count each apple once."
@@ -934,19 +934,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/count-1.png",
+        "image": "ordering-png/count-1.webp",
         "label": "1 apples",
         "value": 1,
         "say": "1 apples on this mat. Count each apple once."
       },
       {
-        "image": "ordering-png/count-3.png",
+        "image": "ordering-png/count-3.webp",
         "label": "3 apples",
         "value": 3,
         "say": "3 apples on this mat. Count each apple once."
       },
       {
-        "image": "ordering-png/count-5.png",
+        "image": "ordering-png/count-5.webp",
         "label": "5 apples",
         "value": 5,
         "say": "5 apples on this mat. Count each apple once."
@@ -963,19 +963,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/count-2.png",
+        "image": "ordering-png/count-2.webp",
         "label": "2 apples",
         "value": 2,
         "say": "2 apples on this mat. Count each apple once."
       },
       {
-        "image": "ordering-png/count-4.png",
+        "image": "ordering-png/count-4.webp",
         "label": "4 apples",
         "value": 4,
         "say": "4 apples on this mat. Count each apple once."
       },
       {
-        "image": "ordering-png/count-6.png",
+        "image": "ordering-png/count-6.webp",
         "label": "6 apples",
         "value": 6,
         "say": "6 apples on this mat. Count each apple once."
@@ -992,19 +992,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/count-3.png",
+        "image": "ordering-png/count-3.webp",
         "label": "3 apples",
         "value": 3,
         "say": "3 apples on this mat. Count each apple once."
       },
       {
-        "image": "ordering-png/count-6.png",
+        "image": "ordering-png/count-6.webp",
         "label": "6 apples",
         "value": 6,
         "say": "6 apples on this mat. Count each apple once."
       },
       {
-        "image": "ordering-png/count-9.png",
+        "image": "ordering-png/count-9.webp",
         "label": "9 apples",
         "value": 9,
         "say": "9 apples on this mat. Count each apple once."
@@ -1021,19 +1021,19 @@ export const PICTURES=[
     "axis": "vertical",
     "cards": [
       {
-        "image": "ordering-png/count-0.png",
+        "image": "ordering-png/count-0.webp",
         "label": "0 apples",
         "value": 0,
         "say": "0 apples on this mat. An empty mat means zero."
       },
       {
-        "image": "ordering-png/count-1.png",
+        "image": "ordering-png/count-1.webp",
         "label": "1 apples",
         "value": 1,
         "say": "1 apples on this mat. Count each apple once."
       },
       {
-        "image": "ordering-png/count-2.png",
+        "image": "ordering-png/count-2.webp",
         "label": "2 apples",
         "value": 2,
         "say": "2 apples on this mat. Count each apple once."

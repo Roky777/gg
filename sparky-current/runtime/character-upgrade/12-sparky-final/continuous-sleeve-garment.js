@@ -12,8 +12,8 @@ function frame(a,b){const d=[b[0]-a[0],b[1]-a[1]],length=Math.hypot(...d)||1;ret
 const REST={L:{S:[-32,177],E:[-53.5,143],oldS:[-28,177]},R:{S:[31,177],E:[52.8,143],oldS:[29,177]}};
 function rigidCloth(q,side,current){const r=REST[side],rest=frame(r.S,r.E),d=[q[0]-r.S[0],q[1]-r.S[1]],s=d[0]*rest.u[0]+d[1]*rest.u[1],n=-d[0]*rest.u[1]+d[1]*rest.u[0],foreshorten=Math.min(1,current.length/rest.length);return[current.a[0]+current.u[0]*s*foreshorten-current.u[1]*n,current.a[1]+current.u[1]*s*foreshorten+current.u[0]*n]}
 
-export function makeTwoPartArms(S,skinAtlas,seamRegion,garmentAtlas){
- const skin=makeSkinParts(S,skinAtlas,seamRegion),connectedSkin=makeConnectedSkin(S,skinAtlas);let context;
+export function makeTwoPartArms(S,skinAtlas,seamRegion,garmentAtlas,limbAtlas=null){
+ const skin=makeSkinParts(S,skinAtlas,seamRegion),connectedSkin=makeConnectedSkin(S,skinAtlas,limbAtlas);let context;
  function clothUV(x,y){
   const z=Math.min(x,WIDTH-x),f=context.frames[x<WIDTH/2?'L':'R'],dx=f.elbow[0]-f.goal[0],dy=f.elbow[1]-f.goal[1],lift=smooth(-.8,-.2,dy/(Math.hypot(dx,dy)||1));
   const band=lift*smooth(340,390,y)*(1-smooth(480,530,y))*smooth(450,465,z)*(1-smooth(500,515,z));
@@ -31,9 +31,18 @@ export function makeTwoPartArms(S,skinAtlas,seamRegion,garmentAtlas){
  }
  function sample(f,side,shirtPoint){
   const pieces=skin.sample(f,side,shirtPoint),d={...skinDiagnostics[side]},oldRest=side==='L'?frame([-32,177],[-50.6319,150]):frame([31,177],[50.1484,150]),oldCurrent=frame(d.shoulder,d.elbow),rotation=Math.atan2(oldCurrent.u[1],oldCurrent.u[0])-Math.atan2(oldRest.u[1],oldRest.u[0]),offset=side==='L'?[-2.8681,-7]:[2.6516,-7];
-  d.elbow=[d.elbow[0]+offset[0]*Math.cos(rotation)-offset[1]*Math.sin(rotation),d.elbow[1]+offset[0]*Math.sin(rotation)+offset[1]*Math.cos(rotation)];
+  // This endpoint registers the original garment artwork, not the limb joint.
+  // Compressing the sleeve to the shorter anatomical chain while retaining
+  // its full width turned the hem into a wide, flat flare.
+  const clothElbow=[d.elbow[0]+offset[0]*Math.cos(rotation)-offset[1]*Math.sin(rotation),d.elbow[1]+offset[0]*Math.sin(rotation)+offset[1]*Math.cos(rotation)];
+  if(f.feedingUpperBody){
+   // Authored feeding joints already fit Sparky. The old traced-arm offsets
+   // were moving the visible elbow a second time, producing a kink and making
+   // the forearm end at a different wrist from the glove.
+   d.elbow=f.elbow.slice();d.wrist=f.wrist.slice();
+  }else d.elbow=clothElbow;
   const lowerAxis=frame(d.elbow,d.wrist);d.forearmLean=Math.atan2(Math.abs(lowerAxis.u[0]),Math.abs(lowerAxis.u[1]))*180/Math.PI;
-  const current=frame(d.shoulder,d.elbow),rows=YROWS.filter(y=>y<=640),r=REST[side];
+  const current=frame(d.shoulder,f.feedingUpperBody?d.elbow:clothElbow),rows=YROWS.filter(y=>y<=640),r=REST[side];
   function sleevePoint(n,y){
    const underlap=y<=365?8*(1-smooth(345,365,y)):0,left=edge(y)+underlap,x0=100+(left-100)*n,x=side==='L'?x0:WIDTH-x0,q0=world(x,y),cuffFit=smooth(.45,.8,n)*smooth(365,540,y),q=[q0[0]+(side==='L'?1:-1)*6*cuffFit,q0[1]-2*cuffFit],arm=rigidCloth(q,side,current),shirt=sharedPoint(x,y),root=smooth(.94,.995,n)*(1-smooth(260,365,y));
    return{world:mix(arm,shirt,root),uv:clothUV(x,y)};
@@ -63,7 +72,8 @@ export function makeTwoPartArms(S,skinAtlas,seamRegion,garmentAtlas){
   const skinParts=connectedSkin.sample(d,f,side);
   const cuff=mesh('UnifiedCuff_'+side,rows.filter(y=>y>=360),28,sleevePoint);
   const seams=Array.from({length:21},(_,i)=>{const y=145+200*i/20;return sharedPoint(side==='L'?edge(y):WIDTH-edge(y),y)});
-  armDiagnostics[side]={...d,seam:seams,sleeveLengthScale:Math.min(1,current.length/frame(r.S,r.E).length)};
+  d.clothLengthScale=Math.min(1,current.length/frame(r.S,r.E).length);
+  armDiagnostics[side]={...d,seam:seams,sleeveLengthScale:d.clothLengthScale};
   const fades=Array(7).fill(null);fades[0]=rootFade;
   return{joints:d,upper:sleeve,upperSkin:skinParts.upper,lower:skinParts.lower,upperFade:fades,wristFade:Array(3).fill(null),cuff,seam:null};
  }

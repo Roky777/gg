@@ -1,0 +1,29 @@
+/* Materials and action feedback; stage coordinates and hit targets stay owned by
+   board-layout / screen-fit. No labels or extra controls on the play surface. */
+.game:not(.feeding-room):not(.sticker-room):not(.activity-scene) .puzzle-frame{filter:drop-shadow(0 7px 5px #195b7624)}
+.game:not(.feeding-room):not(.sticker-room) :is(.variant-card,.story-slot,.board .piece,.quantity-row,.assembly-choice){transition:box-shadow .18s ease,filter .18s ease,opacity .18s ease;box-shadow:0 3px 5px #206c8012!important}
+.game:not(.feeding-room):not(.sticker-room) .board .piece{transition:left .16s ease,top .16s ease,translate .15s ease,box-shadow .18s ease,filter .18s ease,opacity .18s ease}
+.game:not(.feeding-room):not(.sticker-room) .assembly-choice{transition:translate .15s ease,opacity .2s ease,box-shadow .18s ease,filter .18s ease}
+.game:not(.feeding-room):not(.sticker-room) :is(.variant-card,.story-slot,.board .piece,.assembly-choice):not(:disabled):hover{filter:brightness(1.025);box-shadow:0 5px 10px #206c8025!important}
+.game:not(.feeding-room):not(.sticker-room) :is(.selected,.toy-pressed){box-shadow:0 0 0 2px #ffc96380,0 5px 11px #7d9c7228!important}
+.game:not(.feeding-room):not(.sticker-room) :is(.matched,.quantity-row.answered,.piece.in-place){box-shadow:0 0 0 1px #90d5a28a,0 3px 6px #45976b18!important}
+.game .variant-columns [data-target]:not(.matched):not(.selected){border-image-source:url('assets/art/play-kit/card-lilac.svg')!important}
+.game .variant-columns [data-target]:not(.matched)::before{border-color:#a790d0;background:radial-gradient(circle at 35% 30%,#fff 0 25%,#e9dffa 65%)}
+.game .variant-columns :is([data-source],[data-target])::before{width:12px;height:12px;border:2px solid #61b8d5;background:radial-gradient(circle at 35% 30%,#fff 0 25%,#d4f3f8 65%);box-shadow:0 2px 0 #276c8e35,inset 0 0 0 2px #fff;z-index:2}
+.game .variant-columns .selected::before{border-color:#dc9b38;background:#ffdf88}
+.game .variant-columns .matched::before{background:#6dd28e;border-color:#309768;box-shadow:inset 0 0 0 2px #e1ffe7}
+.game .variant-lines .connection-correct path{stroke:#32b875;stroke-width:6;filter:drop-shadow(0 2px 0 #116e4933)}
+.game .variant-lines .connection-correct circle{fill:#40c585;stroke:#f2fff3;stroke-width:2.5}
+.game .variant-lines .connection-draft path{stroke:#30b9dd;stroke-width:4}
+.game .variant-lines .connection-wrong path{stroke:#eb735f;stroke-width:5}
+.board-play-effects{position:absolute;inset:0;pointer-events:none;z-index:12;overflow:visible;border-radius:5%}
+.board-play-spark{position:absolute;width:clamp(10px,1.4vw,23px);height:auto;aspect-ratio:1;pointer-events:none;filter:drop-shadow(0 1px 0 #ae79402b)}
+.game .board-play-complete{filter:drop-shadow(0 3px 7px #ffe39375)}
+@media(prefers-reduced-motion:no-preference){
+ .game:not(.feeding-room):not(.sticker-room) .variant-card>.variant-art{transition:scale .2s cubic-bezier(.2,.7,.3,1)}
+ .game:not(.feeding-room):not(.sticker-room) .variant-card:not(:disabled):hover>.variant-art{scale:1.035}
+ .game:not(.feeding-room):not(.sticker-room) .variant-card.toy-pressed>.variant-art{scale:.98}
+ .game .connection-draft path{animation:board-thread .8s linear infinite}
+ @keyframes board-thread{to{stroke-dashoffset:-22}}
+}
+@media(prefers-reduced-motion:reduce){.game :is(.variant-card,.story-slot,.piece,.assembly-choice){transition:none!important}}

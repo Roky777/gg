@@ -4,15 +4,16 @@ const GROUPS={Head:'head',Neck:'neck',Torso:'torso',Shorts:'waist',Arm_L:'armL',
 const ORDER=['Leg_L','Leg_R','Sock_L','Sock_R','Foot_L','Foot_R','Shorts','Arm_L','Arm_R','Sleeve_L','Sleeve_R','Neck','Torso','Head','ForearmFront_L','ForearmFront_R','Hand_L','Hand_R'];
 const SHOE={sx:.965,sy:1.0645,base:3.5,y0:5},SLEEVE_SCALE=1.2,SHORTS_WAIST=112,SHORTS_HEM=90,SHORTS_CROTCH=7;
 const smooth=(a,b,x)=>{let t=Math.max(0,Math.min(1,(x-a)/(b-a)));return t*t*(3-2*t)};
-export function makeSilhouetteProfile(S,sourceData,model,region){
+export function makeSilhouetteProfile(S,sourceData,model,region,{paintedOnly=false}={}){
  // Replace the old shirt mesh with a regular surface for the new drawing.
  // A single fixed binding frame keeps the circular badge stable during motion.
- const torso=model.meshes.find(m=>m.name==='Torso'),old=structuredClone(torso),anchors=[16,548,550],scale=.0915;
+ const torso=model.meshes.find(m=>m.name==='Torso'),old=paintedOnly?torso:structuredClone(torso),anchors=[16,548,550],scale=.0915;
  const bounds=[-627*scale,194+(193-1254)*scale,(1254-627)*scale,194+193*scale];
  const bary=(p,a,b,c)=>{const d=(b[1]-c[1])*(a[0]-c[0])+(c[0]-b[0])*(a[1]-c[1]),x=((b[1]-c[1])*(p[0]-c[0])+(c[0]-b[0])*(p[1]-c[1]))/d,y=((c[1]-a[1])*(p[0]-c[0])+(a[0]-c[0])*(p[1]-c[1]))/d;return[x,y,1-x-y]};
- torso.points=[];torso.triangles=[];torso.transfers=Object.fromEntries(Object.keys(old.transfers).map(k=>[k,[]]));
+ if(!paintedOnly){torso.points=[];torso.triangles=[];torso.transfers=Object.fromEntries(Object.keys(old.transfers).map(k=>[k,[]]));
  const N=64;for(let y=0;y<=N;y++)for(let x=0;x<=N;x++){const q=[bounds[0]+(bounds[2]-bounds[0])*x/N,bounds[3]-(bounds[3]-bounds[1])*y/N],badge=smooth(11.5,20,Math.hypot(Math.abs(q[0])-20.5,q[1]-164.4)),join=smooth(14,32,Math.abs(q[0]))*smooth(165,188,q[1])*badge,collar=(1-smooth(18,30,Math.abs(q[0])))*badge,fit=[q[0]*(1+.20*smooth(170,184,q[1])*collar)-Math.sign(q[0])*3*join,q[1]+(q[1]-194)*.30*smooth(169,181,q[1])*collar-2*join],w=bary(fit,...anchors.map(i=>old.points[i]));torso.points.push(q);for(const [key,list] of Object.entries(torso.transfers)){const weights=new Map();anchors.forEach((id,k)=>old.transfers[key][id].indices.forEach((n,j)=>weights.set(n,(weights.get(n)??0)+old.transfers[key][id].weights[j]*w[k])));list.push({indices:[...weights.keys()],weights:[...weights.values()]})}}
  for(let y=0;y<N;y++)for(let x=0;x<N;x++){const k=y*(N+1)+x;torso.triangles.push(k,k+N+1,k+1,k+1,k+N+1,k+N+2)}
+ }
  const fitted=makeShapeProfile(S,sourceData),data=new S.SkeletonData(),root=new S.BoneData(0,'shape-render-root',null);data.bones.push(root);for(const name of ORDER)data.slots.push(new S.SlotData(data.slots.length,name,root));const cache=new WeakMap();
  const getAttachment=(slot,name)=>sourceData.defaultSkin.getAttachment(sourceData.findSlot(slot).index,name);const keysByGroup=new Map();for(const k of Object.keys(model.cages)){const g=model.cages[k].group;keysByGroup.set(g,[...(keysByGroup.get(g)??[]),k])}
  function sample(v,{colours=false}={}){
@@ -29,12 +30,12 @@ export function makeSilhouetteProfile(S,sourceData,model,region){
   const groupKeys=g=>keysByGroup.get(g)??[];const canonicalCache=new Map(),armKeysCache=new Map();
   const canonical=g=>{if(!canonicalCache.has(g)){const all=groupKeys(g);canonicalCache.set(g,all.find(live)??all.find(k=>{const c=model.cages[k];return fitted.bind.findSlot(c.slot).getAttachment()?.name===c.name})??all[0])}return canonicalCache.get(g)};
   function footPoint(p,side){
-   const name=side==='L'?'Foots/Foot_R':'Foots/Foot_R2',b=sk.findBone(name),rest=fitted.bind.findBone(name),angle=(b.getWorldRotationX()-rest.getWorldRotationX())*Math.PI/180,cx=side==='L'?-32:32,anchor=limbPoint([cx,55],'leg',side,'lower');
+   const name=side==='L'?'Foots/Foot_R':'Foots/Foot_R2',b=sk.findBone(name),rest=fitted.bind.findBone(name),authored=sk.sparkyAuthoredPose?.feet?.[side],angle=(authored?authored.angle:b.getWorldRotationX()-rest.getWorldRotationX())*Math.PI/180,cx=side==='L'?-32:32,anchor=limbPoint([cx,55],'leg',side,'lower');
    // Reference shoe: same inner edge, 2.5 narrower outward, 3 taller (y 5..54.5).
    const inner=side==='L'?-5.5:5.5,q=[inner+(p[0]-inner)*SHOE.sx-LEG_SHIFT[side],SHOE.y0+(p[1]-SHOE.base)*SHOE.sy],x=q[0]-cx,y=q[1]-55;
    return[anchor[0]+x*Math.cos(angle)-y*Math.sin(angle),anchor[1]+x*Math.sin(angle)+y*Math.cos(angle)];
   }
-  for(const part of model.meshes){const keys=activeKeys(part),byGroup=g=>{const k=canonical(g);return part.transfers[k]?k:undefined},any=keys[0];
+  for(const part of model.meshes){if(paintedOnly&&part.name==='Torso')continue;const keys=activeKeys(part),byGroup=g=>{const k=canonical(g);return part.transfers[k]?k:undefined},any=keys[0];
    const mix=(a,b,t)=>[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t];
    function armPoint(i,side){let q=part.points[i];
     // Reference sleeves flare ~1.2x wider about the shoulder than the painted mesh.
@@ -45,7 +46,7 @@ export function makeSilhouetteProfile(S,sourceData,model,region){
      const t=Math.max(0,Math.min(1,along/35)),a=along<0?along:along*.88,n=across*(1.04+.12*t);
      q=[o[0]+u[0]*a-u[1]*n,o[1]+u[1]*a+u[0]*n]}
     return limbPoint(q,'arm',side,part.name.startsWith('Sleeve_')?'upper':part.name.startsWith('Hand_')?'lower':null)}
-   const verts=[];for(let i=0;i<part.points.length;i++){const t0=part.points[i],side=part.name.endsWith('L')?'L':'R';let p;if(!/^(Arm_|Sleeve_|Leg_|Foot_|Sock_|Hand_)/.test(part.name))p=point(part,any,i);
+   const verts=[];for(let i=0;i<part.points.length;i++){const t0=part.points[i],side=part.name.endsWith('L')?'L':'R';let p;if(!/^(Arm_|Sleeve_|Leg_|Foot_|Sock_|Hand_)/.test(part.name)&&!(/^(Head|Neck|Shorts)$/.test(part.name)))p=point(part,any,i);
     if(part.name==='Head')p=fitted.headPoint([t0[0],t0[1]+2],sk);
     if(part.name==='Neck'){
      // Fixed rest-space fit: narrow tube, hidden top, lower end inside collar.

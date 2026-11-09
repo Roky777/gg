@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="256" viewBox="0 0 512 256">
+ <defs><linearGradient id="inside" x2="0" y2="1"><stop stop-color="#51171b"/><stop offset="1" stop-color="#7d2925"/></linearGradient><clipPath id="opening"><path d="M37 88C65 65 99 57 127 59C160 58 193 70 219 91C225 125 206 191 173 212C145 229 105 226 78 208C49 186 30 126 37 88Z"/></clipPath></defs>
+ <path d="M37 88C65 65 99 57 127 59C160 58 193 70 219 91C225 125 206 191 173 212C145 229 105 226 78 208C49 186 30 126 37 88Z" fill="url(#inside)"/>
+ <g clip-path="url(#opening)">
+  <path d="M86 53Q128 42 170 55L168 78Q150 85 130 82L128 79L126 82Q106 85 88 78Z" fill="#fff8e9"/>
+  <path d="M128 59V78" fill="none" stroke="#d9bda4" stroke-width="2" stroke-linecap="round"/>
+  <path d="M71 228Q124 186 185 225L181 248H75Z" fill="#d97577"/>
+ </g>
+ <path d="M37 88C65 65 99 57 127 59C160 58 193 70 219 91C225 125 206 191 173 212C145 229 105 226 78 208C49 186 30 126 37 88Z" fill="none" stroke="#9c290a" stroke-width="6" stroke-linejoin="round"/>
+ <path d="M300 122Q384 169 468 122" fill="none" stroke="#9c290a" stroke-width="8" stroke-linecap="round"/>
+ <path d="M365 156Q384 164 403 156" fill="none" stroke="#e18a35" stroke-width="4" stroke-linecap="round"/>
+ <path d="M295 118L301 126M467 126L473 118" stroke="#9c290a" stroke-width="5" stroke-linecap="round"/>
+</svg>

@@ -28,7 +28,8 @@ export function limbFields(fitted,sk){
     return[x*Math.cos(angle)-y*Math.sin(angle),x*Math.sin(angle)+y*Math.cos(angle)];
    };
    const upper=direction(0),lower=direction(1),knee=hip.map((x,i)=>x+upper[i]),ankle=knee.map((x,i)=>x+lower[i]);
-   cache.set(side,{rest,current:[hip,knee,ankle]});
+   const authored=sk.sparkyAuthoredPose?.legs?.[side];
+   cache.set(side,{rest,current:authored?[hip,authored.knee,authored.ankle]:[hip,knee,ankle]});
   }
   const{rest:r,current:c}=cache.get(side),upper=()=>mapSegment(p,r[0],r[1],c[0],c[1]),lower=()=>mapSegment(p,r[1],r[2],c[1],c[2]);
   if(section==='upper')return upper();if(section==='lower')return lower();

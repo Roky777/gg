@@ -5,7 +5,7 @@
   "runtime": "Spine 4.2",
   "skeleton": "source/Lucas_Activity_Icecream.skel",
   "atlas": "source/Lucas_Activity_Icecream.atlas",
-  "texture": "source/Lucas_Activity_Icecream.png",
+  "texture": "source/Lucas_Activity_Icecream.webp",
   "camera": {
     "x": 0,
     "y": 750,

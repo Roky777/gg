@@ -1,13 +1,13 @@
 import {InteractiveBreak} from './activity-rounds.js?v=soil-anchor-55';
 /** Short, optional play between completed learning boards. */
 export const FUN_ACTIVITIES={
- 'wash-toy':{title:'Wash the Muddy Toy',rule:'Rub off the mud, then swipe to rinse!',intro:'टॉय को रब करके साफ करो। फिर साबुन हटा दो!',duration:35000,images:['counting/toy-car.png','counting/teddy.png','counting/duckling.png']},
- 'grow-garden':{title:'Grow a Tiny Garden',rule:'Drag the can to a pot. Hold to water!',intro:'पानी का कैन गमले तक लाओ। थोड़ा रुको, फूल उगेगा!',duration:30000,images:['fun/flower-pot-v1.png','assembly/watering-can.png','counting/flower.png']},
- 'roll-ball':{title:'Roll the Ball',rule:'Pull the ball back, then let go!',intro:'बॉल को पीछे खींचो, फिर छोड़ दो। बास्केट में डालो!',duration:35000,images:['counting/ball.png','fun/basket-v1.png']},
- 'magic-reveal':{title:'Magic Colour Reveal',rule:'Swipe to bring the colours back!',intro:'उंगली घुमाओ, और तस्वीर के रंग वापस लाओ!',duration:30000,images:['counting/butterfly.png','counting/fish.png','assembly/robot.png','objects/rainbow.png']},
- 'drum-duet':{title:'Sparky’s Drum Duet',rule:'Listen, then tap the drums!',intro:'मेरी बीट सुनो। अब तुम ड्रम बजाओ!',duration:30000,images:['assembly/drum.png']},
- 'balloon-pop':{title:'Balloon Pop',rule:'Tap the balloons!',intro:'चलो, गुब्बारों पर टैप करके उन्हें पॉप करो!',duration:12000,images:['objects/balloon.png']},
- 'jelly-wiggle':{title:'Jelly Wiggle',rule:'Tap a jelly. Watch it wiggle!',intro:'जेली पर टैप करो, और उसे हिलते हुए देखो!',duration:12000,images:['fun/jelly.png']}
+ 'wash-toy':{title:'Wash the Muddy Toy',rule:'Rub off the mud, then swipe to rinse!',intro:'टॉय को रब करके साफ करो। फिर साबुन हटा दो!',duration:35000,images:['counting/toy-car.webp','counting/teddy.webp','counting/duckling.webp']},
+ 'grow-garden':{title:'Grow a Tiny Garden',rule:'Drag the can to a pot. Hold to water!',intro:'पानी का कैन गमले तक लाओ। थोड़ा रुको, फूल उगेगा!',duration:30000,images:['fun/flower-pot-v1.webp','assembly/watering-can.webp','counting/flower.webp']},
+ 'roll-ball':{title:'Roll the Ball',rule:'Pull the ball back, then let go!',intro:'बॉल को पीछे खींचो, फिर छोड़ दो। बास्केट में डालो!',duration:35000,images:['counting/ball.webp','fun/basket-v1.webp']},
+ 'magic-reveal':{title:'Magic Colour Reveal',rule:'Swipe to bring the colours back!',intro:'उंगली घुमाओ, और तस्वीर के रंग वापस लाओ!',duration:30000,images:['counting/butterfly.webp','counting/fish.webp','assembly/robot.webp','objects/rainbow.webp']},
+ 'drum-duet':{title:'Sparky’s Drum Duet',rule:'Listen, then tap the drums!',intro:'मेरी बीट सुनो। अब तुम ड्रम बजाओ!',duration:30000,images:['assembly/drum.webp']},
+ 'balloon-pop':{title:'Balloon Pop',rule:'Tap the balloons!',intro:'चलो, गुब्बारों पर टैप करके उन्हें पॉप करो!',duration:12000,images:['objects/balloon.webp']},
+ 'jelly-wiggle':{title:'Jelly Wiggle',rule:'Tap a jelly. Watch it wiggle!',intro:'जेली पर टैप करो, और उसे हिलते हुए देखो!',duration:12000,images:['fun/jelly.webp']}
 };
 export const FUN_KINDS=Object.keys(FUN_ACTIVITIES);
 const shuffled=(items,random)=>{const a=[...items];for(let i=a.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};

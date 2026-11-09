@@ -3,241 +3,241 @@
   "images": [
     {
       "id": "kitten",
-      "file": "kitten.png",
+      "file": "kitten.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "puppy",
-      "file": "puppy.png",
+      "file": "puppy.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "bunny",
-      "file": "bunny.png",
+      "file": "bunny.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "panda",
-      "file": "panda.png",
+      "file": "panda.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "elephant",
-      "file": "elephant.png",
+      "file": "elephant.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "whale",
-      "file": "whale.png",
+      "file": "whale.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "giraffe",
-      "file": "giraffe.png",
+      "file": "giraffe.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "monkey",
-      "file": "monkey.png",
+      "file": "monkey.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "turtle",
-      "file": "turtle.png",
+      "file": "turtle.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "penguin",
-      "file": "penguin.png",
+      "file": "penguin.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "owl",
-      "file": "owl.png",
+      "file": "owl.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "parrot",
-      "file": "parrot.png",
+      "file": "parrot.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "butterfly",
-      "file": "butterfly.png",
+      "file": "butterfly.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "ladybird",
-      "file": "ladybird.png",
+      "file": "ladybird.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "bee",
-      "file": "bee.png",
+      "file": "bee.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "snail",
-      "file": "snail.png",
+      "file": "snail.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "dolphin",
-      "file": "dolphin.png",
+      "file": "dolphin.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "octopus",
-      "file": "octopus.png",
+      "file": "octopus.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "crab",
-      "file": "crab.png",
+      "file": "crab.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "seahorse",
-      "file": "seahorse.png",
+      "file": "seahorse.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "rocket",
-      "file": "rocket.png",
+      "file": "rocket.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "train",
-      "file": "train.png",
+      "file": "train.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "sailboat",
-      "file": "sailboat.png",
+      "file": "sailboat.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "airplane",
-      "file": "airplane.png",
+      "file": "airplane.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "tractor",
-      "file": "tractor.png",
+      "file": "tractor.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "fire-engine",
-      "file": "fire-engine.png",
+      "file": "fire-engine.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "teapot",
-      "file": "teapot.png",
+      "file": "teapot.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "watering-can",
-      "file": "watering-can.png",
+      "file": "watering-can.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "backpack",
-      "file": "backpack.png",
+      "file": "backpack.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "teddy-bear",
-      "file": "teddy-bear.png",
+      "file": "teddy-bear.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "robot",
-      "file": "robot.png",
+      "file": "robot.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "castle",
-      "file": "castle.png",
+      "file": "castle.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "mushroom",
-      "file": "mushroom.png",
+      "file": "mushroom.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "pineapple",
-      "file": "pineapple.png",
+      "file": "pineapple.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "strawberry",
-      "file": "strawberry.png",
+      "file": "strawberry.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "cupcake",
-      "file": "cupcake.png",
+      "file": "cupcake.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "ice-pop",
-      "file": "ice-pop.png",
+      "file": "ice-pop.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "drum",
-      "file": "drum.png",
+      "file": "drum.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "guitar",
-      "file": "guitar.png",
+      "file": "guitar.webp",
       "width": 768,
       "height": 768
     },
     {
       "id": "hot-air-balloon",
-      "file": "hot-air-balloon.png",
+      "file": "hot-air-balloon.webp",
       "width": 768,
       "height": 768
     }

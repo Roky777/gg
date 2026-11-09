@@ -1,0 +1,10 @@
+/* A shared illustrated shell and crisp symbols; existing control geometry stays authoritative. */
+.game>.game-button,.game #pause-dialog .pause-action{background:transparent url('assets/art/toy-controls/shell.webp') center/contain no-repeat!important;border:0!important;box-shadow:none!important;border-radius:26%;padding:0!important;opacity:1;filter:drop-shadow(0 2px 2px #123d5a26);animation:none!important;transition:transform 140ms ease,filter 140ms ease}
+.game>.game-button::before,.game>.game-button::after,.game #pause-dialog .pause-action::before,.game #pause-dialog .pause-action::after{content:none!important;display:none!important}
+.game>.game-button img,.game #pause-dialog .pause-action img{position:absolute!important;left:25%!important;top:24%!important;width:50%!important;height:50%!important;object-fit:contain;transform:none!important;filter:drop-shadow(0 1px 1px #07638980)!important;animation:none!important;pointer-events:none}
+.game>.game-button.next img{left:23%!important;width:54%!important}
+.game>.game-button:focus-visible,.game #pause-dialog .pause-action:focus-visible{outline:3px solid #fff5be;outline-offset:3px;box-shadow:0 0 0 6px #166586!important}
+.game>.game-button:active:not(:disabled),.game #pause-dialog .pause-action:active{transform:translateY(2px) scale(.96);filter:brightness(.97)}
+.game>.game-button:disabled{opacity:.5;filter:saturate(.6);cursor:default}
+@media(hover:hover){.game>.game-button:hover:not(:disabled),.game #pause-dialog .pause-action:hover{filter:brightness(1.08) drop-shadow(0 3px 2px #123d5a33)}}
+@media(prefers-reduced-motion:reduce){.game>.game-button,.game #pause-dialog .pause-action{transition:none}}

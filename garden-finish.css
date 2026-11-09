@@ -1,0 +1,33 @@
+/* Polish the existing garden and blue UI. No new game layout or character art. */
+.game{background-image:url('assets/art/ui-finish/meadow-refined.webp')}
+.garden-details{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;contain:layout paint}
+.garden-cloud-track{position:absolute;aspect-ratio:720/210;pointer-events:none;will-change:transform}
+.garden-cloud{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;user-select:none;pointer-events:none}
+.finish-flower{position:absolute;left:var(--left);bottom:var(--bottom);width:var(--width);height:auto;transform-origin:43% 94%;pointer-events:none;user-select:none}
+.finish-flower.finish-far{opacity:.62}
+.finish-footing{position:absolute;left:17%;top:84.6%;width:66%;height:3.4%;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 25% 40%,#345c433b 0%,#4d72452b 24%,transparent 47%),radial-gradient(ellipse at 77% 40%,#345c433b 0%,#4d72452b 24%,transparent 47%)}
+.mascot::after{content:none}
+.mascot.feet-airborne .finish-footing,.mascot.feet-airborne::after{visibility:hidden}
+.game .game-button,.game .game-button.next,#pause-dialog .pause-action{background-image:url('assets/art/ui-finish/button-shell.svg');filter:drop-shadow(0 2px 2px #1d487b1c);transition:transform 140ms ease,filter 140ms ease}
+.game .game-button img,#pause-dialog .pause-action img{filter:brightness(0) invert(1);width:44%;height:44%}
+.game .game-button:focus-visible{outline:3px solid #fffbe2;outline-offset:2px;box-shadow:0 0 0 5px #25496e}
+.game .game-button:active:not(:disabled){transform:translateY(2px) scale(.96);filter:brightness(.97)}
+.game .game-button.next.round-ready{filter:drop-shadow(0 0 6px #fff0b680)}
+.board .piece,.board.solved .piece{background:linear-gradient(155deg,#fffefa 36%,#fff 68%,#eaf5ff)!important;box-shadow:inset 0 0 0 1.5px #a5cfea,inset 0 2px 0 #fff,0 4px 0 #90bad6,0 7px 10px #244d7720;transition:left 320ms cubic-bezier(.2,.75,.25,1),top 320ms cubic-bezier(.2,.75,.25,1),box-shadow 160ms ease,translate 160ms ease}
+.board .piece:not(:disabled):hover{box-shadow:inset 0 0 0 2px #7cbbe8,inset 0 2px #fff,0 4px 0 #86b1cf,0 9px 14px #244d7726!important}
+.board .piece.selected,.board .piece.target{outline:3px solid #ffbc68;outline-offset:1px}
+.board .piece.dragging{transition:none;box-shadow:inset 0 0 0 2px #ffd694,0 12px 20px #1e466748!important}
+.board[data-topic="letters"] .piece.in-place:not(.dragging){border-color:transparent;outline:none;filter:none;box-shadow:inset 0 0 0 2px #9cd4b6,0 4px 0 #80bba2,0 6px 10px #244d7719}
+.board[data-topic="letters"] .piece.in-place::after{content:'✓';position:absolute;inset:auto;top:6%;right:6%;width:clamp(16px,1.6vw,26px);height:clamp(16px,1.6vw,26px);font:900 clamp(11px,1.1vw,17px)/1 Nunito,sans-serif;display:grid;place-items:center;background:#e1f1db;color:#508e68;border:2px solid #fff;border-radius:50%;box-shadow:0 1px 2px #477b5130;pointer-events:none}
+.card-letter,.slot-target{font-weight:900;color:#285780}.card-name{font-weight:900;color:#315a7f}.card-grip{opacity:.46}
+.fun-heading h2{background-image:url('assets/art/ui-finish/ribbon-shell.svg');background-size:100% 100%;text-shadow:0 2px 0 #0050aa;filter:drop-shadow(0 2px 1px #163d6522)}
+.activity-scene .fun-heading h2{width:82%;max-width:740px}
+.fun-heading p{color:#245d72;font-weight:900;background:#fffdf0e8;border:1px solid #fff;border-radius:999px;width:fit-content;max-width:94%;padding:.25em 1em;margin:.65em auto 0;box-shadow:0 2px 0 #347da112;line-height:1.3}
+.puzzle-frame .round-banner img{height:100%;top:0;object-fit:contain}.round-banner span{font-weight:900;text-shadow:0 1px 0 #0050aa}
+#pause-dialog{border:2px solid #9adfff;box-shadow:0 6px 0 #0754a8,0 16px 45px #153c6044}#pause-dialog::backdrop{background:#16436670;backdrop-filter:blur(4px)}
+@media(hover:hover){.game .game-button:hover:not(:disabled){filter:brightness(1.07) drop-shadow(0 3px 2px #1d487b26)}}
+@media(prefers-reduced-motion:no-preference){.garden-cloud-track{animation:garden-cloud-flow var(--duration) ease-in-out var(--delay) infinite alternate}.finish-flower.finish-near{animation:finish-flower-breeze var(--duration) ease-in-out var(--delay) infinite alternate}.game .game-button.next.round-ready img{animation:garden-next-hint 2.6s ease-in-out infinite}.game.garden-motion-paused .garden-details *,.game.garden-motion-paused .game-button.next img{animation-play-state:paused!important}}
+@keyframes garden-cloud-flow{from{transform:translateX(-5%)}to{transform:translateX(5%)}}
+@keyframes finish-flower-breeze{from{rotate:-3deg}to{rotate:3deg}}
+@keyframes garden-next-hint{0%,82%,100%{translate:0 0}90%{translate:7% 0}}
+@media(prefers-reduced-motion:reduce){.garden-details *,.game .game-button.next img{animation:none!important}.garden-cloud-track{will-change:auto}.game .game-button,.board .piece{transition:none!important}}

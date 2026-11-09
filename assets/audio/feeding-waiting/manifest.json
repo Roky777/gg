@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "cues": {
+    "food_looks_yummy": {"text": "Yeh khana toh yummy lag raha hai!", "src": null},
+    "bhook_lagi_hai": {"text": "Mujhe thodi bhook lagi hai!", "src": null},
+    "ek_bite_khilao": {"text": "Mujhe ek chhota sa bite khilaoge?", "src": null},
+    "main_taiyaar_hoon": {"text": "Main taiyaar hoon!", "src": null},
+    "kaunsa_khana": {"text": "Kaunsa khana try karein?", "src": null},
+    "aaraam_se_khilao": {"text": "Aaraam se, main yahin hoon!", "src": null}
+  }
+}

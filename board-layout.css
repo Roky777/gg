@@ -1,0 +1,27 @@
+/* Shared 16:9 composition, measured from the supplied four-layout guide.
+   Percentages are stage coordinates; board internals retain their own layout. */
+.game{width:min(100%,177.777778dvh)!important;height:auto!important;aspect-ratio:16/9;max-height:100%;--layout-board-left:25.5%;--layout-board-top:20%;--layout-board-width:71.25%;--layout-board-height:66%}
+.game:not(.feeding-room):not(.sticker-room):not(.activity-scene) .puzzle-frame{left:var(--layout-board-left)!important;top:var(--layout-board-top)!important;width:var(--layout-board-width)!important;height:var(--layout-board-height)!important;right:auto!important;bottom:auto!important;padding:0;margin:0}
+.game>.mascot{left:3.25%!important;top:20%!important;width:18.75%!important;height:66%!important}
+.game>.mascot canvas{transform:scale(1.72);transform-origin:50% 50%}
+.game>.game-button{width:5.5%!important;height:auto!important;aspect-ratio:1;min-width:44px!important;min-height:44px!important;padding:0}
+.game>.game-button.sound{left:3.25%!important;top:5.75%!important}
+.game>.game-button.exit{right:3.25%!important;top:5.75%!important}
+.game>.game-button.next{right:3.25%!important;bottom:2%!important}
+.game .game-hub-button{top:5.75%!important;left:11%!important}
+.game.feeding-room .game-hub-button,.game.sticker-room .game-hub-button{left:auto!important;right:3.25%!important;top:5.75%!important;width:5.5%!important;min-width:44px;min-height:44px;aspect-ratio:1}
+/* Full play-field activities and Sticker Studio use the guide's wide board. */
+.game.activity-scene .puzzle-frame,.game.sticker-room .puzzle-frame{inset:auto!important;left:3.25%!important;top:20%!important;width:93.5%!important;height:66%!important}
+/* Keep the dining performance, food and drop targets in one coordinate space. */
+.game.feeding-room .puzzle-frame{inset:auto!important;left:3.25%!important;top:0!important;width:93.5%!important;height:86%!important}
+.game.feeding-room .dining-table{top:59%;height:41%}
+/* All ordinary boards share one inner margin, without a redundant help row. */
+.game:not(.feeding-room):not(.sticker-room) .puzzle-frame .variant-body{inset:9% 7%!important}
+/* Counting follows the second guide: 49.6% board + 3.4% gap + 18.3% tray. */
+.game:not(.activity-scene):not(.feeding-room):not(.sticker-room) .puzzle-frame:has(.counting-board){background-size:69.65% 100%!important;background-position:left center!important}
+.game .puzzle-frame .counting-board{inset:0!important;width:100%!important;height:100%!important;border:0}
+.game .counting-board .quantity-rows{left:4%;top:9%;width:61.5%;height:82%}
+.game .counting-board .quantity-numbers{left:74.25%;right:auto;top:0;width:25.75%;max-width:none;height:100%;aspect-ratio:auto;background-size:76% 20%,76% 20%,76% 20%,76% 20%,100% 100%}
+.game .counting-board .quantity-numbers .number-chip{left:50%;width:auto;height:19%;aspect-ratio:1;transform:translate(-50%,-50%)}
+/* Dedicated screens keep the same pause control now that Home is removed. */
+.game.feeding-room>.game-button.exit,.game.sticker-room>.game-button.exit{visibility:visible!important;pointer-events:auto}

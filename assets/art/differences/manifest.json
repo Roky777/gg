@@ -5,8 +5,8 @@
       "id": "pirate",
       "name": "Pirate Playroom",
       "images": [
-        "differences/pirate-a.png",
-        "differences/pirate-b.png"
+        "differences/pirate-a.webp",
+        "differences/pirate-b.webp"
       ],
       "regions": [
         {
@@ -134,8 +134,8 @@
       "id": "garden",
       "name": "Garden Helper",
       "images": [
-        "differences/garden-a.png",
-        "differences/garden-b.png"
+        "differences/garden-a.webp",
+        "differences/garden-b.webp"
       ],
       "regions": [
         {
@@ -263,8 +263,8 @@
       "id": "astronaut",
       "name": "Space Explorer",
       "images": [
-        "differences/astronaut-a.png",
-        "differences/astronaut-b.png"
+        "differences/astronaut-a.webp",
+        "differences/astronaut-b.webp"
       ],
       "regions": [
         {
@@ -392,8 +392,8 @@
       "id": "beach",
       "name": "Beach Adventure",
       "images": [
-        "differences/beach-a.png",
-        "differences/beach-b.png"
+        "differences/beach-a.webp",
+        "differences/beach-b.webp"
       ],
       "regions": [
         {
@@ -521,8 +521,8 @@
       "id": "bakery",
       "name": "Little Baker",
       "images": [
-        "differences/bakery-a.png",
-        "differences/bakery-b.png"
+        "differences/bakery-a.webp",
+        "differences/bakery-b.webp"
       ],
       "regions": [
         {
@@ -650,8 +650,8 @@
       "id": "rainy-walk",
       "name": "Rainy Day Walk",
       "images": [
-        "differences/rainy-walk-a.png",
-        "differences/rainy-walk-b.png"
+        "differences/rainy-walk-a.webp",
+        "differences/rainy-walk-b.webp"
       ],
       "regions": [
         {
@@ -779,8 +779,8 @@
       "id": "music",
       "name": "Music Time",
       "images": [
-        "differences/music-a.png",
-        "differences/music-b.png"
+        "differences/music-a.webp",
+        "differences/music-b.webp"
       ],
       "regions": [
         {
@@ -908,8 +908,8 @@
       "id": "farm",
       "name": "Farm Friends",
       "images": [
-        "differences/farm-a.png",
-        "differences/farm-b.png"
+        "differences/farm-a.webp",
+        "differences/farm-b.webp"
       ],
       "regions": [
         {
@@ -1037,8 +1037,8 @@
       "id": "picnic",
       "name": "Picnic Day",
       "images": [
-        "differences/picnic-a.png",
-        "differences/picnic-b.png"
+        "differences/picnic-a.webp",
+        "differences/picnic-b.webp"
       ],
       "regions": [
         {
@@ -1166,8 +1166,8 @@
       "id": "snow",
       "name": "Snow Day",
       "images": [
-        "differences/snow-a.png",
-        "differences/snow-b.png"
+        "differences/snow-a.webp",
+        "differences/snow-b.webp"
       ],
       "regions": [
         {
@@ -1295,8 +1295,8 @@
       "id": "camping",
       "name": "Camping Fun",
       "images": [
-        "differences/camping-a.png",
-        "differences/camping-b.png"
+        "differences/camping-a.webp",
+        "differences/camping-b.webp"
       ],
       "regions": [
         {
@@ -1424,8 +1424,8 @@
       "id": "artist",
       "name": "Little Artist",
       "images": [
-        "differences/artist-a.png",
-        "differences/artist-b.png"
+        "differences/artist-a.webp",
+        "differences/artist-b.webp"
       ],
       "regions": [
         {
@@ -1553,8 +1553,8 @@
       "id": "birthday",
       "name": "Birthday Party",
       "images": [
-        "differences/birthday-a.png",
-        "differences/birthday-b.png"
+        "differences/birthday-a.webp",
+        "differences/birthday-b.webp"
       ],
       "regions": [
         {
@@ -1682,8 +1682,8 @@
       "id": "zoo",
       "name": "Zoo Visit",
       "images": [
-        "differences/zoo-a.png",
-        "differences/zoo-b.png"
+        "differences/zoo-a.webp",
+        "differences/zoo-b.webp"
       ],
       "regions": [
         {
@@ -1811,8 +1811,8 @@
       "id": "station",
       "name": "Train Station",
       "images": [
-        "differences/station-a.png",
-        "differences/station-b.png"
+        "differences/station-a.webp",
+        "differences/station-b.webp"
       ],
       "regions": [
         {
@@ -1956,8 +1956,8 @@
       "id": "underwater",
       "name": "Underwater Adventure",
       "images": [
-        "differences/underwater-a.png",
-        "differences/underwater-b.png"
+        "differences/underwater-a.webp",
+        "differences/underwater-b.webp"
       ],
       "regions": [
         {
@@ -2085,8 +2085,8 @@
       "id": "kitepark",
       "name": "Kite Park",
       "images": [
-        "differences/kitepark-a.png",
-        "differences/kitepark-b.png"
+        "differences/kitepark-a.webp",
+        "differences/kitepark-b.webp"
       ],
       "regions": [
         {
@@ -2214,8 +2214,8 @@
       "id": "treehouse",
       "name": "Treehouse Adventure",
       "images": [
-        "differences/treehouse-a.png",
-        "differences/treehouse-b.png"
+        "differences/treehouse-a.webp",
+        "differences/treehouse-b.webp"
       ],
       "regions": [
         {
@@ -2343,8 +2343,8 @@
       "id": "robotplay",
       "name": "Robot Playtime",
       "images": [
-        "differences/robotplay-a.png",
-        "differences/robotplay-b.png"
+        "differences/robotplay-a.webp",
+        "differences/robotplay-b.webp"
       ],
       "regions": [
         {
@@ -2472,8 +2472,8 @@
       "id": "bedtime",
       "name": "Bedtime Story",
       "images": [
-        "differences/bedtime-a.png",
-        "differences/bedtime-b.png"
+        "differences/bedtime-a.webp",
+        "differences/bedtime-b.webp"
       ],
       "regions": [
         {

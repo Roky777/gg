@@ -1,0 +1,25 @@
+/* Letter homes and movable picture tiles have separate visual jobs. */
+.game .puzzle-frame #board.vertical:is([data-topic=letters],[data-topic=numbers]){position:absolute;inset:13% 7% 12%;width:auto;height:auto;margin:0}
+.game #board.vertical:is([data-topic=letters],[data-topic=numbers]) .slot-targets{inset:0 0 auto;height:24%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:center;z-index:2;pointer-events:none}
+.game #board.vertical .slot-target{box-sizing:border-box;width:72%;height:92%;min-width:0;justify-self:center;padding:0;border:6px solid transparent!important;border-image:url('assets/art/toy-board/card-selected.webp') 12% fill stretch!important;background:none!important;border-radius:14px;transition:filter .2s}
+.game #board.vertical .slot-target>.learning-type-image{height:90%;width:80%;max-width:100%}
+.game #board.vertical .picture-sockets{display:none}
+.game #board.vertical .picture-sockets>span{margin:0 1%;border:5px solid transparent;border-image:url('assets/art/toy-board/card.webp') 12% fill stretch;background:none;opacity:.38;border-radius:14px}
+.game #board.vertical .piece .card-grip{width:26%;height:9px;top:4%;opacity:.85}
+.game #board.vertical .piece .card-letter{top:9%;height:19%}
+.game #board.vertical .piece .card-art{top:31%;height:62%;left:9%;width:82%}
+.game #board.vertical .slot-target.ordering-home-filled{border-image-source:url('assets/art/toy-board/card-correct.webp')!important;filter:none}
+.game #board.vertical .picture-sockets>span.ordering-home-filled{border-image-source:url('assets/art/toy-board/card-correct.webp');opacity:.7}
+.game #board.vertical .slot-target.ordering-destination{filter:drop-shadow(0 0 5px #f7bd47)}
+.game #board.vertical .piece.ordering-invite{filter:brightness(1.06)}
+.ordering-guide{position:absolute;inset:0;z-index:10;pointer-events:none}
+.ordering-guide[hidden]{display:none}
+.game #board .ordering-demo-card{position:absolute;box-sizing:border-box;margin:0;padding:0;border:clamp(8px,1.6vw,24px) solid transparent;border-image:url('assets/art/toy-board/card-selected.webp') 12% fill stretch;background:none;border-radius:14px;pointer-events:none;box-shadow:0 8px 15px #165c7b30;opacity:0}
+.ordering-demo-card .card-name{display:none}
+.game #board .ordering-demo-card .card-letter{top:9%;height:19%;left:0;width:100%;display:flex;align-items:center;justify-content:center}
+.game #board .ordering-demo-card .card-art{top:31%;height:62%;left:9%;width:82%}
+.ordering-demo-hand{position:absolute;width:clamp(38px,8%,70px);height:auto;pointer-events:none;opacity:0}
+@media(prefers-reduced-motion:reduce){.ordering-demo-hand{opacity:1}.game #board.vertical .slot-target{transition:none}}
+
+/* The demonstration teaches dragging; dots must not cover the learning letter. */
+.game #board.vertical .piece .card-grip,.ordering-demo-card .card-grip{display:none!important}

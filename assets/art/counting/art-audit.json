@@ -1,0 +1,125 @@
+{
+  "images": [
+    {
+      "id": "jelly",
+      "file": "jelly.webp",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "id": "rabbit",
+      "file": "rabbit.webp",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "id": "duckling",
+      "file": "duckling.webp",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "id": "toy-car",
+      "file": "toy-car.webp",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "id": "apple",
+      "file": "apple.webp",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "id": "orange",
+      "file": "orange.webp",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "id": "pear",
+      "file": "pear.webp",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "id": "fish",
+      "file": "fish.webp",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "id": "turtle",
+      "file": "turtle.webp",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "id": "ladybird",
+      "file": "ladybird.webp",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "id": "butterfly",
+      "file": "butterfly.webp",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "id": "star-biscuit",
+      "file": "star-biscuit.webp",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "id": "cupcake",
+      "file": "cupcake.webp",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "id": "toy-block",
+      "file": "toy-block.webp",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "id": "flower",
+      "file": "flower.webp",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "id": "teddy",
+      "file": "teddy.webp",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "id": "ball",
+      "file": "ball.webp",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "id": "peach",
+      "file": "peach.webp",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "id": "mushroom",
+      "file": "mushroom.webp",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "id": "strawberry",
+      "file": "strawberry.webp",
+      "width": 512,
+      "height": 512
+    }
+  ],
+  "missing": []
+}

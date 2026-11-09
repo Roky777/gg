@@ -1,0 +1,8 @@
+feeding-mouth.svg
+size:512,256
+filter:Linear,Linear
+pma:false
+FeedingOpen
+bounds:0,0,256,256
+FeedingClosed
+bounds:256,80,256,112

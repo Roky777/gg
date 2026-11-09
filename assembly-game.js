@@ -1,7 +1,7 @@
 import {bindCardReading} from './card-audio.js?v=polish-52';
 /** Three exact image sections, with drag-only placement. */
 export function createAssemblyBoard(item){
- const image=`assembly/${item.id}.png`;
+ const image=`assembly/${item.id}.webp`;
  return {id:`assembly:${item.id}`,topic:'assembly',axis:'vertical',item,cards:[0,1,2].map(value=>({image,value,label:item.name,kind:'assembly'})),targets:['ऊपर','बीच','नीचे'],intro:`चलो, तस्वीर बनाएँ! दाईं तरफ तीन टुकड़े हैं। टुकड़े को पकड़कर उसकी छाया पर रखो।`,rule:'तीन टुकड़ों से पूरी तस्वीर बनाओ।',learn:`वाह! तुमने ${item.name} की पूरी तस्वीर बना दी! ${item.fact}`};
 }
 export function sectionAt(y,rect){if(y<rect.top||y>rect.bottom)return -1;return Math.min(2,Math.floor((y-rect.top)/rect.height*3));}

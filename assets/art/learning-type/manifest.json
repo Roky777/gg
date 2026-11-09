@@ -1,0 +1,1268 @@
+{
+  "font": "Fredoka",
+  "weight": 600,
+  "source": "https://github.com/google/fonts/tree/main/ofl/fredoka",
+  "license": "../../fonts/OFL-Fredoka.txt",
+  "entries": [
+    {
+      "text": "A",
+      "file": "upper-A.svg",
+      "kind": "uppercase",
+      "palette": "blue",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 24.553603515625,
+        "y1": 25.599999999999994,
+        "x2": 135.446396484375,
+        "y2": 138.659609375
+      }
+    },
+    {
+      "text": "B",
+      "file": "upper-B.svg",
+      "kind": "uppercase",
+      "palette": "blue",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 35.92,
+        "y1": 25.439999999999998,
+        "x2": 124.08000000000001,
+        "y2": 137.44
+      }
+    },
+    {
+      "text": "C",
+      "file": "upper-C.svg",
+      "kind": "uppercase",
+      "palette": "blue",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 32.64,
+        "y1": 24.480000000000004,
+        "x2": 127.36,
+        "y2": 138.72
+      }
+    },
+    {
+      "text": "D",
+      "file": "upper-D.svg",
+      "kind": "uppercase",
+      "palette": "blue",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 32.07999999999999,
+        "y1": 25.586679687499995,
+        "x2": 127.92,
+        "y2": 137.44
+      }
+    },
+    {
+      "text": "E",
+      "file": "upper-E.svg",
+      "kind": "uppercase",
+      "palette": "blue",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 37.44,
+        "y1": 25.599999999999994,
+        "x2": 122.56,
+        "y2": 137.44
+      }
+    },
+    {
+      "text": "F",
+      "file": "upper-F.svg",
+      "kind": "uppercase",
+      "palette": "blue",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 37.519999999999996,
+        "y1": 25.599999999999994,
+        "x2": 122.48,
+        "y2": 137.44
+      }
+    },
+    {
+      "text": "G",
+      "file": "upper-G.svg",
+      "kind": "uppercase",
+      "palette": "blue",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 30.32,
+        "y1": 23.840000000000003,
+        "x2": 129.68,
+        "y2": 138.72
+      }
+    },
+    {
+      "text": "H",
+      "file": "upper-H.svg",
+      "kind": "uppercase",
+      "palette": "blue",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 33.92,
+        "y1": 25.599999999999994,
+        "x2": 126.08000000000001,
+        "y2": 137.44
+      }
+    },
+    {
+      "text": "I",
+      "file": "upper-I.svg",
+      "kind": "uppercase",
+      "palette": "blue",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 67.84,
+        "y1": 25.599999999999994,
+        "x2": 92.16,
+        "y2": 137.44
+      }
+    },
+    {
+      "text": "J",
+      "file": "upper-J.svg",
+      "kind": "uppercase",
+      "palette": "blue",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 43.2,
+        "y1": 25.599999999999994,
+        "x2": 116.8,
+        "y2": 138.72
+      }
+    },
+    {
+      "text": "K",
+      "file": "upper-K.svg",
+      "kind": "uppercase",
+      "palette": "blue",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 39.074462890625,
+        "y1": 24.332500000000003,
+        "x2": 120.925537109375,
+        "y2": 138.825703125
+      }
+    },
+    {
+      "text": "L",
+      "file": "upper-L.svg",
+      "kind": "uppercase",
+      "palette": "blue",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 40.64,
+        "y1": 25.599999999999994,
+        "x2": 119.36,
+        "y2": 137.44
+      }
+    },
+    {
+      "text": "M",
+      "file": "upper-M.svg",
+      "kind": "uppercase",
+      "palette": "blue",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 21.519999999999996,
+        "y1": 25.75999999999999,
+        "x2": 138.48000000000002,
+        "y2": 137.44
+      }
+    },
+    {
+      "text": "N",
+      "file": "upper-N.svg",
+      "kind": "uppercase",
+      "palette": "blue",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 32.239999999999995,
+        "y1": 25.75999999999999,
+        "x2": 127.75999999999999,
+        "y2": 137.44
+      }
+    },
+    {
+      "text": "O",
+      "file": "upper-O.svg",
+      "kind": "uppercase",
+      "palette": "blue",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 24.88,
+        "y1": 24.480000000000004,
+        "x2": 135.12,
+        "y2": 139.04
+      }
+    },
+    {
+      "text": "P",
+      "file": "upper-P.svg",
+      "kind": "uppercase",
+      "palette": "blue",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 37.839999999999996,
+        "y1": 25.599999999999994,
+        "x2": 122.16,
+        "y2": 137.44
+      }
+    },
+    {
+      "text": "Q",
+      "file": "upper-Q.svg",
+      "kind": "uppercase",
+      "palette": "blue",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 19.586885245901637,
+        "y1": 24.480000000000004,
+        "x2": 140.41311475409836,
+        "y2": 139.04
+      }
+    },
+    {
+      "text": "R",
+      "file": "upper-R.svg",
+      "kind": "uppercase",
+      "palette": "blue",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 36.884287109374995,
+        "y1": 25.599999999999994,
+        "x2": 123.115712890625,
+        "y2": 137.77452880859374
+      }
+    },
+    {
+      "text": "S",
+      "file": "upper-S.svg",
+      "kind": "uppercase",
+      "palette": "blue",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 40.060625,
+        "y1": 23.840000000000003,
+        "x2": 119.93937500000001,
+        "y2": 139.04
+      }
+    },
+    {
+      "text": "T",
+      "file": "upper-T.svg",
+      "kind": "uppercase",
+      "palette": "blue",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 31.759999999999998,
+        "y1": 25.439999999999998,
+        "x2": 128.24,
+        "y2": 137.44
+      }
+    },
+    {
+      "text": "U",
+      "file": "upper-U.svg",
+      "kind": "uppercase",
+      "palette": "blue",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 31.84,
+        "y1": 25.439999999999998,
+        "x2": 128.16,
+        "y2": 138.88
+      }
+    },
+    {
+      "text": "V",
+      "file": "upper-V.svg",
+      "kind": "uppercase",
+      "palette": "blue",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 27.571530363121813,
+        "y1": 24.39692307692307,
+        "x2": 132.4284696368782,
+        "y2": 137.44
+      }
+    },
+    {
+      "text": "W",
+      "file": "upper-W.svg",
+      "kind": "uppercase",
+      "palette": "blue",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 7.023101640181098,
+        "y1": 24.74666666666667,
+        "x2": 152.9768983598189,
+        "y2": 137.12
+      }
+    },
+    {
+      "text": "X",
+      "file": "upper-X.svg",
+      "kind": "uppercase",
+      "palette": "blue",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 28.839423828124996,
+        "y1": 23.908671875,
+        "x2": 131.160576171875,
+        "y2": 139.13142578125002
+      }
+    },
+    {
+      "text": "Y",
+      "file": "upper-Y.svg",
+      "kind": "uppercase",
+      "palette": "blue",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 31.04592592592591,
+        "y1": 24.0448,
+        "x2": 128.95407407407407,
+        "y2": 137.76
+      }
+    },
+    {
+      "text": "Z",
+      "file": "upper-Z.svg",
+      "kind": "uppercase",
+      "palette": "blue",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 35.839999999999996,
+        "y1": 25.439999999999998,
+        "x2": 124.16,
+        "y2": 137.76
+      }
+    },
+    {
+      "text": "a",
+      "file": "lower-a.svg",
+      "kind": "lowercase",
+      "palette": "purple",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 39.919999999999995,
+        "y1": 57.44,
+        "x2": 120.08,
+        "y2": 137.28
+      }
+    },
+    {
+      "text": "b",
+      "file": "lower-b.svg",
+      "kind": "lowercase",
+      "palette": "purple",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 40.160000000000004,
+        "y1": 21.120000000000005,
+        "x2": 119.84,
+        "y2": 137.44
+      }
+    },
+    {
+      "text": "c",
+      "file": "lower-c.svg",
+      "kind": "lowercase",
+      "palette": "purple",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 44.322968749999994,
+        "y1": 56.8,
+        "x2": 115.67703125,
+        "y2": 138.08
+      }
+    },
+    {
+      "text": "d",
+      "file": "lower-d.svg",
+      "kind": "lowercase",
+      "palette": "purple",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 40.16,
+        "y1": 21.120000000000005,
+        "x2": 119.84,
+        "y2": 137.44
+      }
+    },
+    {
+      "text": "e",
+      "file": "lower-e.svg",
+      "kind": "lowercase",
+      "palette": "purple",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 40.72,
+        "y1": 56.16,
+        "x2": 119.28,
+        "y2": 138.88
+      }
+    },
+    {
+      "text": "f",
+      "file": "lower-f.svg",
+      "kind": "lowercase",
+      "palette": "purple",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 49.68,
+        "y1": 20.799999999999997,
+        "x2": 110.32,
+        "y2": 137.6
+      }
+    },
+    {
+      "text": "g",
+      "file": "lower-g.svg",
+      "kind": "lowercase",
+      "palette": "purple",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 41.03999999999999,
+        "y1": 57.120000000000005,
+        "x2": 118.96000000000001,
+        "y2": 170.4
+      }
+    },
+    {
+      "text": "h",
+      "file": "lower-h.svg",
+      "kind": "lowercase",
+      "palette": "purple",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 41.2,
+        "y1": 21.120000000000005,
+        "x2": 118.8,
+        "y2": 137.44
+      }
+    },
+    {
+      "text": "i",
+      "file": "lower-i.svg",
+      "kind": "lowercase",
+      "palette": "purple",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 67.68,
+        "y1": 21.120000000000005,
+        "x2": 92.32,
+        "y2": 137.44
+      }
+    },
+    {
+      "text": "j",
+      "file": "lower-j.svg",
+      "kind": "lowercase",
+      "palette": "purple",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 55.2,
+        "y1": 21.28,
+        "x2": 104.80000000000001,
+        "y2": 170.24
+      }
+    },
+    {
+      "text": "k",
+      "file": "lower-k.svg",
+      "kind": "lowercase",
+      "palette": "purple",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 44.5496875,
+        "y1": 20.959999999999994,
+        "x2": 115.4503125,
+        "y2": 138.34074074074076
+      }
+    },
+    {
+      "text": "l",
+      "file": "lower-l.svg",
+      "kind": "lowercase",
+      "palette": "purple",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 60.32,
+        "y1": 20.799999999999997,
+        "x2": 99.68,
+        "y2": 137.44
+      }
+    },
+    {
+      "text": "m",
+      "file": "lower-m.svg",
+      "kind": "lowercase",
+      "palette": "purple",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 21.999999999999993,
+        "y1": 57.28,
+        "x2": 138,
+        "y2": 137.4539111328125
+      }
+    },
+    {
+      "text": "n",
+      "file": "lower-n.svg",
+      "kind": "lowercase",
+      "palette": "purple",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 41.2,
+        "y1": 57.44,
+        "x2": 118.8,
+        "y2": 137.28
+      }
+    },
+    {
+      "text": "o",
+      "file": "lower-o.svg",
+      "kind": "lowercase",
+      "palette": "purple",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 38.64,
+        "y1": 55.84,
+        "x2": 121.36,
+        "y2": 138.72
+      }
+    },
+    {
+      "text": "p",
+      "file": "lower-p.svg",
+      "kind": "lowercase",
+      "palette": "purple",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 40.39999999999999,
+        "y1": 57.44,
+        "x2": 119.6,
+        "y2": 170.56
+      }
+    },
+    {
+      "text": "q",
+      "file": "lower-q.svg",
+      "kind": "lowercase",
+      "palette": "purple",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 40.4,
+        "y1": 57.44,
+        "x2": 119.6,
+        "y2": 170.56
+      }
+    },
+    {
+      "text": "r",
+      "file": "lower-r.svg",
+      "kind": "lowercase",
+      "palette": "purple",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 50.88,
+        "y1": 56.64,
+        "x2": 109.12,
+        "y2": 137.44
+      }
+    },
+    {
+      "text": "s",
+      "file": "lower-s.svg",
+      "kind": "lowercase",
+      "palette": "purple",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 47.52890625,
+        "y1": 56.31999999999999,
+        "x2": 112.47109375,
+        "y2": 138.72
+      }
+    },
+    {
+      "text": "t",
+      "file": "lower-t.svg",
+      "kind": "lowercase",
+      "palette": "purple",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 49.68,
+        "y1": 30.72,
+        "x2": 110.32,
+        "y2": 137.44
+      }
+    },
+    {
+      "text": "u",
+      "file": "lower-u.svg",
+      "kind": "lowercase",
+      "palette": "purple",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 41.199999999999996,
+        "y1": 57.28,
+        "x2": 118.8,
+        "y2": 137.28
+      }
+    },
+    {
+      "text": "v",
+      "file": "lower-v.svg",
+      "kind": "lowercase",
+      "palette": "purple",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 38.22818517348345,
+        "y1": 56.18962962962963,
+        "x2": 121.77181482651655,
+        "y2": 138.08
+      }
+    },
+    {
+      "text": "w",
+      "file": "lower-w.svg",
+      "kind": "lowercase",
+      "palette": "purple",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 22.291128499348954,
+        "y1": 56.34758620689655,
+        "x2": 137.70887150065104,
+        "y2": 137.6
+      }
+    },
+    {
+      "text": "x",
+      "file": "lower-x.svg",
+      "kind": "lowercase",
+      "palette": "purple",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 41.17666666666667,
+        "y1": 56.21333333333331,
+        "x2": 118.82333333333334,
+        "y2": 138.34666503906251
+      }
+    },
+    {
+      "text": "y",
+      "file": "lower-y.svg",
+      "kind": "lowercase",
+      "palette": "purple",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 37.849892578125,
+        "y1": 56.075932203389826,
+        "x2": 122.15010742187499,
+        "y2": 171.75384615384618
+      }
+    },
+    {
+      "text": "z",
+      "file": "lower-z.svg",
+      "kind": "lowercase",
+      "palette": "purple",
+      "width": 160,
+      "height": 184,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 40.24,
+        "y1": 57.44,
+        "x2": 119.76,
+        "y2": 137.44
+      }
+    },
+    {
+      "text": "0",
+      "file": "number-0.svg",
+      "kind": "number",
+      "palette": "orange",
+      "width": 160,
+      "height": 164,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 38.08,
+        "y1": 24.159999999999997,
+        "x2": 121.92,
+        "y2": 139.2
+      }
+    },
+    {
+      "text": "1",
+      "file": "number-1.svg",
+      "kind": "number",
+      "palette": "blue",
+      "width": 160,
+      "height": 164,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 53.68,
+        "y1": 25.599999999999994,
+        "x2": 106.32,
+        "y2": 137.76
+      }
+    },
+    {
+      "text": "2",
+      "file": "number-2.svg",
+      "kind": "number",
+      "palette": "green",
+      "width": 160,
+      "height": 164,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 37.36,
+        "y1": 24.159999999999997,
+        "x2": 122.64,
+        "y2": 137.28
+      }
+    },
+    {
+      "text": "3",
+      "file": "number-3.svg",
+      "kind": "number",
+      "palette": "pink",
+      "width": 160,
+      "height": 164,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 38.08,
+        "y1": 24,
+        "x2": 121.92,
+        "y2": 139.04
+      }
+    },
+    {
+      "text": "4",
+      "file": "number-4.svg",
+      "kind": "number",
+      "palette": "purple",
+      "width": 160,
+      "height": 164,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 40.32000000000001,
+        "y1": 24.93948717948717,
+        "x2": 119.68,
+        "y2": 137.44
+      }
+    },
+    {
+      "text": "5",
+      "file": "number-5.svg",
+      "kind": "number",
+      "palette": "orange",
+      "width": 160,
+      "height": 164,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 43.28,
+        "y1": 25.28,
+        "x2": 116.72,
+        "y2": 139.2
+      }
+    },
+    {
+      "text": "6",
+      "file": "number-6.svg",
+      "kind": "number",
+      "palette": "blue",
+      "width": 160,
+      "height": 164,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 41.75999999999999,
+        "y1": 25.439999999999998,
+        "x2": 118.24000000000001,
+        "y2": 138.88
+      }
+    },
+    {
+      "text": "7",
+      "file": "number-7.svg",
+      "kind": "number",
+      "palette": "green",
+      "width": 160,
+      "height": 164,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 40.24,
+        "y1": 25.75999999999999,
+        "x2": 119.76,
+        "y2": 137.44
+      }
+    },
+    {
+      "text": "8",
+      "file": "number-8.svg",
+      "kind": "number",
+      "palette": "pink",
+      "width": 160,
+      "height": 164,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 40.08,
+        "y1": 23.519999999999996,
+        "x2": 119.92,
+        "y2": 139.2
+      }
+    },
+    {
+      "text": "9",
+      "file": "number-9.svg",
+      "kind": "number",
+      "palette": "purple",
+      "width": 160,
+      "height": 164,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 41.75999999999999,
+        "y1": 24,
+        "x2": 118.24000000000001,
+        "y2": 137.6
+      }
+    },
+    {
+      "text": "10",
+      "file": "number-10.svg",
+      "kind": "number",
+      "palette": "orange",
+      "width": 220,
+      "height": 164,
+      "baseline": 136,
+      "inkBounds": {
+        "x1": 37.04,
+        "y1": 24.159999999999997,
+        "x2": 182.96,
+        "y2": 139.2
+      }
+    },
+    {
+      "text": "APPLE",
+      "file": "word-apple.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 373,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 22.72,
+        "x2": 356.816,
+        "y2": 101.86172229003907
+      }
+    },
+    {
+      "text": "BALLOON",
+      "file": "word-balloon.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 537,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 21.935999999999993,
+        "x2": 520.6719999999999,
+        "y2": 102.128
+      }
+    },
+    {
+      "text": "CARROT",
+      "file": "word-carrot.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 469,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 21.935999999999993,
+        "x2": 452.68800000000005,
+        "y2": 102.128
+      }
+    },
+    {
+      "text": "DUCK",
+      "file": "word-duck.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 315,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 21.83261538461538,
+        "x2": 298.19175195312494,
+        "y2": 102.016
+      }
+    },
+    {
+      "text": "EGG",
+      "file": "word-egg.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 249,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 21.488,
+        "x2": 232.94400000000002,
+        "y2": 101.904
+      }
+    },
+    {
+      "text": "FISH",
+      "file": "word-fish.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 253,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 21.488,
+        "x2": 236.08,
+        "y2": 102.128
+      }
+    },
+    {
+      "text": "GRAPES",
+      "file": "word-grapes.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 449,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 21.488,
+        "x2": 432.976,
+        "y2": 102.128
+      }
+    },
+    {
+      "text": "HOUSE",
+      "file": "word-house.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 387,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 21.488,
+        "x2": 370.032,
+        "y2": 102.128
+      }
+    },
+    {
+      "text": "KITE",
+      "file": "word-kite.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 257,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 21.83261538461538,
+        "x2": 240.896,
+        "y2": 101.97800000000001
+      }
+    },
+    {
+      "text": "LEAF",
+      "file": "word-leaf.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 303,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 22.72,
+        "x2": 286.032,
+        "y2": 101.86172229003907
+      }
+    },
+    {
+      "text": "MOON",
+      "file": "word-moon.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 353,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 21.935999999999993,
+        "x2": 336.20799999999997,
+        "y2": 102.128
+      }
+    },
+    {
+      "text": "ORANGE",
+      "file": "word-orange.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 481,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 21.488,
+        "x2": 464.89599999999996,
+        "y2": 102.128
+      }
+    },
+    {
+      "text": "PEAR",
+      "file": "word-pear.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 308,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 22.72,
+        "x2": 291.2899999694825,
+        "y2": 101.86172229003907
+      }
+    },
+    {
+      "text": "SUN",
+      "file": "word-sun.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 239,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 21.488,
+        "x2": 222.89536,
+        "y2": 102.128
+      }
+    },
+    {
+      "text": "TREE",
+      "file": "word-tree.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 305,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 22.608000000000004,
+        "x2": 288.048,
+        "y2": 101.24218181818182
+      }
+    },
+    {
+      "text": "UMBRELLA",
+      "file": "word-umbrella.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 607,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 22.608000000000004,
+        "x2": 590.568959991455,
+        "y2": 102.016
+      }
+    },
+    {
+      "text": "VAN",
+      "file": "word-van.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 261,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 21.87794921875,
+        "x2": 244.08012499999998,
+        "y2": 101.86172229003907
+      }
+    },
+    {
+      "text": "WATERMELON",
+      "file": "word-watermelon.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 801,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 21.935999999999993,
+        "x2": 784.5083636363637,
+        "y2": 102.128
+      }
+    },
+    {
+      "text": "XYLOPHONE",
+      "file": "word-xylophone.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 687,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 21.536070312499998,
+        "x2": 670.416,
+        "y2": 102.19200000000001
+      }
+    },
+    {
+      "text": "YARN",
+      "file": "word-yarn.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 322,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 21.631404296875004,
+        "x2": 305.1757037037037,
+        "y2": 101.86172229003907
+      }
+    },
+    {
+      "text": "ZEBRA",
+      "file": "word-zebra.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 381,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 22.608000000000004,
+        "x2": 364.55295999145517,
+        "y2": 101.86172229003907
+      }
+    }
+  ]
+}

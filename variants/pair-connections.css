@@ -1,0 +1,13 @@
+.variant-columns .variant-lines{z-index:0}
+.variant-lines .connection-correct{color:#229c58}
+.variant-lines .connection-wrong{color:#df414d}
+.variant-lines .connection-draft{color:#4195d0}
+.variant-lines g path{stroke:currentColor;stroke-width:5;fill:none;stroke-linecap:round}
+.variant-lines .connection-wrong path{stroke-dasharray:9 5}
+.variant-lines .connection-draft path{stroke-dasharray:5 6;stroke-width:4}
+.variant-lines g circle{fill:currentColor;stroke:#fffdf4;stroke-width:2}
+.variant-lines .connection-wrong text{fill:currentColor;stroke:#fffdf4;stroke-width:3;paint-order:stroke;font:900 26px Nunito,sans-serif}
+.variant-columns [data-source]::before,.variant-columns [data-target]::before{content:'';position:absolute;top:50%;width:10px;height:10px;border:2px solid #6ba6cb;border-radius:50%;background:#fffdf4;translate:0 -50%;pointer-events:none}
+.variant-columns [data-source]::before{right:-7px}
+.variant-columns [data-target]::before{left:-7px}
+.variant-columns .matched::before{background:#229c58;border-color:#fffdf4}

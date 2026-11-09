@@ -25,8 +25,8 @@ export function makeShapeProfile(S,sourceData){
   const neutral=forward(bind.findBone(driver),inverse(sk.findBone(driver),p));return movePoint(sk,boxMap(neutral,FIT[g]),driver);
  }
  function torsoAnchor(sk,target){return movePoint(sk,target)}
- const poseContexts=new WeakMap(),frameCache=new WeakMap();
- function setPoseContext(v){const animation=v.entry?.animation,time=v.fixedTime??v.entry?.trackTime??0;poseContexts.set(v.skeleton,{animation,time:v.entry?.loop&&animation?.duration>0?time%animation.duration:time});frameCache.delete(v.skeleton)}
+ const poseContexts=new WeakMap(),frameCache=new WeakMap(),referenceBridges=new WeakMap();
+ function setPoseContext(v){const reference=v.skeleton.sparkyAuthoredPose?.referenceMotion,animation=reference?v.skeleton.data.findAnimation(reference.name):v.entry?.animation,time=reference?.time??v.fixedTime??v.entry?.trackTime??0,loop=reference?reference.loop:v.entry?.loop;poseContexts.set(v.skeleton,{animation,time:loop&&animation?.duration>0?time%animation.duration:time});frameCache.delete(v.skeleton)}
  function armFrame(sk,s){
   let frames=frameCache.get(sk);if(!frames){frames=new Map();frameCache.set(sk,frames)}if(frames.has(s))return frames.get(s);
   const normal=!!sk.findSlot(s==='L'?'Right_Shoulder':'Left_Shoulder')?.getAttachment(),ctx=poseContexts.get(sk),goal=torsoAnchor(sk,FIT['shoulder'+s]),canonical=s==='L'?['Hand_L3','Hand_L4','Palm_R']:['Hand_L5','Hand_L6','Palm_R2'],folded=s==='L'?['Hand_Sep_3','Hand_Sep_4','Hand_Sep_Palm_R_No_Scale']:['Hand_Sep_1','Hand_Sep_2','Hand_Sep_Palm_No_Scale'],m=similarity(pos(bind.findBone(canonical[0])),pos(bind.findBone(canonical[2])),FIT['shoulder'+s],FIT['wrist'+s]);
@@ -46,11 +46,27 @@ export function makeShapeProfile(S,sourceData){
   }
   const n=control(true),f=control(false),active=normal?n:f,mix=(a,b)=>[a[0]+(b[0]-a[0])*blend,a[1]+(b[1]-a[1])*blend];
   const raw={goal:mix(f.goal,n.goal),elbow:mix(f.elbow,n.elbow),wrist:mix(f.wrist,n.wrist)};
+  // Inactive source arm chains can contain setup-pose coordinates. Blending
+  // those chains directly sends the hand through a large detour at a drawing
+  // change. Bridge two genuinely sampled, visible poses instead. This is
+  // deterministic when scrubbing and preserves the source on either side.
+  if(ctx&&sk.sparkyAuthoredPose?.referenceMotion&&timeline){let previous=!!shoulder.data.attachmentName;for(let i=0;i<timeline.frames.length;i++){const key=timeline.frames[i],next=!!timeline.attachmentNames[i],span=.18;if(key>0&&previous!==next&&Math.abs(ctx.time-key)<span){
+    let samples=referenceBridges.get(ctx.animation);if(!samples){samples=new Map();referenceBridges.set(ctx.animation,samples)}
+    const sample=t=>{const id=s+':'+t;let local=samples.get(id);if(!local){const other=new S.Skeleton(sourceData);ctx.animation.apply(other,-1,t,false,null,1,S.MixBlend.replace,S.MixDirection.mixIn);other.updateWorldTransform(S.Physics.none);const frame=armFrame(other,s),anchor=torsoAnchor(other,FIT['shoulder'+s]);local=Object.fromEntries(['goal','elbow','wrist'].map(k=>[k,frame.raw[k].map((x,j)=>x-anchor[j])]));samples.set(id,local)}return Object.fromEntries(['goal','elbow','wrist'].map(k=>[k,local[k].map((x,j)=>x+goal[j])]))};
+    const a=sample(Math.max(0,key-span)),b=sample(key+span);let u=(ctx.time-key+span)/(2*span);u=u*u*(3-2*u);for(const k of['goal','elbow','wrist'])raw[k]=a[k].map((x,j)=>x+(b[k][j]-x)*u);break;
+   }previous=next}}
+  // Optional authored targets in Sparky's painted rig space. No effect on source clips.
+  const authored=sk.sparkyAuthoredPose?.arms?.[s];
+  if(authored){raw.wrist=authored.wrist.slice();raw.elbow=authored.elbow.slice();}
+  const offset=sk.sparkyAuthoredPose?.armOffsets?.[s];
+  if(offset){const y=raw.wrist[1],u=Math.max(0,Math.min(1,(y-120)/35)),w=u*u*(3-2*u);raw.wrist=raw.wrist.map((x,i)=>x+offset[i]*w);}
   // Hands hidden with nothing held means hands behind the back: carry the wrist
   // behind the torso so the arm angles back out of sight instead of ending in a stub.
   const visible=sl=>sl.getAttachment()&&sl.color.a>.1,handShown=sk.drawOrder.some(sl=>group(sl.data.name)==='hand'+s&&visible(sl)),onHand=sl=>{for(let b=sl.bone;b;b=b.parent)if(HAND_BONES[s].test(b.data.name))return true;return false},holding=sk.drawOrder.some(sl=>HELD.test(sl.data.name)&&visible(sl)&&(onHand(sl)||HELD_ON_BODY.test(sl.data.name)));
   if(!handShown&&!holding){raw.wrist=[goal[0]+(s==='L'?1:-1)*BEHIND_BACK[0],goal[1]-BEHIND_BACK[1]];raw.behind=true}
-  const solved=retargetArm(raw,goal,s,blend);
+  // Authored Sparky joints already use his measured lengths and a fixed bend plane.
+  // Re-solving them with Lucas's foreshortening/tuck rules caused elbow flips.
+  const solved=authored?{goal:authored.shoulder??goal,elbow:authored.elbow}:retargetArm(raw,goal,s,blend);
   const result={normal,blend,root:active.root,hand:active.hand,rb:bind.findBone(active.root.data.name),hb:bind.findBone(active.hand.data.name),goal:solved.goal,m,elbow:solved.elbow,wrist:raw.wrist,raw,behind:!!raw.behind};frames.set(s,result);return result;
  }
  // Lucas's long-sleeved arm roots wander across his torso (up to ~20 units here),

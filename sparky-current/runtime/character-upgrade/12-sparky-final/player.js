@@ -44,21 +44,21 @@ function drawOutline(c,skeleton,outline,glCanvas){
  c.clear(0,0,0,0);return o.out;
 }
 export class FullCharacterPlayer {
- static async load(manifestURL){
-  const url=new URL(manifestURL,document.baseURI),response=await fetch(url,{cache:'no-store'});if(!response.ok)throw Error('Unable to load animation manifest');
+ static async load(manifestURL,{renderWidth=1024}={}){
+  const url=new URL(manifestURL,document.baseURI),response=await fetch(url);if(!response.ok)throw Error('Unable to load animation manifest');
   const manifest=await response.json();
   if(!window.spine)await new Promise((resolve,reject)=>{const script=document.createElement('script');script.src=new URL('vendor/spine-webgl.min.js',url);script.onload=resolve;script.onerror=()=>reject(Error('Unable to load bundled Spine runtime'));document.head.append(script)});
-  return new Promise((resolve,reject)=>new FullCharacterPlayer(manifest,url,resolve,reject));
+  return new Promise((resolve,reject)=>new FullCharacterPlayer(manifest,url,resolve,reject,renderWidth));
  }
- constructor(manifest,url,resolve,reject){
+ constructor(manifest,url,resolve,reject,renderWidth=1024){
   this.manifest=manifest;this.views=new Set();this.speed=1;this.paused=false;this.last=performance.now();this.time=0;
-  const canvas=document.createElement('canvas');canvas.width=1024;canvas.height=1280;canvas.style.cssText='position:fixed;left:-10000px;width:1024px;height:1280px;pointer-events:none';canvas.setAttribute('aria-hidden','true');document.body.append(canvas);this.canvas=canvas;
+  const canvas=document.createElement('canvas');canvas.width=renderWidth;canvas.height=renderWidth*1.25;canvas.style.cssText=`position:fixed;left:-10000px;width:${canvas.width}px;height:${canvas.height}px;pointer-events:none`;canvas.setAttribute('aria-hidden','true');document.body.append(canvas);this.canvas=canvas;
   const resource=p=>new URL(p,url).href+'?v='+manifest.revision,skel=resource(manifest.skeleton),atlas=resource(manifest.atlas),texture=resource(manifest.texture);const self=this;
   this.instance=new spine.SpineCanvas(canvas,{webglConfig:{alpha:true,antialias:true,premultipliedAlpha:true,preserveDrawingBuffer:true},app:{
    loadAssets(c){c.assetManager.loadBinary(skel);c.assetManager.loadTextureAtlas(atlas,undefined,undefined,{[manifest.texture.split('/').at(-1)]:texture})},
    initialize(c){self.data=new spine.SkeletonBinary(new spine.AtlasAttachmentLoader(c.assetManager.get(atlas))).readSkeletonData(c.assetManager.get(skel));const m=manifest.camera;c.renderer.camera.position.set(m.x,m.y,0);c.renderer.camera.viewportWidth=m.width;c.renderer.camera.viewportHeight=m.height;c.renderer.camera.update();resolve(self)},
    update(){const now=performance.now(),dt=Math.min((now-self.last)/1000,.1);self.last=now;if(!self.paused&&!document.hidden)self.time+=dt*self.speed},
-   render(c){if(!self.data||document.hidden)return;for(const v of self.views){if(!v.visible||(!v.dirty&&self.paused&&!v.speaking))continue;applyRigPose(v,self.time);c.clear(0,0,0,0);c.renderer.resize(spine.ResizeMode.Fit);const rendered=self.referenceAdapter?.(v)??v.skeleton,outline=self.outline&&self.referenceAdapter?drawOutline(c,rendered,self.outline,canvas):null;c.renderer.begin();c.renderer.drawSkeleton(rendered,!self.referenceAdapter);if(self.showMesh){c.renderer.skeletonDebugRenderer.drawMeshTriangles=true;c.renderer.skeletonDebugRenderer.drawMeshHull=false;c.renderer.skeletonDebugRenderer.drawBones=true;c.renderer.drawSkeletonDebug(rendered,false);}c.renderer.end();v.context.clearRect(0,0,v.canvas.width,v.canvas.height);if(outline)v.context.drawImage(outline,0,0,v.canvas.width,v.canvas.height);v.context.drawImage(canvas,0,0,v.canvas.width,v.canvas.height);v.dirty=false}},
+   render(c){if(!self.data||document.hidden)return;for(const v of self.views){if(!v.visible||(!v.dirty&&self.paused&&!v.speaking))continue;applyRigPose(v,self.time);c.clear(0,0,0,0);c.renderer.resize(spine.ResizeMode.Fit);const rendered=self.referenceAdapter?.(v)??v.skeleton,outline=self.outline&&self.referenceAdapter?drawOutline(c,rendered,self.outline,canvas):null;c.renderer.begin();c.renderer.drawSkeleton(rendered,!self.referenceAdapter);if(self.showMesh){c.renderer.skeletonDebugRenderer.drawMeshTriangles=true;c.renderer.skeletonDebugRenderer.drawMeshHull=false;c.renderer.skeletonDebugRenderer.drawBones=true;c.renderer.drawSkeletonDebug(rendered,false);}c.renderer.end();v.context.clearRect(0,0,v.canvas.width,v.canvas.height);if(outline)v.context.drawImage(outline,0,0,v.canvas.width,v.canvas.height);v.context.drawImage(canvas,0,0,v.canvas.width,v.canvas.height);const tableY=v.skeleton.sparkyAuthoredPose?.tableOcclusionY;if(Number.isFinite(tableY)){const camera=c.renderer.camera,row=(camera.position.y+camera.viewportHeight/2-tableY)/camera.viewportHeight*v.canvas.height;v.context.clearRect(0,Math.max(0,row),v.canvas.width,v.canvas.height);}v.dirty=false}},
    error(c,e){reject(Error('Rig load failed: '+JSON.stringify(e)))}
   }});
  }
@@ -71,7 +71,7 @@ export class FullCharacterPlayer {
   state.apply(skeleton);
   const baseAttachments=new Map(skeleton.slots.map(slot=>[slot.data.name,slot.getAttachment()]));
   const attachments=names=>names.map(name=>{const slot=skeleton.findSlot(name);if(!slot)throw Error('Unknown preserved slot: '+name);return [slot,baseAttachments.get(name)]});
-  canvas.width=1024;canvas.height=1280;
+  canvas.width=this.canvas?.width??1024;canvas.height=this.canvas?.height??1280;
   const track=baseClip?1:0;
   const v={speechAnimation,speaking:false,speechStarted:0,poseModifier:null,canvas,context:canvas.getContext('2d'),skeleton,state,stateData,track,baseAttachments,preservedAttachments:attachments(preserveSlots),retiringAttachments:[],preserveUntil:0,entry:state.setAnimation(track,clip,loop),visible:true,dirty:true,start:this.time,previousTime:this.time,fixedTime:null};
   this.views.add(v);

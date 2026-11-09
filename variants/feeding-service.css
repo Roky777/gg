@@ -1,0 +1,31 @@
+.game.feeding-room .feeding-tray .variant-card{background:transparent;border:0;box-shadow:none!important;overflow:visible;border-radius:40%;padding:0}
+.game.feeding-room .feeding-tray .variant-card.selected{background:transparent;outline:2px dashed #f6cf68;outline-offset:3px}
+.food-serving{position:relative;display:block;width:100%;height:100%;pointer-events:none}
+.serving-dish-back,.serving-dish-front{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none}
+.serving-dish-back{filter:drop-shadow(0 3px 2px #71452124)}
+.serving-food{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.food-serving .serving-food>.variant-art{width:100%;height:100%}
+.serving-plate .serving-food{left:17%;top:7%;width:66%;height:72%;clip-path:ellipse(50% 48% at 50% 50%)}
+.serving-plate .serving-dish-front{clip-path:polygon(0 77%,100% 77%,100% 100%,0 100%)}
+.serving-bowl .serving-food{left:14%;top:10%;width:72%;height:56%;clip-path:ellipse(50% 47% at 50% 50%)}
+.serving-embedded .serving-food{inset:0 4%;width:92%;height:100%}
+.game.feeding-room .feeding-tray .variant-card.food-being-dragged .serving-food{opacity:.2}
+.food-portion{position:relative;display:block;width:100%;height:100%;overflow:hidden;clip-path:ellipse(49% 47% at 50% 50%);pointer-events:none}
+.food-portion>img{position:absolute;max-width:none!important;max-height:none!important;object-fit:fill;pointer-events:none}
+.utensil-carry{position:relative;display:block;width:100%;height:100%;pointer-events:none}
+.utensil-carry>.carried-tool{position:absolute;left:calc(50% - 16px);top:calc(50% - 20px);width:32px;height:110px;max-width:none;max-height:none;object-fit:fill;transform:rotate(-65deg);transform-origin:50% 18%;filter:drop-shadow(0 2px 1px #4b3a2b30)}
+.carried-bite{position:absolute;left:calc(50% - 15px);top:calc(50% - 11px);width:30px;height:22px}
+.carried-bite>.variant-art{width:100%;height:100%}
+.game.feeding-room .feeding-utensil{position:absolute;padding:0;border:0;border-radius:18px;background:transparent;z-index:7;pointer-events:auto;touch-action:none;min-width:44px;min-height:44px;cursor:grab}
+.game.feeding-room .feeding-utensil:active{cursor:grabbing}
+.game.feeding-room .spoon-tool{left:calc(39.583% - 14px);top:calc(70.648% - 5px);width:calc(2.552% + 28px);height:calc(14.63% + 10px)}
+.game.feeding-room .fork-tool{left:calc(57.917% - 14px);top:calc(70.278% - 5px);width:calc(2.552% + 28px);height:calc(16.019% + 10px)}
+.game.feeding-room .feeding-utensil>.dining-spoon,.game.feeding-room .feeding-utensil>.dining-fork{left:14px;top:5px;width:calc(100% - 28px);height:calc(100% - 10px);transform:scaleY(-1);pointer-events:none}
+.game.feeding-room .feeding-utensil:focus-visible,.game.feeding-room .feeding-utensil.utensil-selected{outline:2px solid #ffd15b;outline-offset:1px;background:#fff8d32b}
+.game.feeding-room .feeding-utensil.utensil-hint{outline:2px dashed #ffe587;outline-offset:2px;background:#fff8d344}
+.game.feeding-room .feeding-utensil:disabled{cursor:default}
+.tool-loaded-bite{position:absolute;bottom:4%;left:25%;width:50%;height:25%;pointer-events:none}
+.tool-loaded-bite>.variant-art{width:100%;height:100%}
+.game.feeding-room .feeding-target:not(:focus-visible) .feeding-target-label{opacity:0}
+.game.feeding-room .feeding-utensil.food-being-dragged>img,.game.feeding-room .feeding-utensil.utensil-in-use>img{opacity:.18}
+.feeding-utensil.food-being-dragged .tool-loaded-bite,.feeding-utensil.utensil-in-use .tool-loaded-bite{visibility:hidden}

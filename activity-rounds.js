@@ -72,11 +72,11 @@ export class InteractiveBreak{
   this.growth=new GardenGrowth();this.progress(0,3);this.watering=-1;this.pots=[];this.flowers=[];
   const bed=make('div','garden-bed',this.stage);
   for(let i=0;i<3;i++){const pot=make('button','garden-pot',bed);pot.type='button';pot.setAttribute('aria-label',`Water pot ${i+1}. Drag the can here or hold to grow a flower.`);
-   const flower=image('counting/flower.png','garden-flower',pot);flower.style.setProperty('--flower-hue',i*60+'deg');image('fun/flower-pot-v1.png','garden-pot-art',pot);image('fun/flower-pot-v1.png','garden-pot-art garden-pot-front',pot);const drops=make('span','water-drops',pot);drops.setAttribute('aria-hidden','true');this.pots.push(pot);this.flowers.push(flower);
+   const flower=image('counting/flower.webp','garden-flower',pot);flower.style.setProperty('--flower-hue',i*60+'deg');image('fun/flower-pot-v1.webp','garden-pot-art',pot);image('fun/flower-pot-v1.webp','garden-pot-art garden-pot-front',pot);const drops=make('span','water-drops',pot);drops.setAttribute('aria-hidden','true');this.pots.push(pot);this.flowers.push(flower);
    this.listen(pot,'pointerdown',e=>{if(this.capture(pot,e)){this.watering=i;this.stage.classList.add('watering');pot.classList.add('being-watered');}});this.listen(pot,'pointerup',()=>this.stopWater());this.listen(pot,'pointercancel',()=>this.stopWater());this.listen(pot,'lostpointercapture',()=>this.stopWater());
    this.listen(pot,'keydown',e=>{if(!this.allowed()||![' ','Enter'].includes(e.key))return;e.preventDefault();this.active();if(this.growth.water(i,350))this.bloom(i);this.paintGarden();});
   }
-  this.can=make('button','watering-can',this.stage);this.can.type='button';this.can.setAttribute('aria-label','Drag the watering can onto a pot, and hold to water.');image('assembly/watering-can.png','',this.can);
+  this.can=make('button','watering-can',this.stage);this.can.type='button';this.can.setAttribute('aria-label','Drag the watering can onto a pot, and hold to water.');image('assembly/watering-can.webp','',this.can);
   this.listen(this.can,'pointerdown',e=>{if(this.capture(this.can,e)){this.canStart={x:e.clientX,y:e.clientY};this.effect('water',{force:true});}});
   this.listen(this.can,'pointermove',e=>{if(!this.allowed()||this.pointer?.el!==this.can||this.pointer.id!==e.pointerId)return;this.lastInput=this.elapsed;this.can.style.transform=`translate(${e.clientX-this.canStart.x}px,${e.clientY-this.canStart.y}px) rotate(22deg)`;
    this.watering=this.pots.findIndex(p=>{const r=p.getBoundingClientRect();return e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom;});this.pots.forEach((p,i)=>p.classList.toggle('being-watered',i===this.watering));this.stage.classList.toggle('watering',this.watering>=0);});
@@ -90,8 +90,8 @@ export class InteractiveBreak{
  buildRoll(){
   this.physics=new RollPhysics();this.score=0;this.resetAt=null;this.progress(0,3);this.stage.classList.add('roll-stage');
   make('div','roll-ground',this.stage);this.aim=make('canvas','roll-aim',this.stage);this.aim.width=1000;this.aim.height=500;
-  this.basket=make('div','roll-basket',this.stage);image('fun/basket-v1.png','',this.basket);this.basket.setAttribute('aria-hidden','true');
-  this.ball=make('button','rolling-ball',this.stage);this.ball.type='button';this.ball.setAttribute('aria-label','Pull the ball back and release towards the basket. Press Space to roll.');image('counting/ball.png','',this.ball);this.drawBall();
+  this.basket=make('div','roll-basket',this.stage);image('fun/basket-v1.webp','',this.basket);this.basket.setAttribute('aria-hidden','true');
+  this.ball=make('button','rolling-ball',this.stage);this.ball.type='button';this.ball.setAttribute('aria-label','Pull the ball back and release towards the basket. Press Space to roll.');image('counting/ball.webp','',this.ball);this.drawBall();
   this.listen(this.ball,'pointerdown',e=>{if(this.physics.flight||this.resetAt!==null)return;if(this.capture(this.ball,e)){this.pull={x:150,y:365};this.hint.textContent='Pull back… then let go!';}});
   this.listen(this.ball,'pointermove',e=>{if(!this.allowed()||this.pointer?.id!==e.pointerId)return;const p=local(e,this.stage);this.pull={x:clamp(p.x*1000,35,240),y:clamp(p.y*500,300,480)};this.ball.style.left=this.pull.x/10+'%';this.ball.style.top=this.pull.y/5+'%';this.drawAim();this.lastInput=this.elapsed;});
   this.listen(this.ball,'pointerup',e=>{if(this.pointer?.id!==e.pointerId||!this.allowed())return;const p=this.pull;this.cancelDrag();this.launch(p&&Math.hypot(p.x-150,p.y-365)>10?p:undefined);});
@@ -108,7 +108,7 @@ export class InteractiveBreak{
  buildDrums(){
   this.progress(0,2);this.patternRound=0;this.pattern=new RhythmPattern([0,2]);this.mode='listen';this.demoAt=this.elapsed+600;this.demoIndex=0;this.pads=[];
   const pads=make('div','drum-pads',this.stage);const labels=['Low drum','Middle drum','High drum'];
-  for(let i=0;i<3;i++){const pad=make('button','drum-pad',pads);pad.type='button';pad.style.setProperty('--drum-hue',i*95+'deg');pad.setAttribute('aria-label',labels[i]+'. Tap or press to play.');image('assembly/drum.png','',pad);const marker=make('span','drum-beat',pad);marker.textContent=String(i+1);marker.setAttribute('aria-hidden','true');this.pads.push(pad);
+  for(let i=0;i<3;i++){const pad=make('button','drum-pad',pads);pad.type='button';pad.style.setProperty('--drum-hue',i*95+'deg');pad.setAttribute('aria-label',labels[i]+'. Tap or press to play.');image('assembly/drum.webp','',pad);const marker=make('span','drum-beat',pad);marker.textContent=String(i+1);marker.setAttribute('aria-hidden','true');this.pads.push(pad);
    this.listen(pad,'pointerdown',e=>{if(e.button!==0||!this.allowed())return;e.preventDefault();this.drumTap(i);});this.listen(pad,'click',e=>{if(e.detail===0&&this.allowed())this.drumTap(i);});}
   this.hint.textContent='Listen to Sparky… then play!';
   this.update=()=>{if(this.mode!=='listen'||this.elapsed<this.demoAt)return;if(this.demoIndex<this.pattern.sequence.length){this.hitDrum(this.pattern.sequence[this.demoIndex++],true);this.demoAt=this.elapsed+600;}else{this.mode='copy';this.hint.textContent='Your turn! Copy the glowing drums.';this.showBeat();}};

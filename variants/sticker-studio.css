@@ -1,0 +1,44 @@
+/* Native .fig frame 2155:12514, 1920 x 1080. Static SVGs retain original paths. */
+.game.sticker-room{background:#145b3d url('../assets/art/figma-ui/sticker-chalkboard.svg') center/100% 100% no-repeat}
+.game.sticker-room::after{content:'';position:absolute;left:58.802083%;top:6.944444%;width:12.291667%;height:11.574074%;background:url('../assets/art/figma-ui/sticker-chalk-ring.svg') center/100% 100% no-repeat;pointer-events:none;z-index:0}
+.game.sticker-room .garden-details,.game.sticker-room>.mascot,.game.sticker-room .round-banner{visibility:hidden!important;pointer-events:none}
+.game.sticker-room .puzzle-frame{inset:0!important;width:100%!important;height:100%!important;padding:0!important;margin:0;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;clip-path:none!important;transform:none!important}
+.game.sticker-room #board.variant-board{position:absolute;inset:0!important;width:100%!important;height:100%!important;overflow:visible}
+.game.sticker-room .variant-heading,.game.sticker-room .variant-instruction,.game.sticker-room .variant-feedback{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip-path:inset(50%)!important;white-space:nowrap!important}
+.game.sticker-room .variant-hear{top:auto!important;bottom:2.5%!important;right:27%!important;min-height:44px;min-width:58px;background:#fffcdf;color:#285949;font-size:clamp(10px,1.1vw,16px);z-index:4}
+.game.sticker-room .game-button.sound{left:3.333333%;top:4.259259%;width:5.833333%;min-width:44px;min-height:44px}
+.game.sticker-room .game-button.next{right:2.03125%;bottom:3.796296%;width:5.833333%;min-width:44px;min-height:44px}
+.game.sticker-room>.game-button.exit{visibility:hidden;pointer-events:none}
+.game.sticker-room .game-hub-button{position:absolute;left:auto;right:2.03125%;top:4.259259%;width:5.833333%;height:auto;aspect-ratio:1;min-width:44px;min-height:44px;padding:0;border:0;border-radius:26%;font-size:0;color:transparent;background:transparent url('../assets/art/figma-ui/control-shell.svg') center/contain no-repeat;z-index:8}
+.game.sticker-room .game-hub-button::after{content:'';position:absolute;left:20.38%;top:15.06%;width:59.26%;height:51.95%;background:url('../assets/art/figma-ui/home-icon.svg') center/contain no-repeat}
+.figma-sticker-studio.variant-body{position:absolute;inset:0!important;display:block!important}
+.figma-sticker-rows{position:absolute;left:9.791667%;top:31.481481%;width:10.3125%;height:55%;display:grid;grid-template-rows:repeat(var(--sticker-n),1fr)}
+.figma-sticker-columns{position:absolute;left:21.197917%;top:11.018519%;width:31.25%;height:18.333333%;display:grid;grid-template-columns:repeat(var(--sticker-n),1fr)}
+.figma-sticker-studio .sticker-header{position:relative;display:flex;align-items:center;justify-content:center;min-width:0;min-height:0;aspect-ratio:auto;background:transparent url('../assets/art/figma-ui/sticker-row-card.svg') center/100% 100% no-repeat;border:0;border-radius:0;padding:0}
+.figma-sticker-columns .sticker-header{background-image:url('../assets/art/figma-ui/sticker-column-card.svg')}
+.figma-sticker-columns .sticker-header>img{width:100%;height:100%;object-fit:contain}
+.figma-sticker-columns .sticker-header:last-child>img{max-width:91%;max-height:91%}
+.figma-sticker-grid.sticker-grid{position:absolute;left:19.895833%;top:28.888889%;width:33.854167%;height:60.185185%;display:block;padding:0;border:0;border-radius:0;background:transparent url('../assets/art/figma-ui/sticker-grid-frame.svg') center/100% 100% no-repeat;overflow:visible}
+.figma-sticker-cells{position:absolute;left:3.846154%;top:4.461538%;width:92.307692%;height:92.307692%;display:grid;grid-template:repeat(var(--sticker-n),minmax(0,1fr))/repeat(var(--sticker-n),minmax(0,1fr));gap:.666667%}
+.figma-sticker-grid .sticker-cell{position:relative;border:0;border-radius:15%;min-width:0;min-height:44px;padding:0;background:transparent url('../assets/art/figma-ui/sticker-cell.svg') center/100% 100% no-repeat;box-shadow:none;transition:filter .16s,scale .16s;touch-action:manipulation}
+.figma-sticker-grid .sticker-cell:not(:disabled):hover{filter:brightness(1.05)}
+.figma-sticker-grid .sticker-cell.matched{background-color:transparent;opacity:1;animation:sticker-seat .36s cubic-bezier(.2,.7,.3,1)}
+.figma-sticker-art{position:relative;display:block;width:100%;height:100%;pointer-events:none}
+.figma-sticker-art>img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;filter:none}
+.figma-sticker-art>.sticker-worn{inset:auto;left:10%;top:-15%;width:80%;height:80%;z-index:1}
+.figma-sticker-art>.sticker-worn-mask{left:2.5%;top:7%;width:95%;height:95%}
+.figma-sticker-art>.sticker-worn-crown{left:14%;top:-14%;width:72%;height:72%}
+.figma-sticker-art[data-friend=elephant]>.sticker-worn-mask{top:1%}
+.figma-sticker-grid .sticker-cell>.figma-sticker-art{width:88%;height:88%;margin:6%}
+.figma-sticker-tray.sticker-tray{position:absolute;left:65%;top:35%;width:18%;height:43%;display:grid;grid-template:repeat(2,minmax(0,1fr))/repeat(2,minmax(0,1fr));gap:3%;align-items:center;padding:0;background:none;border:0}
+.figma-sticker-tray .sticker-piece{width:100%;height:100%;min-width:0;min-height:44px;border:0;border-radius:20%;background:none;box-shadow:none;padding:0;overflow:visible;touch-action:none;transition:scale .16s,filter .16s}
+.figma-sticker-tray .sticker-piece:last-child{grid-column:1/-1;width:50%;justify-self:center}
+.figma-sticker-tray .sticker-piece.selected{outline:3px dashed #6545ac;outline-offset:3px;scale:1.06;background:#fff4a74d;box-shadow:none}
+.figma-sticker-tray .sticker-piece.matched{visibility:hidden}
+.sticker-header.sticker-guiding{filter:drop-shadow(0 0 5px #fff08e)}
+.sticker-retry{animation:sticker-retry .3s ease-out}
+.game.sticker-room.garden-motion-paused .sticker-cell{animation-play-state:paused}
+.variant-drag-ghost.sticker-piece{padding:0!important;border:0!important;background:none!important;box-shadow:none!important;height:auto;aspect-ratio:1;overflow:visible}
+@keyframes sticker-seat{0%{scale:.94}60%{scale:1.025}100%{scale:1}}
+@keyframes sticker-retry{25%{translate:-2px}65%{translate:2px}}
+@media(prefers-reduced-motion:reduce){.figma-sticker-studio *{animation:none!important;transition:none!important}}

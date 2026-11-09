@@ -1,4 +1,4 @@
-// Rest-space targets measured against reference.png. The head's existing +2 Y
+// Rest-space targets measured against reference.webp. The head's existing +2 Y
 // placement is applied by its mesh binding, so these targets exclude that lift.
 export const FACE_FIT={
  EyeWhite_L:[-63,220,-11,269],EyeWhite_R:[17,220,67,269],

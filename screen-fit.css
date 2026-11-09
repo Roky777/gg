@@ -1,0 +1,21 @@
+/* Fit the safe content box, including notches and browser chrome, while keeping
+   the reference stage and every native-proportion asset at 16:9. */
+@supports(width:1cqw){
+ body{container-type:size}
+ .game{width:min(100cqw,calc(100cqh * 16 / 9))!important;max-height:none}
+}
+.rotate-prompt{padding:max(20px,env(safe-area-inset-top)) max(20px,env(safe-area-inset-right)) max(20px,env(safe-area-inset-bottom)) max(20px,env(safe-area-inset-left));max-height:100dvh;overflow:auto}
+@media(orientation:portrait) and (max-height:600px){.rotate-prompt{gap:10px}.rotate-prompt svg{width:64px;height:64px}.rotate-prompt h1{font-size:24px}.rotate-prompt p{font-size:16px}}
+/* The number's art scales inside a consistent hit area on compact phones. */
+.game .counting-board .quantity-numbers .number-chip{min-width:44px;min-height:44px}
+.game .quantity-row .quantity-dock{min-width:44px;min-height:44px}
+.game:not(.activity-scene) .assembly-tray .assembly-choice{min-height:44px}
+.game.feeding-room .feeding-utensil>.dining-spoon,.game.feeding-room .feeding-utensil>.dining-fork,.carried-tool{object-fit:contain}
+.game>.game-button.next{bottom:clamp(0px,calc(14% - 46px),2%)!important}
+/* Do not squeeze an unreadable game into an unusually tiny browser window. */
+body.compact-screen .game{visibility:hidden;pointer-events:none}
+body.compact-screen .rotate-prompt{position:fixed;inset:0;z-index:100;display:flex;background:#d9f4ef;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;color:#245e6d}
+body.compact-screen .rotate-prompt svg{width:60px;height:60px}
+body.compact-screen .rotate-prompt h1{font-size:24px;margin:0}
+body.compact-screen .rotate-prompt p{font-size:16px;max-width:300px;margin:0}
+body.compact-screen dialog[open],body.compact-screen dialog::backdrop{visibility:hidden}
