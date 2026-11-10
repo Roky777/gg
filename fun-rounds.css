@@ -1,0 +1,5 @@
+﻿/* Fun rounds inside the standard blue board (same frame, size and place as the
+   learning boards). No on-board instruction text: Sparky and the motion invite play. */
+.game.fun-round .puzzle-frame .board.fun-board{position:absolute;inset:9% 6.5% 10%;width:auto;height:auto;margin:0;padding:0;border:0;background:none!important;box-shadow:none;overflow:hidden;display:grid;grid-template-rows:minmax(0,1fr);gap:0}
+.game.fun-round .puzzle-frame .board.interactive-break{grid-template-rows:minmax(0,1fr) 14px;gap:2%}
+.game.fun-round .fun-heading{display:none}

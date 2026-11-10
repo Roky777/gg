@@ -39,7 +39,7 @@ export class ProductionPlayer{
  stop(invalidate=true,preserveScene=false){
   if(invalidate){this.serial++;this.pendingEntrance=null;this.lastPose=null;}cancelAnimationFrame(this.request);this.request=null;this.current=null;this.lastLabel='';
   if(this.scene&&!preserveScene){const s=this.scene,canvas=this.director.canvas;s.home.prepend(canvas);canvas.className=s.canvasClass;if(s.style===null)canvas.removeAttribute('style');else canvas.setAttribute('style',s.style);s.wrap.remove();this.scene=null;document.querySelector('.mascot')?.classList.remove('scene-playing')}
-  if(this.director.actor){this.director.actor.restart();this.director.actor.setSpeech(false)}if(this.director.rig)for(const v of this.director.rig.views)v.skeleton.sparkyAuthoredPose=null
+  if(this.director.actor){this.director.actor.restart();this.director.actor.setSpeech(!!this.director.speaking)}if(this.director.rig)for(const v of this.director.rig.views)v.skeleton.sparkyAuthoredPose=null
  }
  destroy(){this.destroyed=true;this.stop();this.director.setPoseModifier(this.oldModifier);if(this.originalAdapter&&this.director.rig.referenceAdapter===this.adapter)this.director.rig.referenceAdapter=this.originalAdapter}
 }

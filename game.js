@@ -65,10 +65,13 @@ let wins=0,topic='letters',voiceUnlocked=false,lastSpoken='',completed=new Set()
 try{const saved=JSON.parse(localStorage.getItem('sparky-learning-pictures-v1')||'[]');if(Array.isArray(saved))completed=new Set(saved.filter(id=>typeof id==='string').slice(-200));}catch{}
 
 let reviewActive=false;
-const voice=new LearningVoice({onStart(cue){gameAudio.setSpeaking(true);director.setSpeaking(true);const gesture=flow.speechGesture(cue?.category);if(gesture)respond(gesture);},onEnd(){gameAudio.setSpeaking(false);director.setSpeaking(false);if(reviewActive){reviewActive=false;if(!navigationLoading&&!document.hidden&&!screenUnavailable()&&!$('pause-dialog').open)flow.resume();}},onUnavailable(){$('voice-note').textContent='Audio is unavailable in this browser.';}});
+// Two voices (game + board) share Sparky's mouth. One stopping or being cancelled
+// must not close his mouth while the other is still talking.
+function syncSpeaking(){const on=!!(voice?.current||activeRound?.voice?.current);gameAudio.setSpeaking(on);director.setSpeaking(on);}
+const voice=new LearningVoice({onStart(cue){syncSpeaking();const gesture=flow.speechGesture(cue?.category);if(gesture)respond(gesture);},onEnd(){syncSpeaking();if(reviewActive){reviewActive=false;if(!navigationLoading&&!document.hidden&&!screenUnavailable()&&!$('pause-dialog').open)flow.resume();}},onUnavailable(){$('voice-note').textContent='Audio is unavailable in this browser.';}});
 // Sparky's mouth follows whichever recorded voice is speaking: the game's, or the board's own
 // (board intros, hints, praise and Food Choices lines play through the board voice).
-director.setSpeechSource(()=>voice.speechFrame()??activeRound?.voice?.speechFrame?.()??null);
+director.setSpeechSource(()=>{const a=voice.speechFrame(),b=activeRound?.voice?.speechFrame?.();return a?.playing?a:b?.playing?b:a??b??null});
 function tell(message,{speak=true,display=message}={}){lastSpoken=message;$('learning-caption').textContent=display;if(speak&&voiceUnlocked&&soundOn)voice.say(message);}
 function saveLearning(){try{localStorage.setItem('sparky-learning-pictures-v1',JSON.stringify([...completed]));}catch{}}
 const modeDeck=new ModeDeck();const breakSchedule=new BreakSchedule(4);
@@ -86,7 +89,7 @@ function newBoard(){
 
 function updateLearningUI(){$('progress').textContent=`★ ${wins}`;}
 async function advance(){
- if(navigationLoading)return;navigationLoading=true;flow.cancel();cancelReactions();const breakKind=isCombinedGame()?null:breakSchedule.take(wins);const next=breakKind?makeFunBoard(breakKind):(upcomingBoard||newBoard());if(!breakKind)upcomingBoard=null;clearTimeout(prefetchTimer);roundBanner.hide({immediate:true});voice.cancel();clearTimeout(settle);clearDrag();activeRound?.cancelDrag();roundToken++;
+ if(navigationLoading)return;navigationLoading=true;flow.cancel();cancelReactions();const breakKind=breakSchedule.take(wins);const next=breakKind?makeFunBoard(breakKind):(upcomingBoard||newBoard());if(!breakKind)upcomingBoard=null;clearTimeout(prefetchTimer);roundBanner.hide({immediate:true});voice.cancel();clearTimeout(settle);clearDrag();activeRound?.cancelDrag();roundToken++;
  try{await loadPicture(next);await prepareVariant(next);roundCount++;sound('next');start(next);syncOrientation();}
  catch(e){if(!breakKind)upcomingBoard=next;busy=false;say('Could not load the next picture. Tap the arrow to try again.');console.error(e);}
  finally{navigationLoading=false;activeRound?.focus?.guide.schedule(1400);if(!done)introduce();warmNextRound();}
@@ -172,10 +175,11 @@ function showMatchHint(){
 function start(index){
  orderingGuide?.destroy();orderingGuide=null;
  voice.cancel();cancelReactions();clearTimeout(settle);clearTimeout(celebration);clearDrag();activeRound?.destroy();activeRound=null;countVoiceRow=null;idleCount=0;void director.show('idle').catch(()=>{});roundToken++;currentPicture=index;const stage=document.querySelector('.game');stage.dataset.sessionGame=currentPicture.session?.id??currentPicture.variant??currentPicture.topic;stage.dataset.sessionPosition=String(currentPicture.session?.position??'');topic=currentPicture.topic;applySceneBackground(document.querySelector('.game'),currentPicture);$('board').dataset.topic=topic;letterAnimations?.begin(topic==='letters');flow.start(topic);companion.clear();flow.entry();done=false;busy=false;order=scramble();const pic=currentPicture,vertical=true;
- document.querySelector('.game').classList.toggle('activity-scene',!!pic.fun);
+ // Fun rounds now play inside the same blue board as every other game.
+document.querySelector('.game').classList.remove('activity-scene');document.querySelector('.game').classList.toggle('fun-round',!!pic.fun);
  if(topic==='variants'){
   const token=roundToken;pieces=[];$('next').disabled=false;$('board').setAttribute('aria-busy','false');roundBanner.hide({immediate:true});
-  activeRound=new VariantRoundController({element:$('board'),picture:pic,director,reduced,isPaused:()=>navigationLoading||screenUnavailable()||document.hidden||portraitScreen.matches||$('pause-dialog').open,isSoundOn:()=>soundOn,sound,onActivity:idleSchedule,onWrong:()=>flow.mistake(),onMatch:matchCelebration,onSpeaking:on=>{gameAudio.setSpeaking(on);director.setSpeaking(on);},onComplete:()=>{if(token===roundToken&&!done)finish()}});
+  activeRound=new VariantRoundController({element:$('board'),picture:pic,director,reduced,isPaused:()=>navigationLoading||screenUnavailable()||document.hidden||portraitScreen.matches||$('pause-dialog').open,isSoundOn:()=>soundOn,sound,onActivity:idleSchedule,onWrong:()=>flow.mistake(),onMatch:matchCelebration,onSpeaking:()=>syncSpeaking(),onComplete:()=>{if(token===roundToken&&!done)finish()}});
   if(location.hostname==='127.0.0.1'||location.hostname==='localhost')window.sparkyVariant=activeRound;
   updateLearningUI();$('task-rule').textContent=pic.rule;tell(pic.intro,{speak:false});layoutArt();idleSchedule();say(pic.rule);return;
  }
@@ -263,5 +267,5 @@ async function boot(){performance.mark('sparky:boot-start');try{
  const previewKind=new URLSearchParams(location.search).get('game');const first=FUN_KINDS.includes(previewKind)?makeFunBoard(previewKind):newBoard();await Promise.all([director.ready,loadPicture(first),loadOpeningArt(first),prepareVariant(first)]);await director.show('idle');roundCount=1;start(first);$('loading').hidden=true;performance.mark('sparky:ready');performance.measure('sparky:boot','sparky:boot-start','sparky:ready');syncOrientation();warmNextRound();
  }catch(e){$('loading').querySelector('p').textContent='Could not load the game. Please refresh.';console.error(e);}}
 
-if(location.hostname==='127.0.0.1'||location.hostname==='localhost')window.sparkyReview={async startVariant(id,round=0){clearTimeout(prefetchTimer);upcomingBoard=null;const picture=makeVariantBoard(id,round);await prepareVariant(picture);const url=new URL(location.href);url.searchParams.set('game',id);history.replaceState(null,'',url);variantRoundNumber=round+1;start(picture);syncOrientation();return activeRound;},get current(){return activeRound},get picture(){return currentPicture},get navigating(){return navigationLoading}};
+if(location.hostname==='127.0.0.1'||location.hostname==='localhost')window.sparkyReview={async startVariant(id,round=0){clearTimeout(prefetchTimer);upcomingBoard=null;const picture=makeVariantBoard(id,round);await prepareVariant(picture);const url=new URL(location.href);url.searchParams.set('game',id);history.replaceState(null,'',url);variantRoundNumber=round+1;start(picture);syncOrientation();return activeRound;},get current(){return activeRound},get picture(){return currentPicture},get navigating(){return navigationLoading},get breaks(){return breakSchedule}};
 boot();
