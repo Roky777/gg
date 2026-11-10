@@ -4,7 +4,7 @@ import{renderLearningType}from'./learning-type.mjs';
 import{applySceneBackground,backgroundFor}from'./scene-backgrounds.mjs';
 import{GamePlaylist}from'./game-playlist.mjs';
 import {cardReadings,bindCardReading} from './card-audio.js?v=polish-52';
-import {BreakSchedule,createPlayBreak,makeFunBoard,FUN_KINDS} from './play-breaks.js?v=balloons-56';
+import {BreakSchedule,createPlayBreak,makeFunBoard,FUN_KINDS} from './play-breaks.js?v=sky-2';
 import {reviewVoices,pictureVoice,RECORDINGS,recordingFor} from './voice-cues.js?v=lip-sync-40';
 import {syncLayout} from './responsive-layout.js?v=board-finish-14';
 import {CompanionPose} from './companion-pose.js?v=companion-57';
@@ -182,7 +182,7 @@ function start(index){
  voice.cancel();cancelReactions();clearTimeout(settle);clearTimeout(celebration);clearDrag();activeRound?.destroy();activeRound=null;countVoiceRow=null;idleCount=0;void director.show('idle').catch(()=>{});roundToken++;currentPicture=index;const stage=document.querySelector('.game');stage.dataset.sessionGame=currentPicture.session?.id??currentPicture.variant??currentPicture.topic;stage.dataset.sessionPosition=String(currentPicture.session?.position??'');topic=currentPicture.topic;applySceneBackground(document.querySelector('.game'),currentPicture);$('board').dataset.topic=topic;letterAnimations?.begin(topic==='letters');flow.start(topic);companion.clear();flow.entry();done=false;busy=false;order=scramble();const pic=currentPicture,vertical=true;
  // Fun rounds now play inside the same blue board as every other game.
 // Grow a Garden plays in the garden itself (no board); the other fun rounds use the board.
-document.querySelector('.game').classList.toggle('activity-scene',!!pic.fun&&pic.topic==='grow-garden');document.querySelector('.game').classList.toggle('fun-round',!!pic.fun);
+document.querySelector('.game').classList.toggle('activity-scene',!!pic.fun&&pic.topic==='grow-garden');document.querySelector('.game').classList.toggle('fun-round',!!pic.fun);document.querySelector('.game').classList.toggle('sky-scene',!!pic.fun&&pic.topic==='balloon-pop'&&!reduced);
  if(topic==='variants'){
   const token=roundToken;pieces=[];$('next').disabled=false;$('board').setAttribute('aria-busy','false');roundBanner.hide({immediate:true});
   activeRound=new VariantRoundController({element:$('board'),picture:pic,director,reduced,isPaused:()=>navigationLoading||screenUnavailable()||document.hidden||portraitScreen.matches||$('pause-dialog').open,isSoundOn:()=>soundOn,sound,onActivity:idleSchedule,onWrong:()=>flow.mistake(),onMatch:matchCelebration,onSpeaking:()=>syncSpeaking(),onComplete:()=>{if(token===roundToken&&!done)finish()}});

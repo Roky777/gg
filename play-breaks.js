@@ -41,13 +41,14 @@ export class BalloonRise{
   const button=document.createElement('button');button.type='button';button.className='balloon-up'+(star?' star-balloon':'');button.setAttribute('aria-label',star?'Pop the star balloon':'Pop the balloon');
   const art=document.createElement('img');art.src='assets/art/'+this.picture.cards[0].image;art.alt='';art.draggable=false;button.append(art);
   button.style.setProperty('--hue',hue+'deg');
-  const item={button,index,star,hue,x:(lane+.5)/lanes+(this.random()-.5)*.06,y:1.15,speed:1/(5200+this.random()*1600),sway:.012+this.random()*.018,phase:this.random()*6.3,size:.82+this.random()*.28};
+  const item={button,index,star,hue,x:.1+(lane+.5)/lanes*.8+(this.random()-.5)*.05,y:1.2,speed:1/(6200+this.random()*2200),sway:.018+this.random()*.02,period:1500+this.random()*900,phase:this.random()*6.3,size:.82+this.random()*.28};
   button.style.setProperty('--size',item.size);
   const pop=e=>{e?.preventDefault?.();this.pop(item);};
   button.addEventListener('pointerdown',pop);button.addEventListener('click',pop);
   this.sky.append(button);this.items.push(item);this.place(item);
  }
- place(item){const w=this.sky.clientWidth||1,h=this.sky.clientHeight||1,x=item.x+Math.sin(this.elapsed/700+item.phase)*item.sway;item.button.style.transform=`translate(${(x*w).toFixed(1)}px,${(item.y*h).toFixed(1)}px) translate(-50%,-50%) rotate(${(Math.sin(this.elapsed/900+item.phase)*6).toFixed(1)}deg)`;}
+ // Gentle drift: a slow side-to-side sway, leaning into the sway like a real balloon on a string.
+ place(item){if(!this.size||this.sizeAt!==this.elapsed){this.size=[this.sky.clientWidth||1,this.sky.clientHeight||1];this.sizeAt=this.elapsed}const[w,h]=this.size,a=this.elapsed/(item.period||1800)+item.phase,x=item.x+Math.sin(a)*item.sway,y=item.y+Math.sin(a*2)*.006;item.button.style.transform=`translate3d(${(x*w).toFixed(1)}px,${(y*h).toFixed(1)}px,0) translate(-50%,-50%) rotate(${(Math.cos(a)*-7).toFixed(2)}deg)`;}
  pop(item){
   if(this.destroyed||this.finished||item.popped||this.isPaused())return;
   item.popped=true;this.popped++;this.seen.add(item.index);item.button.disabled=true;item.button.classList.add('popped');
