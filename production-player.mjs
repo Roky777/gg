@@ -10,8 +10,13 @@ export class ProductionPlayer{
  }
  async attach(){
   await this.director.ready;if(this.destroyed||this.originalAdapter)return;
-  const rig=this.director.rig;this.originalAdapter=rig.referenceAdapter;
-  this.adapter=v=>{const rendered=this.originalAdapter(v);this.onRendered?.(rendered);if(this.scene&&this.current){const part=resolveScene(this.current.clip,this.current.time);drawStudioProps(this.scene.front,{...part.clip,sceneState:{...part.clip.sceneState,hideCanvasCaption:true}},part.time,rendered);drawStudioBack(this.scene.back,part.clip,part.time);if(part.label&&this.lastLabel!==part.label){this.lastLabel=part.label;this.scene.caption.textContent=part.label;this.narrate(part.label)}}return rendered};
+  const rig=this.director.rig;
+  // Props, captions and the feeding mouth target follow each drawn frame of Sparky.
+  this.decorate=rendered=>{this.onRendered?.(rendered);if(this.scene&&this.current){const part=resolveScene(this.current.clip,this.current.time);drawStudioProps(this.scene.front,{...part.clip,sceneState:{...part.clip.sceneState,hideCanvasCaption:true}},part.time,rendered);drawStudioBack(this.scene.back,part.clip,part.time);if(part.label&&this.lastLabel!==part.label){this.lastLabel=part.label;this.scene.caption.textContent=part.label;this.narrate(part.label)}}};
+  // Worker-drawn rig: the frame arrives with the hand and mouth anchors already measured.
+  if(rig.isWorker){this.originalAdapter=true;this.previousHook=rig.afterFrame;this.hook=rendered=>{this.previousHook?.(rendered);this.decorate(rendered)};rig.afterFrame=this.hook;return}
+  this.originalAdapter=rig.referenceAdapter;
+  this.adapter=v=>{const rendered=this.originalAdapter(v);this.decorate(rendered);return rendered};
   rig.referenceAdapter=this.adapter
  }
  async play(id,{scene=false,onComplete=()=>{},caption='',context={},loop=false,autoComplete=false,keepScene=false}={}){
@@ -41,5 +46,5 @@ export class ProductionPlayer{
   if(this.scene&&!preserveScene){const s=this.scene,canvas=this.director.canvas;s.home.prepend(canvas);canvas.className=s.canvasClass;if(s.style===null)canvas.removeAttribute('style');else canvas.setAttribute('style',s.style);s.wrap.remove();this.scene=null;document.querySelector('.mascot')?.classList.remove('scene-playing')}
   if(this.director.actor){this.director.actor.restart();this.director.actor.setSpeech(!!this.director.speaking)}if(this.director.rig)for(const v of this.director.rig.views)v.skeleton.sparkyAuthoredPose=null
  }
- destroy(){this.destroyed=true;this.stop();this.director.setPoseModifier(this.oldModifier);if(this.originalAdapter&&this.director.rig.referenceAdapter===this.adapter)this.director.rig.referenceAdapter=this.originalAdapter}
+ destroy(){this.destroyed=true;this.stop();this.director.setPoseModifier(this.oldModifier);if(this.hook&&this.director.rig?.afterFrame===this.hook)this.director.rig.afterFrame=this.previousHook;else if(this.adapter&&this.director.rig.referenceAdapter===this.adapter)this.director.rig.referenceAdapter=this.originalAdapter}
 }

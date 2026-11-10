@@ -52,7 +52,9 @@ export class FullCharacterPlayer {
  }
  constructor(manifest,url,resolve,reject,renderWidth=1024){
   this.manifest=manifest;this.views=new Set();globalThis.sparkyRig=this;this.pointerActive=false;{const down=()=>{this.pointerActive=true},up=e=>{if(!e.touches?.length)this.pointerActive=false};addEventListener('pointerdown',down,{capture:true,passive:true});for(const n of ['pointerup','pointercancel','touchend','touchcancel'])addEventListener(n,up,{capture:true,passive:true})}this.speed=1;this.paused=false;this.last=performance.now();this.time=0;
-  const canvas=document.createElement('canvas');canvas.width=renderWidth;canvas.height=renderWidth*1.25;canvas.style.cssText=`position:fixed;left:-10000px;width:${canvas.width}px;height:${canvas.height}px;pointer-events:none`;canvas.setAttribute('aria-hidden','true');document.body.append(canvas);this.canvas=canvas;
+  const canvas=document.createElement('canvas');canvas.width=renderWidth;canvas.height=renderWidth*1.25;// Spine sizes this buffer to CSS size x devicePixelRatio every frame. Style it at buffer/dpr so a 3x phone draws
+   // renderWidth pixels, not 3x that (the extra pixels were only shrunk away when copied to the visible canvas).
+   const dpr=globalThis.sparkyRigSlow===true?1:Math.max(1,devicePixelRatio||1);canvas.style.cssText=`position:fixed;left:-10000px;width:${canvas.width/dpr}px;height:${canvas.height/dpr}px;pointer-events:none`;canvas.setAttribute('aria-hidden','true');document.body.append(canvas);this.canvas=canvas;
   const resource=p=>new URL(p,url).href+'?v='+manifest.revision,skel=resource(manifest.skeleton),atlas=resource(manifest.atlas),texture=resource(manifest.texture);const self=this;
   this.instance=new spine.SpineCanvas(canvas,{webglConfig:{alpha:true,antialias:true,premultipliedAlpha:true,preserveDrawingBuffer:true},app:{
    loadAssets(c){c.assetManager.loadBinary(skel);c.assetManager.loadTextureAtlas(atlas,undefined,undefined,{[manifest.texture.split('/').at(-1)]:texture})},
