@@ -43,6 +43,10 @@ export function polishFeedingClips(clips){
  clap.referenceArmTargets=true;clap.elbowProjection={L:.85,R:.85};
  for(const side of['L','R']){const sign=side==='L'?-1:1;clap.channels[side]=[[0,sign*59,124,0],[.28,sign*37,165,0],[.45,sign*35,177,0],[.62,sign*12,178,0],[.77,sign*31,177,0],[1.04,sign*12,178,0],[1.2,sign*30,177,0],[1.47,sign*12,178,0],[1.68,sign*31,175,0],[2.05,sign*47,149,0],[2.6,sign*59,124,0]];}
  for(const side of['L','R'])for(const key of clap.channels[side])if(key[0]>0&&key[0]<2.6)key[2]-=22;
+ // Entry and exit stay close to the body: hands rise/fall straight below the table
+ // edge, and only slide out to the wide rest (±59) while hidden. The old diagonal
+ // sweep swung the elbows out above the table and flared the shirt like a skirt.
+ for(const side of['L','R']){const s=side==='L'?-1:1,keys=clap.channels[side].filter(k=>k[0]>=.28&&k[0]<=1.68);clap.channels[side]=[[0,s*59,124,0],[.12,s*40,102,0],[.2,s*35,118,0],...keys,[2,s*33,128,0],[2.28,s*36,102,0],[2.6,s*59,124,0]];}
  clap.armImpacts=[.62,1.04,1.47];
  for(const side of['L','R']){const keys=clap.channels[side];for(const at of clap.armImpacts){const hit=keys.find(k=>Math.abs(k[0]-at)<1e-5);keys.push([at+.04,...hit.slice(1)])}keys.sort((a,b)=>a[0]-b[0]);}
  clap.shotPlan.contact='Clap at chest height, with three deliberate contacts and clear space below the eyes.';

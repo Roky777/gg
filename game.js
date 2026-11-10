@@ -123,6 +123,9 @@ addEventListener('keydown',()=>{if(screenUnavailable())return;const first=!voice
 function sound(kind='swap'){gameAudio.cue(kind);}
 const flow=new PlayFlow({celebrationDuration:(_topic,text)=>1000*(RECORDINGS[recordingFor(text)]?.duration||0),next:()=>{if(done)void advance();},speak:text=>voice.say(topic==='letters'&&recordingFor(text)?.startsWith('letters_intro')&&currentPicture.targets[0]===currentPicture.targets[0].toLowerCase()?'letters_intro_03':text),cheer:cue=>voice.say(cue.text,cue),react:respond,ready:show=>$('next').classList.toggle('round-ready',show),canSpeak:()=>!screenUnavailable()&&voiceUnlocked&&soundOn&&!document.hidden&&!$('pause-dialog').open&&!navigationLoading});
 function respond(name,seconds=1.2){
+ // Seated feeding Sparky plays only his own seated clips; standing gestures (win clap,
+ // hurray, guide) stretch his arms over the table and flare the shirt.
+ if(document.querySelector('.game')?.classList.contains('feeding-room'))return;
  if(topic==='letters'&&letterAnimations?.respond(name))return;
  if(['nod','guide','invite','ponder','attend'].includes(name)){
   if(name==='invite')companion.faceChild();else companion.look(.5,.5);
