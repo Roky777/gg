@@ -47,5 +47,5 @@
 
 /* Sparky fades in once his rig has loaded (the board can open first). */
 #mascot{transition:opacity .4s ease-out}
-html:not([data-sparky=ready]) #mascot{opacity:0}
+html:not([data-sparky=ready]):not([data-sparky=poster]) #mascot{opacity:0}
 

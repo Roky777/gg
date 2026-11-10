@@ -119,7 +119,8 @@ export class WorkerRigPlayer {
     state.apply(skeleton);
     const baseAttachments = new Map(skeleton.slots.map(slot => [slot.data.name, slot.getAttachment()]));
     const attachments = names => names.map(name => { const slot = skeleton.findSlot(name); if (!slot) throw Error('Unknown preserved slot: ' + name); return [slot, baseAttachments.get(name)]; });
-    canvas.width = this.canvas.width; canvas.height = this.canvas.height;
+    // Resizing clears a canvas: keep its current picture (the still of Sparky) until the first live frame.
+    if (canvas.width !== this.canvas.width || canvas.height !== this.canvas.height) { const keep = document.createElement('canvas'); keep.width = canvas.width; keep.height = canvas.height; keep.getContext('2d').drawImage(canvas, 0, 0); canvas.width = this.canvas.width; canvas.height = this.canvas.height; canvas.getContext('2d').drawImage(keep, 0, 0, canvas.width, canvas.height); }
     const track = baseClip ? 1 : 0, id = this.nextId++;
     const v = { id, speechAnimation, speaking: false, speechStarted: 0, poseModifier: null, canvas, context: canvas.getContext('2d'), skeleton, state, stateData, track, baseAttachments, preservedAttachments: attachments(preserveSlots), retiringAttachments: [], preserveUntil: 0, entry: state.setAnimation(track, clip, loop), visible: true, dirty: true, start: this.time, previousTime: this.time, fixedTime: null };
     this.views.add(v); this.byId.set(id, v);

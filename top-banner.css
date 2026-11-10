@@ -1,19 +1,27 @@
-/* Top banner: drops in from the top of the screen above the board (top-banner.js). */
-.game>.top-banner{position:absolute;left:50%;top:0;z-index:40;width:min(56%,600px);transform:translate(-50%,-115%);pointer-events:none;will-change:transform;filter:drop-shadow(0 6px 6px #0b3a6a40)}
+/* Top banner (top-banner.js): a sunny signboard that swings down on two ropes from the
+   top of the screen with the game's name and what to do, then rises away. */
+.game>.top-banner{position:absolute;left:50%;top:0;z-index:40;max-width:min(62%,640px);min-width:min(38%,360px);transform:translate(-50%,-140%);transform-origin:50% -40px;pointer-events:none;will-change:transform}
 .game>.top-banner[hidden]{display:none}
-.game>.top-banner.in{animation:tb-drop .6s cubic-bezier(.22,1.35,.42,1) forwards}
-.game>.top-banner.out{animation:tb-up .36s ease-in forwards}
-@keyframes tb-drop{0%{transform:translate(-50%,-115%) rotate(-1.5deg)}70%{transform:translate(-50%,10%) rotate(.6deg)}100%{transform:translate(-50%,6%) rotate(0)}}
-@keyframes tb-up{from{transform:translate(-50%,6%)}to{transform:translate(-50%,-120%)}}
-.top-banner .tb-ribbon{position:relative}
-.top-banner .tb-shell{position:absolute;inset:0;width:100%;height:100%;object-fit:fill}
-.top-banner .tb-text{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.1em;padding:calc(var(--stage-w,900px)*.012) 11% calc(var(--stage-w,900px)*.014);text-align:center;color:#fff;font-family:Nunito,sans-serif;line-height:1.12}
-.top-banner strong{font-weight:900;font-size:max(15px,calc(var(--stage-w,900px)*.027));letter-spacing:.01em;text-shadow:0 2px 0 #0047a3,0 0 8px #0a5fc066}
-.top-banner span{display:flex;align-items:center;gap:.35em;font-weight:800;font-size:max(12px,calc(var(--stage-w,900px)*.0175));color:#e9f8ff;text-shadow:0 1px 0 #0047a3}
+.game>.top-banner.in{animation:tb-swing-in .9s cubic-bezier(.25,1.2,.4,1) forwards}
+.game>.top-banner.out{animation:tb-rise .38s ease-in forwards}
+@keyframes tb-swing-in{0%{transform:translate(-50%,-140%) rotate(0)}45%{transform:translate(-50%,14%) rotate(3.5deg)}65%{transform:translate(-50%,6%) rotate(-2.2deg)}82%{transform:translate(-50%,10%) rotate(1deg)}100%{transform:translate(-50%,9%) rotate(0)}}
+@keyframes tb-rise{from{transform:translate(-50%,9%)}to{transform:translate(-50%,-150%)}}
+.top-banner .tb-shell{display:none}
+.top-banner .tb-ribbon{position:relative;filter:drop-shadow(0 8px 10px #0b3a6a40)}
+/* Two golden ropes the board hangs from. */
+.top-banner .tb-ribbon::before,.top-banner .tb-ribbon::after{content:'';position:absolute;top:-60px;width:5px;height:66px;border-radius:3px;background:repeating-linear-gradient(-35deg,#e9a43a 0 5px,#c27a1c 5px 9px);box-shadow:0 0 0 1px #8f560f55}
+.top-banner .tb-ribbon::before{left:18%}.top-banner .tb-ribbon::after{right:18%}
+.top-banner .tb-text{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15em;padding:calc(var(--stage-w,900px)*.011) calc(var(--stage-w,900px)*.045) calc(var(--stage-w,900px)*.013);border-radius:calc(var(--stage-w,900px)*.026);background:linear-gradient(#fff3a6 0%,#ffd84d 46%,#ffc02e 100%);border:max(3px,calc(var(--stage-w,900px)*.004)) solid #fffdf2;box-shadow:0 0 0 max(3px,calc(var(--stage-w,900px)*.0038)) #f08a1c,0 max(4px,calc(var(--stage-w,900px)*.007)) 0 max(3px,calc(var(--stage-w,900px)*.0038)) #b85f0c,inset 0 3px 0 #ffffffc0,inset 0 -4px 0 #f0a52566;text-align:center;font-family:Nunito,sans-serif;line-height:1.08}
+/* Rope rings on the board. */
+.top-banner .tb-text::before,.top-banner .tb-text::after{content:'\2605';position:absolute;top:50%;translate:0 -50%;font-size:max(14px,calc(var(--stage-w,900px)*.024));color:#fff;text-shadow:0 0 6px #ffe36b,0 2px 0 #e07a0c;animation:tb-twinkle 1.6s ease-in-out infinite alternate}
+.top-banner .tb-text::before{left:calc(var(--stage-w,900px)*.013)}.top-banner .tb-text::after{right:calc(var(--stage-w,900px)*.013);animation-delay:.8s}
+@keyframes tb-twinkle{from{scale:.75;opacity:.65}to{scale:1.1;opacity:1}}
+.top-banner strong{font-weight:1000;font-size:max(17px,calc(var(--stage-w,900px)*.03));letter-spacing:.01em;color:#fff;-webkit-text-stroke:max(4px,calc(var(--stage-w,900px)*.0055)) #1d5fc0;paint-order:stroke fill;text-shadow:0 max(2px,calc(var(--stage-w,900px)*.003)) 0 #123f86;white-space:nowrap}
+.top-banner span{display:flex;align-items:center;gap:.35em;font-weight:900;font-size:max(12px,calc(var(--stage-w,900px)*.0172));color:#7a3a00}
 .top-banner span[hidden]{display:none}
 .top-banner em{font-style:normal}
-.top-banner .tb-swatch{height:1.7em;width:auto;filter:drop-shadow(0 1px 1px #0005)}
+.top-banner .tb-swatch{height:1.75em;width:auto;filter:drop-shadow(0 1px 1px #0005)}
 .top-banner .tb-swatch[hidden]{display:none}
 /* Rooms where Sparky sits at the top centre keep the top clear. */
 .game.feeding-room>.top-banner,.game.sticker-room>.top-banner{display:none}
-@media(prefers-reduced-motion:reduce){.game>.top-banner.in{animation:none;transform:translate(-50%,6%)}.game>.top-banner.out{animation:none}}
+@media(prefers-reduced-motion:reduce){.game>.top-banner.in{animation:none;transform:translate(-50%,9%)}.game>.top-banner.out{animation:none}.top-banner .tb-text::before,.top-banner .tb-text::after{animation:none}}

@@ -10,7 +10,7 @@ import {syncLayout} from './responsive-layout.js?v=board-finish-14';
 import {CompanionPose} from './companion-pose.js?v=companion-57';
 import {PlayFlow,ModeDeck} from './play-flow.js?v=companion-57';
 import {solved,swap,scramble,slotAt,swapFeedback} from './model.js?v=lip-sync-40';
-import {MascotDirector,CLIPS} from './mascot-director.js?v=worker-2';
+import {MascotDirector,CLIPS} from './mascot-director.js?v=worker-3';
 import {GameAudio} from './game-audio.js?v=activities-53';
 import {makeBoard} from './puzzle-generator.js?v=drag-only-47';
 import {LearningVoice} from './learning-voice.js?v=recorded-only-1';
@@ -24,6 +24,9 @@ let VariantRoundController=null,variantRoundNumber=0,letterAnimations=null;
 async function prepareVariant(picture){if(picture.topic==='variants'&&!VariantRoundController)VariantRoundController=(await import('./variants/round.mjs')).VariantRound;if(picture.topic==='letters'&&!letterAnimations){const{LetterCompanion}=await import('./letter-companion.mjs');letterAnimations=new LetterCompanion({director,companion,reduced});}}
 const $=id=>document.getElementById(id),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 // Sparky's rig waits for the first board's art (at most 6 s) so the board opens sooner.
+// Sparky appears with the first board: a still of his idle pose (captured from the rig at its own
+// canvas size) fills his canvas until the live rig draws its first frame over it.
+function showSparkyPoster(){const img=new Image();img.src='assets/art/loading/sparky-poster.webp';img.decode().then(()=>{const root=document.documentElement;if(root.dataset.sparky==='ready')return;const c=$('mascot');c.width=img.naturalWidth;c.height=img.naturalHeight;c.getContext('2d').drawImage(img,0,0);root.dataset.sparky='poster';}).catch(()=>{});}
 let releaseSparky;const sparkyGate=new Promise(r=>{releaseSparky=r;setTimeout(r,6000)});
 const director=new MascotDirector($('mascot'),CLIPS,{reduced,after:sparkyGate});
 const companion=new CompanionPose({reduced});director.setPoseModifier((skeleton,frame)=>companion.apply(skeleton,frame));
@@ -286,7 +289,7 @@ async function boot(){performance.mark('sparky:boot-start');try{
  ]);
  const previewKind=new URLSearchParams(location.search).get('game');const first=FUN_KINDS.includes(previewKind)?makeFunBoard(previewKind):newBoard();// The board opens as soon as its own art is ready; Sparky's rig (most of the first
  // download) fades in when it arrives. Feeding drives Sparky directly, so it waits.
- const needsSparky=first.variant==='food-sort';if(needsSparky)releaseSparky();const sparky=director.ready.then(()=>director.show('idle'));
+ const needsSparky=first.variant==='food-sort';if(needsSparky)releaseSparky();else showSparkyPoster();const sparky=director.ready.then(()=>director.show('idle'));
  await Promise.all([needsSparky?sparky:null,loadPicture(first),loadOpeningArt(first),prepareVariant(first)]);releaseSparky();roundCount=1;start(first);$('loading').hidden=true;
  sparky.then(()=>{document.documentElement.dataset.sparky='ready'},e=>console.error('Sparky could not load',e));sparky.finally(()=>setTimeout(warmGame,1500));setTimeout(warmGame,30000);performance.mark('sparky:ready');performance.measure('sparky:boot','sparky:boot-start','sparky:ready');syncOrientation();warmNextRound();
  }catch(e){$('loading').querySelector('p').textContent='Could not load the game. Please refresh.';console.error(e);}}
