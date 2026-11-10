@@ -37,9 +37,13 @@ const canFullscreen=!!(root.requestFullscreen||root.webkitRequestFullscreen)&&(d
 const touchScreen=matchMedia('(pointer:coarse)').matches&&navigator.maxTouchPoints>0;
 const installed=matchMedia('(display-mode:fullscreen),(display-mode:standalone)').matches;
 const offered=canFullscreen&&touchScreen&&!installed;
-async function enterFullscreen(){
- if(!offered||fullscreenElement())return;
- try{await(root.requestFullscreen?root.requestFullscreen({navigationUI:'hide'}):root.webkitRequestFullscreen());}catch{return;}
+const portraitNow=matchMedia('(orientation:portrait)');
+let entering=null;
+function enterFullscreen(){if(!entering)entering=enterNow().finally(()=>{entering=null});return entering;}
+async function enterNow(){
+ if(!offered)return;
+ // Already full screen but still upright (an earlier lock failed): ask for landscape again.
+ if(!fullscreenElement()){try{await(root.requestFullscreen?root.requestFullscreen({navigationUI:'hide'}):root.webkitRequestFullscreen());}catch{return;}}
  try{await screen.orientation?.lock?.('landscape');}catch{}
 }
 if(offered){
@@ -50,9 +54,11 @@ if(offered){
  if(prompt){
   const play=document.createElement('button');play.type='button';play.className='fullscreen-play';play.setAttribute('aria-label','Play full screen');
   play.innerHTML='<img src="assets/art/toy-controls/play.svg" alt="" draggable="false">';
-  play.addEventListener('click',enterFullscreen);prompt.append(play);
-  const sync=()=>{play.hidden=!!fullscreenElement();};
-  document.addEventListener('fullscreenchange',sync);document.addEventListener('webkitfullscreenchange',sync);sync();
+  // A tap anywhere on the upright screen turns the game sideways; the button stays
+  // until the game really is sideways, so a refused rotation can be retried.
+  prompt.addEventListener('click',enterFullscreen);prompt.append(play);
+  const sync=()=>{play.hidden=!!fullscreenElement()&&!portraitNow.matches;};
+  document.addEventListener('fullscreenchange',sync);document.addEventListener('webkitfullscreenchange',sync);portraitNow.addEventListener?.('change',sync);sync();
  }
 }
 window.sparkyScreenFill={get status(){return{fill:game.dataset.screenFill,fullscreenOffered:offered,fullscreen:!!fullscreenElement()};}};
