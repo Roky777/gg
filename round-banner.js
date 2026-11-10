@@ -1,12 +1,12 @@
 /** Brief, non-modal round announcements. The board stays interactive throughout. */
 export const ROUND_INTROS={
- 'balloon-pop':{title:'Balloon Pop',speech:'गुब्बारों पर टैप करो।'},
- 'jelly-wiggle':{title:'Jelly Wiggle',speech:'जेली पर टैप करो।'},
- differences:{title:'Find 3 Differences',speech:'दोनों तस्वीरों में तीन अंतर ढूँढो।'},
- letters:{title:'Match the Letters',speech:'अक्षर से तस्वीर मिलाओ।'},
- numbers:{title:'Match the Numbers',speech:'गिनो और सही नंबर से मिलाओ।'},
- assembly:{title:'Build the Picture',speech:'टुकड़े जोड़कर तस्वीर बनाओ।'},
- 'count-groups':{title:'Count and Match',speech:'गिनकर सही नंबर लगाओ।'}
+ 'balloon-pop':{title:'Balloon Pop',rule:'Pop the balloons!',speech:'गुब्बारों पर टैप करो।'},
+ 'jelly-wiggle':{title:'Jelly Wiggle',rule:'Tap a jelly!',speech:'जेली पर टैप करो।'},
+ differences:{title:'Find 3 Differences',rule:'Tap what is different.',speech:'दोनों तस्वीरों में तीन अंतर ढूँढो।'},
+ letters:{title:'Match the Letters',rule:'Match each letter to its picture.',speech:'अक्षर से तस्वीर मिलाओ।'},
+ numbers:{title:'Match the Numbers',rule:'Count, then match the number.',speech:'गिनो और सही नंबर से मिलाओ।'},
+ assembly:{title:'Build the Picture',rule:'Put the pieces together.',speech:'टुकड़े जोड़कर तस्वीर बनाओ।'},
+ 'count-groups':{title:'Count and Match',rule:'Count each group.',speech:'गिनकर सही नंबर लगाओ।'}
 };
 export class RoundBanner{
  constructor(element,label,{duration=1700,setTimer=(fn,delay)=>setTimeout(fn,delay),clearTimer=id=>clearTimeout(id)}={}){Object.assign(this,{element,label,duration,setTimer,clearTimer});this.timers=[];}

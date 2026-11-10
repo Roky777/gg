@@ -17,10 +17,13 @@ export class BreakSchedule{
   if(!this.bag.length){this.bag=shuffled(FUN_KINDS,this.random);if(this.bag[0]===this.last)[this.bag[0],this.bag[1]]=[this.bag[1],this.bag[0]];}
   this.index++;return this.last=this.bag.shift();}
 }
-export function makeFunBoard(kind,random=Math.random){const config=FUN_ACTIVITIES[kind];if(!config)throw Error('Unknown activity: '+kind);let images=[...config.images];if(kind==='wash-toy'||kind==='magic-reveal')images=[images[Math.floor(random()*images.length)]];return{id:'play-break:'+kind,topic:kind,fun:true,cards:images.map(image=>({image})),...config};}
+export function makeFunBoard(kind,random=Math.random){const config=FUN_ACTIVITIES[kind];if(!config)throw Error('Unknown activity: '+kind);let images=[...config.images];if(kind==='wash-toy'||kind==='magic-reveal')images=[images[Math.floor(random()*images.length)]];const board={id:'play-break:'+kind,topic:kind,fun:true,cards:images.map(image=>({image})),...config};
+ // Balloon Pop: one colour to pop this round, named on the top banner.
+ if(kind==='balloon-pop'){const target=BALLOON_COLOURS[Math.floor(random()*BALLOON_COLOURS.length)];Object.assign(board,{target,rule:'Pop the '+target.name.toLowerCase()+' balloons!'});}
+ return board;}
 export function createPlayBreak(options){if(options.picture.topic==='balloon-pop'&&!options.reduced)return new BalloonRise(options);return ['balloon-pop','jelly-wiggle'].includes(options.picture.topic)?new PlayBreak(options):new InteractiveBreak(options);}
-// Balloon colours that read cleanly on the pink source art (60-120deg turn it brown/olive).
-const BALLOON_HUES=[0,20,40,140,180,220,260,300];
+// Balloon colours: hue turns of the pink source art that read as one clear colour.
+export const BALLOON_COLOURS=[{name:'Pink',hue:0,css:'#f2549a'},{name:'Red',hue:20,css:'#e8383d'},{name:'Orange',hue:50,css:'#f07a22'},{name:'Green',hue:140,css:'#23a04b'},{name:'Blue',hue:245,css:'#2f7ff0'},{name:'Purple',hue:290,css:'#9b5be8'}];
 /**
  * Balloons float up from the bottom; tap to pop. Each pop bursts into confetti in
  * the balloon's colour; every fifth balloon is a sparkly star balloon with a bigger
@@ -30,18 +33,22 @@ const BALLOON_HUES=[0,20,40,140,180,220,260,300];
 export class BalloonRise{
  constructor({element,picture,onPlay=()=>{},onComplete=()=>{},onNext=()=>{},isPaused=()=>false,raf=fn=>requestAnimationFrame(fn),caf=id=>cancelAnimationFrame(id),random=Math.random}){
   Object.assign(this,{element,picture,onPlay,onComplete,onNext,isPaused,raf,caf,random});
-  this.elapsed=0;this.last=null;this.destroyed=false;this.finished=false;this.popped=0;this.spawned=0;this.nextSpawn=150;this.goal=12;this.limit=25000;this.items=[];this.lastLane=-1;this.seen=new Set();
+  this.elapsed=0;this.last=null;this.destroyed=false;this.finished=false;this.popped=0;this.spawned=0;this.nextSpawn=150;this.goal=8;this.limit=30000;this.items=[];this.lastLane=-1;this.seen=new Set();this.target=picture.target||BALLOON_COLOURS[1];this.sinceTarget=0;
   element.className='board fun-board balloon-pop balloon-rise';element.replaceChildren();element.setAttribute('aria-label',picture.title+'. '+picture.rule);
   this.sky=document.createElement('div');this.sky.className='balloon-sky';element.append(this.sky);
+  // Start with a few balloons already on their way up, so there is something to pop at once.
+  for(const y of[.58,.82,1.04]){this.spawn();const item=this.items[this.items.length-1];item.y=y;this.place(item);}
   this.frame=this.raf(t=>this.tick(t));
  }
  spawn(){
   const lanes=6;let lane=Math.floor(this.random()*lanes);if(lane===this.lastLane)lane=(lane+1+Math.floor(this.random()*(lanes-1)))%lanes;this.lastLane=lane;
-  const index=this.spawned++,star=index%5===4,hue=star?40:BALLOON_HUES[Math.floor(this.random()*BALLOON_HUES.length)];
+  // About half are the colour to pop (never three others in a row); every fifth is a sparkly star balloon of that colour.
+  const index=this.spawned++,star=index%5===4,target=star||this.sinceTarget>=2||this.random()<.45;this.sinceTarget=target?0:this.sinceTarget+1;
+  const others=BALLOON_COLOURS.filter(c=>c!==this.target),hue=target?this.target.hue:others[Math.floor(this.random()*others.length)].hue;
   const button=document.createElement('button');button.type='button';button.className='balloon-up'+(star?' star-balloon':'');button.setAttribute('aria-label',star?'Pop the star balloon':'Pop the balloon');
   const art=document.createElement('img');art.src='assets/art/'+this.picture.cards[0].image;art.alt='';art.draggable=false;button.append(art);
   button.style.setProperty('--hue',hue+'deg');
-  const item={button,index,star,hue,x:.1+(lane+.5)/lanes*.8+(this.random()-.5)*.05,y:1.2,speed:1/(6200+this.random()*2200),sway:.018+this.random()*.02,period:1500+this.random()*900,phase:this.random()*6.3,size:.82+this.random()*.28};
+  const item={button,index,star,hue,target,x:.1+(lane+.5)/lanes*.8+(this.random()-.5)*.05,y:1.2,speed:1/(6200+this.random()*2200),sway:.018+this.random()*.02,period:1500+this.random()*900,phase:this.random()*6.3,size:.82+this.random()*.28};
   button.style.setProperty('--size',item.size);
   const pop=e=>{e?.preventDefault?.();this.pop(item);};
   button.addEventListener('pointerdown',pop);button.addEventListener('click',pop);
@@ -51,6 +58,8 @@ export class BalloonRise{
  place(item){if(!this.size||this.sizeAt!==this.elapsed){this.size=[this.sky.clientWidth||1,this.sky.clientHeight||1];this.sizeAt=this.elapsed}const[w,h]=this.size,a=this.elapsed/(item.period||1800)+item.phase,x=item.x+Math.sin(a)*item.sway,y=item.y+Math.sin(a*2)*.006;item.button.style.transform=`translate3d(${(x*w).toFixed(1)}px,${(y*h).toFixed(1)}px,0) translate(-50%,-50%) rotate(${(Math.cos(a)*-7).toFixed(2)}deg)`;}
  pop(item){
   if(this.destroyed||this.finished||item.popped||this.isPaused())return;
+  // Another colour: a friendly wobble, and it floats on. No failure marks.
+  if(!item.target){if(!item.wobbling){item.wobbling=true;const a=item.button.querySelector?.('img')?.animate?.([{transform:'none'},{transform:'rotate(-12deg) scale(1.06,.94)',offset:.25},{transform:'rotate(10deg) scale(.96,1.04)',offset:.55},{transform:'rotate(-4deg)',offset:.8},{transform:'none'}],{duration:520,easing:'ease-out'});if(a)a.onfinish=()=>{item.wobbling=false};else item.wobbling=false;}return;}
   item.popped=true;this.popped++;this.seen.add(item.index);item.button.disabled=true;item.button.classList.add('popped');
   const sky=this.sky.getBoundingClientRect?.(),b=item.button.getBoundingClientRect?.();
   this.burst(item,b&&sky?{x:b.left-sky.left+b.width/2,y:b.top-sky.top+b.height*.38}:{x:0,y:0});

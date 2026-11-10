@@ -4,3 +4,4 @@
 .game>.scene-atmosphere[hidden]{display:none}
 .scene-atmosphere img{position:absolute;left:0;height:auto;max-width:none;max-height:none;object-fit:contain;pointer-events:none;user-select:none;will-change:transform}
 @media(prefers-reduced-motion:reduce){.scene-atmosphere img{will-change:auto}}
+.game>.scene-fade{z-index:0;pointer-events:none}

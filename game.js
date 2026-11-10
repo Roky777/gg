@@ -4,20 +4,20 @@ import{renderLearningType}from'./learning-type.mjs';
 import{applySceneBackground,backgroundFor}from'./scene-backgrounds.mjs';
 import{GamePlaylist}from'./game-playlist.mjs';
 import {cardReadings,bindCardReading} from './card-audio.js?v=polish-52';
-import {BreakSchedule,createPlayBreak,makeFunBoard,FUN_KINDS} from './play-breaks.js?v=sky-2';
+import {BreakSchedule,createPlayBreak,makeFunBoard,FUN_KINDS} from './play-breaks.js?v=target-2';
 import {reviewVoices,pictureVoice,RECORDINGS,recordingFor} from './voice-cues.js?v=lip-sync-40';
 import {syncLayout} from './responsive-layout.js?v=board-finish-14';
 import {CompanionPose} from './companion-pose.js?v=companion-57';
 import {PlayFlow,ModeDeck} from './play-flow.js?v=companion-57';
 import {solved,swap,scramble,slotAt,swapFeedback} from './model.js?v=lip-sync-40';
-import {MascotDirector,CLIPS} from './mascot-director.js?v=fast-start-3';
+import {MascotDirector,CLIPS} from './mascot-director.js?v=fast-start-4';
 import {GameAudio} from './game-audio.js?v=activities-53';
 import {makeBoard} from './puzzle-generator.js?v=drag-only-47';
 import {LearningVoice} from './learning-voice.js?v=recorded-only-1';
 import {AssemblyRound,createAssemblyBoard} from './assembly-game.js?v=polish-52';
 import {AssemblyDeck} from './assembly-catalog.js?v=lip-sync-40';
 import {CountingRound,makeCountingBoard,COUNT_WORDS} from './counting-game.js?v=drop-pocket-15';
-import {RoundBanner} from './round-banner.js?v=lip-sync-40';
+import {RoundBanner,ROUND_INTROS} from './round-banner.js?v=top-1';import {TopBanner} from './top-banner.js?v=1';
 import {DifferenceRound,createDifferenceBoard} from './differences-game.js?v=red-contours-55';
 import {VARIANTS,makeVariantBoard} from './variants/content.mjs';
 let VariantRoundController=null,variantRoundNumber=0,letterAnimations=null;
@@ -53,13 +53,19 @@ async function loadOpeningArt(picture){
 const assemblyDeck=new AssemblyDeck();
 let activeRound=null,assemblyEnabled=false,countingEnabled=false,countVoiceRow=null,groupWins=0,differencesEnabled=false,differenceDeck=null;
 const roundBanner=new RoundBanner($('round-banner'),$('round-banner-title'));
+// The top banner replaces the old in-board ribbon; everything that hid the ribbon hides it too.
+const topBanner=new TopBanner(document.querySelector('.game'),{reduced});{const hideRibbon=roundBanner.hide.bind(roundBanner);roundBanner.hide=options=>{hideRibbon(options);topBanner.hide(options);};}
+let topBannerRound=-1;
+function showTopBanner(){if(topBannerRound===roundToken||!currentPicture||done)return;topBannerRound=roundToken;const p=currentPicture,intro=ROUND_INTROS[topic];
+ const text=p.fun||p.variant?{title:p.title,rule:p.rule,swatch:p.target||null}:intro?{title:intro.title,rule:intro.rule}:null;if(text)topBanner.show(text);}
 let bannerRound=-1;
 const introducedVariants=new Set();
 function introduce(){
+ showTopBanner();
  // Newer boards: their recorded introduction plays the first time each game appears this session.
  if(currentPicture?.variant){if(currentPicture.variant!=='food-sort'&&!introducedVariants.has(currentPicture.variant)&&voiceUnlocked&&soundOn&&activeRound?.narrate&&!activeRound.complete){introducedVariants.add(currentPicture.variant);activeRound.narrate(currentPicture.rule);}return;}
  if(currentPicture?.fun){if(!activeRound?.announced&&voiceUnlocked&&soundOn&&activeRound){activeRound.announced=true;voice.say(currentPicture.intro,{volume:.85});}return;}
- if(bannerRound!==roundToken){roundBanner.show(topic);bannerRound=roundToken;}
+ if(bannerRound!==roundToken)bannerRound=roundToken;
  flow.offerIntro();
 }
 
@@ -97,7 +103,9 @@ function newBoard(){
 
 function updateLearningUI(){$('progress').textContent=`★ ${wins}`;}
 async function advance(){
- if(navigationLoading)return;navigationLoading=true;flow.cancel();cancelReactions();const breakKind=breakSchedule.take(wins);const next=breakKind?makeFunBoard(breakKind):(upcomingBoard||newBoard());if(!breakKind)upcomingBoard=null;clearTimeout(prefetchTimer);roundBanner.hide({immediate:true});voice.cancel();clearTimeout(settle);clearDrag();activeRound?.cancelDrag();roundToken++;
+ if(navigationLoading)return;navigationLoading=true;
+ // Give the board swap and the background fade the phone's full attention: Sparky holds his pose briefly.
+ if(globalThis.sparkyRig)globalThis.sparkyRig.holdUntil=performance.now()+700;flow.cancel();cancelReactions();const breakKind=breakSchedule.take(wins);const next=breakKind?makeFunBoard(breakKind):(upcomingBoard||newBoard());if(!breakKind)upcomingBoard=null;clearTimeout(prefetchTimer);roundBanner.hide({immediate:true});voice.cancel();clearTimeout(settle);clearDrag();activeRound?.cancelDrag();roundToken++;
  try{await loadPicture(next);await prepareVariant(next);roundCount++;sound('next');start(next);syncOrientation();}
  catch(e){if(!breakKind)upcomingBoard=next;busy=false;say('Could not load the next picture. Tap the arrow to try again.');console.error(e);}
  finally{navigationLoading=false;activeRound?.focus?.guide.schedule(1400);if(!done)introduce();warmNextRound();if(warmStarted)warmGame();}
@@ -193,7 +201,7 @@ document.querySelector('.game').classList.toggle('activity-scene',!!pic.fun&&pic
   const token=roundToken;pieces=[];$('next').disabled=false;$('board').setAttribute('aria-busy','false');roundBanner.hide({immediate:true});
   activeRound=new VariantRoundController({element:$('board'),picture:pic,director,reduced,isPaused:()=>navigationLoading||screenUnavailable()||document.hidden||portraitScreen.matches||$('pause-dialog').open,isSoundOn:()=>soundOn,sound,onActivity:idleSchedule,onWrong:()=>flow.mistake(),onMatch:matchCelebration,onSpeaking:()=>syncSpeaking(),onComplete:()=>{if(token===roundToken&&!done)finish()}});
   if(location.hostname==='127.0.0.1'||location.hostname==='localhost')window.sparkyVariant=activeRound;
-  updateLearningUI();$('task-rule').textContent=pic.rule;tell(pic.intro,{speak:false});layoutArt();idleSchedule();say(pic.rule);return;
+  updateLearningUI();$('task-rule').textContent=pic.rule;tell(pic.intro,{speak:false});layoutArt();idleSchedule();showTopBanner();say(pic.rule);return;
  }
  if(pic.fun){
   let lastActivityGesture=-Infinity;
