@@ -14,7 +14,7 @@ export function makeSilhouetteProfile(S,sourceData,model,region,{paintedOnly=fal
  const N=64;for(let y=0;y<=N;y++)for(let x=0;x<=N;x++){const q=[bounds[0]+(bounds[2]-bounds[0])*x/N,bounds[3]-(bounds[3]-bounds[1])*y/N],badge=smooth(11.5,20,Math.hypot(Math.abs(q[0])-20.5,q[1]-164.4)),join=smooth(14,32,Math.abs(q[0]))*smooth(165,188,q[1])*badge,collar=(1-smooth(18,30,Math.abs(q[0])))*badge,fit=[q[0]*(1+.20*smooth(170,184,q[1])*collar)-Math.sign(q[0])*3*join,q[1]+(q[1]-194)*.30*smooth(169,181,q[1])*collar-2*join],w=bary(fit,...anchors.map(i=>old.points[i]));torso.points.push(q);for(const [key,list] of Object.entries(torso.transfers)){const weights=new Map();anchors.forEach((id,k)=>old.transfers[key][id].indices.forEach((n,j)=>weights.set(n,(weights.get(n)??0)+old.transfers[key][id].weights[j]*w[k])));list.push({indices:[...weights.keys()],weights:[...weights.values()]})}}
  for(let y=0;y<N;y++)for(let x=0;x<N;x++){const k=y*(N+1)+x;torso.triangles.push(k,k+N+1,k+1,k+1,k+N+1,k+N+2)}
  }
- const fitted=makeShapeProfile(S,sourceData),data=new S.SkeletonData(),root=new S.BoneData(0,'shape-render-root',null);data.bones.push(root);for(const name of ORDER)data.slots.push(new S.SlotData(data.slots.length,name,root));const cache=new WeakMap();
+ const anchorRest=anchors.map(i=>old.points[i]),fitted=makeShapeProfile(S,sourceData),data=new S.SkeletonData(),root=new S.BoneData(0,'shape-render-root',null);data.bones.push(root);for(const name of ORDER)data.slots.push(new S.SlotData(data.slots.length,name,root));const cache=new WeakMap();
  const getAttachment=(slot,name)=>sourceData.defaultSkin.getAttachment(sourceData.findSlot(slot).index,name);const keysByGroup=new Map();for(const k of Object.keys(model.cages)){const g=model.cages[k].group;keysByGroup.set(g,[...(keysByGroup.get(g)??[]),k])}
  function sample(v,{colours=false}={}){
   let render=cache.get(v);if(!render){render=new S.Skeleton(data);render.updateWorldTransform(S.Physics.none);cache.set(v,render)}const sk=v.skeleton;fitted.setPoseContext(v);const cageCache=new Map(),limbPoint=limbFields(fitted,sk);
@@ -24,7 +24,7 @@ export function makeSilhouetteProfile(S,sourceData,model,region,{paintedOnly=fal
   // Seat the lower neck in the same shirt frame; blend only its upper end
   // towards the head, so a head tilt does not pull it out of the opening.
   const shirtKey=activeKeys(old)[0],shirtAnchors=anchors.map(i=>point(old,shirtKey,i));
-  const shirtPoint=q=>{const w=bary(q,...anchors.map(i=>old.points[i]));return[0,1].map(axis=>shirtAnchors.reduce((sum,p,j)=>sum+p[axis]*w[j],0))};
+  const[sa,sb,sc]=shirtAnchors,shirtPoint=globalThis.sparkyRigSlow===true?q=>{const w=bary(q,...anchors.map(i=>old.points[i]));return[0,1].map(axis=>shirtAnchors.reduce((sum,p,j)=>sum+p[axis]*w[j],0))}:q=>{const w=bary(q,anchorRest[0],anchorRest[1],anchorRest[2]);return[0+sa[0]*w[0]+sb[0]*w[1]+sc[0]*w[2],0+sa[1]*w[0]+sb[1]*w[1]+sc[1]*w[2]]};
   render.shoulderPoint=shirtPoint;
   const live=k=>{const c=model.cages[k],sl=sk.findSlot(c.slot),a=sl.getAttachment();return a&&a.name===c.name&&sl.color.a>.01&&(a.color?.a??1)>.01};
   const groupKeys=g=>keysByGroup.get(g)??[];const canonicalCache=new Map(),armKeysCache=new Map();

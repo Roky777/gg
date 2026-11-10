@@ -21,7 +21,9 @@ export function makeShorts(S,atlas){
    // folding the waistband into a sharp V during a raised-leg pose.
    const outer=smooth(3,22,Math.abs(p[0])),w=smooth(118,100,p[1])*outer+smooth(98,81,p[1])*(1-outer);
    const leg=s=>{const now=limbPoint(p,'leg',s,'upper'),rest=bindPoint(p,'leg',s,'upper'),zero=fitted.bodyPoint(rest,sk);return now.map((v,i)=>v+waist[i]-zero[i])};
-   const thigh=mix(leg('R'),leg('L'),side);verts.push(...mix(waist,thigh,w));}
+   // Weight 0 returns the first argument exactly, so skipped legs change nothing.
+    if(globalThis.sparkyRigSlow!==true){if(w===0){verts.push(waist[0],waist[1]);continue}const thigh=side===0?leg('R'):side===1?leg('L'):mix(leg('R'),leg('L'),side);verts.push(...mix(waist,thigh,w));continue}
+    const thigh=mix(leg('R'),leg('L'),side);verts.push(...mix(waist,thigh,w));}
   const m=new S.MeshAttachment('ShortsRedraw');m.region=probe.region;m.regionUVs=probe.regionUVs;m.uvs=probe.uvs;m.vertices=verts;m.worldVerticesLength=verts.length;m.triangles=tri;m.color.set(1,1,1,1);return m;
  }
 }

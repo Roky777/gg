@@ -1,5 +1,5 @@
-import{FullCharacterPlayer}from'./runtime/character-upgrade/12-sparky-final/player.js?v=perf-1';
-import{installPaintedProfile}from'./runtime/character-upgrade/12-sparky-final/motion-fit-painted.js?gesture-fit=perf-1';
+import{FullCharacterPlayer}from'./runtime/character-upgrade/12-sparky-final/player.js?v=perf-2';
+import{installPaintedProfile}from'./runtime/character-upgrade/12-sparky-final/motion-fit-painted.js?gesture-fit=perf-2';
 const here=new URL('.',import.meta.url);
 export class SparkyRigPlayer{
  static async load(manifestURL=new URL('manifest.json',here)){

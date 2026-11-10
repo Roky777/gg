@@ -3,11 +3,11 @@ import{createGloveSkin}from'./authored-gloves.js';
 import{createLimbSkin}from'./authored-limbs.js';
 import{holdingHands}from'./holding-hands.js?v=1';
 import{fitFacePoint,mouthForSpeech}from'./face-reference-fit.js?v=1';
-import{makeShorts}from'./motion-fit-shorts-v2.js?v=1';
-import{makeTwoPartArms}from'./continuous-sleeve-garment.js?v=1';
+import{makeShorts}from'./motion-fit-shorts-v2.js?v=2';
+import{makeTwoPartArms}from'./continuous-sleeve-garment.js?v=2';
 import{makePropLayer}from'./prop-layer.js?iteration=joint-7';
 import{group}from'../09-lucas-shape-first/shape-profile.js';
-import{makeSilhouetteProfile}from'./motion-fit-geometry.js?v=perf-1';
+import{makeSilhouetteProfile}from'./motion-fit-geometry.js?v=perf-2';
 function bary(p,a,b,c){const d=(b[1]-c[1])*(a[0]-c[0])+(c[0]-b[0])*(a[1]-c[1]);if(Math.abs(d)<1e-9)return null;const x=((b[1]-c[1])*(p[0]-c[0])+(c[0]-b[0])*(p[1]-c[1]))/d,y=((c[1]-a[1])*(p[0]-c[0])+(a[0]-c[0])*(p[1]-c[1]))/d;return[x,y,1-x-y]}
 // Colour correction measured on flat patches of Target-Cropped.webp (shirt already matches).
 const COLOR_FIX={Shorts:[.93,.93,.893],Leg_L:[1,.935,1],Leg_R:[1,.935,1],Arm_L:[1,.94,1],Arm_R:[1,.94,1]};

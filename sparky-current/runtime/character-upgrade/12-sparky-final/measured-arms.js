@@ -33,7 +33,7 @@ export function makeTwoPartArms(S,atlas,seamRegion){
   for(let j=0;j<ny;j++)for(let i=0;i<nx;i++){const k=j*(nx+1)+i;tri.push(k,k+nx+1,k+1,k+1,k+nx+1,k+nx+2)}
   return mesh(name,region,verts,uv,tri,alpha,tint);
  }
- function sample(f,side,shirtPoint){
+ function sample(f,side,shirtPoint,jointsOnly=false){
   const r=REF[side],oldUpper=frame(r.oldS,r.oldE),motionUpper=frame(f.goal,f.elbow),deltaAngle=Math.atan2(motionUpper.u[1],motionUpper.u[0])-Math.atan2(oldUpper.u[1],oldUpper.u[0]);
   const ss=shirtPoint(r.S),os=shirtPoint(r.oldS),S0=[f.goal[0]+ss[0]-os[0],f.goal[1]+ss[1]-os[1]];
   const de=rotation([r.E[0]-r.oldE[0],r.E[1]-r.oldE[1]],deltaAngle),E=[f.elbow[0]+de[0],f.elbow[1]+de[1]];
@@ -50,6 +50,13 @@ export function makeTwoPartArms(S,atlas,seamRegion){
    const y=150+660*t,q=mix(outerRest(y),innerRest(y),n),arm=bonePoint(q,restUpper,upperFrame),shirt=shirtPoint(q),seamWeight=y<=350?1:1-smooth(350,500,y),w=Math.max(n**4*seamWeight,1-smooth(0,.12,t));
    return mix(arm,shirt,w);
   };
+  // The continuous garment only reads the joints and seam from this pass;
+  // building its skin meshes every frame was discarded work.
+  if(jointsOnly&&globalThis.sparkyRigSlow!==true){
+   const seamPoints=Array.from({length:33},(_,i)=>shirtPoint(innerRest(150+(350-150)*i/32)));
+   armDiagnostics[side]={shoulder:S0,elbow:E,wrist:W,bend:Math.acos(Math.max(-1,Math.min(1,upperFrame.u[0]*lowerFrame.u[0]+upperFrame.u[1]*lowerFrame.u[1])))*180/Math.PI,sleeveLengthScale:Math.min(1,upperFrame.length/restUpper.length),forearmLean:Math.atan2(Math.abs(lowerFrame.u[0]),Math.abs(lowerFrame.u[1]))*180/Math.PI,width:r.width,seam:seamPoints};
+   return null;
+  }
   const sleeve=(name,a,b,n0=0,n1=.94,alpha=1)=>grid(name,'UpperArm',16,Math.max(3,Math.ceil((b-a)*36)),(u,v)=>{
    const n=n0+(n1-n0)*u,t=a+(b-a)*v,y=150+660*t,[x0,x1]=row(BLUE_ROWS,y);return{world:sleevePoint(n,t),uv:[(x0+(x1-x0)*n)/1024,y/1536]};
   },alpha);
