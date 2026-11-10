@@ -1257,6 +1257,15 @@ html:not([data-sparky=ready]):not([data-sparky=poster]) #mascot{opacity:0}
 @keyframes load-out{to{opacity:0}}
 @media(prefers-reduced-motion:reduce){.loading .load-track i::after{animation:none}}
 
+/* board-transition.css */
+﻿/* Board to board: the old board fades out, the next one (already prepared) is built out of
+   sight and pops in only when every picture in it is ready. Size at rest is unchanged. */
+.game .puzzle-frame{transition:opacity .2s ease}
+.game.board-leaving .puzzle-frame{opacity:0}
+.game.board-arriving .puzzle-frame{animation:board-arrive .38s cubic-bezier(.2,1.25,.4,1) both}
+@keyframes board-arrive{from{opacity:0;scale:.94}to{opacity:1;scale:1}}
+@media(prefers-reduced-motion:reduce){.game .puzzle-frame{transition:none}.game.board-arriving .puzzle-frame{animation:none}}
+
 /* counting-finish.css */
 /* Counting board finish (loaded last).
    One measured layout for every screen size, inside the unchanged board:

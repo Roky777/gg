@@ -1,4 +1,4 @@
-import {SparkyRigPlayer} from './sparky-current/player.js?v=worker-3';
+import {SparkyRigPlayer} from './sparky-current/player.js?v=worker-4';
 
 export const CLIPS={
  idle:'0Final/Idle/Idle_EB',

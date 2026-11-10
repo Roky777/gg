@@ -57,7 +57,7 @@ export class WorkerRigPlayer {
   constructor(manifest, data, worker, renderWidth, camera) {
     Object.assign(this, { manifest, data, worker, renderWidth, isWorker: true });
     this.views = new Set(); this.byId = new Map(); this.nextId = 1; this.seq = 0; this.inflight = null;
-    this.time = 0; this.speed = 1; this.paused = false; this.last = performance.now(); this.gloveSkinEnabled = true;
+    this.time = 0; this.speed = 1; this.framesShown = 0; this.paused = false; this.last = performance.now(); this.gloveSkinEnabled = true;
     this.table = attachmentTable(data); this.index = new Map(this.table.map((a, i) => [a, i]));
     const cam = { position: { x: camera.x, y: camera.y }, viewportWidth: camera.width, viewportHeight: camera.height };
     this.instance = { renderer: { camera: cam }, dispose: () => {} };
@@ -104,7 +104,7 @@ export class WorkerRigPlayer {
       const ctx = v.context, w = v.canvas.width, h = v.canvas.height;
       ctx.clearRect(0, 0, w, h); ctx.drawImage(f.bitmap, 0, 0, w, h); f.bitmap.close();
       if (Number.isFinite(v.tableY)) { const c = this.instance.renderer.camera, row = (c.position.y + c.viewportHeight / 2 - v.tableY) / c.viewportHeight * h; ctx.clearRect(0, Math.max(0, row), w, h); }
-      v.rendered = anchorSkeleton(f.anchors);
+      v.rendered = anchorSkeleton(f.anchors); this.framesShown++;
       try { this.afterFrame?.(v.rendered, v); } catch (error) { console.error(error); }
       this.workerCost = this.workerCost ? this.workerCost * .85 + f.cost * .15 : f.cost;
     }
