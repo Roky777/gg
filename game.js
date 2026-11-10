@@ -10,7 +10,7 @@ import {syncLayout} from './responsive-layout.js?v=board-finish-14';
 import {CompanionPose} from './companion-pose.js?v=companion-57';
 import {PlayFlow,ModeDeck} from './play-flow.js?v=companion-57';
 import {solved,swap,scramble,slotAt,swapFeedback} from './model.js?v=lip-sync-40';
-import {MascotDirector,CLIPS} from './mascot-director.js?v=perf-2';
+import {MascotDirector,CLIPS} from './mascot-director.js?v=fast-start-3';
 import {GameAudio} from './game-audio.js?v=activities-53';
 import {makeBoard} from './puzzle-generator.js?v=drag-only-47';
 import {LearningVoice} from './learning-voice.js?v=recorded-only-1';
@@ -23,7 +23,9 @@ import {VARIANTS,makeVariantBoard} from './variants/content.mjs';
 let VariantRoundController=null,variantRoundNumber=0,letterAnimations=null;
 async function prepareVariant(picture){if(picture.topic==='variants'&&!VariantRoundController)VariantRoundController=(await import('./variants/round.mjs')).VariantRound;if(picture.topic==='letters'&&!letterAnimations){const{LetterCompanion}=await import('./letter-companion.mjs');letterAnimations=new LetterCompanion({director,companion,reduced});}}
 const $=id=>document.getElementById(id),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-const director=new MascotDirector($('mascot'),CLIPS,{reduced});
+// Sparky's rig waits for the first board's art (at most 6 s) so the board opens sooner.
+let releaseSparky;const sparkyGate=new Promise(r=>{releaseSparky=r;setTimeout(r,6000)});
+const director=new MascotDirector($('mascot'),CLIPS,{reduced,after:sparkyGate});
 const companion=new CompanionPose({reduced});director.setPoseModifier((skeleton,frame)=>companion.apply(skeleton,frame));
 let order=[1,2,0],pieces=[],drag=null,done=false,busy=false,roundToken=0,soundOn=true,settle=null,celebration=null;
 const pictureImages=new Map(),pictureLoads=new Map();
@@ -268,7 +270,11 @@ async function boot(){performance.mark('sparky:boot-start');try{
   (async()=>{try{const response=await fetch('assets/art/counting/manifest.json?v=lip-sync-40');if(response.ok){const catalog=await response.json();countingEnabled=catalog.ready===true&&catalog.images?.length===20;}}catch{}})(),
   (async()=>{try{const response=await fetch('assets/art/differences/manifest.json?v=red-contours-55');if(response.ok){const catalog=await response.json();differencesEnabled=catalog.ready===true&&catalog.boards?.length===20&&catalog.boards.every(p=>p.images?.length===2&&p.regions?.filter(r=>r.changed).length===3);if(differencesEnabled)differenceDeck=new AssemblyDeck(catalog.boards);}}catch{}})()
  ]);
- const previewKind=new URLSearchParams(location.search).get('game');const first=FUN_KINDS.includes(previewKind)?makeFunBoard(previewKind):newBoard();await Promise.all([director.ready,loadPicture(first),loadOpeningArt(first),prepareVariant(first)]);await director.show('idle');roundCount=1;start(first);$('loading').hidden=true;performance.mark('sparky:ready');performance.measure('sparky:boot','sparky:boot-start','sparky:ready');syncOrientation();warmNextRound();
+ const previewKind=new URLSearchParams(location.search).get('game');const first=FUN_KINDS.includes(previewKind)?makeFunBoard(previewKind):newBoard();// The board opens as soon as its own art is ready; Sparky's rig (most of the first
+ // download) fades in when it arrives. Feeding drives Sparky directly, so it waits.
+ const needsSparky=first.variant==='food-sort';if(needsSparky)releaseSparky();const sparky=director.ready.then(()=>director.show('idle'));
+ await Promise.all([needsSparky?sparky:null,loadPicture(first),loadOpeningArt(first),prepareVariant(first)]);releaseSparky();roundCount=1;start(first);$('loading').hidden=true;
+ sparky.then(()=>{document.documentElement.dataset.sparky='ready'},e=>console.error('Sparky could not load',e));performance.mark('sparky:ready');performance.measure('sparky:boot','sparky:boot-start','sparky:ready');syncOrientation();warmNextRound();
  }catch(e){$('loading').querySelector('p').textContent='Could not load the game. Please refresh.';console.error(e);}}
 
 if(location.hostname==='127.0.0.1'||location.hostname==='localhost')window.sparkyReview={async startVariant(id,round=0,content=null){clearTimeout(prefetchTimer);upcomingBoard=null;const picture=makeVariantBoard(id,round);if(content)picture.content=content;await prepareVariant(picture);const url=new URL(location.href);url.searchParams.set('game',id);history.replaceState(null,'',url);variantRoundNumber=round+1;start(picture);syncOrientation();return activeRound;},get current(){return activeRound},get picture(){return currentPicture},get navigating(){return navigationLoading},get breaks(){return breakSchedule}};

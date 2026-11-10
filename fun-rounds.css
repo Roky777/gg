@@ -37,3 +37,8 @@
 .balloons-done .balloon-sky{animation:sky-cheer .9s ease-out}
 @keyframes sky-cheer{0%{background-color:#fff6c900}30%{background-color:#fff6c9aa}100%{background-color:#fff6c900}}
 @media(prefers-reduced-motion:reduce){.balloon-up.star-balloon::after,.balloon-burst *{animation:none}}
+
+/* Sparky fades in once his rig has loaded (the board can open first). */
+#mascot{transition:opacity .4s ease-out}
+html:not([data-sparky=ready]) #mascot{opacity:0}
+
