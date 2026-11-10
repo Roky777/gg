@@ -1,0 +1,50 @@
+/* Whole-screen landscape fit. The approved 16:9 stage, board and their
+   internal coordinates are unchanged; only scenery, controls, Sparky's
+   standing position and the feeding table use the extra screen space.
+   Values come from screen-fill.mjs and are 0 on an exact 16:9 screen. */
+.game{overflow:visible!important;--fill-left:0px;--fill-top:0px;--fill-right:0px;--fill-bottom:0px;--safe-left:0px;--safe-top:0px;--safe-right:0px;--safe-bottom:0px}
+
+/* Scenery and its cloud layer cover the full screen, including notch areas. */
+.game>.illustrated-world,.game>.scene-atmosphere{inset:auto!important;left:calc(-1 * var(--fill-left))!important;top:calc(-1 * var(--fill-top))!important;width:calc(100% + var(--fill-left) + var(--fill-right))!important;height:calc(100% + var(--fill-top) + var(--fill-bottom))!important;border-radius:0!important}
+
+/* Controls keep their stage inset, measured from the safe screen edge. */
+.game>.game-button.sound{left:calc(3.25% - var(--safe-left))!important;top:calc(5.75% - var(--safe-top))!important}
+.game>.game-button.exit{right:calc(3.25% - var(--safe-right))!important;top:calc(5.75% - var(--safe-top))!important}
+.game>.game-button.next{right:calc(3.25% - var(--safe-right))!important;bottom:calc(clamp(0px,calc(14% - 46px),2%) - var(--safe-bottom))!important}
+
+/* Sparky keeps his approved stage position on every screen: the extra side
+   space holds mirrored scenery (e.g. a second palm trunk), not a clear floor. */
+
+/* The plain wood table runs to both screen edges and the bottom. Its artwork is
+   a horizontally uniform band, so widening it does not distort any feature. */
+.game.feeding-room .dining-table{left:calc(-3.475936% - var(--fill-left))!important;width:calc(106.951872% + var(--fill-left) + var(--fill-right))!important;height:calc(var(--stage-w, 0px) * .203333 + var(--fill-bottom))!important;aspect-ratio:auto!important;object-fit:fill!important}
+.game.feeding-room:not([style*="--stage-w"]) .dining-table{height:auto!important;aspect-ratio:1800/366!important}
+
+/* Short stages (under 320px tall: phones with browser toolbars). The approved
+   layouts below were measured from 320px up; these keep 44px targets apart. */
+/* Assembly: the tray uses the full content height so three 44px pieces never overlap. */
+.game[data-short-stage]:not(.activity-scene) .puzzle-frame .assembly-tray{height:97%!important}
+.game[data-short-stage]:not(.activity-scene) .puzzle-frame .assembly-tray .assembly-choice:nth-child(1){top:15%!important}
+.game[data-short-stage]:not(.activity-scene) .puzzle-frame .assembly-tray .assembly-choice:nth-child(3){top:85%!important}
+/* Food Choices: each pair of dishes sits side by side along the table. */
+.game.feeding-room[data-short-stage][data-side-room] .feeding-tray .variant-card:nth-child(n){top:76%!important}
+.game.feeding-room[data-short-stage][data-side-room] .feeding-tray .variant-card:nth-child(1){left:.5%!important}
+.game.feeding-room[data-short-stage][data-side-room] .feeding-tray .variant-card:nth-child(2){left:17.5%!important}
+.game.feeding-room[data-short-stage][data-side-room] .feeding-tray .variant-card:nth-child(3){left:66.5%!important}
+.game.feeding-room[data-short-stage][data-side-room] .feeding-tray .variant-card:nth-child(4){left:83.5%!important}
+/* Sticker Studio has no drawn frame (the chalkboard is the scenery), so its
+   activity uses the empty top band; a 3x3 grid then keeps 44px cells. */
+.game.sticker-room[data-short-stage][data-side-room] .puzzle-frame{top:5%!important;height:90%!important}
+
+/* Full-screen play button on the rotate / more-space prompt (touch devices only). */
+.rotate-prompt .fullscreen-play{position:relative;width:clamp(64px,18vmin,96px);aspect-ratio:1;padding:0;border:0;border-radius:29%;background:url('assets/art/toy-controls/shell.webp') center/100% 100% no-repeat;cursor:pointer;touch-action:manipulation;filter:drop-shadow(0 3px 3px #123d5a40)}
+.rotate-prompt .fullscreen-play img{position:absolute;left:27%;top:25%;width:50%;height:50%;object-fit:contain;pointer-events:none}
+.rotate-prompt .fullscreen-play:active{transform:translateY(2px) scale(.96)}
+.rotate-prompt .fullscreen-play:focus-visible{outline:3px solid #fffefa;outline-offset:3px;box-shadow:0 0 0 6px #245e6d}
+.rotate-prompt .fullscreen-play[hidden]{display:none}
+.rotate-prompt .fullscreen-play{flex:none}
+/* The rotate-phone icon does not describe "more space", and it collapsed there. */
+body.compact-screen .rotate-prompt svg{display:none}
+
+/* Without WebGL the stage keeps its CSS artwork; the surround uses a calm neutral. */
+body:has(.game[data-illustrated-world=fallback]){background:#cfe8ef}

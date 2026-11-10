@@ -1,5 +1,4 @@
 import{FOODS,objectImage}from'./food-catalogue.mjs';
-import{dealContent,contentSeed}from'./content-deck.mjs';
 export{FOODS}from'./food-catalogue.mjs';
 export const VARIANTS=[
  ['count-connect','Count & Connect','Count the objects. Connect each group to its number.','G03'],
@@ -18,11 +17,11 @@ export function randomFor(seed){let s=seed>>>0;return()=>{s=(s*1664525+101390422
 export function shuffled(items,random=Math.random){const copy=[...items];for(let i=copy.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]]}return copy}
 export function makeVariantBoard(id,round=0){const spec=VARIANTS.find(v=>v.id===id);if(!spec)throw Error('Unknown activity '+id);return{topic:'variants',variant:id,id:id+'-'+round,round,cards:[],axis:'horizontal',rule:spec.rule,intro:spec.rule,title:spec.title}}
 export function matchContent(id,round=0){
- const random=randomFor(contentSeed(id+'-'+round)),pick=items=>dealContent(id,items,3,round);let pairs=[];
- if(id==='count-connect'||id==='equal-groups'){const counts=pick([1,2,3,4,5]),pictures=dealContent(id+'-pictures',OBJECTS,6,round);pairs=counts.map((n,i)=>({key:String(n),left:{kind:'group',count:n,image:pictures[i].image,label:'Count these objects'},right:id==='count-connect'?{kind:'text',text:String(n),label:String(n)}:{kind:'group',count:n,image:pictures[i+3].image,label:'Count these objects'}}))}
+ const random=randomFor(7183+round*113),pick=items=>shuffled(items,random).slice(0,3);let pairs=[];
+ if(id==='count-connect'||id==='equal-groups'){const counts=pick(Array.from({length:round<3?3:5},(_,i)=>i+1));pairs=counts.map((n,i)=>({key:String(n),left:{kind:'group',count:n,image:objectImage(['apple','duck','kite'][i]),label:'Count these objects'},right:id==='count-connect'?{kind:'text',text:String(n),label:String(n)}:{kind:'group',count:n,image:objectImage(['orange','balloon','fish'][i]),label:'Count these objects'}}))}
  if(id==='colour-match'){pairs=pick([{o:OBJECTS[0],colour:'#e95045',name:'Red'},{o:OBJECTS[9],colour:'#65a966',name:'Green'},{o:OBJECTS[11],colour:'#ffa533',name:'Orange'},{o:FOODS[8],colour:'#f4cf48',name:'Yellow'}]).map(p=>({key:p.name,left:p.o,right:{kind:'colour',colour:p.colour,label:p.name}}))}
- if(id==='word-picture'||id==='letter-picture'){const pool=OBJECTS;pairs=pick(pool).map(o=>({key:o.key,left:{kind:'text',text:id==='word-picture'?o.label.toUpperCase():o.label[0],label:id==='word-picture'?o.label:o.label[0]},right:o}))}
- if(id==='letter-case'){const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';pairs=pick([...letters]).map(letter=>({key:letter,left:{kind:'text',text:letter,label:'Capital '+letter},right:{kind:'text',text:letter.toLowerCase(),label:'Small '+letter.toLowerCase()}}))}
+ if(id==='word-picture'||id==='letter-picture'){const pool=round<3?OBJECTS.slice(0,6):OBJECTS;pairs=pick(pool).map(o=>({key:o.key,left:{kind:'text',text:id==='word-picture'?o.label.toUpperCase():o.label[0],label:id==='word-picture'?o.label:o.label[0]},right:o}))}
+ if(id==='letter-case'){const letters=round<3?'ABEMT':'ACDEFGHIKLMNOPRSTUVWY';pairs=pick([...letters]).map(letter=>({key:letter,left:{kind:'text',text:letter,label:'Capital '+letter},right:{kind:'text',text:letter.toLowerCase(),label:'Small '+letter.toLowerCase()}}))}
  if(!pairs.length)throw Error('No matching content for '+id);return{pairs,left:shuffled(pairs,random),right:shuffled(pairs,random)};
 }
 export const STORIES=[

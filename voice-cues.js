@@ -1,4 +1,8 @@
 import {RECORDINGS} from './voice-recordings.js?v=lip-sync-40';
+import {LIP_SYNC} from './lip-sync-data.js?v=lip-sync-40';
+import {NEW_RECORDINGS,NEW_LIP_SYNC} from './voice-recordings-new.js?v=2';
+// The new Hinglish pack joins the same recorded-only voice (unrecorded lines stay silent).
+Object.assign(RECORDINGS,NEW_RECORDINGS);Object.assign(LIP_SYNC,NEW_LIP_SYNC);
 export {RECORDINGS};
 const normalize=s=>String(s).toLowerCase().replace(/[.!?।…]/g,'').trim();
 const lookup=new Map(Object.entries(RECORDINGS).map(([id,r])=>[normalize(r.text),id]));
@@ -21,7 +25,23 @@ const aliases={
  differences_intro_01:['चलो, दोनों तस्वीरों में तीन अंतर ढूँढें।','दोनों तस्वीरें देखो और अंतर ढूँढो।'],
  differences_intro_02:['देखो, कौन सी तीन चीज़ें अलग हैं?'],
  differences_help_01:['एक बार रंग और चीज़ें ध्यान से देखो।'],
- differences_win_01:['तीनों अंतर मिल गए!','तुमने तीनों अंतर ढूँढ लिए!','सारे अंतर मिल गए!']
+ differences_win_01:['तीनों अंतर मिल गए!','तुमने तीनों अंतर ढूँढ लिए!','सारे अंतर मिल गए!'],
+ // Game instructions (the board's rule text) -> its recorded introduction.
+ count_connect_intro:['Count the objects. Connect each group to its number.'],
+ equal_intro:['Connect groups that have the same number of objects.'],
+ colour_intro:['Connect each object to its colour.'],
+ words_intro:['Connect each word to its picture.'],
+ letters_intro_03:['Connect each capital letter to its small letter.'],
+ first_letter_intro:['Connect the first letter to its picture.'],
+ sticker_intro:['Use the friend row and accessory column to place each sticker.'],
+ // Food Choices lines shown as captions.
+ feeding_refuse_polite:['Hmm. No, thank you.'],
+ feeding_refuse_playful:['Not this one!','Na, na, na! Let’s try another food.'],
+ feeding_tooth:['Ooh, my tooth!','Ouch, my tooth!','Ow! That tooth again!'],
+ feeding_spoon_help:['Use the spoon to pick up a small bite.','Pick up a bite with the spoon.'],
+ feeding_fork_help:['Use the fork to pick up a small bite.','Pick up a bite with the fork.'],
+ feeding_bring_help:['Bring a bite to my mouth.','Bring the spoon to my mouth.','Bring the fork to my mouth.','Bring the drink to my mouth.'],
+ clue_offer:['How about this one?']
 };
 for(const [id,texts] of Object.entries(aliases))for(const t of texts)lookup.set(normalize(t),id);
 ['शून्य','एक','दो','तीन','चार','पाँच','छह','सात','आठ','नौ','दस'].forEach((n,i)=>lookup.set(n,'number_'+String(i).padStart(2,'0')));

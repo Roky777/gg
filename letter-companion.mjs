@@ -1,5 +1,12 @@
 import{applyAuthoredMotion}from'./animation-studio/rig-motion.mjs';
-import{contextualLetterClip}from'./animation-studio/letter-clips.mjs';
+import{contextualLetterClip,letterClipById}from'./animation-studio/letter-clips.mjs';
+import{feedingById}from'./animation-studio/feeding-clips.mjs';
+// The completed-board clap (LM06) takes the smooth pacing of the Food Choices clap (FD08):
+// the same Clapping source slowed to FD08's 2.6 s, with FD08's softer blend in/out.
+// FD08's arm targets are tuned for seated Sparky at table height; on the standing body
+// they lifted the hands to the chin and crossed the forearms, so the standing clap keeps
+// its own source arm motion and only adopts the timing.
+{const clap=feedingById.get('FD08'),standing=letterClipById.get('LM06');if(clap&&standing){const source=standing.referenceMotion.keys.at(-1)[1];Object.assign(standing,{duration:clap.duration,referenceMotion:{...standing.referenceMotion,keys:[[0,0],[clap.duration,source]],duration:clap.duration},nativeSettle:{...clap.nativeSettle},description:'Happy clap at the Food Choices clap pace; completed-board celebration.'});}}
 const resting={id:'S01',duration:4,channels:{}};
 const responses={invite:'LM01',guide:'LM02',ponder:'LM04',nod:'LM03',yes:'LM05',win:'LM05',encourage:'LM05',hurray:'LM05',woohoo:'LM05',delight:'LM05',proud:'LM05'};
 export class LetterCompanion{

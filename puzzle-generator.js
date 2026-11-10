@@ -18,7 +18,7 @@ export function makeBoard({letterWins=0,numberWins=0,lastTopic=null,recent=[],pr
  let board;
  for(let attempt=0;attempt<30;attempt++){
   if(topic==='letters'){
-   const pool=ALPHABET;
+   const pool=letterWins<3?ALPHABET.slice(0,6):ALPHABET;
    const chosen=shuffled(pool,random).slice(0,3).sort((a,b)=>a[0].localeCompare(b[0]));
    const lower=letterWins>=6;const cards=chosen.map(([letter,name])=>({image:imageFor(name),label:name,letter,value:letter,say:`${LETTER_NAMES[letter.charCodeAt(0)-65]} फॉर ${OBJECT_SPEECH[letter.charCodeAt(0)-65]}।`,kind:'object'}));
    board={id:'letters:'+chosen.map(v=>v[0]).join('')+':'+Number(lower),topic,axis:'vertical',cards,targets:chosen.map(v=>lower?v[0].toLowerCase():v[0]),intro:lower?'ऊपर छोटे अक्षर देखो। हर तस्वीर पर बड़े अक्षर को उसके जैसे छोटे अक्षर से मिलाओ। तस्वीर को खींचकर सही जगह पर रखो।':'ऊपर के अक्षर देखो। हर तस्वीर को उसके जैसे अक्षर के नीचे लगाओ। तस्वीर को खींचकर सही जगह पर रखो।',learn:'वाह! तुमने सही मिलाया! चलो, साथ में पढ़ें। '+cards.map(c=>c.say).join(' उसके बाद… '),rule:'तस्वीर का अक्षर ऊपर वाले अक्षर से मिलाओ।'};

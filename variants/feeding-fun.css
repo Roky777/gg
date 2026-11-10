@@ -1,0 +1,43 @@
+/* Food Choices play feedback: heart meter, munch sparkle, heart burst, meal cheer.
+   Sizes follow the stage height so they read the same on every screen. */
+.game.feeding-room .feeding-hearts{
+ position:absolute;left:50%;top:3.4%;translate:-50% 0;z-index:8;display:flex;gap:calc(var(--stage-h,720px) * .018);
+ pointer-events:none;user-select:none;
+}
+.game.feeding-room .feeding-heart{display:block;width:calc(var(--stage-h,720px) * .07);aspect-ratio:32/29;filter:drop-shadow(0 2px 2px #a3542a33)}
+.game.feeding-room .feeding-heart svg{display:block;width:100%;height:100%;overflow:visible}
+.feeding-heart .heart-shape{fill:#fff8ef;stroke:#ff8f7d;stroke-width:2.6;stroke-linejoin:round;transition:fill .25s ease}
+.feeding-heart .heart-shine{fill:#fff;opacity:0;transition:opacity .25s ease}
+.feeding-heart.filled .heart-shape{fill:#ff6b6b;stroke:#e94f57}
+.feeding-heart.filled .heart-shine{opacity:.75}
+.feeding-heart.filled{animation:feeding-heart-pop .5s cubic-bezier(.2,.8,.3,1.35)}
+.feeding-hearts.celebrate .feeding-heart{animation:feeding-heart-cheer .55s ease-in-out 3 alternate}
+.feeding-hearts.celebrate .feeding-heart:nth-child(2){animation-delay:.12s}
+.feeding-hearts.celebrate .feeding-heart:nth-child(3){animation-delay:.24s}
+@keyframes feeding-heart-pop{0%{transform:scale(.55)}55%{transform:scale(1.28)}100%{transform:scale(1)}}
+@keyframes feeding-heart-cheer{from{transform:scale(1) translateY(0)}to{transform:scale(1.18) translateY(-12%)}}
+
+/* Particles start at Sparky's mouth and drift outward, then fade. */
+.game.feeding-room .feeding-burst{position:absolute;width:0;height:0;z-index:8;pointer-events:none}
+.feeding-particle{
+ position:absolute;left:0;top:0;width:var(--size);height:var(--size);margin:calc(var(--size) / -2) 0 0 calc(var(--size) / -2);
+ opacity:0;animation:feeding-float 1.2s cubic-bezier(.2,.7,.3,1) var(--delay) forwards;
+}
+.feeding-particle svg{display:block;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 1px 1px #9b4b2633)}
+.feeding-particle.is-heart .heart-shape{fill:#ff6b6b;stroke:#fff;stroke-width:2}
+.feeding-particle.is-heart .heart-shine{fill:#fff;opacity:.7}
+.feeding-particle.is-star .star-shape{fill:#ffd23f;stroke:#fff;stroke-width:2;stroke-linejoin:round}
+.feeding-burst-munch .feeding-particle{animation-duration:.75s}
+.feeding-burst-party .feeding-particle{animation-duration:1.6s}
+@keyframes feeding-float{
+ 0%{opacity:0;transform:translate(var(--x0,0px),0) scale(.3) rotate(0deg)}
+ 16%{opacity:1}
+ 72%{opacity:1}
+ 100%{opacity:0;transform:translate(calc(var(--x0,0px) + var(--dx)),var(--dy)) scale(1) rotate(var(--turn))}
+}
+/* Pause freezes the feedback with the rest of the scene. */
+.game:has(#pause-dialog[open]) :is(.feeding-particle,.feeding-heart){animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){
+ .game.feeding-room .feeding-burst{display:none}
+ .feeding-heart,.feeding-hearts.celebrate .feeding-heart{animation:none!important}
+}

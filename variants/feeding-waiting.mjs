@@ -6,7 +6,10 @@ export class FeedingWaitClock{
  next(ids){if(!this.bag.length){this.bag=[...ids];for(let i=this.bag.length-1;i>0;i--){const j=Math.floor(this.random()*(i+1));[this.bag[i],this.bag[j]]=[this.bag[j],this.bag[i]]}if(this.bag.at(-1)===this.previous)[this.bag[0],this.bag[this.bag.length-1]]=[this.bag.at(-1),this.bag[0]];}return this.previous=this.bag.pop();}
 }
 export class FeedingWaitingVoice{
- constructor(round){this.round=round;this.serial=0;this.audio=null;}
- stop(){this.serial++;if(this.audio){this.audio.pause();this.audio.currentTime=0;this.audio=null;}}
- async play(clip){this.stop();const serial=this.serial;if(!this.round.isSoundOn())return;try{this.manifest??=fetch('assets/audio/feeding-waiting/manifest.json').then(r=>{if(!r.ok)throw Error('Waiting voice manifest unavailable');return r.json()});const manifest=await this.manifest,cue=manifest.cues[clip.voiceKey];if(serial!==this.serial||this.round.destroyed||!this.round.active()||document.hidden||!this.round.isSoundOn()||!cue?.src)return;const audio=new Audio(new URL(cue.src,new URL('assets/audio/feeding-waiting/',location.href)));this.audio=audio;audio.preload='metadata';audio.onended=()=>{if(this.audio===audio)this.audio=null;};await audio.play();if(serial!==this.serial)audio.pause();}catch{if(serial===this.serial)this.audio=null;/* Missing recordings and autoplay restrictions leave a silent animation. */}}
+ // Waiting lines play through the board voice (feeding_wait_<voiceKey>), so they share
+ // the one-voice-at-a-time rule and drive Sparky's lip-sync like every other line.
+ constructor(round){this.round=round;this.playing=null;}
+ get audio(){const job=this.round.voice?.current;return this.playing&&job?.id===this.playing?{paused:false}:null;}
+ stop(){if(this.playing&&this.round.voice?.current?.id===this.playing)this.round.voice.cancel();this.playing=null;}
+ play(clip){this.stop();const r=this.round;if(!clip?.voiceKey||!r.isSoundOn()||r.destroyed||!r.active()||document.hidden)return;const id='feeding_wait_'+clip.voiceKey;this.playing=id;r.narrate(id);}
 }

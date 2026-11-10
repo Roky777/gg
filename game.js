@@ -16,7 +16,7 @@ import {makeBoard} from './puzzle-generator.js?v=drag-only-47';
 import {LearningVoice} from './learning-voice.js?v=recorded-only-1';
 import {AssemblyRound,createAssemblyBoard} from './assembly-game.js?v=polish-52';
 import {AssemblyDeck} from './assembly-catalog.js?v=lip-sync-40';
-import {CountingRound,makeCountingBoard,COUNT_WORDS} from './counting-game.js?v=board-finish-14';
+import {CountingRound,makeCountingBoard,COUNT_WORDS} from './counting-game.js?v=drop-pocket-15';
 import {RoundBanner} from './round-banner.js?v=lip-sync-40';
 import {DifferenceRound,createDifferenceBoard} from './differences-game.js?v=red-contours-55';
 import {VARIANTS,makeVariantBoard} from './variants/content.mjs';
@@ -46,8 +46,10 @@ const assemblyDeck=new AssemblyDeck();
 let activeRound=null,assemblyEnabled=false,countingEnabled=false,countVoiceRow=null,groupWins=0,differencesEnabled=false,differenceDeck=null;
 const roundBanner=new RoundBanner($('round-banner'),$('round-banner-title'));
 let bannerRound=-1;
+const introducedVariants=new Set();
 function introduce(){
- if(currentPicture?.variant)return;
+ // Newer boards: their recorded introduction plays the first time each game appears this session.
+ if(currentPicture?.variant){if(currentPicture.variant!=='food-sort'&&!introducedVariants.has(currentPicture.variant)&&voiceUnlocked&&soundOn&&activeRound?.narrate&&!activeRound.complete){introducedVariants.add(currentPicture.variant);activeRound.narrate(currentPicture.rule);}return;}
  if(currentPicture?.fun){if(!activeRound?.announced&&voiceUnlocked&&soundOn&&activeRound){activeRound.announced=true;voice.say(currentPicture.intro,{volume:.85});}return;}
  if(bannerRound!==roundToken){roundBanner.show(topic);bannerRound=roundToken;}
  flow.offerIntro();
@@ -64,7 +66,9 @@ try{const saved=JSON.parse(localStorage.getItem('sparky-learning-pictures-v1')||
 
 let reviewActive=false;
 const voice=new LearningVoice({onStart(cue){gameAudio.setSpeaking(true);director.setSpeaking(true);const gesture=flow.speechGesture(cue?.category);if(gesture)respond(gesture);},onEnd(){gameAudio.setSpeaking(false);director.setSpeaking(false);if(reviewActive){reviewActive=false;if(!navigationLoading&&!document.hidden&&!screenUnavailable()&&!$('pause-dialog').open)flow.resume();}},onUnavailable(){$('voice-note').textContent='Audio is unavailable in this browser.';}});
-director.setSpeechSource(()=>voice.speechFrame());
+// Sparky's mouth follows whichever recorded voice is speaking: the game's, or the board's own
+// (board intros, hints, praise and Food Choices lines play through the board voice).
+director.setSpeechSource(()=>voice.speechFrame()??activeRound?.voice?.speechFrame?.()??null);
 function tell(message,{speak=true,display=message}={}){lastSpoken=message;$('learning-caption').textContent=display;if(speak&&voiceUnlocked&&soundOn)voice.say(message);}
 function saveLearning(){try{localStorage.setItem('sparky-learning-pictures-v1',JSON.stringify([...completed]));}catch{}}
 const modeDeck=new ModeDeck();const breakSchedule=new BreakSchedule(4);
@@ -171,7 +175,7 @@ function start(index){
  document.querySelector('.game').classList.toggle('activity-scene',!!pic.fun);
  if(topic==='variants'){
   const token=roundToken;pieces=[];$('next').disabled=false;$('board').setAttribute('aria-busy','false');roundBanner.hide({immediate:true});
-  activeRound=new VariantRoundController({element:$('board'),picture:pic,director,reduced,isPaused:()=>navigationLoading||screenUnavailable()||document.hidden||portraitScreen.matches||$('pause-dialog').open,isSoundOn:()=>soundOn,sound,onActivity:idleSchedule,onWrong:()=>flow.mistake(),onMatch:matchCelebration,onComplete:()=>{if(token===roundToken&&!done)finish()}});
+  activeRound=new VariantRoundController({element:$('board'),picture:pic,director,reduced,isPaused:()=>navigationLoading||screenUnavailable()||document.hidden||portraitScreen.matches||$('pause-dialog').open,isSoundOn:()=>soundOn,sound,onActivity:idleSchedule,onWrong:()=>flow.mistake(),onMatch:matchCelebration,onSpeaking:on=>{gameAudio.setSpeaking(on);director.setSpeaking(on);},onComplete:()=>{if(token===roundToken&&!done)finish()}});
   if(location.hostname==='127.0.0.1'||location.hostname==='localhost')window.sparkyVariant=activeRound;
   updateLearningUI();$('task-rule').textContent=pic.rule;tell(pic.intro,{speak:false});layoutArt();idleSchedule();say(pic.rule);return;
  }
@@ -238,7 +242,7 @@ const portraitScreen=matchMedia('(orientation:portrait)');
 function screenUnavailable(){return portraitScreen.matches||document.body.classList.contains('compact-screen');}
 let orientationBlocked=false;
 function syncOrientation(){
- const game=document.querySelector('.game'),box=game.getBoundingClientRect(),portrait=portraitScreen.matches,compact=!portrait&&(box.width<559.9||box.height<314.9);
+ const game=document.querySelector('.game'),box=game.getBoundingClientRect(),portrait=portraitScreen.matches,compact=!portrait&&(box.width<454.9||box.height<255.9);
  document.body.classList.toggle('compact-screen',compact);
  const prompt=document.querySelector('.rotate-prompt');prompt.querySelector('h1').textContent=compact?'A little more space':'Rotate your phone';prompt.querySelector('p').textContent=compact?'Make this window bigger or use full screen to play with Sparky.':'Turn your phone sideways to play with Sparky.';prompt.setAttribute('aria-label',compact?'More space needed to play':'Rotate your phone to play');
  const blocked=portrait||compact,changed=blocked!==orientationBlocked;orientationBlocked=blocked;
