@@ -1,0 +1,1352 @@
+/* game.css */
+@font-face{font-family:'Nunito';src:url('assets/fonts/Nunito-Variable.ttf') format('truetype');font-weight:200 1000;font-style:normal;font-display:swap}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{background:#172b45;display:grid;place-items:center;font-family:'Nunito','Arial Rounded MT Bold',sans-serif}.game{position:relative;width:min(100vw,177.7778vh);height:min(100vh,56.25vw);overflow:hidden;background:#92cda8 url('assets/art/quiet-garden-clear-v2.webp') center/100% 100% no-repeat;isolation:isolate;touch-action:none}.game-button{position:absolute;width:8%;height:14%;padding:1%;border:solid max(2px,.2vw) #b95024;border-radius:29%;background:linear-gradient(160deg,#ffb34e 0%,#ff8738 22%,#ff6436 70%,#f65331);box-shadow:inset 0 -5px 0 #df502b,inset 0 4px 0 #ffc178,0 3px 4px #163b4c6b;color:#fff8b5;z-index:7;cursor:pointer;transition:filter .15s,scale .15s}.game-button:before{content:'';position:absolute;left:12%;top:11%;width:11%;height:9%;border-radius:50%;background:#fff6ac;box-shadow:.65vw -.35vw 0 -.12vw #fff6ac;transform:rotate(-35deg)}.game-button svg{width:100%;height:100%;overflow:visible;fill:#fffbc4;stroke:#a52d22;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;paint-order:stroke fill;filter:drop-shadow(0 2px 0 #df854a)}.sound svg{fill:#fffbc4}.sound svg path{stroke-width:4}.sound{left:.7%;top:1.2%}.exit{right:.7%;top:1.2%;opacity:.75}.exit svg{fill:none;stroke:#fffbc4;stroke-width:11;filter:drop-shadow(0 0 2px #9c2022) drop-shadow(0 2px 1px #9c2022)}.next{right:.7%;bottom:1.2%}.next:disabled{opacity:.45;cursor:default}.next:not(:disabled){animation:ready 1.4s ease-in-out infinite}.game-button:active:not(:disabled){scale:.95}.game-button:focus-visible{outline:4px solid #fffacf;outline-offset:3px}.sound[aria-pressed=true]:after{content:'';position:absolute;width:70%;height:5%;background:#b92724;left:15%;top:47%;rotate:-45deg;border:2px solid #fff5bf;border-radius:10px}.puzzle-frame{position:absolute;left:21.3%;top:4.3%;width:66.7%;height:92%;padding:1.35%;background:#fff;border:max(3px,.32vw) solid #156496;border-radius:3.5%;box-shadow:0 2px 3px #2562836b,inset 0 0 0 2px #c4e8f5}.board{position:relative;width:100%;height:100%;overflow:hidden;background:#83dbf5;border:max(2px,.2vw) solid #126493;isolation:isolate}.piece{position:absolute;border:0;margin:0;padding:0;border-radius:0;background-repeat:no-repeat;cursor:grab;touch-action:none;transition:left .26s ease,top .26s ease,box-shadow .15s;outline:0;box-shadow:inset 0 0 0 1px #f2f9ff,inset -3px 0 #276b95;user-select:none;-webkit-user-select:none;-webkit-user-drag:none}.board.horizontal .piece{box-shadow:inset 0 0 0 1px #fff,inset 0 -3px #276b95}.piece.selected,.piece.target{box-shadow:inset 0 0 0 6px #fff6a4!important}.piece:focus-visible{box-shadow:inset 0 0 0 5px #fff6a4!important}.piece.dragging{z-index:5;cursor:grabbing;transition:none;box-shadow:0 10px 22px #06395980,inset 0 0 0 3px #fff2b8!important;opacity:.96}.board.solved .piece{box-shadow:none;cursor:default}.mascot{position:absolute;left:.5%;top:30%;width:20%;height:56%;pointer-events:none}.mascot canvas{position:absolute;width:100%;height:100%;object-fit:contain;transform:scale(1.72);transform-origin:50% 70%;z-index:1}.shadow{position:absolute;left:15%;bottom:0;width:70%;height:3%;border-radius:50%;background:#54754238;filter:blur(5px)}.tip{position:absolute;left:1%;bottom:4%;max-width:19%;text-align:center;font-size:clamp(9px,1.2vw,20px);color:#235f76;background:#fff8d7e8;border:2px solid #fff;border-radius:18px;padding:.7% 1%;margin:0;transition:opacity .3s}.win{position:absolute;left:50%;bottom:4%;transform:translateX(-50%);background:#fff9d6ed;color:#1a6b8b;border:3px solid white;border-radius:22px;padding:1% 3%;font-weight:900;font-size:clamp(14px,2vw,35px);box-shadow:0 4px 12px #15537033;white-space:nowrap;pointer-events:none}.win span{color:#f4a82f;margin-left:12px}.loading{position:absolute;inset:0;background:#8cdbf5;z-index:20;display:grid;place-content:center;text-align:center;color:#165d80;font-weight:bold;font-size:clamp(16px,2vw,30px)}.loading span{font-size:60px;color:#fff6a3}dialog{border:5px solid #237ca4;border-radius:24px;background:#fffbdc;box-shadow:0 10px 70px #12375088;color:#235d79;text-align:center;padding:25px;max-width:90vw}dialog::backdrop{background:#123e6466}dialog h1{margin-top:0}dialog p{line-height:1.7}dialog button{display:block;margin:12px auto 0;border:2px solid #bd592e;border-radius:14px;padding:10px 22px;background:#ff8c3c;color:#fff;font:800 17px inherit;cursor:pointer}dialog button:last-child{background:#fff;color:#296f8b;border-color:#71bdd0;font-size:14px}#confetti{position:absolute;inset:0;pointer-events:none;z-index:9;overflow:hidden}#confetti i{position:absolute;top:-5%;width:1%;height:2%;background:var(--color);left:var(--x);animation:fall 2.5s var(--delay) both ease-in}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}[hidden]{display:none!important}@keyframes ready{50%{translate:0 -3px}}@keyframes fall{to{top:110%;rotate:650deg;translate:30px 0}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+
+.sound svg .sound-waves{fill:none;stroke:#fffbc4;stroke-width:5;filter:drop-shadow(0 0 1px #9c2022)}
+
+/* Shoe contact is y592 on every clip; align the ground shadow to that baseline. */
+.shadow{left:19%;bottom:6.5%;width:62%;height:3.2%;background:radial-gradient(ellipse,#354b3570 0%,#3c643d35 45%,#49734400 74%);filter:blur(1px);transform:scaleY(.8)}
+
+.win{left:-18%;top:18%;bottom:auto;transform:translateX(-50%);padding:0;border:0;background:none;box-shadow:none;font-size:clamp(13px,2.1vw,35px);text-shadow:0 2px #ba7c1b;animation:star-cheer .5s ease both}.win span{margin:0;color:#ffe75d}@keyframes star-cheer{from{opacity:0;scale:.5}to{opacity:1;scale:1}}
+
+dialog button{font-family:inherit;font-size:34px;font-weight:900;min-width:90px}dialog button:last-child{font-size:32px}.loading p{letter-spacing:8px;color:#fffbd6}
+
+/* Generated PNG controls carry all bevels and icon artwork. */
+.game-button{border:0;padding:0;border-radius:25%;background:none;box-shadow:none}.game-button:before,.sound[aria-pressed=true]:after{display:none}.game-button img{width:100%;height:100%;object-fit:contain;pointer-events:none}.exit{opacity:1}.next:disabled{opacity:.42;filter:saturate(.55)}dialog button,dialog button:last-child{display:inline-block;background:none;border:0;box-shadow:none;padding:0;margin:5px;width:90px;height:90px}dialog button img{width:100%;height:100%;object-fit:contain}.mascot #mascot-button{position:absolute;inset:0;z-index:3;border:0;background:none;cursor:pointer;pointer-events:auto}.mascot #mascot-button:focus-visible{outline:3px dashed #fff2b0;border-radius:35%}
+/* Full PNG cells include their bevels and safety border; compensate for padding. */
+.game-button{width:9.5%;height:16.8%;overflow:visible}.game-button img,dialog button img{display:block;border-radius:0;object-fit:contain}.sound{left:.1%;top:.3%}.exit{right:.1%;top:.3%}.next{right:.1%;bottom:.3%}
+
+.puzzle-progress{position:absolute;left:2%;bottom:3%;width:16%;margin:0;text-align:center;color:#195575;font-weight:900;font-size:clamp(12px,1.5vw,26px);text-shadow:0 1px #fff9d5;pointer-events:none}
+
+/* Learning remains a three-strip picture puzzle. One calm visual language. */
+.learning-topics{position:absolute;left:21.3%;top:1.3%;width:66.7%;height:7.5%;display:flex;align-items:stretch;gap:.55%;z-index:8}.learning-topics button{border:2px solid #fff8e3;background:#f9fcf0;color:#346773;border-radius:14px;font:700 clamp(10px,1.12vw,20px) 'Nunito','Arial Rounded MT Bold',sans-serif;padding:.3% 1.4%;box-shadow:0 3px 0 #629c9a33;cursor:pointer;white-space:nowrap}.learning-topics button strong{font-size:1.15em;margin-right:.35em;color:#277d92}.learning-topics button[aria-pressed=true]{background:#246c7c;border-color:#d7eee6;color:white}.learning-topics button[aria-pressed=true] strong{color:#ffdc87}.learning-topics button:focus-visible,.picture-picker select:focus-visible,#hear:focus-visible{outline:3px solid #edb84f;outline-offset:2px}.picture-picker{margin-left:auto;max-width:24%;display:flex}.picture-picker select{min-width:0;width:100%;border:2px solid #fff8e3;border-radius:12px;padding:0 .7em;color:#346773;background:#f9fcf0;font:700 clamp(10px,1.08vw,19px) 'Nunito','Arial Rounded MT Bold',sans-serif;cursor:pointer}.puzzle-frame{top:10.1%;height:86.2%}.learning-bubble{position:absolute;left:1.4%;top:17.5%;width:18%;z-index:4;padding:.65% .7%;border-radius:16px;background:#fffbedf5;border:2px solid #fff;box-shadow:0 3px 8px #375c5b13;text-align:center;color:#365e65;font-size:clamp(9px,1.02vw,18px);line-height:1.28}.learning-bubble p{margin:0 0 .45em}.learning-bubble small{display:block;font-size:.75em}.learning-bubble small:empty{display:none}#hear{border:0;border-radius:10px;padding:.35em .65em;background:#e0eee4;color:#315e66;font:700 .85em 'Nunito','Arial Rounded MT Bold',sans-serif;cursor:pointer}.mascot{top:35%;height:51%}.puzzle-progress{font-size:clamp(10px,1.15vw,21px);width:19%;left:.5%;bottom:3%}.board{background:#faf9ec} .game{background-color:#92cda8}
+@media(max-width:700px){.learning-topics button{border-width:1px;border-radius:7px;padding:.3% 1%}.learning-topics button strong{margin-right:.15em}.picture-picker select{border-radius:7px;padding:0 .2em}.learning-bubble{border-width:1px;border-radius:8px}.learning-bubble p{margin-bottom:.25em}}
+/* Semantic ordering: three independent whole pictures, never slices of one image. */
+.board .piece{background-color:#fcfbef;background-repeat:no-repeat;box-shadow:inset 0 0 0 1px #fffdf3,inset -2px 0 #afc9c0;border-radius:0}.board.solved .piece{box-shadow:inset 0 0 0 1px #dfebdf}.board .piece.selected,.board .piece.target{box-shadow:inset 0 0 0 5px #edbd5d!important}.board .piece.dragging{box-shadow:0 7px 20px #31566055,inset 0 0 0 4px #edbd5d!important}
+.card-letter{position:absolute;left:0;right:0;top:10%;display:block;text-align:center;color:#287d98;font:800 clamp(28px,5.6vw,108px) 'Nunito','Arial Rounded MT Bold',sans-serif;letter-spacing:.015em;pointer-events:none;line-height:1.1;text-shadow:0 2px 0 #fff}.piece:disabled{opacity:1;color:inherit}.learning-bubble{top:17%;font-size:clamp(9px,.95vw,17px)}
+.ordering-rule{height:7%;display:flex;justify-content:space-between;align-items:center;gap:12px;color:#386c73;font:700 clamp(10px,1.25vw,23px) 'Nunito','Arial Rounded MT Bold',sans-serif;padding:0 .8% 1%;}.ordering-rule span{font-size:.8em;color:#658079;font-weight:600}.puzzle-frame .board{height:93%}.answer-reveal{position:absolute;top:6%;left:0;right:0;text-align:center;font:800 clamp(20px,3vw,60px) 'Nunito','Arial Rounded MT Bold',sans-serif;color:#2d778c;pointer-events:none}.card-letter{top:7.5%}.learning-bubble{max-height:20%;overflow:auto}
+/* Quiet mixed-deck play: no toolbar or instruction panels. */
+.puzzle-frame{top:4.3%;height:92%}.puzzle-frame .board{height:100%}.mascot{top:30%;height:56%}.next:not(:disabled){animation:none}.board.solved~.next{animation:ready 1.4s ease-in-out infinite}
+/* Visible targets make the skill matching, rather than alphabet-order recall. */
+.slot-targets{position:absolute;inset:4% 0 auto;display:grid;grid-template-columns:repeat(3,1fr);pointer-events:none;z-index:6}.slot-target{justify-self:center;display:grid;place-items:center;width:clamp(44px,7vw,138px);height:clamp(44px,7vw,138px);border-radius:24%;background:#dcebe3;border:3px solid #a2c7ba;color:#2b6675;font:800 clamp(30px,5vw,100px) 'Nunito','Arial Rounded MT Bold',sans-serif;line-height:1;box-shadow:inset 0 2px #fff8}.card-letter{top:26%;font-size:clamp(24px,3.7vw,74px)}.card-art{position:absolute;left:10%;top:38%;width:80%;height:46%;object-fit:contain;pointer-events:none}.count-grid{position:absolute;left:12%;right:12%;top:27%;bottom:11%;display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(5,1fr);gap:2%;padding:3%;border-radius:24px;background:#e6efdf;border:2px solid #cbdec4;pointer-events:none}.count-item{display:flex;align-items:center;justify-content:center;min-height:0;min-width:0}.count-item img{width:85%;height:96%;object-fit:contain;pointer-events:none}.count-item.odd-last{grid-column:span 2}.count-item.odd-last img{width:42.5%}.board .piece.in-place{box-shadow:inset 0 0 0 3px #a2c7ba}.board.solved .slot-target{background:#c9e6b8;border-color:#81b887}.card-art,.count-grid,.slot-targets{user-select:none;-webkit-user-drag:none}
+/* Fixed references belong to the board; only raised picture cards move. */
+.slot-targets{inset:0 0 auto;height:21%;align-items:center;background:#e6eee3;border-bottom:2px solid #c8d9cb;pointer-events:auto;box-shadow:inset 0 3px 0 #fff9}.slot-target{width:auto;height:auto;background:none!important;border:0!important;border-radius:0;box-shadow:none;color:#467b80;position:relative;font-size:clamp(30px,4.8vw,96px)}.slot-target:after{content:'';position:absolute;left:50%;bottom:-.16em;transform:translateX(-50%);width:.7em;height:3px;border-radius:2px;background:#aac8bc}.board.solved .slot-target{color:#3c8864}.picture-sockets{position:absolute;inset:24% 0 5%;display:grid;grid-template-columns:repeat(3,1fr);pointer-events:none}.picture-sockets span{margin:0 5%;border:2px dashed #c8d6c9;border-radius:18px;background:#e5edde33}.board .piece{background:#fffef5;border:2px solid #e3dcc5;border-radius:18px;box-shadow:0 5px 0 #d3c8a4,0 8px 12px #355e5c1c;overflow:hidden}.board .piece.in-place{border-color:#b5d2a5;box-shadow:0 5px 0 #a8c692,0 8px 12px #355e5c18}.board .piece:not(:disabled):hover{filter:brightness(1.015);box-shadow:0 6px 0 #ccbc8f,0 12px 18px #355e5c25}.board .piece:focus-visible{outline:4px solid #e8b34c;outline-offset:3px}.board .piece.selected{translate:0 -4px;box-shadow:0 7px 0 #d7ae53,0 13px 18px #355e5c25!important}.board .piece.dragging{translate:0 -3px;box-shadow:0 15px 24px #21484f55!important;border-color:#edbd5d;rotate:1deg}.board.solved .piece{box-shadow:0 4px 0 #b4cc9d}.card-grip{position:absolute;top:3%;left:50%;translate:-50% 0;width:25px;height:10px;background:radial-gradient(circle,#b9c7bf 1.5px,transparent 2px) 0 0/8px 5px;pointer-events:none}.card-letter{top:10%;font-size:clamp(22px,3.3vw,68px)}.card-art{top:29%;height:60%;left:10%;width:80%}.count-grid{top:11%;bottom:9%;left:8%;right:8%;border:0;background:#e7efdf;padding:4%;border-radius:16px}.card-grip,.card-art,.card-letter,.count-grid{pointer-events:none}@keyframes card-invitation{0%,100%{transform:translateY(0)}45%{transform:translateY(-7px)}65%{transform:translateY(-3px)}}@media(prefers-reduced-motion:no-preference){.board:not(.solved) .piece{animation:card-invitation .65s ease .35s 1}.board .piece.dragging{animation:none}}
+/* Polished learning table: soft ivory tray, anchored references, raised white cards. */
+.puzzle-frame{padding:1.25%;border-color:#297c9d;border-radius:3.8%;background:linear-gradient(145deg,#fff 5%,#f5fbf8 62%,#e7f3ee);box-shadow:0 7px 0 #286d83,0 12px 20px #275e6740,inset 0 2px 0 white}.board{border:0!important;border-radius:2.2%;background:linear-gradient(175deg,#fffaf0,#f2f4e9);box-shadow:inset 0 2px 8px #526e5420;overflow:hidden}.board:before{content:'';position:absolute;inset:0 0 auto;height:24%;background:linear-gradient(180deg,#fcfff9,#edf5ec);border-bottom:1px solid #d9e7d9;box-shadow:0 3px 8px #426a5f08;pointer-events:none}.slot-targets{inset:0;height:24%;background:none;border:0;box-shadow:none;align-items:center}.slot-target{color:#3e7c86;font-size:clamp(32px,5.3vw,108px);text-shadow:0 2px #fff}.slot-target:after{bottom:-.08em;height:3px;width:1em;background:#b8d2c6;box-shadow:0 1px white}.picture-sockets{inset:29% 0 8%;gap:0}.picture-sockets span{margin:0 5.1%;border:0;border-radius:24px;background:#cfddd129;box-shadow:inset 0 2px 6px #3d65500b}.board .piece{border:2px solid #fffdf4;border-radius:clamp(12px,1.6vw,30px);background:linear-gradient(150deg,#fffef8,#fff 66%,#f6f9f0);box-shadow:0 6px 0 #c9d4c5,0 10px 18px #3d625329,inset 0 1px 0 #fff;transition:left .28s ease,top .28s ease,box-shadow .15s,translate .15s}.board .piece.in-place{border-color:#c1ddb4;box-shadow:0 6px 0 #a5c493,0 10px 16px #547c4020}.board .piece.in-place:after{content:'';position:absolute;right:7%;bottom:4%;color:#68994d;font-size:clamp(15px,1.5vw,28px);font-weight:900;pointer-events:none}.board .piece.selected{border-color:#f0c66e;box-shadow:0 8px 0 #d7b66b,0 15px 22px #6c693a22!important}.board .piece.target{border-color:#e5bd66;background:#fffbed;box-shadow:0 6px 0 #d7b66b,inset 0 0 0 2px #e5bd66!important}.card-grip{top:4.5%;width:32px;height:8px;background:radial-gradient(circle,#c6d1c9 1.4px,transparent 1.8px) 0 0/8px 5px;opacity:.9}.count-grid{inset:13% 9% 13%;border:0;border-radius:0;background:none;padding:0;gap:6%;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(var(--rows,3),minmax(0,1fr));align-items:center}.count-item{height:100%}.count-item img{width:94%;height:100%;max-height:clamp(45px,6.2vw,126px);filter:drop-shadow(0 3px 2px #42604b12)}.count-item.odd-last img{width:47%}.card-letter{top:10%;font-size:clamp(22px,3vw,60px);color:#43859a}.card-art{left:10%;width:80%;top:27%;height:62%;filter:drop-shadow(0 4px 3px #3b5e4e12)}.board.solved .piece{border-color:#c1ddb4;box-shadow:0 5px 0 #a5c493,0 8px 12px #547c401a}.board.solved .slot-target{color:#4e9367}.board.solved:before{background:linear-gradient(#f4fff0,#eaf4df)}
+/* Picture workshop: three exact slices fit the same large silhouette. */
+.board.assembly-board{background:linear-gradient(145deg,#fffcf2,#f1f8ed)}.assembly-board:before{display:none}.assembly-heading{position:absolute;left:5%;top:2%;margin:0;color:#357c86;font-size:clamp(14px,2vw,38px);font-weight:800}.assembly-progress{position:absolute;right:6%;top:2%;display:flex;gap:.18em;color:#c9d9cb;font-size:clamp(16px,2.2vw,40px)}.assembly-progress .earned{color:#efb733;text-shadow:0 2px #fff}.assembly-art{position:absolute;left:4%;width:59%;aspect-ratio:1;top:53%;transform:translateY(-50%);background:#e7eee280;border-radius:7%;box-shadow:inset 0 2px 8px #40594313;overflow:hidden}.assembly-silhouette{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;filter:brightness(0);opacity:.18;pointer-events:none}.assembly-zone{position:absolute;left:0;width:100%;height:33.3333334%;padding:0;border:0;background:none;cursor:pointer;border-bottom:2px dashed #a4b9ab66;overflow:hidden}.assembly-zone:last-child{border-bottom:0}.assembly-zone.filled{border:0;cursor:default}.assembly-zone.drop-active,.assembly-zone.hint{background:#f7d77855;box-shadow:inset 0 0 0 3px #e8b846}.assembly-zone:focus-visible{outline:4px solid #e8b846;outline-offset:-5px}.assembly-art.awaiting-piece .assembly-zone:not(.filled){background-color:#fff8b42b}.assembly-section{position:relative;width:100%;height:100%;display:block;overflow:hidden;pointer-events:none}.assembly-section img{position:absolute;left:0;width:100%;height:300%;object-fit:fill;max-width:none;pointer-events:none;user-select:none;-webkit-user-drag:none}.assembly-tray{position:absolute;right:3%;top:12%;width:28%;height:80%;display:flex;flex-direction:column;justify-content:space-around;gap:5%;padding:3% 1.5%;border-radius:24px;background:#dcece3aa;box-shadow:inset 0 2px 5px #3c5e5115}.assembly-choice{position:relative;width:100%;aspect-ratio:3;margin:0;padding:0;flex-shrink:0;background:#fffdf4;border:3px solid #fff;border-radius:12px;box-shadow:0 5px 0 #b7cabd,0 8px 12px #2a57451a;overflow:hidden;cursor:grab;touch-action:none;transition:translate .15s,opacity .2s}.assembly-choice.selected{border-color:#efbe4d;translate:0 -4px;box-shadow:0 7px 0 #d2b968,0 10px 14px #4e55392a}.assembly-choice:focus-visible{outline:3px solid #d8a736;outline-offset:3px}.assembly-choice.used{opacity:.15;box-shadow:none;cursor:default}.assembly-grip{position:absolute;right:2%;bottom:1%;color:#a7b8aa;font-size:clamp(12px,1.2vw,22px);pointer-events:none}.assembly-direction{position:absolute;left:64%;top:48%;color:#599a93;font-size:clamp(20px,3vw,55px);pointer-events:none}.assembly-ghost{position:fixed;padding:0;margin:0;z-index:50;border:3px solid #e9bb55;border-radius:12px;background:#fffdf4;box-shadow:0 12px 25px #25483c55;pointer-events:none;overflow:hidden}.assembly-complete .assembly-art{box-shadow:0 0 0 4px #a9ce8e,inset 0 2px 8px #40594313;background:#edf5df}.assembly-complete .assembly-direction{color:#69a24b}.assembly-complete .assembly-direction:after{content:''}.assembly-complete .assembly-direction{font-size:0}.assembly-complete .assembly-direction:after{font-size:clamp(20px,3vw,55px)}
+@media(prefers-reduced-motion:no-preference){.assembly-choice:not(.used){animation:card-invitation .65s ease .5s 1}.assembly-zone.filled .assembly-section{animation:piece-fit .24s ease both}@keyframes piece-fit{from{opacity:.5}to{opacity:1}}}
+
+/* Borders must never change the dimensions of the matching image slices. */
+.assembly-zone{border:0;box-shadow:inset 0 -1px #a4b9ab66}.assembly-zone:last-child,.assembly-zone.filled{box-shadow:none}.assembly-zone.drop-active,.assembly-zone.hint{box-shadow:inset 0 0 0 3px #e8b846}.assembly-choice{aspect-ratio:auto}.assembly-choice>.assembly-section{aspect-ratio:3;height:auto}
+
+.assembly-full-image{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none}.assembly-complete .assembly-zone,.assembly-complete .assembly-silhouette{visibility:hidden}
+
+/* Picture names travel with their alphabet cards and leave room for the tick. */
+.board .card-art{top:25%;height:51%}.card-name{position:absolute;left:6%;right:6%;bottom:9%;text-align:center;color:#347889;font:800 clamp(10px,1.6vw,32px) 'Nunito','Arial Rounded MT Bold',sans-serif;line-height:1.2;pointer-events:none;overflow-wrap:break-word}
+
+/* Feedback stays brief and never blocks the next action. */
+#confetti i{top:32%;animation:quick-confetti .65s var(--delay) both ease-out}.board .piece{transition-duration:.16s}.assembly-zone.filled .assembly-section{animation-duration:.14s}@keyframes quick-confetti{0%{opacity:1;transform:translateY(0) rotate(0)}100%{opacity:0;transform:translateY(210px) rotate(260deg)}}
+/* Illustrated PNG board kit. CSS only places the artwork and feedback states. */
+.puzzle-frame{background:url('assets/art/ui-board/board-shell.webp') center/100% 100% no-repeat;border:0;box-shadow:none;padding:2.15%;border-radius:0}.puzzle-frame .board{background:transparent!important;box-shadow:none;border:0!important;overflow:visible}.board:before{display:none}.slot-targets{background:none;border:0;box-shadow:none}.picture-sockets span{background:none;border:0;box-shadow:none}.board .piece,.board.solved .piece{background:transparent;border:clamp(9px,1.1vw,22px) solid transparent;border-image:url('assets/art/ui-board/picture-card-v2.webp') 12% fill stretch;box-shadow:none;border-radius:1vw}.board .piece.in-place,.board .piece:not(:disabled):hover,.board .piece.selected,.board .piece.target,.board .piece.dragging{box-shadow:none!important;background:transparent}.board .piece.selected,.board .piece.target{outline:3px solid #e6ba52;outline-offset:-4px}.board .piece.in-place:after{bottom:2%;right:2%}.card-grip{top:1%}.card-name{bottom:5%}.board.assembly-board{background:transparent!important}.assembly-art{top:50%;background:url('assets/art/ui-board/target-pad.webp') center/100% 100% no-repeat;box-shadow:none;border-radius:0}.assembly-tray{top:8%;height:84%;background:url('assets/art/ui-board/piece-tray.webp') center/100% 100% no-repeat;box-shadow:none;border-radius:0;padding:5% 2%}.assembly-choice{background:transparent;border:clamp(6px,.75vw,14px) solid transparent;border-image:url('assets/art/ui-board/picture-card-v2.webp') 12% fill stretch;box-shadow:none;border-radius:.7vw}.assembly-choice.selected{box-shadow:none;outline:3px solid #e8bd53;outline-offset:-3px}.assembly-choice.used{box-shadow:none}.assembly-complete .assembly-art{background:url('assets/art/ui-board/target-pad.webp') center/100% 100% no-repeat;box-shadow:none}.assembly-grip{right:0;bottom:0}.assembly-direction{top:46%}.assembly-progress.sr-only{position:absolute;inset:auto;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%)}
+/* Four quantity rows: optional object counting, independent number answers. */
+.board.counting-board{background:transparent!important}.quantity-rows{position:absolute;left:1.5%;top:3.5%;width:80%;height:93%;display:grid;grid-template-rows:repeat(4,minmax(0,1fr));gap:2.5%}.quantity-row{position:relative;min-height:0;background:transparent;border:clamp(6px,.7vw,14px) solid transparent;border-image:url('assets/art/ui-board/picture-card-v2.webp') 12% fill stretch;border-radius:1vw}.quantity-objects{position:absolute;inset:8% 19% 8% 2%;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-template-rows:repeat(var(--count-rows,1),minmax(0,1fr));gap:3% 1.5%;align-items:center}.count-object{position:relative;min-height:0;min-width:0;width:100%;height:100%;padding:0;border:0;border-radius:20%;background:none;cursor:pointer;touch-action:manipulation}.count-object img{display:block;object-fit:contain;width:100%;height:100%;pointer-events:none;user-select:none;-webkit-user-drag:none}.count-object:focus-visible{outline:3px solid #edb849;outline-offset:0}.count-object.counted{background:#e2f0de60}.object-ordinal{position:absolute;right:0;top:0;display:grid;place-items:center;min-width:1.4em;height:1.4em;padding:0 .15em;border:2px solid #fff;border-radius:50%;background:#25758b;color:#fff;font:800 clamp(12px,1.25vw,25px) 'Nunito','Arial Rounded MT Bold',sans-serif;pointer-events:none;box-shadow:0 2px 2px #245a5140}.quantity-dock{position:absolute;right:1%;top:50%;transform:translateY(-50%);width:15%;aspect-ratio:1;border:0;padding:5%;background:url('assets/art/ui-board/target-pad.webp') center/100% 100% no-repeat;color:#6a9895;font:800 clamp(20px,3vw,58px) 'Nunito','Arial Rounded MT Bold',sans-serif;cursor:pointer}.quantity-dock.awaiting-number,.quantity-dock.drop-active{outline:3px solid #e5b647;outline-offset:-4px;border-radius:20%}.quantity-row.answered .quantity-dock{color:#3d8655}.quantity-row.answered:after{content:'';position:absolute;right:2%;bottom:0;color:#53903f;font-size:clamp(12px,1.2vw,24px);font-weight:900;pointer-events:none}.quantity-numbers{position:absolute;right:1%;top:3.5%;width:14%;height:93%;padding:2% .7%;display:flex;flex-direction:column;align-items:center;justify-content:space-around;background:url('assets/art/ui-board/piece-tray.webp') center/100% 100% no-repeat}.number-chip,.number-ghost{display:grid;place-items:center;width:100%;aspect-ratio:1;padding:0;border:clamp(7px,.8vw,16px) solid transparent;border-image:url('assets/art/ui-board/picture-card-v2.webp') 12% fill stretch;background:transparent;color:#28798d;font:900 clamp(24px,3.4vw,68px) 'Nunito','Arial Rounded MT Bold',sans-serif;cursor:grab;touch-action:none;user-select:none}.number-chip.selected{outline:3px solid #e5b647;outline-offset:-4px;border-radius:18%;translate:0 -2px}.number-chip.used{opacity:.16;cursor:default}.number-chip:focus-visible,.quantity-dock:focus-visible{outline:3px solid #e5b647;outline-offset:1px}.number-ghost{position:fixed;margin:0;z-index:50;pointer-events:none;filter:drop-shadow(0 8px 9px #244e3b50)}.quantity-row.count-hint .count-object:not(.counted){background:#ffe7a444}.counting-complete .quantity-row{filter:brightness(1.015)}
+
+/* Illustrated round ribbon: a short welcome, never a modal or input gate. */
+.round-banner{position:absolute;left:31%;top:.3%;width:47%;height:10%;z-index:12;display:grid;place-items:center;pointer-events:none;user-select:none;transform-origin:50% 0}.round-banner img{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none}.round-banner span{position:relative;max-width:80%;padding-bottom:.12em;white-space:nowrap;color:#fffdf6;font:900 clamp(13px,2.2vw,43px) 'Nunito','Arial Rounded MT Bold',sans-serif;line-height:1.4;text-align:center;text-shadow:0 2px 0 #5f2585,0 1px 3px #5f258580}.round-banner.visible{animation:ribbon-arrive .24s ease-out both}.round-banner.leaving{animation:ribbon-leave .16s ease-in both}@keyframes ribbon-arrive{from{transform:translateY(-130%);opacity:0}to{transform:translateY(0);opacity:1}}@keyframes ribbon-leave{to{transform:translateY(-130%);opacity:0}}@media(prefers-reduced-motion:reduce){.round-banner.visible,.round-banner.leaving{animation:none!important;transform:none}}
+.round-banner{height:auto;aspect-ratio:6;max-height:14%}
+/* Spot the differences: paired PNG photographs, item-shaped highlights. */
+.board.differences-board{background:transparent!important}.difference-pictures{position:absolute;inset:3% 1%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2.5%;align-items:center}.difference-panel{position:relative;min-width:0;margin:0;padding:0;border:clamp(5px,.6vw,12px) solid transparent;border-image:url('assets/art/ui-board/picture-card-v2.webp') 12% fill stretch}.difference-image-wrap{position:relative;width:100%;aspect-ratio:3/4;isolation:isolate}.difference-photo{display:block;width:100%;height:100%;object-fit:fill;user-select:none;-webkit-user-drag:none;pointer-events:none}.difference-object{position:absolute;margin:0;padding:0;border:0;background:transparent;border-radius:28%;cursor:pointer;touch-action:manipulation;z-index:2}.difference-object:focus-visible{outline:3px dashed #f0bc35;outline-offset:0}.difference-object.found{background:transparent;cursor:default;outline:0}.difference-item-highlight{position:absolute;object-fit:fill;z-index:3;pointer-events:none;user-select:none;-webkit-user-drag:none;filter:drop-shadow(2px 0 0 #ffcf37) drop-shadow(-2px 0 0 #ffcf37) drop-shadow(0 2px 0 #ffcf37) drop-shadow(0 -2px 0 #ffcf37) drop-shadow(0 0 5px #fff2a3)}.differences-complete .difference-panel{filter:brightness(1.015)}@media(prefers-reduced-motion:no-preference){.difference-item-highlight{animation:item-found .23s ease-out both}@keyframes item-found{from{opacity:.25}to{opacity:1}}}
+
+.difference-found-outline{position:absolute;z-index:3;pointer-events:none;overflow:visible;filter:drop-shadow(0 1px 1px #fffef5) drop-shadow(0 0 4px #ffefaa80)}
+
+.difference-image-wrap{cursor:pointer}
+
+/* Share the inner socket coordinates for the silhouette, drops and fitted pieces. */
+.assembly-art{overflow:visible}
+.assembly-surface{position:absolute;inset:9%;overflow:hidden;border-radius:3%;isolation:isolate}
+.assembly-surface .assembly-zone{height:calc(100% / 3);border:0;box-shadow:none}
+.assembly-surface .assembly-zone.drop-active,.assembly-surface .assembly-zone.hint{box-shadow:inset 0 0 0 3px #e8b846}
+.assembly-surface.awaiting-piece .assembly-zone:not(.filled){background:#fff6b42b}
+.assembly-guides{position:absolute;inset:0;z-index:3;pointer-events:none}
+.assembly-guides span{position:absolute;left:0;right:0;transform:translateY(-50%);height:0;border-top:3px dashed #3e8583;filter:drop-shadow(0 1px 0 #fff) drop-shadow(0 -1px 0 #fff)}
+.assembly-complete .assembly-guides{visibility:hidden}
+.assembly-tray{width:30%;right:2%;top:50%;height:auto;aspect-ratio:30 / 59;transform:translateY(-50%);display:grid;grid-template-rows:repeat(3,minmax(0,1fr));gap:0;padding:5.3% 2.4%;align-items:center}
+.assembly-choice{width:100%;min-width:0;align-self:center;aspect-ratio:auto}
+.assembly-choice>.assembly-section{width:100%;height:auto;aspect-ratio:3 / 1}
+.assembly-choice.selected{translate:0 0}
+.assembly-direction{left:64%;font-size:clamp(18px,2.4vw,44px)}
+
+/* Keep matching cards and their references inside the illustrated frame opening.
+   The same inset board supplies pointer hit coordinates, so swaps stay aligned. */
+.puzzle-frame .board.vertical{position:absolute;inset:7% 7% 8%;width:auto;height:auto;margin:0}
+.board.vertical .slot-targets{inset:0 0 auto;height:24%;grid-template-columns:repeat(3,minmax(0,1fr))}
+.board.vertical .slot-target{font-size:clamp(30px,4.6vw,92px)}
+.board.vertical .piece{border-width:clamp(7px,.85vw,17px)}
+.board.vertical .card-letter{font-size:clamp(22px,2.7vw,54px)}
+.board.vertical .card-name{font-size:clamp(12px,1.4vw,28px);bottom:6%}
+.board.vertical .card-grip{top:3%}
+
+/* Explicit grid tracks prevent the absolutely positioned slice images from
+   collapsing the tray column to its grip's intrinsic width. */
+.puzzle-frame .board.assembly-board{position:absolute;inset:7% 7% 8%;width:auto;height:auto;margin:0}
+.assembly-tray{right:3%;width:28%;aspect-ratio:28 / 59;grid-template-columns:minmax(0,1fr);grid-template-rows:repeat(3,minmax(0,1fr));justify-content:stretch;justify-items:stretch;min-width:0}
+.assembly-choice{display:block;justify-self:stretch;min-width:0;width:100%;max-width:100%}
+
+/* Mount both comparison pictures inside the board's safe opening. */
+.puzzle-frame .board.differences-board{position:absolute;inset:8% 8% 9%;width:auto;height:auto;margin:0}
+.difference-pictures{inset:0;gap:4%;align-content:center;align-items:center;grid-template-columns:repeat(2,minmax(0,1fr))}
+.difference-panel{width:100%;min-width:0;padding:0;border:0;border-image:none;background:url('assets/art/ui-board/target-pad.webp') center/100% 100% no-repeat;box-shadow:none}
+.difference-image-wrap{width:82%;margin:9%;aspect-ratio:3 / 4;overflow:hidden;border-radius:12% / 9%;box-shadow:none}
+.difference-photo{width:100%;height:100%;object-fit:contain}
+
+/* Counting workshop: all rows and the number tray share the safe board opening. */
+.puzzle-frame .board.counting-board{position:absolute;inset:9% 8% 10%;width:auto;height:auto;margin:0}
+.quantity-rows{left:0;top:0;width:78%;height:100%;gap:2.5%}
+.quantity-numbers{right:0;top:0;width:18%;height:100%;transform:none;padding:3% 2%;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:repeat(4,minmax(0,1fr));gap:2.5%;justify-content:stretch;justify-items:center;align-items:center;min-width:0}
+.number-chip,.number-ghost{position:relative;width:100%;height:auto;aspect-ratio:1;padding:0;border:0;border-image:none;background:none;box-shadow:none;font-size:0;border-radius:22%;min-width:0}
+.number-art{display:block;width:100%;height:100%;aspect-ratio:1;background-image:url('assets/art/ui-board/number-tiles-v1.webp');background-repeat:no-repeat;background-size:400% 300%;pointer-events:none;user-select:none}
+.number-chip.selected{outline:3px solid #fff4a8;outline-offset:-3px;translate:0 -2px;filter:drop-shadow(0 3px 3px #b57a2340)}
+.number-chip.used{opacity:0;visibility:hidden}
+.quantity-dock{right:2%;width:auto;height:80%;aspect-ratio:1;padding:0;font-size:clamp(20px,2.5vw,50px);display:grid;place-items:center}
+.quantity-row.answered .quantity-dock{background:none;font-size:0}
+.quantity-row.answered:after{right:1%;bottom:1%;color:#42a464;text-shadow:0 1px #fff}
+.quantity-objects{inset:8% 23% 8% 3%}
+.object-ordinal{width:clamp(22px,2.4vw,48px);height:clamp(22px,2.4vw,48px);min-width:0;padding:0;border:0;border-radius:0;background:none;box-shadow:none;font-size:0;right:-2%;top:-3%;z-index:2}
+.count-object.counted{background:#fff3cb55}
+@media(prefers-reduced-motion:no-preference){.quantity-row.answered .quantity-dock .number-art{animation:number-fit .25s ease-out both}@keyframes number-fit{from{transform:scale(.8)}70%{transform:scale(1.06)}to{transform:scale(1)}}}
+
+.number-art{background-image:none;background-size:contain;background-position:center}
+
+.number-ghost{position:fixed}
+
+/* Three-strip tray: each source sits inside its own horizontal pocket. */
+.assembly-tray{right:3%;width:28%;height:auto;aspect-ratio:2 / 3;top:50%;transform:translateY(-50%);padding:0;display:block;background:url('assets/art/ui-board/assembly-strip-tray-v1.webp') center/100% 100% no-repeat;overflow:visible;clip-path:inset(2.5% 1.2% 2.2% round 12% / 8%)}
+.assembly-tray .assembly-choice{position:absolute;left:15%;width:70%;height:15.555556%;max-width:none;min-height:0;margin:0;padding:0;border:0;border-image:none;aspect-ratio:3 / 1;background:#fffdf4;border-radius:6% / 18%;box-shadow:0 2px 2px #375d4c30;overflow:hidden;justify-self:auto}
+.assembly-tray .assembly-choice:nth-child(1){top:16.722222%}
+.assembly-tray .assembly-choice:nth-child(2){top:43.222222%}
+.assembly-tray .assembly-choice:nth-child(3){top:70.222222%}
+.assembly-tray .assembly-choice>.assembly-section{height:100%;width:100%;aspect-ratio:auto}
+.assembly-tray .assembly-choice.selected{translate:0 0;outline:3px solid #f1c34d;outline-offset:0}
+.assembly-tray .assembly-choice.used{opacity:0;visibility:hidden}
+.assembly-tray .assembly-grip{right:2%;bottom:2%;color:#6d9b8a;font-size:clamp(10px,1vw,18px)}
+.assembly-ghost{border:0;border-radius:6% / 18%;background:#fffdf4;outline:2px solid #e9bb55}
+
+/* Dedicated number pockets, measured from the new illustrated tray. */
+.quantity-rows{width:75%}
+.quantity-numbers{right:0;top:0;height:100%;width:auto;aspect-ratio:555 / 1955;max-width:22%;padding:0;display:block;background:url('assets/art/ui-board/number-pocket-tray-v1.webp') center/100% 100% no-repeat}
+.quantity-numbers .number-chip{position:absolute;left:24%;width:52%;height:auto;aspect-ratio:1;transform:translateY(-50%);margin:0;min-height:0}
+.quantity-numbers .number-chip:nth-child(1){top:15.45%}
+.quantity-numbers .number-chip:nth-child(2){top:39.45%}
+.quantity-numbers .number-chip:nth-child(3){top:63.4%}
+.quantity-numbers .number-chip:nth-child(4){top:87.4%}
+
+/* Artwork contours only: no oval or rectangular answer markers. */
+.difference-found-outline{inset:0;width:100%;height:100%;filter:drop-shadow(0 0 2px #fff9c7) drop-shadow(0 0 5px #ffc42b) drop-shadow(0 0 9px #ffcf4580)}
+@media(prefers-reduced-motion:no-preference){.difference-found-outline{animation:contour-found .3s ease-out both}@keyframes contour-found{from{opacity:0}to{opacity:1}}}
+
+.difference-found-outline{filter:drop-shadow(0 0 1px #fff5ad) drop-shadow(0 0 3px #ffd341b0)}
+
+/* A short invitation after completion, never a looping demand to continue. */
+.next.round-ready{filter:drop-shadow(0 0 7px #fff3a2)}
+@media(prefers-reduced-motion:no-preference){.next.round-ready{animation:next-invitation .7s ease-in-out 2}@keyframes next-invitation{50%{scale:1.06}}}
+
+.slot-target.help-target{color:#c38112;text-shadow:0 0 8px #ffe68a}
+.board .piece.help-card{outline:3px solid #e7ba42;outline-offset:-4px}
+
+.loading h1{font-size:clamp(22px,3vw,44px);margin:.5em 1em}.loading p{letter-spacing:normal;font-size:clamp(16px,1.6vw,24px)}.loading span{animation:loading-spark 1.4s ease-in-out infinite}@keyframes loading-spark{50%{transform:scale(1.15);opacity:.65}}@media(prefers-reduced-motion:reduce){.loading span{animation:none}}
+
+/* responsive.css */
+/* Landscape game: the entire round stays inside the safe viewport. */
+html,body{overscroll-behavior:none}
+body{height:100vh;height:100dvh;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px);overflow:hidden}
+@supports(height:100dvh){.game{width:min(100%,177.7778dvh);height:min(100%,56.25vw)}}
+.rotate-prompt{display:none}
+@media(orientation:portrait){
+ .game{visibility:hidden;pointer-events:none}
+ dialog[open],dialog::backdrop{visibility:hidden}
+ .rotate-prompt{position:fixed;inset:0;z-index:100;background:#d9f4ef;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;text-align:center;padding:30px;color:#245e6d;font-family:Nunito,sans-serif}
+ .rotate-prompt svg{width:100px;height:100px;fill:none;stroke:#29849a;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+ .rotate-prompt h1{font-size:clamp(22px,6vw,36px);margin:0}.rotate-prompt p{font-size:18px;line-height:1.5;max-width:280px;margin:0}
+}
+@media(orientation:landscape) and (max-height:600px){
+ .game{--control-size:clamp(56px,16vh,88px);width:100%;height:100%;background-size:cover;touch-action:none}
+ .game-button{width:var(--control-size);height:var(--control-size);min-width:56px;min-height:56px;padding:0;touch-action:manipulation}
+ .sound{left:8px;top:8px}.exit{right:8px;top:8px}.next{right:8px;bottom:8px}
+ .puzzle-frame{left:22.5%;right:calc(var(--control-size) + 20px);top:8px;bottom:8px;width:auto;height:auto;padding:0}
+ .mascot{left:1%;top:20%;width:19%;height:74%}.mascot canvas{transform:scale(1.65);transform-origin:50% 50%}
+ .round-banner{left:26%;top:0;width:54%;max-height:48px}.round-banner span{font-size:clamp(12px,2.4vw,22px)}
+ .board.vertical .piece{border-width:5px}.board.vertical .card-name{font-size:clamp(10px,1.7vw,17px)}
+ .board.vertical .slot-target{font-size:clamp(26px,5vw,48px)}.board.vertical .card-letter{font-size:clamp(18px,3vw,30px)}.card-grip{width:22px}
+ .puzzle-frame .board.counting-board{inset:8% 7% 9%}
+ .quantity-rows{width:78%;height:100%;grid-template-rows:repeat(4,minmax(0,1fr));gap:3%;overflow:hidden}
+ .quantity-row{min-height:0;border-width:4px}
+ .quantity-objects{inset:3% 24% 3% 2%;grid-template-columns:repeat(5,minmax(0,1fr));grid-template-rows:repeat(var(--count-rows,1),minmax(0,1fr));gap:2px}
+ .quantity-dock{right:1%;width:22%;max-width:none;height:92%;padding:0;font-size:26px}
+ .object-ordinal{width:20px;height:20px}
+ .quantity-numbers{max-width:19%}
+ .quantity-numbers .number-chip{left:8%;width:84%}
+ .quantity-numbers .number-art{width:62%;height:auto;aspect-ratio:1;justify-self:center;align-self:center}
+ .assembly-tray .assembly-choice{touch-action:none}
+ dialog{max-width:calc(100vw - 24px);max-height:calc(100dvh - 24px);padding:12px}
+}
+/* Measured sizes preserve complete pictures and the exact strip aspect ratio. */
+.assembly-art{width:var(--assembly-size,59%);height:auto;aspect-ratio:1;left:0;top:50%;transform:translateY(-50%)}
+.assembly-tray{width:var(--assembly-tray-width,28%);height:auto;aspect-ratio:2/3}
+.difference-pictures{display:flex;align-items:center;justify-content:center;gap:4%;overflow:hidden}
+.difference-panel{width:var(--difference-width,48%);flex:0 0 var(--difference-width,48%)}
+@media(orientation:landscape) and (max-height:360px){.round-banner{max-height:40px}.round-banner span{font-size:14px}.object-ordinal{width:16px;height:16px}.quantity-row{border-width:3px}}
+
+@supports(height:100dvh){@media(orientation:landscape) and (max-height:600px){.game{--control-size:clamp(56px,16dvh,88px)}}}
+
+/* Solved tiles must never contribute an intrinsic size to the answer grid. */
+.quantity-row .quantity-dock{width:var(--answer-size,44px);height:var(--answer-size,44px);min-width:0;min-height:0;aspect-ratio:1;overflow:hidden}
+.quantity-dock .number-art{position:absolute;inset:0;width:100%;height:100%;min-width:0;min-height:0;aspect-ratio:1;background-size:contain;background-position:center}
+.quantity-row.answered .quantity-dock{font-size:0}
+@media(prefers-reduced-motion:no-preference){.quantity-row.answered .quantity-dock .number-art{animation:answer-fit .18s ease-out both}@keyframes answer-fit{from{transform:scale(.88);opacity:.7}to{transform:scale(1);opacity:1}}}
+
+/* The title belongs to the illustrated board, not to the viewport. */
+.puzzle-frame .round-banner{left:var(--ribbon-left,15%);right:auto;top:2%;width:var(--ribbon-width,70%);height:var(--ribbon-height,44px);max-height:none;aspect-ratio:auto;transform-origin:50% 50%}
+.puzzle-frame .round-banner img{object-fit:contain}
+.puzzle-frame .round-banner span{font-size:var(--ribbon-font,18px);line-height:1.2}
+.puzzle-frame .round-banner.visible{animation:board-title-arrive .22s ease-out both}
+.puzzle-frame .round-banner.leaving{animation:board-title-leave .16s ease-in both}
+@keyframes board-title-arrive{from{transform:translateY(-10px) scale(.97);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+@keyframes board-title-leave{to{transform:translateY(-8px);opacity:0}}
+
+/* Leave a real mounting margin inside the illustrated frame, including its
+   rounded corners. Keep every counting row within the same safe opening. */
+.puzzle-frame .board.counting-board{inset:12% 11% 12%}
+.quantity-rows{top:0;left:0;height:100%;grid-template-rows:repeat(4,minmax(0,1fr));gap:3.5%}
+
+/* Each tile occupies the centre of its measured pocket; no hidden text row. */
+.quantity-numbers .number-chip{left:24%;width:52%;height:auto;aspect-ratio:1;display:block;line-height:0;padding:0}
+.quantity-numbers .number-chip .number-art{display:block;position:absolute;inset:0;width:100%;height:100%;margin:0;aspect-ratio:1;background-size:contain;background-position:center}
+
+/* controls.css */
+/* Illustrated garden controls. The full square remains the touch target. */
+.game-button{
+ width:var(--control-size,8.8%);height:auto;aspect-ratio:1;
+ min-width:56px;min-height:56px;display:grid;place-items:center;
+ padding:0;border:0;border-radius:26%;box-shadow:none;
+ background:transparent url('assets/art/ui-controls/button-teal-v1.webp') center/100% 100% no-repeat;
+ transition:transform .12s ease,filter .12s ease;
+ -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+}
+.game-button img{width:52%;height:52%;object-fit:contain;pointer-events:none;filter:drop-shadow(0 1px 1px #073d4c60)}
+.game-button.next{background-image:url('assets/art/ui-controls/button-gold-v1.webp')}
+.game-button.next img{width:54%;height:54%;filter:none}
+.game-button:before,.game-button:after{display:none}
+.game-button.sound{left:8px;top:8px}
+.game-button.exit{right:8px;top:8px;opacity:1}
+.game-button.next{right:8px;bottom:8px}
+.game-button:focus-visible{outline:3px solid #fffdf0;outline-offset:0;box-shadow:0 0 0 5px #175768}
+.game-button:active:not(:disabled){transform:translateY(2px) scale(.96);scale:1;filter:brightness(.94)}
+.game-button.next:not(:disabled){animation:none}
+.game-button.next.round-ready{filter:drop-shadow(0 0 5px #fff4ac80)}
+@media(hover:hover){.game-button:hover:not(:disabled){filter:brightness(1.07)}}
+@media(prefers-reduced-motion:reduce){.game-button{transition:none}}
+
+/* play-breaks.css */
+/* Large, quiet play objects stay inside the illustrated board opening. */
+.puzzle-frame .board.fun-board{position:absolute;margin:0;inset:12% 9% 11%;width:auto;height:auto;display:grid;grid-template-rows:auto minmax(0,1fr);gap:3%;background:transparent;border:0;overflow:hidden}
+.fun-heading{text-align:center;pointer-events:none}
+.fun-heading h2{display:grid;place-items:center;width:70%;max-width:460px;aspect-ratio:2142/349;margin:0 auto;color:#fffdf3;font-size:clamp(15px,2.1vw,32px);line-height:1;background:url('assets/art/ui-board/round-ribbon.webp') center/100% 100% no-repeat;text-shadow:0 1px 2px #532787}
+.fun-heading p{margin:4px 0 0;color:#255d68;font-weight:800;font-size:clamp(12px,1.35vw,20px)}
+.fun-toys{min-height:0;display:grid;grid-template:repeat(2,minmax(0,1fr))/repeat(3,minmax(0,1fr));gap:4% 6%;padding:2% 6%}
+.fun-toy{position:relative;min-height:44px;min-width:44px;width:100%;height:100%;padding:2%;border:0;background:none;border-radius:25%;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.fun-toy img{display:block;width:100%;height:100%;object-fit:contain;filter:hue-rotate(var(--hue));pointer-events:none;user-select:none;transform-origin:50% 85%}
+.fun-toy:focus-visible{outline:3px solid #217e8b;outline-offset:-3px;background:#ffffff60}
+.balloon-pop .fun-toy img{animation:balloon-bob 2.8s ease-in-out var(--delay) infinite alternate}
+.fun-toy.popped img{visibility:hidden}.fun-toy.popped{cursor:default}
+.pop-spark{position:absolute;left:50%;top:42%;width:8px;height:13px;border-radius:3px;background:#efb936;pointer-events:none;animation:balloon-spark .45s ease-out both}
+.pop-spark:nth-child(even){background:#e675ad}.pop-spark:nth-child(3n){background:#25b9bc}
+@keyframes balloon-bob{from{transform:translateY(-3px) rotate(-3deg)}to{transform:translateY(3px) rotate(3deg)}}
+@keyframes balloon-spark{from{opacity:1;transform:rotate(var(--angle)) translateY(-8px)}to{opacity:0;transform:rotate(var(--angle)) translateY(-55px) scale(.4)}}
+@media(prefers-reduced-motion:reduce){.balloon-pop .fun-toy img{animation:none}}
+@media(orientation:landscape) and (max-height:360px){.fun-heading h2{width:65%;font-size:15px}.fun-heading p{font-size:12px;margin-top:1px}.fun-toys{gap:2% 5%;padding:1% 6%}}
+
+/* The five hands-on rounds share the board's quiet, illustrated play area. */
+.puzzle-frame .board.interactive-break{grid-template-rows:auto minmax(0,1fr) 12px;gap:2%;inset:11% 9% 10%}
+.activity-stage{position:relative;min-width:0;min-height:0;overflow:hidden;border-radius:18px;container-type:size;touch-action:none;isolation:isolate}
+.activity-progress{display:flex;justify-content:center;align-items:center;gap:9px;pointer-events:none}
+.activity-progress span{width:9px;height:9px;border-radius:50%;background:#bfd6c9;border:1px solid #a4c6b5}
+.activity-progress span.earned{background:#47b981;border-color:#299c69;box-shadow:0 0 0 2px #d2f1dc}
+.activity-stage button{font-family:inherit;-webkit-tap-highlight-color:transparent;touch-action:none}
+.activity-stage button:focus-visible,.scratch-canvas:focus-visible{outline:3px solid #258b91;outline-offset:-3px}
+.scratch-target{position:absolute;left:50%;top:50%;height:100%;aspect-ratio:1;max-width:100%;transform:translate(-50%,-50%)}
+.scratch-art,.scratch-canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.scratch-art{pointer-events:none;user-select:none}.scratch-canvas{cursor:crosshair;touch-action:none;border-radius:10px}
+.scratch-hand{position:absolute;left:44%;top:45%;font-size:clamp(28px,6cqh,45px);color:white;text-shadow:0 2px 4px #294c60;pointer-events:none;animation:brush-invite 1.5s ease-in-out 2 both}
+.activity-finished .scratch-hand{display:none}
+@keyframes brush-invite{0%,100%{translate:-15px 0;opacity:0}20%,70%{opacity:.85}50%{translate:15px 0}}
+.garden-bed{position:absolute;inset:15% 2% 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4%;align-items:end}
+.garden-pot{position:relative;width:100%;height:100%;padding:0;border:0;border-radius:18px;background:none;cursor:grab}
+.garden-pot-art{position:absolute;bottom:0;left:0;width:100%;height:43%;object-fit:contain;pointer-events:none;z-index:2}
+.garden-flower{position:absolute;left:50%;bottom:24%;height:68%;width:95%;object-fit:contain;opacity:0;transform:translateX(-50%) scale(.15);transform-origin:50% 100%;filter:hue-rotate(var(--flower-hue));pointer-events:none;transition:transform .1s linear,opacity .15s}
+.garden-pot.grown .garden-flower{filter:hue-rotate(var(--flower-hue)) drop-shadow(0 0 4px #ffea9990)}
+.watering-can{position:absolute;right:0;top:0;width:22%;height:35%;border:0;padding:0;background:none;cursor:grab;z-index:5;touch-action:none;transform-origin:65% 55%}
+.watering-can img{width:100%;height:100%;object-fit:contain;pointer-events:none}
+.water-drops{position:absolute;left:35%;top:34%;width:35%;height:32%;pointer-events:none;opacity:0;z-index:3;background:radial-gradient(ellipse,#5bcbed 0 28%,transparent 40%) 0 0/14px 20px}
+.being-watered .water-drops{opacity:.8;animation:water-fall .35s linear infinite}
+@keyframes water-fall{to{background-position:0 20px}}
+.roll-ground{position:absolute;left:3%;right:3%;bottom:5%;height:12%;border-radius:50%;background:#d4e9be;box-shadow:inset 0 2px 4px #82b08b25;pointer-events:none}
+.roll-aim{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.roll-basket{position:absolute;left:68%;top:49%;width:29%;height:47%;pointer-events:none;z-index:2}
+.roll-basket img{width:100%;height:100%;object-fit:contain}
+.rolling-ball{position:absolute;width:13%;height:26%;padding:0;background:none;border:0;transform:translate(-50%,-50%);cursor:grab;z-index:3;touch-action:none}
+.rolling-ball img{width:100%;height:100%;object-fit:contain;pointer-events:none;rotate:var(--roll-angle,0deg)}
+.rolling-ball.ball-caught{opacity:0;transition:opacity .16s}
+.drum-pads{position:absolute;inset:10% 1% 3%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:center;gap:4%}
+.drum-pad{position:relative;height:90%;width:100%;padding:4%;border:0;border-radius:22%;background:#e6f2e560;cursor:pointer}
+.drum-pad img{width:100%;height:100%;object-fit:contain;filter:hue-rotate(var(--drum-hue));pointer-events:none;transform-origin:center 70%}
+.drum-pad.next-beat{background:#fff1ae90;box-shadow:inset 0 0 0 3px #e6be4d,0 0 12px #ffe18355}
+.drum-beat{position:absolute;bottom:1%;left:50%;translate:-50% 0;font-weight:900;color:#357c83;background:#fffcf1;border:2px solid #d4e4cd;border-radius:50%;display:grid;place-items:center;width:1.8em;height:1.8em;font-size:clamp(14px,4cqh,24px);pointer-events:none}
+.drum-note{position:absolute;left:45%;top:15%;font-size:clamp(28px,10cqh,55px);color:#298c9a;text-shadow:0 2px white;pointer-events:none}
+@media(orientation:landscape) and (max-height:360px){.interactive-break .fun-heading h2{font-size:14px}.interactive-break .fun-heading p{font-size:11px}.puzzle-frame .board.interactive-break{gap:1%;grid-template-rows:auto minmax(0,1fr) 8px}.activity-progress span{width:7px;height:7px}}
+@media(prefers-reduced-motion:reduce){.scratch-hand,.being-watered .water-drops{animation:none}.garden-flower,.rolling-ball.ball-caught{transition:none}}
+
+.rolling-ball,.watering-can{min-width:44px;min-height:44px}
+
+/* Activity interludes take place in the garden itself, without the puzzle board. */
+.game.activity-scene .puzzle-frame{
+ left:23%;right:calc(var(--control-size,8.8%) + 16px);top:3%;bottom:5%;
+ width:auto;height:auto;padding:0;border:0;border-radius:0;box-shadow:none;background:none;
+}
+.game.activity-scene .puzzle-frame .board.fun-board{
+ position:absolute;inset:0;width:100%;height:100%;margin:0;padding:0;
+ border:0;border-radius:0;background:none!important;box-shadow:none;
+ overflow:visible;grid-template-rows:auto minmax(0,1fr);gap:2%;
+}
+.game.activity-scene .puzzle-frame .board.interactive-break{grid-template-rows:auto minmax(0,1fr) 12px}
+.activity-scene .fun-heading{position:relative;z-index:4}
+.activity-scene .fun-heading h2{width:78%;max-width:550px;font-size:clamp(16px,2.3vw,34px)}
+.activity-scene .fun-heading p{display:table;max-width:95%;margin:5px auto 0;padding:5px 16px;border-radius:18px;
+ background:#fffdf0e8;color:#245e63;box-shadow:0 2px 0 #4d8e7b20;line-height:1.25}
+.activity-scene .activity-stage{overflow:hidden;border-radius:0}
+.activity-scene .activity-progress{align-self:center;filter:drop-shadow(0 1px 1px #386f5470)}
+.activity-scene .activity-progress span{background:#f4fff3;border-color:#70ac8d}
+.activity-scene .activity-progress span.earned{background:#42b673}
+.activity-scene .scratch-target{top:53%;height:92%;filter:drop-shadow(0 10px 5px #386c4528)}
+.activity-scene .scratch-target::before{content:'';position:absolute;bottom:6%;left:20%;width:60%;height:7%;border-radius:50%;background:#356e452b;filter:blur(5px);pointer-events:none;z-index:-1}
+.activity-scene .garden-bed{inset:6% 1% 4%;gap:5%;align-items:end}
+.activity-scene .garden-pot-art{filter:drop-shadow(0 6px 3px #356c4f38)}
+.activity-scene .watering-can{right:0;top:0;filter:drop-shadow(0 4px 2px #356c4f25)}
+.activity-scene .roll-ground{background:#366b3b20;height:4%;bottom:6%;box-shadow:none}
+.activity-scene .roll-basket{filter:drop-shadow(0 7px 4px #34683d38)}
+.activity-scene .rolling-ball img{filter:drop-shadow(0 4px 2px #366b3e45)}
+.activity-scene .drum-pads{inset:18% 1% 4%;align-items:end}
+.activity-scene .drum-pad{height:85%;background:none;filter:drop-shadow(0 6px 3px #356c4f38)}
+.activity-scene .drum-pad.next-beat{background:#fff3b83d;box-shadow:inset 0 0 0 3px #fff2a4,0 0 16px #ffeb9a70}
+.activity-scene .fun-toys{padding:2% 3% 5%;gap:2% 7%}
+.activity-scene .balloon-pop .fun-toy{background:none}
+.activity-scene .jelly-wiggle .fun-toys{padding-top:12%;padding-bottom:3%}
+.activity-scene .jelly-wiggle .fun-toy img{filter:hue-rotate(var(--hue)) drop-shadow(0 7px 3px #346c4540)}
+.activity-scene .jelly-wiggle .fun-toy:nth-child(-n+3){scale:.88;transform-origin:50% 100%}
+@media(orientation:landscape) and (max-height:600px){
+ .game.activity-scene .puzzle-frame{left:23%;right:calc(var(--control-size) + 20px);top:3%;bottom:4%}
+ .activity-scene .fun-heading h2{width:85%;font-size:clamp(14px,2.2vw,23px)}
+ .activity-scene .fun-heading p{padding:3px 10px;margin-top:2px;font-size:clamp(11px,1.5vw,15px)}
+}
+@media(orientation:landscape) and (max-height:360px){
+ .activity-scene .fun-heading h2{width:80%;font-size:14px}
+ .activity-scene .fun-heading p{font-size:11px;padding:2px 8px}
+ .activity-scene .activity-stage{min-height:0}
+}
+.activity-scene .garden-pot:focus-visible{outline:none}
+.activity-scene .garden-pot:focus-visible::after{content:'';position:absolute;left:8%;right:8%;bottom:2%;height:36%;border:3px solid #258b91;border-radius:35%;pointer-events:none;z-index:3}
+
+/* Stem base stays in the soil throughout growth; the pot masks its hidden end. */
+.activity-scene .garden-pot{container-type:size;--pot-size:min(100cqw,43cqh);--flower-size:calc(var(--pot-size) * 1.6)}
+.activity-scene .garden-pot-art{left:50%;width:var(--pot-size);height:var(--pot-size);transform:translateX(-50%)}
+.activity-scene .garden-flower{width:var(--flower-size);height:var(--flower-size);bottom:calc(var(--pot-size) * .72 - var(--flower-size) * .078125);transform-origin:50% 92.1875%}
+
+.activity-scene .garden-pot-art{z-index:0}
+.activity-scene .garden-flower{z-index:1}
+.activity-scene .garden-pot-front{z-index:2;clip-path:inset(35% 0 0);filter:none}
+
+/* polish.css */
+/* Green success glow belongs only to letter-card matching. */
+.board[data-topic="letters"] .piece.in-place::after{
+ content:'';position:absolute;inset:0;border:3px solid #32b96b;
+ border-radius:10px;box-shadow:inset 0 0 9px #4ee98c90;
+ width:auto;height:auto;font-size:0;pointer-events:none;z-index:4;
+}
+.board[data-topic="letters"] .piece.in-place:not(.dragging){
+ outline:2px solid #32b96b;outline-offset:-2px;
+ filter:drop-shadow(0 0 5px #3bdb7bbb) drop-shadow(0 0 10px #3bdb7b66);
+}
+.board .piece.dragging::after{display:none}
+.board:not([data-topic="letters"]) .piece.in-place{outline:none;border-color:#e3dcc5;box-shadow:0 5px 0 #d3c8a4,0 8px 12px #355e5c1c}
+.quantity-row.answered::after{content:none}
+.quantity-row.answered .quantity-dock{filter:none}
+.assembly-zone.filled{box-shadow:none}
+.assembly-complete .assembly-direction::after{content:none}
+.assembly-complete .assembly-surface{outline:none}
+.assembly-complete .assembly-art{box-shadow:none}
+.difference-found-outline{filter:drop-shadow(0 0 2px #ff443b80) drop-shadow(0 0 4px #ed352f40)}
+/* The pause panel uses the same illustrated garden controls as the game. */
+#pause-dialog{color:#255f65;background:#fffbed;border:3px solid #9cd3b4;border-radius:26px;
+ padding:clamp(18px,3vh,32px) clamp(22px,4vw,48px);text-align:center;
+ width:min(440px,90vw);max-height:92dvh;box-shadow:0 10px 0 #215d5870,0 20px 60px #123e4b60}
+#pause-dialog::backdrop{background:#123f4a80;backdrop-filter:blur(4px)}
+#pause-dialog h1{font-size:clamp(20px,3.5vh,28px);line-height:1.2;margin:0 0 8px;font-weight:900}
+#pause-dialog p{font-size:clamp(13px,2.6vh,16px);margin:0 0 20px;color:#527c77}
+.pause-actions{display:flex;justify-content:center;gap:clamp(28px,5vw,56px)}
+.pause-actions>div{display:grid;justify-items:center;gap:8px}
+#pause-dialog .pause-action{position:relative;inset:auto;display:grid;place-items:center;margin:0;
+ width:clamp(64px,18vh,100px);height:auto;min-width:56px;min-height:56px;aspect-ratio:1;
+ background:transparent url('assets/art/ui-controls/button-teal-v1.webp') center/100% 100% no-repeat;
+ border:0;padding:0;box-shadow:none;border-radius:26%}
+#pause-dialog .pause-action img{width:52%;height:52%;object-fit:contain}
+.pause-actions span{font-size:clamp(13px,2.8vh,17px);font-weight:800}
+#pause-dialog .pause-action:focus-visible{outline:3px solid #267c65;outline-offset:3px}
+@media(orientation:landscape) and (max-height:360px){#pause-dialog{padding:14px 24px}#pause-dialog p{margin-bottom:12px}.pause-actions>div{gap:4px}}
+
+.loading p{letter-spacing:0;line-height:1.5}
+.quantity-row.answered .quantity-dock,.assembly-zone.filled{cursor:pointer;touch-action:manipulation}
+
+/* No ground shadow or duplicate silhouette behind Sparky. */
+.mascot .shadow{display:none!important}
+
+/* sparky-theme.css */
+/* Sparky's blue cartoon art set. Geometry remains owned by responsive-layout.js. */
+.game{background-image:url('assets/art/sparky-theme-v1/meadow-approved.webp');background-color:#b8e64c}
+.game:not(.activity-scene) .puzzle-frame{background-image:url('assets/art/sparky-theme-polished/board.webp');clip-path:inset(2.3% 1.4% round 6%);}
+.game-button,.game-button.next,#pause-dialog .pause-action{background-image:url('assets/art/sparky-theme-v1/button.webp')}
+.game-button img,.game-button.next img,#pause-dialog .pause-action img{filter:brightness(0) invert(1);width:48%;height:48%}
+.game-button:focus-visible{box-shadow:0 0 0 4px #191a2b;outline-color:#fff}
+.game-button.next.round-ready{filter:drop-shadow(0 0 5px #fff9b4)}
+.board .piece,.board.solved .piece,.quantity-row,.assembly-choice{
+ border-image-source:url('assets/art/sparky-theme-v1/card.webp');
+}
+.quantity-row{border-radius:1vw}
+.assembly-art,.assembly-complete .assembly-art,.difference-panel,.quantity-dock{
+ background-image:url('assets/art/sparky-theme-polished/socket.webp');
+}
+.quantity-row.answered .quantity-dock{background:none}
+.slot-targets,.slot-target,.card-letter,.card-name{color:#254f7c}
+.slot-targets span:after{background:#a5c8ed}
+.assembly-direction,.fun-heading p{color:#153e79}
+.assembly-grip,.card-grip{color:#83a8d3}
+.count-object.counted{background:#dcefff70}
+#pause-dialog{color:#173d76;background:#fff9e9;border-color:#0083fb;box-shadow:0 8px 0 #0042a0,0 18px 60px #191a2b66}
+#pause-dialog p{color:#496180}
+#pause-dialog::backdrop{background:#14254480}
+.loading{background:#c8efff;color:#153e79}
+.loading p{color:#153e79}
+.quantity-numbers{
+ background-image:url('assets/art/sparky-theme-polished/socket.webp'),url('assets/art/sparky-theme-polished/socket.webp'),url('assets/art/sparky-theme-polished/socket.webp'),url('assets/art/sparky-theme-polished/socket.webp'),url('assets/art/sparky-theme-polished/tray.webp');
+ background-size:76% auto,76% auto,76% auto,76% auto,100% 100%;
+ background-position:50% 5.95%,50% 36.55%,50% 67.1%,50% 97.7%,center;
+ background-repeat:no-repeat;border-radius:12% / 4%;
+}
+.assembly-tray{
+ background-image:url('assets/art/sparky-theme-v1/card.webp'),url('assets/art/sparky-theme-v1/card.webp'),url('assets/art/sparky-theme-v1/card.webp'),url('assets/art/sparky-theme-polished/tray.webp');
+ background-size:70% 15.555556%,70% 15.555556%,70% 15.555556%,100% 100%;
+ background-position:50% 19.802632%,50% 51.184211%,50% 83.157895%,center;
+ background-repeat:no-repeat;clip-path:inset(1% round 12% / 8%);
+}
+.assembly-tray .assembly-choice{box-shadow:none;background:#fffefa}
+.puzzle-frame .round-banner{overflow:hidden}
+.puzzle-frame .round-banner img{height:200%;top:-50%;object-fit:fill}
+.round-banner span{text-shadow:0 1px 0 #0042a0}
+.fun-heading h2{background-image:url('assets/art/sparky-theme-v1/ribbon.webp');background-size:100% 200%;text-shadow:0 1px 0 #0042a0}
+.game.activity-scene .puzzle-frame{background:none;clip-path:none}
+
+.board .piece,.board.solved .piece,.quantity-row{background-color:#fffefa}
+.assembly-art,.difference-panel{clip-path:inset(1.5% round 10%)}
+
+/* Finish the selected palette without changing the responsive play geometry. */
+.game::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
+ background:inherit;filter:blur(1.3px);mask-image:linear-gradient(#000 0%,#000 40%,transparent 72%)}
+.board .piece,.board.solved .piece{
+ border-image:none;border-color:transparent;border-radius:clamp(12px,1.3vw,24px);
+ background:linear-gradient(155deg,#fffefa 60%,#eaf5ff)!important;
+ box-shadow:inset 0 0 0 1.5px #9ecdf3,inset 0 2px 0 #fff,0 3px 0 #8ab8db,0 5px 8px #173d7620;
+}
+.board .piece:not(:disabled):hover{box-shadow:inset 0 0 0 2px #76b9f0,0 3px 0 #8ab8db,0 6px 10px #173d7626!important}
+.quantity-row{border-image:none;border-color:transparent;border-radius:clamp(10px,1.1vw,20px);
+ box-shadow:0 3px 0 #a9c9e1,0 5px 8px #173d7615;overflow:hidden}
+.quantity-dock{color:#547ba3;text-shadow:0 1px #fff;border-radius:20%;overflow:hidden}
+.quantity-numbers{overflow:hidden}
+.number-art{filter:drop-shadow(0 2px 1px #173d7622)}
+.card-letter,.slot-target{text-shadow:0 2px 0 #fff9}
+.card-grip{opacity:.65}
+.game-button{filter:drop-shadow(0 3px 2px #153e7926)}
+.game-button:active:not(:disabled){filter:brightness(.96);transform:translateY(2px) scale(.97)}
+@media(prefers-reduced-motion:no-preference){.count-object img{transition:transform .16s ease}.count-object:active img{transform:scale(.92)}}
+
+.quantity-row{background:#fffefa url('assets/art/sparky-theme-polished/row.webp') center/100% 100% no-repeat;background-origin:border-box;clip-path:inset(1% round clamp(10px,1.1vw,20px))}
+
+/* garden-finish.css */
+/* Polish the existing garden and blue UI. No new game layout or character art. */
+.game{background-image:url('assets/art/ui-finish/meadow-refined.webp')}
+.garden-details{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;contain:layout paint}
+.garden-cloud-track{position:absolute;aspect-ratio:720/210;pointer-events:none;will-change:transform}
+.garden-cloud{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;user-select:none;pointer-events:none}
+.finish-flower{position:absolute;left:var(--left);bottom:var(--bottom);width:var(--width);height:auto;transform-origin:43% 94%;pointer-events:none;user-select:none}
+.finish-flower.finish-far{opacity:.62}
+.finish-footing{position:absolute;left:17%;top:84.6%;width:66%;height:3.4%;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 25% 40%,#345c433b 0%,#4d72452b 24%,transparent 47%),radial-gradient(ellipse at 77% 40%,#345c433b 0%,#4d72452b 24%,transparent 47%)}
+.mascot::after{content:none}
+.mascot.feet-airborne .finish-footing,.mascot.feet-airborne::after{visibility:hidden}
+.game .game-button,.game .game-button.next,#pause-dialog .pause-action{background-image:url('assets/art/ui-finish/button-shell.svg');filter:drop-shadow(0 2px 2px #1d487b1c);transition:transform 140ms ease,filter 140ms ease}
+.game .game-button img,#pause-dialog .pause-action img{filter:brightness(0) invert(1);width:44%;height:44%}
+.game .game-button:focus-visible{outline:3px solid #fffbe2;outline-offset:2px;box-shadow:0 0 0 5px #25496e}
+.game .game-button:active:not(:disabled){transform:translateY(2px) scale(.96);filter:brightness(.97)}
+.game .game-button.next.round-ready{filter:drop-shadow(0 0 6px #fff0b680)}
+.board .piece,.board.solved .piece{background:linear-gradient(155deg,#fffefa 36%,#fff 68%,#eaf5ff)!important;box-shadow:inset 0 0 0 1.5px #a5cfea,inset 0 2px 0 #fff,0 4px 0 #90bad6,0 7px 10px #244d7720;transition:left 320ms cubic-bezier(.2,.75,.25,1),top 320ms cubic-bezier(.2,.75,.25,1),box-shadow 160ms ease,translate 160ms ease}
+.board .piece:not(:disabled):hover{box-shadow:inset 0 0 0 2px #7cbbe8,inset 0 2px #fff,0 4px 0 #86b1cf,0 9px 14px #244d7726!important}
+.board .piece.selected,.board .piece.target{outline:3px solid #ffbc68;outline-offset:1px}
+.board .piece.dragging{transition:none;box-shadow:inset 0 0 0 2px #ffd694,0 12px 20px #1e466748!important}
+.board[data-topic="letters"] .piece.in-place:not(.dragging){border-color:transparent;outline:none;filter:none;box-shadow:inset 0 0 0 2px #9cd4b6,0 4px 0 #80bba2,0 6px 10px #244d7719}
+.board[data-topic="letters"] .piece.in-place::after{content:'✓';position:absolute;inset:auto;top:6%;right:6%;width:clamp(16px,1.6vw,26px);height:clamp(16px,1.6vw,26px);font:900 clamp(11px,1.1vw,17px)/1 Nunito,sans-serif;display:grid;place-items:center;background:#e1f1db;color:#508e68;border:2px solid #fff;border-radius:50%;box-shadow:0 1px 2px #477b5130;pointer-events:none}
+.card-letter,.slot-target{font-weight:900;color:#285780}.card-name{font-weight:900;color:#315a7f}.card-grip{opacity:.46}
+.fun-heading h2{background-image:url('assets/art/ui-finish/ribbon-shell.svg');background-size:100% 100%;text-shadow:0 2px 0 #0050aa;filter:drop-shadow(0 2px 1px #163d6522)}
+.activity-scene .fun-heading h2{width:82%;max-width:740px}
+.fun-heading p{color:#245d72;font-weight:900;background:#fffdf0e8;border:1px solid #fff;border-radius:999px;width:fit-content;max-width:94%;padding:.25em 1em;margin:.65em auto 0;box-shadow:0 2px 0 #347da112;line-height:1.3}
+.puzzle-frame .round-banner img{height:100%;top:0;object-fit:contain}.round-banner span{font-weight:900;text-shadow:0 1px 0 #0050aa}
+#pause-dialog{border:2px solid #9adfff;box-shadow:0 6px 0 #0754a8,0 16px 45px #153c6044}#pause-dialog::backdrop{background:#16436670;backdrop-filter:blur(4px)}
+@media(hover:hover){.game .game-button:hover:not(:disabled){filter:brightness(1.07) drop-shadow(0 3px 2px #1d487b26)}}
+@media(prefers-reduced-motion:no-preference){.garden-cloud-track{animation:garden-cloud-flow var(--duration) ease-in-out var(--delay) infinite alternate}.finish-flower.finish-near{animation:finish-flower-breeze var(--duration) ease-in-out var(--delay) infinite alternate}.game .game-button.next.round-ready img{animation:garden-next-hint 2.6s ease-in-out infinite}.game.garden-motion-paused .garden-details *,.game.garden-motion-paused .game-button.next img{animation-play-state:paused!important}}
+@keyframes garden-cloud-flow{from{transform:translateX(-5%)}to{transform:translateX(5%)}}
+@keyframes finish-flower-breeze{from{rotate:-3deg}to{rotate:3deg}}
+@keyframes garden-next-hint{0%,82%,100%{translate:0 0}90%{translate:7% 0}}
+@media(prefers-reduced-motion:reduce){.garden-details *,.game .game-button.next img{animation:none!important}.garden-cloud-track{will-change:auto}.game .game-button,.board .piece{transition:none!important}}
+
+/* variants/variants.css */
+.board.variant-board{display:block!important;background:transparent;border:0;overflow:hidden;padding:0;isolation:isolate}.variant-heading{position:absolute;top:1%;left:8%;width:84%;text-align:center;margin:0;color:#285780;font-size:clamp(17px,2.4vw,34px);font-weight:900;line-height:1.15}.variant-instruction{position:absolute;top:9%;left:6%;width:88%;margin:0;text-align:center;font-size:clamp(10px,1.25vw,19px);font-weight:800;color:#4c7186;line-height:1.25}.variant-hear{position:absolute;right:2%;bottom:1.5%;z-index:3;border:1px solid #9ccbe7;background:#eff9ff;color:#285780;border-radius:999px;font:800 clamp(10px,.95vw,14px) Nunito,sans-serif;padding:.35em .8em;cursor:pointer}.variant-body{position:absolute;inset:19% 5% 10%;min-width:0;min-height:0}.variant-feedback{position:absolute;bottom:1.5%;left:3%;width:76%;margin:0;color:#38657c;font-size:clamp(10px,1.15vw,17px);font-weight:800;line-height:1.3;min-height:1.3em}.variant-columns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:16%;}.variant-column{display:flex;flex-direction:column;gap:5%;min-height:0;z-index:1}.variant-card{position:relative;display:flex;align-items:center;justify-content:center;flex:1;gap:5px;min-width:0;min-height:0;padding:3%;background:linear-gradient(150deg,#fffefa 35%,#f4fbff);border:2px solid #a6cfe9;border-radius:14px;box-shadow:0 3px 0 #8bbad5,0 5px 9px #244d7718;color:#285780;cursor:pointer;font:900 clamp(16px,2.8vw,40px) Nunito,sans-serif;touch-action:none;user-select:none}.variant-card:hover:not(:disabled){border-color:#62a9dc}.variant-card.selected{outline:3px solid #f5b65d;outline-offset:2px;background:#fff6df}.variant-card:focus-visible,.sticker-cell:focus-visible,.food-bin:focus-visible,.meal-slot:focus-visible{outline:3px solid #f5b65d;outline-offset:2px}.variant-card.matched,.sticker-cell.matched,.story-slot.matched{border-color:#87ba9e;background:#f0f8ed;cursor:default}.variant-card.matched:after,.sticker-cell.matched:after,.story-slot.matched:after{content:'✓';position:absolute;right:5px;top:3px;border-radius:50%;background:#e0efda;color:#4d8a62;border:1px solid #fff;font:900 13px Nunito,sans-serif;width:19px;height:19px;display:grid;place-items:center}.variant-art{position:relative;display:flex;align-items:center;justify-content:center;width:92%;height:92%;min-width:0;min-height:0;pointer-events:none}.variant-art img,.variant-art svg{max-width:100%;max-height:100%;width:100%;height:100%;object-fit:contain;pointer-events:none}.variant-text{font-size:clamp(22px,4.2vw,64px);font-weight:900;line-height:1}.variant-group{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:3%;max-width:190px}.variant-group img{min-height:0;max-height:100%}.variant-swatch{width:65%;height:70%;border-radius:12px;border:3px solid #fff;box-shadow:inset 0 -4px #0000000e,0 0 0 1px #b1cbd8}.variant-lines{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:0}.variant-lines path{stroke:#7eaf97;stroke-width:4;fill:none;stroke-linecap:round}.variant-label{display:block;font:900 clamp(9px,1vw,15px)/1.15 Nunito,sans-serif;text-align:center;max-width:100%;color:#315c7b;pointer-events:none}.food-sprite{background-image:url('assets/art/variants/indian-food-sheet-v1.webp');background-size:400% 400%;background-repeat:no-repeat;aspect-ratio:1;width:auto;height:90%;max-width:100%;flex-shrink:1;align-self:center}.food-choice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:7%;min-height:0}.food-choice-grid .variant-card{flex-direction:column;padding:5%;gap:3px}.food-choice-grid .variant-art{height:76%;width:90%}.food-choice-grid .food-sprite{height:76%;width:auto}.food-sort-board{display:grid;grid-template-columns:1.5fr 1fr;gap:8%}.food-sort-board .food-choice-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7%}.food-bins{display:flex;flex-direction:column;gap:10%;justify-content:center}.food-bin{flex:1;max-height:42%;border:2px solid #8fbbd5;border-radius:18px;background:#e9f6ff;color:#315c7b;font:900 clamp(12px,1.6vw,24px) Nunito,sans-serif;padding:10%;cursor:pointer}.food-bin.received{border-color:#87ba9e}.meal-board{display:grid;grid-template-rows:31% minmax(0,1fr) 10%;gap:5%}.meal-slots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4%}.meal-slot{min-width:0;min-height:0;border:2px dashed #9bbdd1;border-radius:12px;background:#f1f8fb;color:#436c82;font:900 clamp(10px,1.2vw,18px) Nunito,sans-serif;padding:4%;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center}.meal-slot .variant-art{height:76%}.meal-slot .food-sprite{height:72%;width:auto}.meal-board .food-choice-grid{gap:7%;grid-template-rows:repeat(2,minmax(0,1fr))}.serve-meal{justify-self:center;width:50%;border:1px solid #2887c5;border-radius:999px;background:#178ddd;color:#fff;font:900 clamp(10px,1.2vw,18px) Nunito,sans-serif;cursor:pointer;min-height:28px}.serve-meal:disabled{opacity:.45;cursor:default}.accessory-grid-board{display:grid;grid-template-columns:1.8fr 1fr;gap:8%}.sticker-grid{display:grid;grid-template-columns:repeat(var(--grid-size),minmax(0,1fr));grid-template-rows:repeat(var(--grid-size),minmax(0,1fr));gap:4%;min-height:0}.sticker-header{display:flex;align-items:center;justify-content:center;min-width:0;min-height:0}.sticker-header .variant-art{width:90%;height:90%}.sticker-cell{position:relative;min-width:0;min-height:0;border:2px solid #a9cfdf;background:#e9f7fc;border-radius:12px;padding:3%;cursor:pointer;touch-action:manipulation}.sticker-tray{display:flex;flex-direction:column;gap:6%;min-height:0}.story-order-board{display:grid;grid-template-rows:1fr 1fr;gap:13%}.story-slots,.story-tray{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7%;min-height:0}.story-slot{position:relative;min-width:0;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2%;background:#eef6fa;color:#9ebdce;border:2px dashed #a8c9db;border-radius:14px;font:900 clamp(25px,4vw,60px) Nunito,sans-serif;cursor:pointer}.story-tray .variant-card{flex-direction:column;gap:2%}.story-tray .variant-art,.story-slot .variant-art{height:76%;width:100%}.variant-drag-ghost{position:fixed!important;z-index:10000;pointer-events:none;translate:-50% -50%;height:110px;opacity:.9;box-shadow:0 8px 24px #31506b40}.teaching-stage{position:absolute;inset:0;z-index:20;overflow:hidden;border-radius:14px;background:linear-gradient(#dcf3ff 0%,#edf9ff 73%,#b5d495 73%,#a7cd85 100%)}.teaching-stage canvas{position:absolute;inset:0;width:100%!important;height:100%!important;object-fit:contain;transform:none!important;pointer-events:none}.teaching-stage .teaching-back{z-index:0}.teaching-stage .teaching-character{z-index:1}.teaching-stage .teaching-front{z-index:2}.teaching-caption{position:absolute;top:2%;left:4%;width:92%;margin:0;text-align:center;z-index:3;background:#fffdf1e8;color:#315c7b;border-radius:999px;padding:.35em .65em;font:900 clamp(11px,1.3vw,20px) Nunito,sans-serif}.teaching-tools{position:absolute;bottom:2%;left:5%;width:90%;display:flex;justify-content:space-between;z-index:4}.teaching-tools button{border:1px solid #7cb6d8;border-radius:999px;background:#f7fcff;color:#2d6282;padding:.5em 1.3em;font:900 clamp(11px,1.1vw,18px) Nunito,sans-serif;cursor:pointer}.mascot.scene-playing{visibility:hidden}.mascot.scene-playing canvas{visibility:visible}.game-picker{border:3px solid #5cb8e7;border-radius:24px;background:#fffdf1;color:#285780;max-width:min(900px,95vw);max-height:90dvh;padding:20px;width:90vw;box-shadow:0 6px 0 #0754a8,0 16px 45px #153c6044;font-family:Nunito,sans-serif}.game-picker::backdrop{background:#16436680;backdrop-filter:blur(4px)}.game-picker h1{margin:0 0 5px;font-size:clamp(20px,3vw,32px)}.game-picker p{margin:0 0 14px;font-size:14px}.game-picker-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.game-picker-grid a{display:flex;flex-direction:column;justify-content:center;min-height:65px;padding:10px;text-decoration:none;background:linear-gradient(#f8fdff,#e6f3fc);color:#285780;border:2px solid #9ecbe5;border-radius:14px;font-weight:900;text-align:center;font-size:clamp(12px,1.25vw,18px);box-shadow:0 3px #89b8d2}.game-picker-grid a[aria-current=page]{border-color:#f2ad4c;background:#fff0d5}.game-picker-close,.choose-game-button{border:1px solid #65a9d5;border-radius:999px;background:#eaf7ff;color:#285780;font:900 14px Nunito,sans-serif;padding:9px 18px;cursor:pointer}.game-picker-close{float:right}.choose-game-button{display:block;margin:15px auto 0}.game-hub-button{position:absolute;left:11%;top:3%;z-index:7;border:2px solid #6dbbe5;border-radius:999px;background:#f5fcffec;color:#285780;font:900 clamp(10px,1vw,15px) Nunito,sans-serif;padding:.45em .8em;cursor:pointer}.game-picker-footer{margin-top:15px;display:flex;justify-content:space-between;align-items:center;font-size:12px}.game-picker-footer a{color:#286e9d}@media(orientation:landscape) and (max-height:600px){.variant-heading{font-size:clamp(16px,3.8vh,23px)}.variant-instruction{top:10%;font-size:clamp(10px,2.7vh,14px)}.variant-body{inset:20% 4% 10%}.variant-card{border-radius:11px;border-width:1.5px}.variant-label{font-size:clamp(9px,2.5vh,13px)}.game-hub-button{left:12%;top:10px}.game-picker{max-height:94dvh;padding:15px}.game-picker-grid{gap:8px}.game-picker-grid a{min-height:48px;padding:7px}.food-choice-grid{gap:6%}.variant-text{font-size:clamp(22px,7vh,37px)}}@media(max-width:600px){.game-picker-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(prefers-reduced-motion:reduce){.variant-card,.sticker-cell{transition:none}}
+/* Keep every new activity inside the existing painted frame's inner opening. */
+.puzzle-frame .variant-heading{top:8%;left:8%;width:84%}
+.puzzle-frame .variant-instruction{top:16%;left:8%;width:84%}
+.puzzle-frame .variant-body{inset:25% 8% 14%}
+.puzzle-frame .variant-feedback{bottom:7%;left:8%;width:70%}
+.puzzle-frame .variant-hear{bottom:6.5%;right:7%}
+.variant-group{grid-template-columns:repeat(var(--group-cols,3),minmax(0,1fr));grid-template-rows:repeat(var(--group-rows,1),minmax(0,1fr));align-items:center;justify-items:center}
+.variant-group img{max-height:76px}
+.puzzle-frame .teaching-stage{inset:6% 5% 7%}
+.food-bin{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+.food-bin-items{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;height:42%}
+.food-bin-items .food-sprite{height:100%;width:auto;max-width:44%}
+.meal-board{grid-template-rows:25% minmax(0,1fr) 44px;gap:4%}
+.meal-board .food-choice-grid{grid-template-columns:repeat(var(--choice-cols,3),minmax(0,1fr))}
+.meal-board .food-choice-grid .variant-card{flex-direction:row;justify-content:flex-start;gap:5%;padding:3%}
+.meal-board .food-choice-grid .variant-art{width:44%;height:92%;flex-shrink:0}
+.meal-board .food-choice-grid .food-sprite{height:92%;width:auto;flex-shrink:0;max-width:47%}
+.meal-board .food-choice-grid .variant-label{flex:1;text-align:center}
+.serve-meal{min-height:44px}
+.variant-board .hint-pair{outline:3px solid #f2b65e;outline-offset:2px}
+.feeding-board{display:grid;grid-template-columns:52% minmax(0,1fr);gap:5%}.feeding-avatar{position:relative;min-width:0;min-height:0;overflow:hidden;border-radius:18px;background:linear-gradient(#e4f6ff80,#eff8fb00);border:1px solid #b9dbe9}.feeding-avatar .teaching-stage{inset:0!important;background:transparent;border-radius:0}.feeding-avatar .teaching-stage canvas{width:155%!important;height:155%!important;inset:auto;left:-27.5%;top:-21%;object-fit:contain}.feeding-scene .teaching-caption,.feeding-scene .teaching-tools{display:none}.feeding-target{position:absolute;inset:0;z-index:24;width:100%;height:100%;border:2px dashed transparent;background:transparent;border-radius:18px;cursor:pointer;touch-action:manipulation}.feeding-target.ready,.feeding-target:focus-visible{border-color:#efa939;outline:none;background:#fff2c510}.feeding-target:disabled{cursor:wait}.feeding-target-label{position:absolute;left:15%;bottom:2%;width:70%;padding:5px;background:#fffdf0eb;border:1px solid #a4cee5;border-radius:999px;color:#285780;font:900 clamp(10px,1.15vw,17px) Nunito,sans-serif}.feeding-tray{display:flex;flex-direction:column;min-height:0;gap:8px}.feeding-tray .food-choice-grid{flex:1;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.feeding-tray .variant-card{padding:4%}.feeding-tray .variant-card.offered{opacity:.45;box-shadow:none}.feeding-progress{margin:0;font:800 clamp(10px,1.1vw,16px)/1.2 Nunito,sans-serif;text-align:center;color:#3e6b83}.feeding-continue{min-height:40px;border:1px solid #69a7cc;border-radius:999px;background:#ecf8ff;color:#285780;font:900 13px Nunito,sans-serif}.feeding-continue[hidden]{display:none}@media(orientation:landscape) and (max-height:450px){.feeding-board{grid-template-columns:48% minmax(0,1fr);gap:4%}.feeding-tray .food-choice-grid{gap:6px}.feeding-progress{font-size:10px}.feeding-tray{gap:5px}.feeding-target-label{padding:3px;font-size:10px}}
+.food-art{display:flex;align-items:center;justify-content:center;aspect-ratio:1;background:none;min-width:0;min-height:0}.food-art.food-composite img{width:50%;height:100%;max-width:50%;object-fit:contain}.meal-slot .food-art{height:72%;width:95%}.meal-board .food-choice-grid .food-art{height:92%;width:44%;flex-shrink:0}.meal-board .food-choice-grid .variant-label{min-width:0;overflow-wrap:anywhere}
+
+/* variants/feeding-room.css */
+.game.feeding-room{background:#e9f4f5 url('assets/art/feeding-room/room.svg') center/100% 100% no-repeat}
+.game.feeding-room .garden-details,.game.feeding-room>.mascot,.game.feeding-room .round-banner{visibility:hidden!important}
+.game.feeding-room .puzzle-frame{inset:0!important;width:100%!important;height:100%!important;padding:0!important;margin:0;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;clip-path:none!important;transform:none!important}
+.game.feeding-room #board.variant-board{position:absolute;inset:0!important;width:100%!important;height:100%!important;background:none!important;border:0!important}
+.game.feeding-room .feeding-board{position:absolute;inset:0!important;display:block}
+.game.feeding-room .feeding-avatar{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:0;background:none;overflow:hidden}
+.game.feeding-room .feeding-avatar .teaching-stage{inset:0!important;overflow:hidden;isolation:isolate;background:none}
+.game.feeding-room .feeding-avatar .teaching-stage canvas{width:100%!important;height:110%!important;inset:auto;left:0;top:-12%;object-fit:contain;transform:none!important}
+.game.feeding-room .teaching-character{z-index:1}
+.game.feeding-room .teaching-back{display:none}
+.game.feeding-room .teaching-front{z-index:5!important}
+.dining-table,.dining-mat,.dining-plate,.dining-cup,.dining-napkin,.dining-spoon,.dining-serving{position:absolute;pointer-events:none;user-select:none}
+.dining-table{left:0;top:59%;width:100%;height:41%;z-index:2;object-fit:fill}
+.dining-mat{left:12%;top:76%;width:76%;height:21%;z-index:3;object-fit:fill}
+.dining-plate{left:38%;top:59.5%;width:24%;height:15%;z-index:3;object-fit:fill}
+.dining-cup{left:67%;top:59.5%;width:6%;height:15%;z-index:3;object-fit:contain}
+.dining-napkin{left:26%;top:62%;width:10%;height:11%;z-index:3;object-fit:contain;rotate:-5deg}
+.dining-spoon{left:30%;top:61%;width:3%;height:13%;z-index:4;object-fit:contain;rotate:18deg}
+.dining-serving{left:44%;top:61%;width:12%;height:11%;z-index:4;display:flex;justify-content:center;align-items:center}
+.dining-serving .food-sprite{width:auto!important;height:100%!important;max-width:100%}
+.game.feeding-room .feeding-target{inset:5% auto auto 32%;width:36%;height:54%;z-index:6;border-radius:40%;border-width:3px}
+.game.feeding-room .feeding-target-label{opacity:0;bottom:0;left:25%;width:50%;font-size:clamp(10px,1.2vw,18px);transition:opacity .15s}
+.game.feeding-room .feeding-target.ready .feeding-target-label,.game.feeding-room .feeding-target:focus-visible .feeding-target-label{opacity:1}
+.game.feeding-room .feeding-target.ready{background:transparent;border-color:#ffce6ca8}
+.game.feeding-room .feeding-tray{position:absolute;inset:77% 14% 5%;z-index:6;display:block;overflow:visible}
+.game.feeding-room .feeding-tray .food-choice-grid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:1fr;gap:6%;align-items:stretch}
+.game.feeding-room .feeding-tray .variant-card{border:0;background:transparent;box-shadow:none!important;border-radius:20%;padding:0;flex-direction:column;gap:0;transition:transform .15s;overflow:visible}
+.game.feeding-room .feeding-tray .variant-card:not(:disabled):hover{transform:translateY(-4px)}
+.game.feeding-room .feeding-tray .variant-card.selected{background:#fff7d95c;outline:3px solid #ffbd5a;outline-offset:1px}
+.game.feeding-room .feeding-tray .food-sprite{height:78%;width:auto;max-width:100%;filter:drop-shadow(0 3px 1px #4c7c6930)}
+.game.feeding-room .feeding-tray .variant-label{font-size:clamp(10px,1.2vw,18px);background:#effff5d9;border-radius:999px;padding:2px 10px;line-height:1.15;max-width:100%;white-space:nowrap}
+.game.feeding-room .feeding-progress{position:fixed;left:-9999px}
+.game.feeding-room .feeding-continue{position:absolute;bottom:110%;left:35%;width:30%;z-index:10;min-height:40px}
+.game.feeding-room .variant-heading{top:4%!important;left:23%!important;width:auto!important;max-width:26%;margin:0;padding:.3em .7em;border:1px solid #aecdd6;border-radius:999px;background:#fffdf1e8;font-size:clamp(14px,1.9vw,27px);z-index:8}
+.game.feeding-room .variant-instruction{position:absolute;left:-9999px!important;top:0!important;width:1px!important;height:1px;overflow:hidden}
+.game.feeding-room .variant-feedback{top:40%!important;bottom:auto!important;left:76%!important;width:20%!important;padding:.7em .8em;background:#fffdf2ed;border:1px solid #bdd8df;border-radius:18px;font-size:clamp(11px,1.35vw,20px);font-weight:800;z-index:6;text-align:center;line-height:1.3}
+.game.feeding-room .variant-feedback:empty{display:none}
+.game.feeding-room .variant-hear{top:5%!important;bottom:auto!important;right:13%!important;min-height:30px;z-index:8}
+@media(orientation:landscape) and (max-height:450px){.game.feeding-room .variant-feedback{font-size:11px;padding:6px 8px}.game.feeding-room .feeding-tray .variant-label{font-size:10px;padding:1px 6px}.game.feeding-room .variant-heading{font-size:15px}.game.feeding-room .variant-hear{font-size:10px}.game.feeding-room .feeding-tray{inset:77% 13% 4%}.game.feeding-room .feeding-target-label{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.game.feeding-room .variant-card,.game.feeding-room .feeding-target-label{transition:none}}
+.game.feeding-room .feeding-avatar{z-index:0}.game.feeding-room .feeding-avatar .teaching-stage{z-index:0}.game.feeding-room .feeding-tray{z-index:6}
+.game.feeding-room .feeding-target{top:6%;height:53%}.game.feeding-room .feeding-tray{bottom:6%}.game.feeding-room .feeding-tray .variant-card>.food-sprite{position:absolute;bottom:16%;height:105%;flex-shrink:0;max-width:100%}.game.feeding-room .feeding-tray .variant-label{position:absolute;bottom:0}
+.game.feeding-room .feeding-target{left:43%;top:38%;width:14%;height:15%;min-width:44px;min-height:44px;border-radius:50%}.game.feeding-room .feeding-target.ready{border-color:#ffc855b0;background:#fff7ca12}.game.feeding-room .feeding-target-label{bottom:-28px;left:-25%;width:150%;white-space:nowrap;font-size:11px}.game.feeding-room .feeding-target.mouth-open{border-color:#ffc855}
+.feeding-companion-touch{position:absolute;left:35%;top:7%;width:30%;height:29%;z-index:6;border:0;padding:0;border-radius:45%;background:transparent;cursor:pointer;touch-action:manipulation}
+.feeding-companion-touch:focus-visible{outline:3px dashed #fff7d5;outline-offset:2px}
+.game.feeding-room .variant-card.food-invited:not(.selected){outline:2px dashed #efb456;outline-offset:4px}
+@media(prefers-reduced-motion:no-preference){.game.feeding-room .variant-card.food-invited{animation:food-invitation .65s ease-in-out 2}@keyframes food-invitation{50%{transform:translateY(-3px) scale(1.04)}}}
+.game.feeding-room .feeding-tray .variant-card>.food-art{position:absolute;bottom:25%;height:100%;width:95%;max-width:100%;filter:drop-shadow(0 3px 2px #4c7c6924)}.game.feeding-room .feeding-tray .food-choice-grid .variant-label{white-space:normal;max-width:110%;text-align:center;min-height:1.3em;max-height:2.6em;display:flex;align-items:center;justify-content:center}.dining-serving .food-art{height:100%;width:100%}
+.variant-drag-ghost.feeding-food-drag{display:flex;align-items:center;justify-content:center;pointer-events:none;background:transparent;border:0;border-radius:0;padding:0;box-shadow:none;opacity:1;max-width:none;max-height:none;transition:transform .08s ease-out;transform-origin:center}.feeding-food-drag>.variant-art{width:100%;height:100%;background-color:transparent;filter:drop-shadow(0 3px 2px #284b5c22)}.feeding-food-drag>.food-sprite{width:100%;height:100%}.game.feeding-room .variant-card.food-being-dragged>.variant-art{opacity:.18}@media(prefers-reduced-motion:reduce){.variant-drag-ghost.feeding-food-drag{transition:none}}
+.game.feeding-room .feeding-target.ready:not(:focus-visible),.game.feeding-room .feeding-target.mouth-open:not(:focus-visible){border-color:transparent;background:transparent}
+
+/* figma-ui.css */
+/* Source: DUPE-GAMES-UI, page 2017:337, feeding frame 2095:10.
+   Coordinates use that frame's 1920 x 1080 design space. */
+.game .game-button,.game .game-button.next,#pause-dialog .pause-action{background:transparent url('assets/art/figma-ui/control-shell.svg') center/contain no-repeat;box-shadow:none;border:0}
+.game .game-button img{position:absolute;object-fit:contain;filter:none}
+.game .game-button.sound img{width:48.736%;height:47.566%;left:25%;top:19.447%}
+.game .game-button.exit img{width:39.652%;height:53.792%;left:30.174%;top:18%}
+.game .game-button.next img{width:60.309%;height:56.466%;left:19.663%;top:15.9%;transform:scaleX(-1)}
+.game .game-button.pause-action img{position:static;width:48%;height:50%;transform:none}
+.game .game-button.sound[aria-pressed=true]::after{content:'';display:block;position:absolute;left:17%;top:44%;width:65.86%;height:6.33%;background:url('assets/art/figma-ui/sound-off-2.svg') center/contain no-repeat;transform:rotate(35.15deg) skewX(-2.82deg);pointer-events:none}
+
+.game.feeding-room{background:#ffeac8 url('assets/art/figma-ui/feeding-wall.webp') center/100% 100% no-repeat}
+.figma-kitchen-decoration{position:absolute;pointer-events:none;object-fit:fill;z-index:1}
+.figma-kitchen-shelf{left:69.896%;top:8.611%;width:23.802%;height:35%}
+.figma-kitchen-notes{left:6.719%;top:16.296%;width:17.5%;height:27.315%}
+.game.feeding-room .variant-heading{left:31.406%!important;top:4.815%!important;width:38.49%!important;max-width:none!important;height:9.259%;margin:0;padding:0 3%;display:flex;align-items:center;justify-content:center;background:transparent url('assets/art/figma-ui/instruction-banner.svg') center/100% 100% no-repeat;border:0;border-radius:0;color:#fffdf0;font-size:clamp(17px,2.2vw,36px)}
+.game.feeding-room .game-button.sound{left:3.333%;top:4.259%;width:5.833%;min-width:44px;min-height:44px}
+.game.feeding-room .game-button.next{right:2.031%;bottom:3.796%;width:5.833%;min-width:44px;min-height:44px}
+.game.feeding-room>.game-button.exit{visibility:hidden;pointer-events:none}
+.game.feeding-room .game-hub-button{position:absolute;left:auto;right:2.031%;top:4.259%;width:5.833%;height:auto;aspect-ratio:1;min-width:44px;min-height:44px;padding:0;border:0;border-radius:26%;font-size:0;color:transparent;background:transparent url('assets/art/figma-ui/control-shell.svg') center/contain no-repeat;z-index:8}
+.game.feeding-room .game-hub-button::after{content:'';position:absolute;left:20.38%;top:15.06%;width:59.26%;height:51.95%;background:url('assets/art/figma-ui/home-icon.svg') center/contain no-repeat}
+.game.feeding-room .game-hub-button:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.game.feeding-room .feeding-avatar .teaching-stage canvas{top:0;height:100%!important}
+.game.feeding-room .feeding-target{top:44.5%}
+.game.feeding-room .feeding-companion-touch{top:15%}
+.game.feeding-room .dining-table{left:0;top:62.963%;width:100%;height:37.037%;object-fit:cover}
+.game.feeding-room .dining-mat{left:35.99%;top:65%;width:27.969%;height:31.204%;object-fit:fill}
+.game.feeding-room .dining-plate{left:43.021%;top:69.352%;width:13.958%;height:19.722%;object-fit:fill}
+.game.feeding-room .dining-fork{position:absolute;left:57.917%;top:70.278%;width:2.552%;height:16.019%;object-fit:fill;transform:scaleY(-1);z-index:4;pointer-events:none}
+.game.feeding-room .dining-spoon{left:39.583%;top:70.648%;width:2.552%;height:14.63%;rotate:0deg;transform:scaleY(-1);object-fit:fill}
+.game.feeding-room .dining-serving{left:45%;top:74%;width:10%;height:10%}
+.game.feeding-room .feeding-tray{inset:0;pointer-events:none}
+.game.feeding-room .feeding-tray .food-choice-grid{inset:0;display:block}
+.game.feeding-room .feeding-tray .variant-card{position:absolute;width:12.5%;height:13.889%;min-width:0;min-height:44px;padding:0;background:#fff;border:clamp(2px,.3125vw,6px) solid #00bfe9;border-radius:clamp(12px,2.292vw,44px);pointer-events:auto;overflow:hidden;transition:transform .15s}
+.game.feeding-room .feeding-tray .variant-card:nth-child(1){left:22.604%;top:65.556%}
+.game.feeding-room .feeding-tray .variant-card:nth-child(2){left:22.604%;top:81.852%}
+.game.feeding-room .feeding-tray .variant-card:nth-child(3){left:64.844%;top:65.556%}
+.game.feeding-room .feeding-tray .variant-card:nth-child(4){left:64.844%;top:81.852%}
+.game.feeding-room .feeding-tray .variant-card>.variant-art{position:absolute;left:7.5%;bottom:22%;width:85%;height:76%;max-width:85%;filter:none}
+.game.feeding-room .feeding-tray .variant-card>.food-sprite{left:15%;width:70%;height:70%;background-color:transparent}
+.game.feeding-room .feeding-tray .food-choice-grid .variant-label{left:2%;bottom:1%;width:96%;max-width:96%;padding:0 2%;font-size:clamp(9px,.9vw,16px);line-height:1.1;background:transparent;color:#365866}
+.game.feeding-room .variant-feedback{left:74%!important;top:49%!important;width:22%!important;font-size:clamp(10px,1.2vw,19px)}
+.game.feeding-room .variant-hear{top:17%!important;right:2.2%!important;bottom:auto!important;font-size:clamp(10px,.9vw,14px)}
+.game.feeding-room .feeding-continue{position:absolute;left:37%;bottom:1.5%;width:26%;pointer-events:auto;min-height:32px}
+@media(prefers-reduced-motion:reduce){.game.feeding-room .feeding-tray .variant-card{transition:none}}
+
+/* variants/feeding-service.css */
+.game.feeding-room .feeding-tray .variant-card{background:transparent;border:0;box-shadow:none!important;overflow:visible;border-radius:40%;padding:0}
+.game.feeding-room .feeding-tray .variant-card.selected{background:transparent;outline:2px dashed #f6cf68;outline-offset:3px}
+.food-serving{position:relative;display:block;width:100%;height:100%;pointer-events:none}
+.serving-dish-back,.serving-dish-front{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none}
+.serving-dish-back{filter:drop-shadow(0 3px 2px #71452124)}
+.serving-food{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.food-serving .serving-food>.variant-art{width:100%;height:100%}
+.serving-plate .serving-food{left:17%;top:7%;width:66%;height:72%;clip-path:ellipse(50% 48% at 50% 50%)}
+.serving-plate .serving-dish-front{clip-path:polygon(0 77%,100% 77%,100% 100%,0 100%)}
+.serving-bowl .serving-food{left:14%;top:10%;width:72%;height:56%;clip-path:ellipse(50% 47% at 50% 50%)}
+.serving-embedded .serving-food{inset:0 4%;width:92%;height:100%}
+.game.feeding-room .feeding-tray .variant-card.food-being-dragged .serving-food{opacity:.2}
+.food-portion{position:relative;display:block;width:100%;height:100%;overflow:hidden;clip-path:ellipse(49% 47% at 50% 50%);pointer-events:none}
+.food-portion>img{position:absolute;max-width:none!important;max-height:none!important;object-fit:fill;pointer-events:none}
+.utensil-carry{position:relative;display:block;width:100%;height:100%;pointer-events:none}
+.utensil-carry>.carried-tool{position:absolute;left:calc(50% - 16px);top:calc(50% - 20px);width:32px;height:110px;max-width:none;max-height:none;object-fit:fill;transform:rotate(-65deg);transform-origin:50% 18%;filter:drop-shadow(0 2px 1px #4b3a2b30)}
+.carried-bite{position:absolute;left:calc(50% - 15px);top:calc(50% - 11px);width:30px;height:22px}
+.carried-bite>.variant-art{width:100%;height:100%}
+.game.feeding-room .feeding-utensil{position:absolute;padding:0;border:0;border-radius:18px;background:transparent;z-index:7;pointer-events:auto;touch-action:none;min-width:44px;min-height:44px;cursor:grab}
+.game.feeding-room .feeding-utensil:active{cursor:grabbing}
+.game.feeding-room .spoon-tool{left:calc(39.583% - 14px);top:calc(70.648% - 5px);width:calc(2.552% + 28px);height:calc(14.63% + 10px)}
+.game.feeding-room .fork-tool{left:calc(57.917% - 14px);top:calc(70.278% - 5px);width:calc(2.552% + 28px);height:calc(16.019% + 10px)}
+.game.feeding-room .feeding-utensil>.dining-spoon,.game.feeding-room .feeding-utensil>.dining-fork{left:14px;top:5px;width:calc(100% - 28px);height:calc(100% - 10px);transform:scaleY(-1);pointer-events:none}
+.game.feeding-room .feeding-utensil:focus-visible,.game.feeding-room .feeding-utensil.utensil-selected{outline:2px solid #ffd15b;outline-offset:1px;background:#fff8d32b}
+.game.feeding-room .feeding-utensil.utensil-hint{outline:2px dashed #ffe587;outline-offset:2px;background:#fff8d344}
+.game.feeding-room .feeding-utensil:disabled{cursor:default}
+.tool-loaded-bite{position:absolute;bottom:4%;left:25%;width:50%;height:25%;pointer-events:none}
+.tool-loaded-bite>.variant-art{width:100%;height:100%}
+.game.feeding-room .feeding-target:not(:focus-visible) .feeding-target-label{opacity:0}
+.game.feeding-room .feeding-utensil.food-being-dragged>img,.game.feeding-room .feeding-utensil.utensil-in-use>img{opacity:.18}
+.feeding-utensil.food-being-dragged .tool-loaded-bite,.feeding-utensil.utensil-in-use .tool-loaded-bite{visibility:hidden}
+
+/* variants/sticker-studio.css */
+/* Native .fig frame 2155:12514, 1920 x 1080. Static SVGs retain original paths. */
+.game.sticker-room{background:#145b3d url('assets/art/figma-ui/sticker-chalkboard.svg') center/100% 100% no-repeat}
+.game.sticker-room::after{content:'';position:absolute;left:58.802083%;top:6.944444%;width:12.291667%;height:11.574074%;background:url('assets/art/figma-ui/sticker-chalk-ring.svg') center/100% 100% no-repeat;pointer-events:none;z-index:0}
+.game.sticker-room .garden-details,.game.sticker-room>.mascot,.game.sticker-room .round-banner{visibility:hidden!important;pointer-events:none}
+.game.sticker-room .puzzle-frame{inset:0!important;width:100%!important;height:100%!important;padding:0!important;margin:0;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;clip-path:none!important;transform:none!important}
+.game.sticker-room #board.variant-board{position:absolute;inset:0!important;width:100%!important;height:100%!important;overflow:visible}
+.game.sticker-room .variant-heading,.game.sticker-room .variant-instruction,.game.sticker-room .variant-feedback{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip-path:inset(50%)!important;white-space:nowrap!important}
+.game.sticker-room .variant-hear{top:auto!important;bottom:2.5%!important;right:27%!important;min-height:44px;min-width:58px;background:#fffcdf;color:#285949;font-size:clamp(10px,1.1vw,16px);z-index:4}
+.game.sticker-room .game-button.sound{left:3.333333%;top:4.259259%;width:5.833333%;min-width:44px;min-height:44px}
+.game.sticker-room .game-button.next{right:2.03125%;bottom:3.796296%;width:5.833333%;min-width:44px;min-height:44px}
+.game.sticker-room>.game-button.exit{visibility:hidden;pointer-events:none}
+.game.sticker-room .game-hub-button{position:absolute;left:auto;right:2.03125%;top:4.259259%;width:5.833333%;height:auto;aspect-ratio:1;min-width:44px;min-height:44px;padding:0;border:0;border-radius:26%;font-size:0;color:transparent;background:transparent url('assets/art/figma-ui/control-shell.svg') center/contain no-repeat;z-index:8}
+.game.sticker-room .game-hub-button::after{content:'';position:absolute;left:20.38%;top:15.06%;width:59.26%;height:51.95%;background:url('assets/art/figma-ui/home-icon.svg') center/contain no-repeat}
+.figma-sticker-studio.variant-body{position:absolute;inset:0!important;display:block!important}
+.figma-sticker-rows{position:absolute;left:9.791667%;top:31.481481%;width:10.3125%;height:55%;display:grid;grid-template-rows:repeat(var(--sticker-n),1fr)}
+.figma-sticker-columns{position:absolute;left:21.197917%;top:11.018519%;width:31.25%;height:18.333333%;display:grid;grid-template-columns:repeat(var(--sticker-n),1fr)}
+.figma-sticker-studio .sticker-header{position:relative;display:flex;align-items:center;justify-content:center;min-width:0;min-height:0;aspect-ratio:auto;background:transparent url('assets/art/figma-ui/sticker-row-card.svg') center/100% 100% no-repeat;border:0;border-radius:0;padding:0}
+.figma-sticker-columns .sticker-header{background-image:url('assets/art/figma-ui/sticker-column-card.svg')}
+.figma-sticker-columns .sticker-header>img{width:100%;height:100%;object-fit:contain}
+.figma-sticker-columns .sticker-header:last-child>img{max-width:91%;max-height:91%}
+.figma-sticker-grid.sticker-grid{position:absolute;left:19.895833%;top:28.888889%;width:33.854167%;height:60.185185%;display:block;padding:0;border:0;border-radius:0;background:transparent url('assets/art/figma-ui/sticker-grid-frame.svg') center/100% 100% no-repeat;overflow:visible}
+.figma-sticker-cells{position:absolute;left:3.846154%;top:4.461538%;width:92.307692%;height:92.307692%;display:grid;grid-template:repeat(var(--sticker-n),minmax(0,1fr))/repeat(var(--sticker-n),minmax(0,1fr));gap:.666667%}
+.figma-sticker-grid .sticker-cell{position:relative;border:0;border-radius:15%;min-width:0;min-height:44px;padding:0;background:transparent url('assets/art/figma-ui/sticker-cell.svg') center/100% 100% no-repeat;box-shadow:none;transition:filter .16s,scale .16s;touch-action:manipulation}
+.figma-sticker-grid .sticker-cell:not(:disabled):hover{filter:brightness(1.05)}
+.figma-sticker-grid .sticker-cell.matched{background-color:transparent;opacity:1;animation:sticker-seat .36s cubic-bezier(.2,.7,.3,1)}
+.figma-sticker-art{position:relative;display:block;width:100%;height:100%;pointer-events:none}
+.figma-sticker-art>img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;filter:none}
+.figma-sticker-art>.sticker-worn{inset:auto;left:10%;top:-15%;width:80%;height:80%;z-index:1}
+.figma-sticker-art>.sticker-worn-mask{left:2.5%;top:7%;width:95%;height:95%}
+.figma-sticker-art>.sticker-worn-crown{left:14%;top:-14%;width:72%;height:72%}
+.figma-sticker-art[data-friend=elephant]>.sticker-worn-mask{top:1%}
+.figma-sticker-grid .sticker-cell>.figma-sticker-art{width:88%;height:88%;margin:6%}
+.figma-sticker-tray.sticker-tray{position:absolute;left:65%;top:35%;width:18%;height:43%;display:grid;grid-template:repeat(2,minmax(0,1fr))/repeat(2,minmax(0,1fr));gap:3%;align-items:center;padding:0;background:none;border:0}
+.figma-sticker-tray .sticker-piece{width:100%;height:100%;min-width:0;min-height:44px;border:0;border-radius:20%;background:none;box-shadow:none;padding:0;overflow:visible;touch-action:none;transition:scale .16s,filter .16s}
+.figma-sticker-tray .sticker-piece:last-child{grid-column:1/-1;width:50%;justify-self:center}
+.figma-sticker-tray .sticker-piece.selected{outline:3px dashed #6545ac;outline-offset:3px;scale:1.06;background:#fff4a74d;box-shadow:none}
+.figma-sticker-tray .sticker-piece.matched{visibility:hidden}
+.sticker-header.sticker-guiding{filter:drop-shadow(0 0 5px #fff08e)}
+.sticker-retry{animation:sticker-retry .3s ease-out}
+.game.sticker-room.garden-motion-paused .sticker-cell{animation-play-state:paused}
+.variant-drag-ghost.sticker-piece{padding:0!important;border:0!important;background:none!important;box-shadow:none!important;height:auto;aspect-ratio:1;overflow:visible}
+@keyframes sticker-seat{0%{scale:.94}60%{scale:1.025}100%{scale:1}}
+@keyframes sticker-retry{25%{translate:-2px}65%{translate:2px}}
+@media(prefers-reduced-motion:reduce){.figma-sticker-studio *{animation:none!important;transition:none!important}}
+
+/* variants/pair-connections.css */
+.variant-columns .variant-lines{z-index:0}
+.variant-lines .connection-correct{color:#229c58}
+.variant-lines .connection-wrong{color:#df414d}
+.variant-lines .connection-draft{color:#4195d0}
+.variant-lines g path{stroke:currentColor;stroke-width:5;fill:none;stroke-linecap:round}
+.variant-lines .connection-wrong path{stroke-dasharray:9 5}
+.variant-lines .connection-draft path{stroke-dasharray:5 6;stroke-width:4}
+.variant-lines g circle{fill:currentColor;stroke:#fffdf4;stroke-width:2}
+.variant-lines .connection-wrong text{fill:currentColor;stroke:#fffdf4;stroke-width:3;paint-order:stroke;font:900 26px Nunito,sans-serif}
+.variant-columns [data-source]::before,.variant-columns [data-target]::before{content:'';position:absolute;top:50%;width:10px;height:10px;border:2px solid #6ba6cb;border-radius:50%;background:#fffdf4;translate:0 -50%;pointer-events:none}
+.variant-columns [data-source]::before{right:-7px}
+.variant-columns [data-target]::before{left:-7px}
+.variant-columns .matched::before{background:#229c58;border-color:#fffdf4}
+
+/* scene-backgrounds.css */
+/* One planned source scene per board. Outdoor skies are cloud-free;
+   the masked atmosphere layer supplies the only clouds. No legacy decorations. */
+.game{background-image:none}
+.game[data-scene-mode=background]{background-image:var(--scene-background);background-size:cover;background-position:center;background-repeat:no-repeat}
+.game[data-scene-mode=background] .garden-details{display:none}
+.game[data-scene-surface=floor]>.mascot::after{display:none}
+.game[data-scene-surface=floor] .finish-footing{background:radial-gradient(ellipse at 25% 40%,#33456930 0%,#33456920 24%,transparent 47%),radial-gradient(ellipse at 77% 40%,#33456930 0%,#33456920 24%,transparent 47%)}
+
+/* play-kit.css */
+/* Illustrated local SVG assets. Puzzle content remains live and interactive. */
+.game:not(.activity-scene):not(.feeding-room):not(.sticker-room) .puzzle-frame{background:transparent url('assets/art/play-kit/board.svg') center/100% 100% no-repeat!important;clip-path:none!important;border:0;box-shadow:none}
+.game .puzzle-frame .variant-heading,.game .puzzle-frame .variant-instruction,.game .puzzle-frame .variant-feedback,.game .puzzle-frame .feeding-progress,.game .puzzle-frame .feeding-target-label,.game .puzzle-frame .variant-label,.game .puzzle-frame .card-name,.game .puzzle-frame .teaching-caption,.game .round-banner{position:absolute!important;width:1px!important;height:1px!important;min-height:0!important;max-width:1px!important;inset:auto!important;margin:-1px!important;padding:0!important;border:0!important;overflow:hidden!important;clip-path:inset(50%)!important;white-space:nowrap!important;background:none!important}
+.game:not(.feeding-room):not(.sticker-room) .puzzle-frame .variant-body{inset:12% 8% 12%}
+.game:not(.feeding-room):not(.sticker-room) .variant-card,.game:not(.feeding-room):not(.sticker-room) .story-slot,.game:not(.feeding-room):not(.sticker-room) .board .piece,.game:not(.feeding-room):not(.sticker-room) .quantity-row,.game:not(.feeding-room):not(.sticker-room) .assembly-choice,.variant-drag-ghost.variant-card:not(.sticker-piece){--skin-border:clamp(10px,1.15vw,18px);background:transparent!important;border:var(--skin-border) solid transparent!important;border-image:url('assets/art/play-kit/card.svg') 32 fill stretch!important;border-image-width:1!important;box-shadow:none!important;border-radius:16px}
+.game:not(.feeding-room):not(.sticker-room) .variant-card.selected,.game:not(.feeding-room):not(.sticker-room) .board .piece.selected,.game:not(.feeding-room):not(.sticker-room) .board .piece.target,.game:not(.feeding-room):not(.sticker-room) .assembly-choice.selected{border-image-source:url('assets/art/play-kit/card-selected.svg')!important;outline:0}
+.game:not(.feeding-room):not(.sticker-room) .variant-card.matched,.game:not(.feeding-room):not(.sticker-room) .story-slot.matched,.game:not(.feeding-room):not(.sticker-room) .board .piece.in-place,.game:not(.feeding-room):not(.sticker-room) .quantity-row.answered{border-image-source:url('assets/art/play-kit/card-correct.svg')!important}
+.game .variant-card:focus-visible,.game .story-slot:focus-visible,.game .assembly-choice:focus-visible{outline:3px solid #f7ae42!important;outline-offset:2px}
+.game .variant-columns [data-source]::before{right:calc(-7px - var(--skin-border,0px))}
+.game .variant-columns [data-target]::before{left:calc(-7px - var(--skin-border,0px))}
+.game .variant-group img{max-height:clamp(72px,12vh,120px)}
+.game .variant-columns .variant-card{padding:2%}
+.game #board[data-variant=word-picture] .variant-card{container-type:inline-size}
+.game #board[data-variant=word-picture] .variant-text{font-size:clamp(14px,calc(125cqw / var(--word-length,8)),48px)}
+.game .story-tray .variant-art,.game .story-slot .variant-art{height:94%}
+.game:not(.activity-scene) .assembly-art,.game:not(.activity-scene) .assembly-complete .assembly-art,.game:not(.activity-scene) .difference-panel,.game:not(.activity-scene) .quantity-dock{background-image:url('assets/art/play-kit/socket.svg')}
+.game .puzzle-frame .variant-hear{width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important;padding:0!important;font-size:0!important;color:transparent!important;background:transparent url('assets/art/play-kit/listen.svg') center/contain no-repeat!important;border:0!important;box-shadow:none!important;border-radius:14px!important;right:4.3%!important;bottom:3.5%!important;top:auto!important;z-index:5}
+.game.feeding-room .puzzle-frame .variant-hear{right:13%!important;top:5%!important;bottom:auto!important}
+.game.sticker-room .puzzle-frame .variant-hear{right:26%!important;bottom:2%!important}
+.game .puzzle-frame .teaching-tools button,.game .puzzle-frame .feeding-continue{width:48px;min-width:44px;height:48px;min-height:44px;padding:0;border:0!important;border-radius:14px;background:transparent url('assets/art/play-kit/next.svg') center/contain no-repeat!important;font-size:0!important;color:transparent!important}
+.game .puzzle-frame .teaching-tools button:first-child{background-image:url('assets/art/play-kit/replay.svg')!important}
+.game.feeding-room .feeding-continue{left:calc(50% - 24px);width:48px}
+@media(orientation:landscape) and (max-height:600px){.game:not(.feeding-room):not(.sticker-room) .puzzle-frame .variant-body{inset:10% 8% 18%}}
+@media(prefers-reduced-motion:reduce){.game .variant-card,.game .story-slot{transition:none}}
+
+/* learning-type.css */
+/* Self-contained outlined artwork: no font needs to load while playing. */
+.game .has-learning-art{font-size:0!important;line-height:0!important}
+.learning-type-image{display:block;object-fit:contain;pointer-events:none;user-select:none}
+.game .variant-text.has-learning-art>.learning-type-image{width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain}
+.game .card-letter.has-learning-art{top:1%;left:0;width:100%;height:25%;display:flex;align-items:center;justify-content:center}
+.game .card-letter.has-learning-art>.learning-type-image{width:80%;height:100%;max-width:120px}
+.game .slot-target.has-learning-art{display:flex;align-items:center;justify-content:center;height:100%;min-height:0}
+.game .slot-target.has-learning-art>.learning-type-image{width:85%;height:90%;max-width:130px}
+.game .slot-target.has-learning-art::after{display:none}
+.game .story-slot.has-learning-art>.learning-type-image{width:70%;height:82%;max-width:100%;max-height:100%}
+.game .variant-card.has-learning-art>.learning-type-image{width:100%;height:100%;max-width:100%;max-height:100%}
+
+/* board-layout.css */
+/* Shared 16:9 composition, measured from the supplied four-layout guide.
+   Percentages are stage coordinates; board internals retain their own layout. */
+.game{width:min(100%,177.777778dvh)!important;height:auto!important;aspect-ratio:16/9;max-height:100%;--layout-board-left:25.5%;--layout-board-top:20%;--layout-board-width:71.25%;--layout-board-height:66%}
+.game:not(.feeding-room):not(.sticker-room):not(.activity-scene) .puzzle-frame{left:var(--layout-board-left)!important;top:var(--layout-board-top)!important;width:var(--layout-board-width)!important;height:var(--layout-board-height)!important;right:auto!important;bottom:auto!important;padding:0;margin:0}
+.game>.mascot{left:3.25%!important;top:20%!important;width:18.75%!important;height:66%!important}
+.game>.mascot canvas{transform:scale(1.72);transform-origin:50% 50%}
+.game>.game-button{width:5.5%!important;height:auto!important;aspect-ratio:1;min-width:44px!important;min-height:44px!important;padding:0}
+.game>.game-button.sound{left:3.25%!important;top:5.75%!important}
+.game>.game-button.exit{right:3.25%!important;top:5.75%!important}
+.game>.game-button.next{right:3.25%!important;bottom:2%!important}
+.game .game-hub-button{top:5.75%!important;left:11%!important}
+.game.feeding-room .game-hub-button,.game.sticker-room .game-hub-button{left:auto!important;right:3.25%!important;top:5.75%!important;width:5.5%!important;min-width:44px;min-height:44px;aspect-ratio:1}
+/* Full play-field activities and Sticker Studio use the guide's wide board. */
+.game.activity-scene .puzzle-frame,.game.sticker-room .puzzle-frame{inset:auto!important;left:3.25%!important;top:20%!important;width:93.5%!important;height:66%!important}
+/* Keep the dining performance, food and drop targets in one coordinate space. */
+.game.feeding-room .puzzle-frame{inset:auto!important;left:3.25%!important;top:0!important;width:93.5%!important;height:86%!important}
+.game.feeding-room .dining-table{top:59%;height:41%}
+/* All ordinary boards share one inner margin, without a redundant help row. */
+.game:not(.feeding-room):not(.sticker-room) .puzzle-frame .variant-body{inset:9% 7%!important}
+/* Counting follows the second guide: 49.6% board + 3.4% gap + 18.3% tray. */
+.game:not(.activity-scene):not(.feeding-room):not(.sticker-room) .puzzle-frame:has(.counting-board){background-size:69.65% 100%!important;background-position:left center!important}
+.game .puzzle-frame .counting-board{inset:0!important;width:100%!important;height:100%!important;border:0}
+.game .counting-board .quantity-rows{left:4%;top:9%;width:61.5%;height:82%}
+.game .counting-board .quantity-numbers{left:74.25%;right:auto;top:0;width:25.75%;max-width:none;height:100%;aspect-ratio:auto;background-size:76% 20%,76% 20%,76% 20%,76% 20%,100% 100%}
+.game .counting-board .quantity-numbers .number-chip{left:50%;width:auto;height:19%;aspect-ratio:1;transform:translate(-50%,-50%)}
+/* Dedicated screens keep the same pause control now that Home is removed. */
+.game.feeding-room>.game-button.exit,.game.sticker-room>.game-button.exit{visibility:visible!important;pointer-events:auto}
+
+/* fitted-art.css */
+/* Native board art matches the layout contract; no non-uniform shell scaling. */
+.game:not(.activity-scene):not(.feeding-room):not(.sticker-room) .puzzle-frame{background-size:contain!important}
+.game:not(.activity-scene):not(.feeding-room):not(.sticker-room) .puzzle-frame:has(.counting-board){background-image:url('assets/art/play-kit/board-counting.svg')!important;background-size:69.65% 100%!important}
+.game .counting-board .quantity-numbers{background:transparent url('assets/art/play-kit/counting-tray.svg') center/contain no-repeat;border-radius:0;overflow:visible}
+/* The source square frame became a rectangle after the outer ratio changed.
+   Recompose a square matrix, square header tiles and a separate paper tray. */
+.game.sticker-room{background-image:url('assets/art/play-kit/studio-backdrop.svg')!important}
+.game.sticker-room::after{display:none}
+.figma-sticker-studio.variant-body{container-type:size;--studio-side:min(42cqw,78cqh);--studio-header:min(10cqw,17cqh);--studio-paper:min(30cqw,76cqh)}
+.figma-sticker-grid.sticker-grid{left:16cqw;top:20cqh;width:var(--studio-side);height:var(--studio-side);background-image:url('assets/art/play-kit/studio-grid.svg');background-size:contain}
+.figma-sticker-cells{left:4%;top:4%;width:92%;height:92%;gap:1.5%}
+.figma-sticker-grid .sticker-cell{display:grid;place-items:center;min-height:0;border-radius:15%;background:linear-gradient(145deg,#f0e8ff,#e3d8fa);border:1px solid #d5c5f2;box-shadow:inset 0 2px #fff8}
+.figma-sticker-grid .sticker-cell>.figma-sticker-art{width:84%;height:auto;aspect-ratio:1;margin:0}
+.figma-sticker-rows{left:calc(16cqw - var(--studio-header) - 1.2cqw);top:20cqh;width:var(--studio-header);height:var(--studio-side)}
+.figma-sticker-columns{left:16cqw;top:0;width:var(--studio-side);height:var(--studio-header)}
+.figma-sticker-studio .sticker-header{width:var(--studio-header);height:var(--studio-header);align-self:center;justify-self:center;background:transparent url('assets/art/play-kit/studio-header.svg') center/contain no-repeat}
+.figma-sticker-studio .sticker-header>.figma-sticker-art,.figma-sticker-columns .sticker-header>img{width:90%;height:90%;object-fit:contain}
+.figma-sticker-tray.sticker-tray{left:64cqw;top:14cqh;width:var(--studio-paper);height:var(--studio-paper);padding:calc(var(--studio-paper)*.14);gap:5%;background:transparent url('assets/art/play-kit/studio-paper.svg') center/contain no-repeat;align-items:center}
+.figma-sticker-tray .sticker-piece{height:auto;aspect-ratio:1;min-height:0;align-self:center}
+.figma-sticker-tray .sticker-piece>.figma-sticker-art{aspect-ratio:1}
+/* Rebuilt dining props use the actual wide table and mat proportions. */
+.game.feeding-room .dining-mat,.game.feeding-room .dining-plate,.serving-dish-back,.serving-dish-front{object-fit:contain}
+.game.feeding-room .dining-plate{top:71%;height:auto;aspect-ratio:384/224}
+/* A third of a square picture is 3:1 INSIDE the card, after its border.
+   An outer 3:1 card with a thick border used to squash the image section. */
+.game:not(.activity-scene) .assembly-tray{background:transparent url('assets/art/play-kit/assembly-tray.svg') center/contain no-repeat;clip-path:none}
+.game:not(.activity-scene) .assembly-tray .assembly-choice{left:9%;width:82%;height:auto;aspect-ratio:auto;padding:4px;transform:translateY(-50%);overflow:hidden}
+.game:not(.activity-scene) .assembly-tray .assembly-choice:nth-child(1){top:18.5%}
+.game:not(.activity-scene) .assembly-tray .assembly-choice:nth-child(2){top:50%}
+.game:not(.activity-scene) .assembly-tray .assembly-choice:nth-child(3){top:81.5%}
+.game:not(.activity-scene) .assembly-tray .assembly-choice>.assembly-section{width:100%;height:auto;aspect-ratio:3/1}
+.game:not(.activity-scene) .difference-panel{background-image:url('assets/art/play-kit/socket-portrait.svg')}
+
+/* screen-fit.css */
+/* Fit the safe content box, including notches and browser chrome, while keeping
+   the reference stage and every native-proportion asset at 16:9. */
+@supports(width:1cqw){
+ body{container-type:size}
+ .game{width:min(100cqw,calc(100cqh * 16 / 9))!important;max-height:none}
+}
+.rotate-prompt{padding:max(20px,env(safe-area-inset-top)) max(20px,env(safe-area-inset-right)) max(20px,env(safe-area-inset-bottom)) max(20px,env(safe-area-inset-left));max-height:100dvh;overflow:auto}
+@media(orientation:portrait) and (max-height:600px){.rotate-prompt{gap:10px}.rotate-prompt svg{width:64px;height:64px}.rotate-prompt h1{font-size:24px}.rotate-prompt p{font-size:16px}}
+/* The number's art scales inside a consistent hit area on compact phones. */
+.game .counting-board .quantity-numbers .number-chip{min-width:44px;min-height:44px}
+.game .quantity-row .quantity-dock{min-width:44px;min-height:44px}
+.game:not(.activity-scene) .assembly-tray .assembly-choice{min-height:44px}
+.game.feeding-room .feeding-utensil>.dining-spoon,.game.feeding-room .feeding-utensil>.dining-fork,.carried-tool{object-fit:contain}
+.game>.game-button.next{bottom:clamp(0px,calc(14% - 46px),2%)!important}
+/* Do not squeeze an unreadable game into an unusually tiny browser window. */
+body.compact-screen .game{visibility:hidden;pointer-events:none}
+body.compact-screen .rotate-prompt{position:fixed;inset:0;z-index:100;display:flex;background:#d9f4ef;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;color:#245e6d}
+body.compact-screen .rotate-prompt svg{width:60px;height:60px}
+body.compact-screen .rotate-prompt h1{font-size:24px;margin:0}
+body.compact-screen .rotate-prompt p{font-size:16px;max-width:300px;margin:0}
+body.compact-screen dialog[open],body.compact-screen dialog::backdrop{visibility:hidden}
+
+/* illustrated-world.css */
+.game>.illustrated-world{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;user-select:none;border-radius:inherit}
+.game>.illustrated-world[hidden]{display:none}
+.game>.scene-atmosphere{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;user-select:none;mask-size:100% 100%;mask-repeat:no-repeat;mask-mode:alpha}
+.game>.scene-atmosphere[hidden]{display:none}
+.scene-atmosphere img{position:absolute;left:0;height:auto;max-width:none;max-height:none;object-fit:contain;pointer-events:none;user-select:none;will-change:transform}
+@media(prefers-reduced-motion:reduce){.scene-atmosphere img{will-change:auto}}
+
+/* touch-stardust.css */
+.touch-stardust{position:fixed;inset:0;z-index:1000;pointer-events:none;user-select:none;contain:strict}
+
+/* board-play.css */
+/* Materials and action feedback; stage coordinates and hit targets stay owned by
+   board-layout / screen-fit. No labels or extra controls on the play surface. */
+.game:not(.feeding-room):not(.sticker-room):not(.activity-scene) .puzzle-frame{filter:drop-shadow(0 7px 5px #195b7624)}
+.game:not(.feeding-room):not(.sticker-room) :is(.variant-card,.story-slot,.board .piece,.quantity-row,.assembly-choice){transition:box-shadow .18s ease,filter .18s ease,opacity .18s ease;box-shadow:0 3px 5px #206c8012!important}
+.game:not(.feeding-room):not(.sticker-room) .board .piece{transition:left .16s ease,top .16s ease,translate .15s ease,box-shadow .18s ease,filter .18s ease,opacity .18s ease}
+.game:not(.feeding-room):not(.sticker-room) .assembly-choice{transition:translate .15s ease,opacity .2s ease,box-shadow .18s ease,filter .18s ease}
+.game:not(.feeding-room):not(.sticker-room) :is(.variant-card,.story-slot,.board .piece,.assembly-choice):not(:disabled):hover{filter:brightness(1.025);box-shadow:0 5px 10px #206c8025!important}
+.game:not(.feeding-room):not(.sticker-room) :is(.selected,.toy-pressed){box-shadow:0 0 0 2px #ffc96380,0 5px 11px #7d9c7228!important}
+.game:not(.feeding-room):not(.sticker-room) :is(.matched,.quantity-row.answered,.piece.in-place){box-shadow:0 0 0 1px #90d5a28a,0 3px 6px #45976b18!important}
+.game .variant-columns [data-target]:not(.matched):not(.selected){border-image-source:url('assets/art/play-kit/card-lilac.svg')!important}
+.game .variant-columns [data-target]:not(.matched)::before{border-color:#a790d0;background:radial-gradient(circle at 35% 30%,#fff 0 25%,#e9dffa 65%)}
+.game .variant-columns :is([data-source],[data-target])::before{width:12px;height:12px;border:2px solid #61b8d5;background:radial-gradient(circle at 35% 30%,#fff 0 25%,#d4f3f8 65%);box-shadow:0 2px 0 #276c8e35,inset 0 0 0 2px #fff;z-index:2}
+.game .variant-columns .selected::before{border-color:#dc9b38;background:#ffdf88}
+.game .variant-columns .matched::before{background:#6dd28e;border-color:#309768;box-shadow:inset 0 0 0 2px #e1ffe7}
+.game .variant-lines .connection-correct path{stroke:#32b875;stroke-width:6;filter:drop-shadow(0 2px 0 #116e4933)}
+.game .variant-lines .connection-correct circle{fill:#40c585;stroke:#f2fff3;stroke-width:2.5}
+.game .variant-lines .connection-draft path{stroke:#30b9dd;stroke-width:4}
+.game .variant-lines .connection-wrong path{stroke:#eb735f;stroke-width:5}
+.board-play-effects{position:absolute;inset:0;pointer-events:none;z-index:12;overflow:visible;border-radius:5%}
+.board-play-spark{position:absolute;width:clamp(10px,1.4vw,23px);height:auto;aspect-ratio:1;pointer-events:none;filter:drop-shadow(0 1px 0 #ae79402b)}
+.game .board-play-complete{filter:drop-shadow(0 3px 7px #ffe39375)}
+@media(prefers-reduced-motion:no-preference){
+ .game:not(.feeding-room):not(.sticker-room) .variant-card>.variant-art{transition:scale .2s cubic-bezier(.2,.7,.3,1)}
+ .game:not(.feeding-room):not(.sticker-room) .variant-card:not(:disabled):hover>.variant-art{scale:1.035}
+ .game:not(.feeding-room):not(.sticker-room) .variant-card.toy-pressed>.variant-art{scale:.98}
+ .game .connection-draft path{animation:board-thread .8s linear infinite}
+ @keyframes board-thread{to{stroke-dashoffset:-22}}
+}
+@media(prefers-reduced-motion:reduce){.game :is(.variant-card,.story-slot,.piece,.assembly-choice){transition:none!important}}
+
+/* raster-board.css */
+/* Finished image assets own the material, bevels, highlights and shadows.
+   Nine-slice cards retain their corners when their content changes shape. */
+.game:not(.activity-scene):not(.feeding-room):not(.sticker-room) .puzzle-frame{background-image:url('assets/art/toy-board/board.webp')!important;background-size:contain!important;filter:none}
+.game:not(.activity-scene):not(.feeding-room):not(.sticker-room) .puzzle-frame:has(.counting-board){background-image:url('assets/art/toy-board/board-counting.webp')!important;background-size:69.65% 100%!important}
+.game .counting-board .quantity-numbers{background-image:url('assets/art/toy-board/counting-tray.webp');background-size:contain}
+.game .counting-board .quantity-rows{left:5%;top:12%;width:59%;height:74%}
+.game .puzzle-frame .quantity-row{--skin-border:clamp(6px,.9vw,12px)!important;clip-path:none!important}
+.game .counting-board .quantity-numbers .number-chip{height:17%}
+.game .counting-board .quantity-numbers .number-chip:nth-child(1){top:19%}
+.game .counting-board .quantity-numbers .number-chip:nth-child(2){top:41%}
+.game .counting-board .quantity-numbers .number-chip:nth-child(3){top:62.5%}
+.game .counting-board .quantity-numbers .number-chip:nth-child(4){top:83.5%}
+.game:not(.feeding-room):not(.sticker-room) .puzzle-frame .variant-body{inset:12% 7% 14%!important}
+.game:not(.feeding-room):not(.sticker-room) .puzzle-frame :is(.variant-card,.story-slot,.board .piece,.quantity-row,.assembly-choice){--skin-border:clamp(10px,1.6vw,24px);border:var(--skin-border) solid transparent!important;border-image:url('assets/art/toy-board/card.webp') 25% fill stretch!important;border-image-width:1!important;background:transparent!important;box-shadow:none!important}
+.game:not(.feeding-room):not(.sticker-room) .puzzle-frame :is(.variant-card.selected,.story-slot.selected,.piece.selected,.piece.target,.assembly-choice.selected){border-image-source:url('assets/art/toy-board/card-selected.webp')!important;box-shadow:none!important}
+.game:not(.feeding-room):not(.sticker-room) .puzzle-frame :is(.variant-card.matched,.story-slot.matched,.piece.in-place,.quantity-row.answered){border-image-source:url('assets/art/toy-board/card-correct.webp')!important;box-shadow:none!important}
+.game .puzzle-frame .variant-columns [data-target]:not(.matched):not(.selected){border-image-source:url('assets/art/toy-board/card.webp')!important}
+/* The illustrated edge replaces the former CSS selection rings. */
+.game:not(.feeding-room):not(.sticker-room) .puzzle-frame :is(.variant-card,.story-slot,.piece,.assembly-choice):hover{box-shadow:none!important}
+/* Fit the actual inset, with the same raster card material on assembly props. */
+.game:not(.activity-scene) .puzzle-frame .assembly-art{left:7%!important;top:49%!important;width:auto!important;height:74%!important;aspect-ratio:1;background:none!important;border:clamp(10px,1.6vw,24px) solid transparent!important;border-image:url('assets/art/toy-board/card.webp') 25% fill stretch!important;box-shadow:none!important;clip-path:none!important}
+.game .puzzle-frame .assembly-art .assembly-surface{inset:6%}
+.game:not(.activity-scene) .puzzle-frame .assembly-tray{top:49%!important;right:8%!important;width:25%!important;height:70%!important;aspect-ratio:auto;transform:translateY(-50%);background:none!important;border:clamp(10px,1.6vw,24px) solid transparent!important;border-image:url('assets/art/toy-board/card.webp') 25% fill stretch!important;padding:0;box-shadow:none!important}
+.game .puzzle-frame .assembly-tray .assembly-choice{position:absolute!important;--skin-border:clamp(6px,.9vw,12px)!important}
+/* Actual round toy assets. Square hit boxes and contain preserve the circle. */
+.game .puzzle-frame .variant-columns .variant-column{display:grid;grid-template-rows:repeat(3,minmax(0,1fr));justify-items:center;gap:3%}
+.game:not(.feeding-room):not(.sticker-room) .puzzle-frame .variant-columns .variant-card{--skin-border:0px;border:0 solid transparent!important;border-image:none!important;background:transparent url('assets/art/toy-board/token-blue.webp') center/contain no-repeat border-box!important;box-shadow:none!important;border-radius:50%;height:100%;width:auto;aspect-ratio:1;min-width:44px;min-height:44px;max-width:100%;flex:none;padding:0;display:grid;place-items:center;justify-self:center}
+.game:not(.feeding-room):not(.sticker-room) .puzzle-frame .variant-columns .variant-card[data-target]{background-image:url('assets/art/toy-board/token-coral.webp')!important}
+.game:not(.feeding-room):not(.sticker-room) .puzzle-frame .variant-columns .variant-card.selected{background-image:url('assets/art/toy-board/token-selected.webp')!important}
+.game:not(.feeding-room):not(.sticker-room) .puzzle-frame .variant-columns .variant-card.matched{background-image:url('assets/art/toy-board/token-correct.webp')!important}
+.game .puzzle-frame .variant-columns .variant-card>.variant-art{width:76%;height:76%;max-width:76%;max-height:76%}
+.game .puzzle-frame .variant-columns .variant-card>.variant-text{width:82%;height:82%;max-width:82%;max-height:82%}
+.game .puzzle-frame .variant-columns .variant-card>.variant-group{width:70%;height:70%;max-width:70%;max-height:70%}
+.game .puzzle-frame .variant-columns .variant-group:has(>img:nth-child(3):last-child){grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr))}
+.game .puzzle-frame .variant-columns .variant-group:has(>img:nth-child(3):last-child)>img{grid-column:span 2}
+.game .puzzle-frame .variant-columns .variant-group:has(>img:nth-child(3):last-child)>img:last-child{grid-column:2/span 2}
+.game .puzzle-frame .variant-columns .variant-card>.variant-swatch{width:60%;height:60%;border-radius:50%}
+.game .puzzle-frame .variant-columns .variant-card.matched::after{right:10%;top:12%;width:clamp(12px,1.4vw,18px);height:clamp(12px,1.4vw,18px);font-size:clamp(9px,1vw,12px)}
+.game .puzzle-frame .variant-columns [data-target]:not(.matched)::before{border-color:#f29b78;background:#fff0da}
+/* Full words need a readable line; their paired pictures remain round tokens. */
+.game #board[data-variant=word-picture] .variant-columns [data-source]{--skin-border:clamp(8px,1.2vw,18px);border:var(--skin-border) solid transparent!important;width:100%;height:100%;aspect-ratio:auto;border-radius:14px;background-image:url('assets/art/toy-board/match-blue.webp')!important}
+.game #board[data-variant=word-picture] .variant-columns [data-source].selected{background-image:url('assets/art/toy-board/match-selected.webp')!important}
+.game #board[data-variant=word-picture] .variant-columns [data-source].matched{background-image:url('assets/art/toy-board/match-correct.webp')!important}
+.game #board[data-variant=word-picture] .variant-columns [data-source]>.variant-text{width:100%;height:100%;max-width:100%;max-height:100%}
+
+/* connection-level.css */
+/* Deliberate level composition, using the existing toy assets for all surfaces. */
+#board .focused-level{display:block;container-type:size}
+#board .focused-level .variant-column{position:absolute;inset:0;display:block;pointer-events:none}
+#board .focused-level .variant-card{position:absolute;pointer-events:auto;display:flex;align-items:center;justify-content:center;max-width:none;min-width:44px;min-height:44px;translate:-50% -50%;height:auto;aspect-ratio:1;padding:0;border:0!important;--skin-border:0px;border-radius:50%;background-image:url('assets/art/toy-board/token-blue.webp')!important}
+#board .focused-level .variant-card[hidden]{display:none!important}
+.game #board .focused-level [data-source].level-current{--challenge-rim:clamp(10px,2.4cqw,24px);left:24cqw;top:34cqh;width:40cqw;height:60cqh;aspect-ratio:auto;z-index:2;border-radius:18px;background:none!important;border:var(--challenge-rim) solid transparent!important;border-image:url('assets/art/toy-board/card-selected.webp') 12% fill stretch!important;border-image-width:1!important}
+.game #board .focused-level [data-source].level-current.matched{background:none!important;border-image-source:url('assets/art/toy-board/card-correct.webp')!important}
+#board .focused-level [data-target]{width:min(18cqw,35cqh);background-image:url('assets/art/toy-board/token-blue.webp')!important}
+#board .focused-level [data-target]:nth-child(1){left:70cqw;top:18cqh}
+#board .focused-level [data-target]:nth-child(2){left:87cqw;top:50cqh}
+#board .focused-level [data-target]:nth-child(3){left:70cqw;top:82cqh}
+#board .focused-level [data-target].matched,#board .focused-level [data-source].matched{background-image:url('assets/art/toy-board/token-correct.webp')!important}
+#board .focused-level .variant-card>.variant-art{width:74%;height:74%;max-width:74%;max-height:74%;flex-shrink:0}
+#board .focused-level .variant-card>.variant-text{width:78%;height:78%;max-width:78%;max-height:78%}
+#board .focused-level .variant-card>.variant-group{width:68%;height:68%;max-width:68%;max-height:68%}
+#board .focused-level .level-current>.variant-art{width:86%;height:86%;max-width:86%;max-height:86%}
+#board .focused-level .level-current>.variant-text{width:88%;height:88%;max-width:88%;max-height:88%}
+#board .focused-level .variant-group img{max-height:100%}
+#board .focused-level .level-kept::before,#board .focused-level .level-kept::after{display:none}
+#board .focused-level [data-target]:not(.matched)::before{border-color:#61b8d5;background:#f1fbff}
+#board .focused-level .level-current::before{right:calc(-1 * var(--challenge-rim) - 7px)}
+#board .focused-level .level-current:not(.matched)::before{width:14px;height:14px;right:calc(-1 * var(--challenge-rim) - 9px);border-color:#e6a52a;background:#fff6cf;animation:connection-start 1.8s ease-out 3}
+@keyframes connection-start{0%,100%{box-shadow:0 0 0 0 #f5c14d00}30%{box-shadow:0 0 0 7px #f5c14d60}80%{box-shadow:0 0 0 12px #f5c14d00}}
+#board[data-variant=word-picture] .focused-level [data-source].level-current>.variant-text{width:88%;height:84%;max-width:88%;max-height:84%}
+#board .focused-level .challenge-collection{position:absolute;left:24cqw;top:85cqh;translate:-50% -50%;width:38cqw;aspect-ratio:3;pointer-events:none;z-index:3}
+#board .focused-level .collection-tray-art{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none}
+#board .focused-level .collection-seat{position:absolute;left:var(--seat-x);top:var(--seat-y);translate:-50% -50%;width:20%;aspect-ratio:1;pointer-events:none}
+.game #board .focused-level .challenge-collection .collection-seat>.level-kept{position:absolute;left:0;top:0;translate:0;width:100%!important;height:100%!important;min-width:0;min-height:0;max-width:none;aspect-ratio:1;border-radius:50%;pointer-events:none;opacity:1;background-image:url('assets/art/toy-board/token-correct.webp')!important}
+/* Correctness is shown by the green artwork and collected result, without ticks. */
+.game :is(.variant-card.matched,.story-slot.matched,.sticker-cell.matched,.piece.in-place,.quantity-row.answered)::after{content:none!important;display:none!important}
+#board .connection-guide{position:absolute;inset:0;z-index:5;pointer-events:none}
+#board .connection-guide svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+#board .connection-guide path{fill:none;stroke:#55b8dc;stroke-width:4;stroke-dasharray:4 9;stroke-linecap:round;opacity:.7}
+#board .connection-guide-hand{position:absolute;left:0;top:0;width:clamp(34px,7cqw,62px);height:auto;aspect-ratio:1;max-width:none;max-height:none;pointer-events:none}
+@media(prefers-reduced-motion:reduce){#board .focused-level .variant-card{transition:none!important}#board .focused-level .level-current::before{animation:none!important}}
+
+/* toy-controls.css */
+/* A shared illustrated shell and crisp symbols; existing control geometry stays authoritative. */
+.game>.game-button,.game #pause-dialog .pause-action{background:transparent url('assets/art/toy-controls/shell.webp') center/contain no-repeat!important;border:0!important;box-shadow:none!important;border-radius:26%;padding:0!important;opacity:1;filter:drop-shadow(0 2px 2px #123d5a26);animation:none!important;transition:transform 140ms ease,filter 140ms ease}
+.game>.game-button::before,.game>.game-button::after,.game #pause-dialog .pause-action::before,.game #pause-dialog .pause-action::after{content:none!important;display:none!important}
+.game>.game-button img,.game #pause-dialog .pause-action img{position:absolute!important;left:25%!important;top:24%!important;width:50%!important;height:50%!important;object-fit:contain;transform:none!important;filter:drop-shadow(0 1px 1px #07638980)!important;animation:none!important;pointer-events:none}
+.game>.game-button.next img{left:23%!important;width:54%!important}
+.game>.game-button:focus-visible,.game #pause-dialog .pause-action:focus-visible{outline:3px solid #fff5be;outline-offset:3px;box-shadow:0 0 0 6px #166586!important}
+.game>.game-button:active:not(:disabled),.game #pause-dialog .pause-action:active{transform:translateY(2px) scale(.96);filter:brightness(.97)}
+.game>.game-button:disabled{opacity:.5;filter:saturate(.6);cursor:default}
+@media(hover:hover){.game>.game-button:hover:not(:disabled),.game #pause-dialog .pause-action:hover{filter:brightness(1.08) drop-shadow(0 3px 2px #123d5a33)}}
+@media(prefers-reduced-motion:reduce){.game>.game-button,.game #pause-dialog .pause-action{transition:none}}
+
+/* board-finish.css */
+/* Content sizes follow the usable inset, not the shell's transparent bounds. */
+.game .number-art{background-size:contain!important;background-position:center!important;background-repeat:no-repeat}
+.game .quantity-dock,.game .object-ordinal{isolation:isolate}
+.game .quantity-dock>.number-art,.game .object-ordinal>.number-art{position:absolute;inset:0;width:100%;height:100%;background-size:contain!important}
+.game .object-ordinal{width:clamp(16px,1.8vw,26px);height:clamp(16px,1.8vw,26px);right:-4%;top:-12%;overflow:visible}
+.game .counting-board .quantity-rows{left:7%;top:13%;width:55%;height:74%;gap:3%}
+/* Keep complete rounded row artwork clear of the shell's curved opening.
+   Paint the rim separately so its corners do not squeeze the counting area. */
+.game .puzzle-frame .counting-board .quantity-row{--skin-border:0px!important;min-height:0;overflow:visible;border:0!important;border-image:none!important;isolation:isolate}
+.game .counting-board .quantity-row::before{content:'';position:absolute;inset:0;border:7px solid transparent;border-image:url('assets/art/toy-board/card.webp') 12% fill stretch;pointer-events:none;z-index:-1}
+.game .counting-board .quantity-row.answered::before{border-image-source:url('assets/art/toy-board/card-correct.webp')}
+.game .counting-board .quantity-objects{inset:5% calc(max(18%,44px) + 6px) 5% 3%;gap:3% 2%;grid-template-columns:repeat(var(--object-columns,5),minmax(0,1fr))}
+.game .counting-board .quantity-dock{right:1%;min-width:44px;min-height:44px;width:var(--answer-size);height:var(--answer-size);padding:0;overflow:visible;background-color:transparent!important;background-size:var(--answer-size) var(--answer-size)!important;background-position:center;background-repeat:no-repeat;box-shadow:none!important}
+.game .counting-board .quantity-dock>.number-art{inset:50% auto auto 50%;translate:-50% -50%;width:var(--answer-size);height:var(--answer-size)}
+.game .counting-board .count-object{min-height:0}
+.game .counting-board .quantity-dock::before{content:'';position:absolute;inset:-5px;pointer-events:auto}
+.game .quantity-row.answered .quantity-dock{background:transparent!important}
+/* Fit the entire photo frame into the cream opening, with equal clear margins. */
+.game .puzzle-frame .board.differences-board{inset:12% 7% 14%;width:auto;height:auto;overflow:visible}
+.game .difference-pictures{inset:0;display:flex;align-items:center;justify-content:center;gap:5%;overflow:visible}
+.game .difference-panel{box-sizing:border-box;width:var(--difference-width);flex:0 0 var(--difference-width);height:auto;padding:0;border:6px solid transparent;border-image:url('assets/art/toy-board/card.webp') 12% fill stretch;background:none;clip-path:none;box-shadow:none}
+.game .difference-image-wrap{width:100%;height:auto;aspect-ratio:3/4;margin:0;overflow:hidden;border-radius:8px}
+.game .difference-photo{width:100%;height:100%;object-fit:contain}
+/* Three strips must be large enough to recognise and separately grab. */
+.game:not(.activity-scene) .puzzle-frame .assembly-art{left:6%!important;top:50%!important;height:78%!important;border-width:6px!important}
+.game .puzzle-frame .assembly-art .assembly-surface{inset:3%}
+.game:not(.activity-scene) .puzzle-frame .assembly-tray{right:5%!important;top:50%!important;width:34%!important;height:80%!important;border-width:6px!important;overflow:visible;clip-path:none!important}
+.game:not(.activity-scene) .puzzle-frame .assembly-tray .assembly-choice{--skin-border:3px!important;left:4%;width:92%;height:auto;min-height:44px;padding:0;aspect-ratio:auto;translate:0 -50%!important;transform:none;box-sizing:border-box}
+.game:not(.activity-scene) .puzzle-frame .assembly-tray .assembly-choice:nth-child(1){top:17%}
+.game:not(.activity-scene) .puzzle-frame .assembly-tray .assembly-choice:nth-child(2){top:50%}
+.game:not(.activity-scene) .puzzle-frame .assembly-tray .assembly-choice:nth-child(3){top:83%}
+.game:not(.activity-scene) .puzzle-frame .assembly-tray .assembly-choice>.assembly-section{display:block;width:100%;height:auto;aspect-ratio:3/1}
+.game .puzzle-frame .assembly-direction{left:58%;right:auto;top:50%;translate:-50% -50%}
+/* A group uses its actual rows and columns: two objects do not occupy 2/6 slots. */
+.game #board .variant-group{grid-template-columns:repeat(var(--group-cols),minmax(0,1fr));grid-template-rows:repeat(var(--group-rows),minmax(0,1fr));gap:5%;max-width:none}
+.game #board .variant-group>img{grid-column:auto!important;grid-row:auto;min-width:0;min-height:0;width:100%;height:100%;object-fit:contain}
+.game #board .focused-level .variant-card>.variant-group{width:76%;height:76%;max-width:76%;max-height:76%}
+.game #board .focused-level .level-current>.variant-group{width:92%;height:88%;max-width:92%;max-height:88%}
+.game #board[data-variant=equal-groups] .focused-level [data-target]{width:28cqw;height:28cqh;aspect-ratio:auto;border-radius:12px;background:none!important;border:4px solid transparent!important;border-image:url('assets/art/toy-board/card.webp') 12% fill stretch!important}
+.game #board[data-variant=equal-groups] .focused-level [data-target].matched{border-image-source:url('assets/art/toy-board/card-correct.webp')!important}
+.game #board[data-variant=equal-groups] .focused-level [data-target]>.variant-group{width:94%;height:94%;max-width:94%;max-height:94%}
+.game #board[data-variant=equal-groups] .focused-level [data-target]:nth-child(1){left:73cqw;top:17cqh}
+.game #board[data-variant=equal-groups] .focused-level [data-target]:nth-child(2){left:86cqw;top:50cqh}
+.game #board[data-variant=equal-groups] .focused-level [data-target]:nth-child(3){left:73cqw;top:83cqh}
+/* Dining: expose the shirt and sleeves, then place every dish below the edge. */
+.game.feeding-room .puzzle-frame{height:94%!important}
+.game.feeding-room #board.variant-board,.game.feeding-room .feeding-avatar,.game.feeding-room .feeding-avatar .teaching-stage{overflow:visible!important}
+/* Expand from the inset dining coordinate space to the full 16:9 stage.
+   The native full-width asset continues below the viewport without a rim. */
+.game.feeding-room .dining-table{left:-3.475936%;width:106.951872%;top:68%;height:auto;aspect-ratio:1800/366;object-fit:contain}
+.game.feeding-room .dining-mat{left:37%;top:72%;width:26%;height:25%;object-fit:contain}
+.game.feeding-room .dining-plate{left:44%;top:78%;width:12%;height:auto;aspect-ratio:384/224;object-fit:contain}
+.game.feeding-room .feeding-tray .variant-card{width:15%;height:12%;min-height:44px;overflow:visible}
+.game.feeding-room .feeding-tray .variant-card:nth-child(1){left:20%;top:72%}
+.game.feeding-room .feeding-tray .variant-card:nth-child(2){left:20%;top:85%}
+.game.feeding-room .feeding-tray .variant-card:nth-child(3){left:65%;top:72%}
+.game.feeding-room .feeding-tray .variant-card:nth-child(4){left:65%;top:85%}
+.game.feeding-room .spoon-tool{left:calc(40% - 14px);top:calc(77% - 5px);width:calc(2.5% + 28px);height:calc(14% + 10px)}
+.game.feeding-room .fork-tool{left:calc(57.5% - 14px);top:calc(77% - 5px);width:calc(2.5% + 28px);height:calc(14% + 10px)}
+.game.feeding-room .feeding-target{top:44.5%;left:43%;width:14%;height:15%}
+.game.feeding-room .variant-card.offered{opacity:.35;pointer-events:none;filter:saturate(.65)}
+.game.feeding-room .feeding-continue{bottom:1%;min-width:44px;min-height:44px}
+@media(orientation:landscape) and (max-height:450px){.game.feeding-room .feeding-tray .variant-card{width:16%;height:14%}.game.feeding-room .feeding-tray .variant-card:nth-child(2),.game.feeding-room .feeding-tray .variant-card:nth-child(4){top:86%}.game.feeding-room .feeding-tray .variant-card:nth-child(1),.game.feeding-room .feeding-tray .variant-card:nth-child(3){top:71%}}
+
+/* Each optional count sits below its object, never over the artwork. */
+.game .counting-board .count-object{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;background:none!important;border-radius:6px}
+.game .counting-board .count-object>img{height:72%;width:100%;flex:0 0 72%;object-fit:contain}
+.game .counting-board .count-object .object-ordinal{position:relative;inset:auto!important;flex:0 0 26%;height:26%;width:100%;max-height:22px;min-height:0;min-width:0;padding:0;border:0;background:none;box-shadow:none;overflow:hidden}
+.game .counting-board .count-object .object-ordinal>.number-art{inset:0;width:100%;height:100%;background-size:contain!important}
+/* Plate artwork supplies its own rim. Feedback stays within the serving. */
+.game.feeding-room .feeding-tray .variant-card.selected,.game.feeding-room .variant-card.food-invited:not(.selected){outline:0!important;background:transparent!important}
+.game.feeding-room .feeding-tray .variant-card.selected .serving-dish-back{filter:drop-shadow(0 0 4px #fff0a3)}
+.game.feeding-room .feeding-utensil.utensil-hint{outline:2px solid #ffdc69;outline-offset:0;background:#fff6ce70}
+.game.feeding-room .feeding-target{min-width:44px;min-height:44px}
+.feeding-food-drag{transition:none!important}
+.feeding-food-drag[data-cup]{transform-origin:50% 16%}
+
+.feeding-demo-hand{position:fixed;width:clamp(36px,4vw,54px);height:auto;z-index:10001;pointer-events:none;transform:translate(-24%,-18%);filter:drop-shadow(0 2px 2px #56412633)}
+.feeding-demo-hand[hidden]{display:none}
+
+/* ordering-board.css */
+/* Letter homes and movable picture tiles have separate visual jobs. */
+.game .puzzle-frame #board.vertical:is([data-topic=letters],[data-topic=numbers]){position:absolute;inset:13% 7% 12%;width:auto;height:auto;margin:0}
+.game #board.vertical:is([data-topic=letters],[data-topic=numbers]) .slot-targets{inset:0 0 auto;height:24%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:center;z-index:2;pointer-events:none}
+.game #board.vertical .slot-target{box-sizing:border-box;width:72%;height:92%;min-width:0;justify-self:center;padding:0;border:6px solid transparent!important;border-image:url('assets/art/toy-board/card-selected.webp') 12% fill stretch!important;background:none!important;border-radius:14px;transition:filter .2s}
+.game #board.vertical .slot-target>.learning-type-image{height:90%;width:80%;max-width:100%}
+.game #board.vertical .picture-sockets{display:none}
+.game #board.vertical .picture-sockets>span{margin:0 1%;border:5px solid transparent;border-image:url('assets/art/toy-board/card.webp') 12% fill stretch;background:none;opacity:.38;border-radius:14px}
+.game #board.vertical .piece .card-grip{width:26%;height:9px;top:4%;opacity:.85}
+.game #board.vertical .piece .card-letter{top:9%;height:19%}
+.game #board.vertical .piece .card-art{top:31%;height:62%;left:9%;width:82%}
+.game #board.vertical .slot-target.ordering-home-filled{border-image-source:url('assets/art/toy-board/card-correct.webp')!important;filter:none}
+.game #board.vertical .picture-sockets>span.ordering-home-filled{border-image-source:url('assets/art/toy-board/card-correct.webp');opacity:.7}
+.game #board.vertical .slot-target.ordering-destination{filter:drop-shadow(0 0 5px #f7bd47)}
+.game #board.vertical .piece.ordering-invite{filter:brightness(1.06)}
+.ordering-guide{position:absolute;inset:0;z-index:10;pointer-events:none}
+.ordering-guide[hidden]{display:none}
+.game #board .ordering-demo-card{position:absolute;box-sizing:border-box;margin:0;padding:0;border:clamp(8px,1.6vw,24px) solid transparent;border-image:url('assets/art/toy-board/card-selected.webp') 12% fill stretch;background:none;border-radius:14px;pointer-events:none;box-shadow:0 8px 15px #165c7b30;opacity:0}
+.ordering-demo-card .card-name{display:none}
+.game #board .ordering-demo-card .card-letter{top:9%;height:19%;left:0;width:100%;display:flex;align-items:center;justify-content:center}
+.game #board .ordering-demo-card .card-art{top:31%;height:62%;left:9%;width:82%}
+.ordering-demo-hand{position:absolute;width:clamp(38px,8%,70px);height:auto;pointer-events:none;opacity:0}
+@media(prefers-reduced-motion:reduce){.ordering-demo-hand{opacity:1}.game #board.vertical .slot-target{transition:none}}
+
+/* The demonstration teaches dragging; dots must not cover the learning letter. */
+.game #board.vertical .piece .card-grip,.ordering-demo-card .card-grip{display:none!important}
+
+/* screen-fill.css */
+/* Whole-screen landscape fit. The approved 16:9 stage, board and their
+   internal coordinates are unchanged; only scenery, controls, Sparky's
+   standing position and the feeding table use the extra screen space.
+   Values come from screen-fill.mjs and are 0 on an exact 16:9 screen. */
+.game{overflow:visible!important;--fill-left:0px;--fill-top:0px;--fill-right:0px;--fill-bottom:0px;--safe-left:0px;--safe-top:0px;--safe-right:0px;--safe-bottom:0px}
+
+/* Scenery and its cloud layer cover the full screen, including notch areas. */
+.game>.illustrated-world,.game>.scene-atmosphere{inset:auto!important;left:calc(-1 * var(--fill-left))!important;top:calc(-1 * var(--fill-top))!important;width:calc(100% + var(--fill-left) + var(--fill-right))!important;height:calc(100% + var(--fill-top) + var(--fill-bottom))!important;border-radius:0!important}
+
+/* Controls keep their stage inset, measured from the safe screen edge. */
+.game>.game-button.sound{left:calc(3.25% - var(--safe-left))!important;top:calc(5.75% - var(--safe-top))!important}
+.game>.game-button.exit{right:calc(3.25% - var(--safe-right))!important;top:calc(5.75% - var(--safe-top))!important}
+.game>.game-button.next{right:calc(3.25% - var(--safe-right))!important;bottom:calc(clamp(0px,calc(14% - 46px),2%) - var(--safe-bottom))!important}
+
+/* Sparky keeps his approved stage position on every screen: the extra side
+   space holds mirrored scenery (e.g. a second palm trunk), not a clear floor. */
+
+/* The plain wood table runs to both screen edges and the bottom. Its artwork is
+   a horizontally uniform band, so widening it does not distort any feature. */
+.game.feeding-room .dining-table{left:calc(-3.475936% - var(--fill-left))!important;width:calc(106.951872% + var(--fill-left) + var(--fill-right))!important;height:calc(var(--stage-w, 0px) * .203333 + var(--fill-bottom))!important;aspect-ratio:auto!important;object-fit:fill!important}
+.game.feeding-room:not([style*="--stage-w"]) .dining-table{height:auto!important;aspect-ratio:1800/366!important}
+
+/* Short stages (under 320px tall: phones with browser toolbars). The approved
+   layouts below were measured from 320px up; these keep 44px targets apart. */
+/* Assembly: the tray uses the full content height so three 44px pieces never overlap. */
+.game[data-short-stage]:not(.activity-scene) .puzzle-frame .assembly-tray{height:97%!important}
+.game[data-short-stage]:not(.activity-scene) .puzzle-frame .assembly-tray .assembly-choice:nth-child(1){top:15%!important}
+.game[data-short-stage]:not(.activity-scene) .puzzle-frame .assembly-tray .assembly-choice:nth-child(3){top:85%!important}
+/* Food Choices: each pair of dishes sits side by side along the table. */
+.game.feeding-room[data-short-stage][data-side-room] .feeding-tray .variant-card:nth-child(n){top:76%!important}
+.game.feeding-room[data-short-stage][data-side-room] .feeding-tray .variant-card:nth-child(1){left:.5%!important}
+.game.feeding-room[data-short-stage][data-side-room] .feeding-tray .variant-card:nth-child(2){left:17.5%!important}
+.game.feeding-room[data-short-stage][data-side-room] .feeding-tray .variant-card:nth-child(3){left:66.5%!important}
+.game.feeding-room[data-short-stage][data-side-room] .feeding-tray .variant-card:nth-child(4){left:83.5%!important}
+/* Sticker Studio has no drawn frame (the chalkboard is the scenery), so its
+   activity uses the empty top band; a 3x3 grid then keeps 44px cells. */
+.game.sticker-room[data-short-stage][data-side-room] .puzzle-frame{top:5%!important;height:90%!important}
+
+/* Full-screen play button on the rotate / more-space prompt (touch devices only). */
+.rotate-prompt .fullscreen-play{position:relative;width:clamp(64px,18vmin,96px);aspect-ratio:1;padding:0;border:0;border-radius:29%;background:url('assets/art/toy-controls/shell.webp') center/100% 100% no-repeat;cursor:pointer;touch-action:manipulation;filter:drop-shadow(0 3px 3px #123d5a40)}
+.rotate-prompt .fullscreen-play img{position:absolute;left:27%;top:25%;width:50%;height:50%;object-fit:contain;pointer-events:none}
+.rotate-prompt .fullscreen-play:active{transform:translateY(2px) scale(.96)}
+.rotate-prompt .fullscreen-play:focus-visible{outline:3px solid #fffefa;outline-offset:3px;box-shadow:0 0 0 6px #245e6d}
+.rotate-prompt .fullscreen-play[hidden]{display:none}
+.rotate-prompt .fullscreen-play{flex:none}
+/* The rotate-phone icon does not describe "more space", and it collapsed there. */
+body.compact-screen .rotate-prompt svg{display:none}
+
+/* Without WebGL the stage keeps its CSS artwork; the surround uses a calm neutral. */
+body:has(.game[data-illustrated-world=fallback]){background:#cfe8ef}
+
+/* fun-rounds.css */
+/* Fun rounds inside the standard blue board (same frame, size and place as the
+   learning boards). No on-board instruction text: Sparky and the motion invite play. */
+.game.fun-round .puzzle-frame .board.fun-board{position:absolute;inset:9% 6.5% 10%;width:auto;height:auto;margin:0;padding:0;border:0;background:none!important;box-shadow:none;overflow:hidden;display:grid;grid-template-rows:minmax(0,1fr);gap:0}
+.game.fun-round .puzzle-frame .board.interactive-break{grid-template-rows:minmax(0,1fr) 14px;gap:2%}
+.game.fun-round .fun-heading{display:none}
+
+/* Grow a Garden: no board. The pots stand on the grass in the board's place
+   (right of Sparky), and each flower rises out of its pot's soil: the stem sits
+   between the pot's back and a clipped copy of the pot's front. */
+.game.activity-scene.fun-round .puzzle-frame{inset:auto!important;left:var(--layout-board-left)!important;top:var(--layout-board-top)!important;width:var(--layout-board-width)!important;height:var(--layout-board-height)!important;background:none!important;clip-path:none!important;filter:none!important;border:0;box-shadow:none}
+.game.activity-scene.fun-round .puzzle-frame .board.fun-board{inset:0;background:none!important;overflow:visible}
+.game.activity-scene.fun-round .activity-stage{overflow:visible}
+.game.activity-scene.fun-round .activity-progress span{background:#f4fff3;border-color:#70ac8d}
+.game.activity-scene.fun-round .activity-progress span.earned{background:#42b673}
+
+/* Balloon Pop: no board. Balloons rise over the park from below the screen to
+   above it, everywhere right of Sparky. */
+.game.game.game.sky-scene.fun-round .puzzle-frame{inset:0 0 0 calc(var(--layout-board-left) - 1%)!important;left:calc(var(--layout-board-left) - 1%)!important;top:0!important;width:auto!important;height:auto!important;right:0!important;bottom:0!important;background:none!important;clip-path:none!important;filter:none!important;border:0;box-shadow:none;pointer-events:none}
+.game.game.game.sky-scene.fun-round .puzzle-frame::before,.game.game.game.sky-scene.fun-round .puzzle-frame::after{display:none}
+.game.game.game.sky-scene.fun-round .puzzle-frame .board.fun-board{inset:0;background:none!important;overflow:visible}
+.game.sky-scene .balloon-rise .balloon-sky{background:none;border-radius:0;pointer-events:none}
+.game.sky-scene .balloon-up{width:calc(var(--size,1) * min(19%,25cqh,150px));pointer-events:auto}
+/* Balloon Pop inside a board (fallback when the board-less scene is off). */
+.balloon-rise .balloon-sky{position:relative;width:100%;height:100%;overflow:hidden;border-radius:14px;background:linear-gradient(#bfe6ff 0%,#e3f5ff 60%,#f7fcff 100%)}
+.balloon-up{position:absolute;left:0;top:0;width:calc(var(--size,1) * min(21%,34cqh,150px));aspect-ratio:3/4;min-width:56px;padding:0;border:0;background:none;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;will-change:transform}
+.balloon-sky{container-type:size}
+.balloon-up img{width:100%;height:100%;object-fit:contain;filter:hue-rotate(var(--hue)) drop-shadow(0 6px 5px #2a557033);pointer-events:none;user-select:none}
+.balloon-up.star-balloon img{filter:hue-rotate(var(--hue)) saturate(1.5) brightness(1.18) drop-shadow(0 0 10px #ffe36b) drop-shadow(0 0 4px #fff6b0)}
+.balloon-up.star-balloon::after{content:'★';position:absolute;left:50%;top:30%;translate:-50% -50%;font-size:calc(var(--size,1) * 30px);color:#fff8c4;text-shadow:0 0 6px #ffcf3a,0 1px 2px #b97800;pointer-events:none;animation:star-twinkle .9s ease-in-out infinite alternate}
+@keyframes star-twinkle{from{scale:.85;opacity:.8}to{scale:1.12;opacity:1}}
+.balloon-up.popped img{animation:balloon-pop-out .22s ease-out forwards}
+.balloon-up.popped::after{display:none}
+@keyframes balloon-pop-out{0%{scale:1;opacity:1}40%{scale:1.25 .9;opacity:1}100%{scale:1.45;opacity:0}}
+.balloon-burst{position:absolute;width:0;height:0;pointer-events:none;z-index:3}
+.balloon-burst .pop-ring{position:absolute;left:-20px;top:-20px;width:40px;height:40px;border-radius:50%;border:4px solid hsl(calc(330deg + var(--hue)) 85% 70%);animation:pop-ring .45s ease-out forwards}
+.star-burst .pop-ring{border-color:#ffd84a;border-width:6px;animation-duration:.6s}
+@keyframes pop-ring{from{scale:.3;opacity:1}to{scale:2.6;opacity:0}}
+.balloon-burst .pop-bit{position:absolute;left:-6px;top:-8px;width:12px;height:16px;border-radius:3px;background:hsl(calc(330deg + var(--hue)) 85% 62%);animation:pop-bit .7s cubic-bezier(.2,.7,.4,1) both}
+.balloon-burst .pop-bit:nth-child(3n){background:#ffffff;border-radius:50%;width:10px;height:10px;box-shadow:0 0 0 1px #9fd2ef}
+.balloon-burst .pop-bit:nth-child(4n){background:#ffd84a}
+.balloon-burst .pop-star{position:absolute;left:-13px;top:-15px;font-size:28px;line-height:1;color:#ffd84a;text-shadow:0 0 6px #fff3a0;animation:pop-bit .9s cubic-bezier(.2,.7,.4,1) both}
+.balloon-burst .pop-star::before{content:'★'}
+@keyframes pop-bit{0%{translate:0 0;rotate:0deg;opacity:1;scale:1}70%{opacity:1}100%{translate:var(--dx) calc(var(--dy) + 26px);rotate:var(--spin);opacity:0;scale:.7}}
+.balloons-done .balloon-sky{animation:sky-cheer .9s ease-out}
+@keyframes sky-cheer{0%{background-color:#fff6c900}30%{background-color:#fff6c9aa}100%{background-color:#fff6c900}}
+@media(prefers-reduced-motion:reduce){.balloon-up.star-balloon::after,.balloon-burst *{animation:none}}
+
+/* Sparky fades in once his rig has loaded (the board can open first). */
+#mascot{transition:opacity .4s ease-out}
+html:not([data-sparky=ready]) #mascot{opacity:0}
+
+
+/* counting-finish.css */
+/* Counting board finish (loaded last).
+   One measured layout for every screen size, inside the unchanged board:
+   - four rows fill the board's cream opening with equal margins and gaps;
+   - each "?" answer pocket is its own square beside its row, never inside the
+     row frame;
+   - every row uses the same five picture slots, so pictures share one size
+     and one rhythm; each picture is centred with room below for its count.
+   Units: cqw/cqh of the counting board (= the puzzle frame). The board art
+   spans 69.65% of the frame width; its cream opening was measured at
+   x 6.6–92.9% of that art and y 8.4–89.5% of the frame. */
+.game .puzzle-frame .counting-board{
+ container-type:size;
+ --cb-pad:2.7cqh;
+ --cb-gap:1.8cqh;
+ --cb-left:calc(4.6cqw + var(--cb-pad));
+ --cb-right:calc(64.7cqw - var(--cb-pad));
+ --cb-top:calc(8.4cqh + var(--cb-pad));
+ --cb-bottom:calc(10.5cqh + var(--cb-pad));
+ --cb-row:calc((100cqh - var(--cb-top) - var(--cb-bottom) - 3 * var(--cb-gap)) / 4);
+ --cb-frame:clamp(3px,1.4cqh,7px);
+}
+.game .puzzle-frame .counting-board .quantity-rows{
+ left:var(--cb-left)!important;top:var(--cb-top)!important;
+ width:calc(var(--cb-right) - var(--cb-left))!important;
+ height:calc(4 * var(--cb-row) + 3 * var(--cb-gap))!important;
+ display:grid!important;grid-template-rows:repeat(4,var(--cb-row))!important;gap:var(--cb-gap)!important;
+ overflow:visible!important;
+}
+/* Row card: leaves room on its right for the separate answer pocket. */
+.game .puzzle-frame .counting-board .quantity-row{
+ margin:0 calc(var(--cb-row) + var(--cb-gap)) 0 0!important;min-height:0!important;height:var(--cb-row)!important;border:0!important;
+}
+.game .puzzle-frame .counting-board .quantity-row::before{border-width:var(--cb-frame)!important}
+/* Answer pocket: a square as tall as its row, beside it. */
+.game .puzzle-frame .counting-board .quantity-row .quantity-dock{
+ position:absolute!important;top:0!important;bottom:auto!important;left:auto!important;
+ right:calc(-1 * (var(--cb-row) + var(--cb-gap)))!important;
+ width:var(--cb-row)!important;height:var(--cb-row)!important;min-width:0!important;min-height:0!important;
+ margin:0!important;padding:0!important;transform:none!important;translate:none!important;
+ background-size:100% 100%!important;font-size:calc(var(--cb-row) * .46)!important;line-height:1!important;
+}
+/* A placed number stays inside its pocket (the pocket does not vanish). */
+.game .puzzle-frame .counting-board .quantity-row.answered .quantity-dock{background:url('assets/art/play-kit/socket.svg') center/100% 100% no-repeat!important;font-size:0!important}
+.game .puzzle-frame .counting-board .quantity-row .quantity-dock>.number-art{
+ inset:12%!important;width:auto!important;height:auto!important;translate:none!important;
+}
+/* Touch area reaches 44px where the pocket is drawn smaller (short phone
+   screens), but never past half of the gap to its neighbouring pocket. */
+.game .puzzle-frame .counting-board .quantity-row .quantity-dock::before{
+ inset:calc(-.5 * var(--cb-gap)) max(-6px,min(0px,calc((var(--cb-row) - 44px) / 2)))!important;
+}
+/* Pictures: five equal slots in every row, inside the row frame. */
+.game .puzzle-frame .counting-board .quantity-objects{
+ inset:calc(var(--cb-frame) + 2px) calc(var(--cb-frame) + 6px)!important;
+ grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:2px 2%!important;align-items:stretch!important;
+}
+/* An uncounted picture fills its slot. Once tapped, it moves up and makes room for
+   a clearly readable count number below it (they never overlap). */
+.game .puzzle-frame .counting-board .count-object{position:relative!important;display:block!important;width:100%!important;height:100%!important;--count-label:clamp(min(15px,45%),38%,24px)}
+.game .puzzle-frame .counting-board .count-object>img{
+ position:absolute!important;left:5%!important;top:5%!important;width:90%!important;height:90%!important;
+ flex:none!important;object-fit:contain!important;transition:height .2s ease,top .2s ease;
+}
+.game .puzzle-frame .counting-board .count-object:has(.object-ordinal)>img{top:1%!important;height:calc(99% - var(--count-label) - 2px)!important}
+@media (prefers-reduced-motion:reduce){.game .puzzle-frame .counting-board .count-object>img{transition:none}}
+/* The optional count sits below its picture, inside the slot. */
+.game .puzzle-frame .counting-board .count-object .object-ordinal{
+ position:absolute!important;inset:auto!important;left:0!important;bottom:0!important;width:100%!important;height:var(--count-label)!important;
+ max-height:none!important;flex:none!important;
+}
+/* Number tray: tiles fit their drawn pockets. Below ~260px of board height a
+   tile is drawn smaller than 44px; its touch area grows into the space between
+   pockets without reaching the next tile. */
+.game .puzzle-frame .counting-board .quantity-numbers .number-chip{height:min(max(17cqh,44px),20cqh)!important;min-width:0!important;min-height:0!important}
+.game .puzzle-frame .counting-board .quantity-numbers .number-chip::before{content:'';position:absolute;inset:max(-.7cqh,min(0px,calc((20cqh - 44px) / 2)));pointer-events:auto}
+
+/* board-polish.css */
+/* Small board finishing fixes (loaded last). */
+
+/* Spot the difference: each picture has one frame (the rounded card border).
+   The older square "socket" background sat underneath and showed past the
+   card's rounded corners as a blue edge. */
+.game:not(.activity-scene) .difference-panel{background:none!important}
+
+/* Joy effects (board-play.mjs): hearts and stars over every board. */
+.game>.board-joy{position:absolute;inset:0;z-index:8;pointer-events:none;overflow:visible}
+.game>.board-joy .board-joy-particle{position:absolute;display:block;overflow:visible;pointer-events:none;filter:drop-shadow(0 1px 1px #8a4a2a33);will-change:transform,opacity}
+@media (prefers-reduced-motion:reduce){.game>.board-joy{display:none}}
+
+/* variants/feeding-fun.css */
+/* Food Choices play feedback: heart meter, munch sparkle, heart burst, meal cheer.
+   Sizes follow the stage height so they read the same on every screen. */
+.game.feeding-room .feeding-hearts{
+ position:absolute;left:50%;top:3.4%;translate:-50% 0;z-index:8;display:flex;gap:calc(var(--stage-h,720px) * .018);
+ pointer-events:none;user-select:none;
+}
+.game.feeding-room .feeding-heart{display:block;width:calc(var(--stage-h,720px) * .07);aspect-ratio:32/29;filter:drop-shadow(0 2px 2px #a3542a33)}
+.game.feeding-room .feeding-heart svg{display:block;width:100%;height:100%;overflow:visible}
+.feeding-heart .heart-shape{fill:#fff8ef;stroke:#ff8f7d;stroke-width:2.6;stroke-linejoin:round;transition:fill .25s ease}
+.feeding-heart .heart-shine{fill:#fff;opacity:0;transition:opacity .25s ease}
+.feeding-heart.filled .heart-shape{fill:#ff6b6b;stroke:#e94f57}
+.feeding-heart.filled .heart-shine{opacity:.75}
+.feeding-heart.filled{animation:feeding-heart-pop .5s cubic-bezier(.2,.8,.3,1.35)}
+.feeding-hearts.celebrate .feeding-heart{animation:feeding-heart-cheer .55s ease-in-out 3 alternate}
+.feeding-hearts.celebrate .feeding-heart:nth-child(2){animation-delay:.12s}
+.feeding-hearts.celebrate .feeding-heart:nth-child(3){animation-delay:.24s}
+@keyframes feeding-heart-pop{0%{transform:scale(.55)}55%{transform:scale(1.28)}100%{transform:scale(1)}}
+@keyframes feeding-heart-cheer{from{transform:scale(1) translateY(0)}to{transform:scale(1.18) translateY(-12%)}}
+
+/* Particles start at Sparky's mouth and drift outward, then fade. */
+.game.feeding-room .feeding-burst{position:absolute;width:0;height:0;z-index:8;pointer-events:none}
+.feeding-particle{
+ position:absolute;left:0;top:0;width:var(--size);height:var(--size);margin:calc(var(--size) / -2) 0 0 calc(var(--size) / -2);
+ opacity:0;animation:feeding-float 1.2s cubic-bezier(.2,.7,.3,1) var(--delay) forwards;
+}
+.feeding-particle svg{display:block;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 1px 1px #9b4b2633)}
+.feeding-particle.is-heart .heart-shape{fill:#ff6b6b;stroke:#fff;stroke-width:2}
+.feeding-particle.is-heart .heart-shine{fill:#fff;opacity:.7}
+.feeding-particle.is-star .star-shape{fill:#ffd23f;stroke:#fff;stroke-width:2;stroke-linejoin:round}
+.feeding-burst-munch .feeding-particle{animation-duration:.75s}
+.feeding-burst-party .feeding-particle{animation-duration:1.6s}
+@keyframes feeding-float{
+ 0%{opacity:0;transform:translate(var(--x0,0px),0) scale(.3) rotate(0deg)}
+ 16%{opacity:1}
+ 72%{opacity:1}
+ 100%{opacity:0;transform:translate(calc(var(--x0,0px) + var(--dx)),var(--dy)) scale(1) rotate(var(--turn))}
+}
+/* Pause freezes the feedback with the rest of the scene. */
+.game:has(#pause-dialog[open]) :is(.feeding-particle,.feeding-heart){animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){
+ .game.feeding-room .feeding-burst{display:none}
+ .feeding-heart,.feeding-hearts.celebrate .feeding-heart{animation:none!important}
+}
+
