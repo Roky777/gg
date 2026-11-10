@@ -48,5 +48,17 @@ export function polishFeedingClips(clips){
  clap.shotPlan.contact='Clap at chest height, with three deliberate contacts and clear space below the eyes.';
  clap.shotPlan.beats=clap.beats=[[0,'rest'],[.28,'elbows lift'],[.45,'open hands at chest'],[.62,'first clap'],[1.04,'second clap'],[1.47,'last softer clap'],[1.68,'hands separate'],[2.05,'lower hands'],[2.6,'rest']];
  clap.shotPlan.spacing='Accelerate into each clap, hold contact for 40 ms, rebound faster, then lower the hands slowly.';
+ // Thumbs-up and yummy follow the clap's compact staging. Their Lucas source arm paths
+ // (made for Lucas's proportions) flung Sparky's arms wide, stretched the forearms and
+ // crossed the hands at the belly. Source hand shapes, timing and face acting are kept;
+ // only the arm targets are authored, at chest height in front of the body.
+ const thumbs=by.get('FD03');
+ thumbs.referenceArmTargets=true;thumbs.elbowProjection={L:.85,R:.85};delete thumbs.armOffsets;thumbs.feedingHandScale=.82;
+ for(const side of['L','R']){const s=side==='L'?-1:1;thumbs.channels[side]=[[0,s*59,124,0],[.2,s*48,134,0],[.45,s*36,148,0],[.62,s*34,152,0],[1.08,s*35,150,0],[1.4,s*47,136,0],[1.8,s*59,124,0]];}
+ thumbs.shotPlan.contact='Both thumbs up in front of the chest, hands apart, arms tucked; no wide swing.';
+ const yum=by.get('FD10');
+ yum.referenceArmTargets=true;yum.elbowProjection={L:.85,R:.85};delete yum.armOffsets;yum.feedingHandScale=.82;
+ for(const side of['L','R']){const s=side==='L'?-1:1;yum.channels[side]=[[0,s*59,124,0],[.55,s*42,136,0],[1.05,s*26,144,0],[1.35,s*30,140,0],[1.65,s*24,146,0],[1.95,s*30,140,0],[2.4,s*42,136,0],[3.35,s*59,124,0]];}
+ yum.shotPlan.contact='Hands come together at the tummy for two small rubs; the hands never cross.';
  for(const c of clips)c.notes=c.shotPlan.intent+' '+c.shotPlan.contact+' '+c.shotPlan.spacing;
 }

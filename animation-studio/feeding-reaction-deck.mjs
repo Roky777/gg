@@ -1,4 +1,6 @@
-export const FEEDING_REACTIONS={happy:['FD03','FD08','FD09','FD10'],tooth:['FD07','FD12','FD13'],no:['FD05','FD11']};
+// FD03 (Lucas source thumbs-up) is kept in the library but out of play: on Sparky's seated body it
+// swings the arms wide, tips the head steeply and points the left thumb sideways.
+export const FEEDING_REACTIONS={happy:['FD08','FD09','FD10'],tooth:['FD07','FD12','FD13'],no:['FD05','FD11']};
 export const feedingFamily=food=>food.reaction??(food.category==='everyday'?'happy':food.index<14?'tooth':'no');
 export class FeedingReactionDeck{
  constructor(random=Math.random){this.random=random;this.bags=new Map();this.last=new Map()}
