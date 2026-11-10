@@ -1,4 +1,4 @@
-import {InteractiveBreak} from './activity-rounds.js?v=soil-anchor-55';
+import {InteractiveBreak} from './activity-rounds.js?v=garden-56';
 /** Short, optional play between completed learning boards. */
 export const FUN_ACTIVITIES={
  'wash-toy':{title:'Wash the Muddy Toy',rule:'Rub off the mud, then swipe to rinse!',intro:'टॉय को रब करके साफ करो। फिर साबुन हटा दो!',duration:35000,images:['counting/toy-car.webp','counting/teddy.webp','counting/duckling.webp']},
@@ -18,7 +18,69 @@ export class BreakSchedule{
   this.index++;return this.last=this.bag.shift();}
 }
 export function makeFunBoard(kind,random=Math.random){const config=FUN_ACTIVITIES[kind];if(!config)throw Error('Unknown activity: '+kind);let images=[...config.images];if(kind==='wash-toy'||kind==='magic-reveal')images=[images[Math.floor(random()*images.length)]];return{id:'play-break:'+kind,topic:kind,fun:true,cards:images.map(image=>({image})),...config};}
-export function createPlayBreak(options){return ['balloon-pop','jelly-wiggle'].includes(options.picture.topic)?new PlayBreak(options):new InteractiveBreak(options);}
+export function createPlayBreak(options){if(options.picture.topic==='balloon-pop'&&!options.reduced)return new BalloonRise(options);return ['balloon-pop','jelly-wiggle'].includes(options.picture.topic)?new PlayBreak(options):new InteractiveBreak(options);}
+// Balloon colours that read cleanly on the pink source art (60-120deg turn it brown/olive).
+const BALLOON_HUES=[0,20,40,140,180,220,260,300];
+/**
+ * Balloons float up from the bottom; tap to pop. Each pop bursts into confetti in
+ * the balloon's colour; every fifth balloon is a sparkly star balloon with a bigger
+ * burst. No misses or failure: unpopped balloons simply float away. Ends after
+ * 12 pops or 25 s of active play, then a short celebration.
+ */
+export class BalloonRise{
+ constructor({element,picture,onPlay=()=>{},onComplete=()=>{},onNext=()=>{},isPaused=()=>false,raf=fn=>requestAnimationFrame(fn),caf=id=>cancelAnimationFrame(id),random=Math.random}){
+  Object.assign(this,{element,picture,onPlay,onComplete,onNext,isPaused,raf,caf,random});
+  this.elapsed=0;this.last=null;this.destroyed=false;this.finished=false;this.popped=0;this.spawned=0;this.nextSpawn=150;this.goal=12;this.limit=25000;this.items=[];this.lastLane=-1;this.seen=new Set();
+  element.className='board fun-board balloon-pop balloon-rise';element.replaceChildren();element.setAttribute('aria-label',picture.title+'. '+picture.rule);
+  this.sky=document.createElement('div');this.sky.className='balloon-sky';element.append(this.sky);
+  this.frame=this.raf(t=>this.tick(t));
+ }
+ spawn(){
+  const lanes=6;let lane=Math.floor(this.random()*lanes);if(lane===this.lastLane)lane=(lane+1+Math.floor(this.random()*(lanes-1)))%lanes;this.lastLane=lane;
+  const index=this.spawned++,star=index%5===4,hue=star?40:BALLOON_HUES[Math.floor(this.random()*BALLOON_HUES.length)];
+  const button=document.createElement('button');button.type='button';button.className='balloon-up'+(star?' star-balloon':'');button.setAttribute('aria-label',star?'Pop the star balloon':'Pop the balloon');
+  const art=document.createElement('img');art.src='assets/art/'+this.picture.cards[0].image;art.alt='';art.draggable=false;button.append(art);
+  button.style.setProperty('--hue',hue+'deg');
+  const item={button,index,star,hue,x:(lane+.5)/lanes+(this.random()-.5)*.06,y:1.15,speed:1/(5200+this.random()*1600),sway:.012+this.random()*.018,phase:this.random()*6.3,size:.82+this.random()*.28};
+  button.style.setProperty('--size',item.size);
+  const pop=e=>{e?.preventDefault?.();this.pop(item);};
+  button.addEventListener('pointerdown',pop);button.addEventListener('click',pop);
+  this.sky.append(button);this.items.push(item);this.place(item);
+ }
+ place(item){const w=this.sky.clientWidth||1,h=this.sky.clientHeight||1,x=item.x+Math.sin(this.elapsed/700+item.phase)*item.sway;item.button.style.transform=`translate(${(x*w).toFixed(1)}px,${(item.y*h).toFixed(1)}px) translate(-50%,-50%) rotate(${(Math.sin(this.elapsed/900+item.phase)*6).toFixed(1)}deg)`;}
+ pop(item){
+  if(this.destroyed||this.finished||item.popped||this.isPaused())return;
+  item.popped=true;this.popped++;this.seen.add(item.index);item.button.disabled=true;item.button.classList.add('popped');
+  const sky=this.sky.getBoundingClientRect?.(),b=item.button.getBoundingClientRect?.();
+  this.burst(item,b&&sky?{x:b.left-sky.left+b.width/2,y:b.top-sky.top+b.height*.38}:{x:0,y:0});
+  setTimeout(()=>item.button.remove(),260);
+  const page=b&&typeof innerWidth==='number'?{x:(b.left+b.width/2)/innerWidth,y:(b.top+b.height/2)/innerHeight}:{};
+  this.onPlay({index:item.index%6,taps:this.popped,kind:'balloon-pop',effect:'pop',...page});
+  if(this.popped>=this.goal)this.complete();
+ }
+ burst(item,at){
+  const layer=document.createElement('div');layer.className='balloon-burst'+(item.star?' star-burst':'');layer.style.left=at.x+'px';layer.style.top=at.y+'px';layer.style.setProperty('--hue',item.hue+'deg');
+  const ring=document.createElement('span');ring.className='pop-ring';layer.append(ring);
+  const pieces=item.star?18:11;
+  for(let i=0;i<pieces;i++){const bit=document.createElement('span');const star=item.star&&i%2===0;bit.className=star?'pop-star':'pop-bit';const angle=i/pieces*Math.PI*2+this.random()*.4,dist=(item.star?70:48)+this.random()*30;bit.style.setProperty('--dx',(Math.cos(angle)*dist).toFixed(1)+'px');bit.style.setProperty('--dy',(Math.sin(angle)*dist).toFixed(1)+'px');bit.style.setProperty('--spin',Math.round(this.random()*540-270)+'deg');bit.style.animationDelay=(this.random()*40|0)+'ms';layer.append(bit);}
+  this.sky.append(layer);setTimeout(()=>layer.remove(),item.star?1000:800);
+ }
+ complete(){if(this.finished||this.destroyed)return;this.finished=true;this.finishedAt=this.elapsed;this.element.classList.add('balloons-done');this.onComplete({played:this.popped>0,kind:'balloon-pop'});}
+ tick(time){
+  if(this.destroyed)return;const delta=this.last===null?0:Math.max(0,Math.min(100,time-this.last));this.last=time;const blocked=this.isPaused();
+  if(blocked!==this.blocked){this.blocked=blocked;for(const animation of this.element.getAnimations?.({subtree:true})||[])blocked?animation.pause():animation.play();}
+  if(!blocked){
+   this.elapsed+=delta;
+   if(!this.finished){this.nextSpawn-=delta;const live=this.items.filter(i=>!i.popped).length;if(this.nextSpawn<=0&&live<6){this.spawn();this.nextSpawn=650+this.random()*450;}if(this.elapsed>=this.limit)this.complete();}
+   for(const item of this.items){if(item.popped)continue;item.y-=delta*item.speed*(this.finished?2.2:1);this.place(item);}
+   this.items=this.items.filter(item=>{if(!item.popped&&item.y<-.4){item.button.remove();return false}return !item.popped||item.button.isConnected!==false});
+   if(this.finished&&this.elapsed-this.finishedAt>=1800){this.destroyed=true;this.onNext();return;}
+  }
+  this.frame=this.raf(t=>this.tick(t));
+ }
+ cancelDrag(){}
+ destroy(){this.destroyed=true;this.caf(this.frame);}
+}
 export class PlayBreak{
  constructor({element,picture,reduced=false,onPlay=()=>{},onComplete=()=>{},onNext=()=>{},isPaused=()=>false,raf=fn=>requestAnimationFrame(fn),caf=id=>cancelAnimationFrame(id)}){
   Object.assign(this,{element,picture,reduced,onPlay,onComplete,onNext,isPaused,raf,caf});this.elapsed=0;this.last=null;this.destroyed=false;this.finished=false;this.seen=new Set();this.taps=0;this.animations=new Map();

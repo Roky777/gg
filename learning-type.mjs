@@ -1,5 +1,5 @@
-import{OBJECTS}from'./variants/content.mjs';
-const words=new Set(OBJECTS.map(o=>o.label.toUpperCase()));
+import{WORD_PICS}from'./variants/content.mjs';
+const words=new Set(WORD_PICS.map(o=>o.label.toUpperCase()));
 export function learningTypeAsset(value){
  const text=String(value);
  if(/^[A-Z]$/.test(text))return'learning-type/upper-'+text+'.svg';

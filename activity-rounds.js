@@ -72,7 +72,7 @@ export class InteractiveBreak{
   this.growth=new GardenGrowth();this.progress(0,3);this.watering=-1;this.pots=[];this.flowers=[];
   const bed=make('div','garden-bed',this.stage);
   for(let i=0;i<3;i++){const pot=make('button','garden-pot',bed);pot.type='button';pot.setAttribute('aria-label',`Water pot ${i+1}. Drag the can here or hold to grow a flower.`);
-   const flower=image('counting/flower.webp','garden-flower',pot);flower.style.setProperty('--flower-hue',i*60+'deg');image('fun/flower-pot-v1.webp','garden-pot-art',pot);image('fun/flower-pot-v1.webp','garden-pot-art garden-pot-front',pot);const drops=make('span','water-drops',pot);drops.setAttribute('aria-hidden','true');this.pots.push(pot);this.flowers.push(flower);
+   const flower=image('counting/flower.webp','garden-flower',pot);flower.style.setProperty('--flower-hue',['0deg','28deg','-28deg'][i]);/* larger shifts turn the leaves brown or blue */image('fun/flower-pot-v1.webp','garden-pot-art',pot);image('fun/flower-pot-v1.webp','garden-pot-art garden-pot-front',pot);const drops=make('span','water-drops',pot);drops.setAttribute('aria-hidden','true');this.pots.push(pot);this.flowers.push(flower);
    this.listen(pot,'pointerdown',e=>{if(this.capture(pot,e)){this.watering=i;this.stage.classList.add('watering');pot.classList.add('being-watered');}});this.listen(pot,'pointerup',()=>this.stopWater());this.listen(pot,'pointercancel',()=>this.stopWater());this.listen(pot,'lostpointercapture',()=>this.stopWater());
    this.listen(pot,'keydown',e=>{if(!this.allowed()||![' ','Enter'].includes(e.key))return;e.preventDefault();this.active();if(this.growth.water(i,350))this.bloom(i);this.paintGarden();});
   }

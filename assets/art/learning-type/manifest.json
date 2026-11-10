@@ -1263,6 +1263,171 @@
         "x2": 364.55295999145517,
         "y2": 101.86172229003907
       }
+    },
+    {
+      "text": "BALL",
+      "file": "word-ball.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 301,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 22.608000000000004,
+        "x2": 284.912,
+        "y2": 101.86172229003907
+      }
+    },
+    {
+      "text": "BUTTERFLY",
+      "file": "word-butterfly.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 659,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 21.631404296875004,
+        "x2": 642.527999786377,
+        "y2": 102.016
+      }
+    },
+    {
+      "text": "CUPCAKE",
+      "file": "word-cupcake.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 529,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 21.83261538461538,
+        "x2": 512.384,
+        "y2": 102.016
+      }
+    },
+    {
+      "text": "FLOWER",
+      "file": "word-flower.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 482,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 21.935999999999993,
+        "x2": 465.0019999694824,
+        "y2": 102.128
+      }
+    },
+    {
+      "text": "LADYBIRD",
+      "file": "word-ladybird.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 551,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 21.631404296875004,
+        "x2": 534.0000000000001,
+        "y2": 101.86172229003907
+      }
+    },
+    {
+      "text": "MUSHROOM",
+      "file": "word-mushroom.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 649,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 21.488,
+        "x2": 632.224,
+        "y2": 102.128
+      }
+    },
+    {
+      "text": "RABBIT",
+      "file": "word-rabbit.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 410,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 22.608000000000004,
+        "x2": 393.104,
+        "y2": 101.86172229003907
+      }
+    },
+    {
+      "text": "TEDDY",
+      "file": "word-teddy.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 390,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 21.631404296875004,
+        "x2": 373.727999786377,
+        "y2": 101.232
+      }
+    },
+    {
+      "text": "TURTLE",
+      "file": "word-turtle.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 449,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 22.608000000000004,
+        "x2": 432.64000000000004,
+        "y2": 102.016
+      }
+    },
+    {
+      "text": "PEACH",
+      "file": "word-peach.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 383,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 21.935999999999993,
+        "x2": 366.78400000000005,
+        "y2": 101.904
+      }
+    },
+    {
+      "text": "STRAWBERRY",
+      "file": "word-strawberry.svg",
+      "kind": "word",
+      "palette": "teal",
+      "width": 763,
+      "height": 132,
+      "baseline": 100,
+      "inkBounds": {
+        "x1": 16,
+        "y1": 21.488,
+        "x2": 746.1593597863771,
+        "y2": 102.128
+      }
     }
   ]
 }
