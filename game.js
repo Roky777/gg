@@ -30,6 +30,12 @@ const companion=new CompanionPose({reduced});director.setPoseModifier((skeleton,
 let order=[1,2,0],pieces=[],drag=null,done=false,busy=false,roundToken=0,soundOn=true,settle=null,celebration=null;
 const pictureImages=new Map(),pictureLoads=new Map();
 let upcomingBoard=null,prefetchTimer=null;
+// Offline cache (sw.js, built game only): files are kept on the device; once Sparky is in,
+// the rest of the game downloads in the background so later boards open at once.
+const offlineCache='serviceWorker' in navigator&&(location.protocol==='https:'&&!/^(127\.0\.0\.1|localhost)$/.test(location.hostname)||new URLSearchParams(location.search).has('sw'));
+if(offlineCache)navigator.serviceWorker.register('sw.js').catch(()=>{});
+let warmStarted=false;
+function warmGame(){if(!offlineCache)return;navigator.serviceWorker.ready.then(reg=>{warmStarted=true;reg.active?.postMessage({type:'warm',full:!navigator.connection?.saveData})}).catch(()=>{});}
 function warmNextRound(){
  clearTimeout(prefetchTimer);
  prefetchTimer=setTimeout(()=>{
@@ -94,7 +100,7 @@ async function advance(){
  if(navigationLoading)return;navigationLoading=true;flow.cancel();cancelReactions();const breakKind=breakSchedule.take(wins);const next=breakKind?makeFunBoard(breakKind):(upcomingBoard||newBoard());if(!breakKind)upcomingBoard=null;clearTimeout(prefetchTimer);roundBanner.hide({immediate:true});voice.cancel();clearTimeout(settle);clearDrag();activeRound?.cancelDrag();roundToken++;
  try{await loadPicture(next);await prepareVariant(next);roundCount++;sound('next');start(next);syncOrientation();}
  catch(e){if(!breakKind)upcomingBoard=next;busy=false;say('Could not load the next picture. Tap the arrow to try again.');console.error(e);}
- finally{navigationLoading=false;activeRound?.focus?.guide.schedule(1400);if(!done)introduce();warmNextRound();}
+ finally{navigationLoading=false;activeRound?.focus?.guide.schedule(1400);if(!done)introduce();warmNextRound();if(warmStarted)warmGame();}
 }
 
 function readCard(picture,card){
@@ -274,7 +280,7 @@ async function boot(){performance.mark('sparky:boot-start');try{
  // download) fades in when it arrives. Feeding drives Sparky directly, so it waits.
  const needsSparky=first.variant==='food-sort';if(needsSparky)releaseSparky();const sparky=director.ready.then(()=>director.show('idle'));
  await Promise.all([needsSparky?sparky:null,loadPicture(first),loadOpeningArt(first),prepareVariant(first)]);releaseSparky();roundCount=1;start(first);$('loading').hidden=true;
- sparky.then(()=>{document.documentElement.dataset.sparky='ready'},e=>console.error('Sparky could not load',e));performance.mark('sparky:ready');performance.measure('sparky:boot','sparky:boot-start','sparky:ready');syncOrientation();warmNextRound();
+ sparky.then(()=>{document.documentElement.dataset.sparky='ready'},e=>console.error('Sparky could not load',e));sparky.finally(()=>setTimeout(warmGame,1500));setTimeout(warmGame,30000);performance.mark('sparky:ready');performance.measure('sparky:boot','sparky:boot-start','sparky:ready');syncOrientation();warmNextRound();
  }catch(e){$('loading').querySelector('p').textContent='Could not load the game. Please refresh.';console.error(e);}}
 
 if(location.hostname==='127.0.0.1'||location.hostname==='localhost')window.sparkyReview={async startVariant(id,round=0,content=null){clearTimeout(prefetchTimer);upcomingBoard=null;const picture=makeVariantBoard(id,round);if(content)picture.content=content;await prepareVariant(picture);const url=new URL(location.href);url.searchParams.set('game',id);history.replaceState(null,'',url);variantRoundNumber=round+1;start(picture);syncOrientation();return activeRound;},get current(){return activeRound},get picture(){return currentPicture},get navigating(){return navigationLoading},get breaks(){return breakSchedule}};
