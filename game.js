@@ -8,9 +8,9 @@ import {BreakSchedule,createPlayBreak,makeFunBoard,FUN_KINDS} from './play-break
 import {reviewVoices,pictureVoice,RECORDINGS,recordingFor} from './voice-cues.js?v=lip-sync-40';
 import {syncLayout} from './responsive-layout.js?v=board-finish-14';
 import {CompanionPose} from './companion-pose.js?v=companion-57';
-import {PlayFlow,ModeDeck} from './play-flow.js?v=companion-57';
+import {PlayFlow,ModeDeck} from './play-flow.js?v=clips-1';
 import {solved,swap,scramble,slotAt,swapFeedback} from './model.js?v=lip-sync-40';
-import {MascotDirector,CLIPS} from './mascot-director.js?v=worker-4';
+import {MascotDirector,CLIPS} from './mascot-director.js?v=clips-3';
 import {GameAudio} from './game-audio.js?v=activities-53';
 import {makeBoard} from './puzzle-generator.js?v=drag-only-47';
 import {LearningVoice} from './learning-voice.js?v=recorded-only-1';
@@ -116,7 +116,7 @@ let reviewActive=false;
 // Two voices (game + board) share Sparky's mouth. One stopping or being cancelled
 // must not close his mouth while the other is still talking.
 function syncSpeaking(){const on=!!(voice?.current||activeRound?.voice?.current);gameAudio.setSpeaking(on);director.setSpeaking(on);}
-const voice=new LearningVoice({onStart(cue){syncSpeaking();const gesture=flow.speechGesture(cue?.category);if(gesture)respond(gesture);},onEnd(){syncSpeaking();if(reviewActive){reviewActive=false;if(!navigationLoading&&!document.hidden&&!screenUnavailable()&&!$('pause-dialog').open)flow.resume();}},onUnavailable(){$('voice-note').textContent='Audio is unavailable in this browser.';}});
+const voice=new LearningVoice({onStart(cue){syncSpeaking();const gesture=flow.speechGesture(cue?.category);if(gesture)respond(gesture);else talkGesture(cue);},onEnd(){syncSpeaking();if(reviewActive){reviewActive=false;if(!navigationLoading&&!document.hidden&&!screenUnavailable()&&!$('pause-dialog').open)flow.resume();}},onUnavailable(){$('voice-note').textContent='Audio is unavailable in this browser.';}});
 // Sparky's mouth follows whichever recorded voice is speaking: the game's, or the board's own
 // (board intros, hints, praise and Food Choices lines play through the board voice).
 director.setSpeechSource(()=>{const a=voice.speechFrame(),b=activeRound?.voice?.speechFrame?.();return a?.playing?a:b?.playing?b:a??b??null});
@@ -162,7 +162,7 @@ function idleSchedule(){
  if(activeRound?.feeding)return;
  if(reduced||done||document.hidden||$('pause-dialog').open)return;
  idleTimer=setTimeout(()=>{
-  if(!done&&!busy&&!drag&&!document.hidden&&!$('pause-dialog').open&&director.active==='idle'){if(idleCount===0)companion.act('ponder');idleCount++;}
+  if(!done&&!busy&&!drag&&!document.hidden&&!$('pause-dialog').open&&director.active==='idle'){if(idleCount===0)companion.act('ponder');else if(idleCount===1)respond(Math.random()<.5?'intro':'stall');else if(idleCount%2===0)respond(['water','happy','wow'][Math.floor(Math.random()*3)]);idleCount++;}
   idleSchedule();
  },18000);
 }
@@ -175,6 +175,12 @@ addEventListener('pointerdown',()=>{if(screenUnavailable())return;const first=!v
 addEventListener('keydown',()=>{if(screenUnavailable())return;const first=!voiceUnlocked;voiceUnlocked=true;voice.unlock();gameAudio.unlock();if(first&&currentPicture)introduce();},{capture:true});
 function sound(kind='swap'){gameAudio.cue(kind);}
 const flow=new PlayFlow({celebrationDuration:(_topic,text)=>1000*(RECORDINGS[recordingFor(text)]?.duration||0),next:()=>{if(done)void advance();},speak:text=>voice.say(topic==='letters'&&recordingFor(text)?.startsWith('letters_intro')&&currentPicture.targets[0]===currentPicture.targets[0].toLowerCase()?'letters_intro_03':text),cheer:cue=>voice.say(cue.text,cue),react:respond,ready:show=>$('next').classList.toggle('round-ready',show),canSpeak:()=>!screenUnavailable()&&voiceUnlocked&&soundOn&&!document.hidden&&!$('pause-dialog').open&&!navigationLoading});
+// Sparky joins fun rounds with the rig's own activity clips.
+const FUN_JOIN={'balloon-pop':'pinata','drum-duet':'pinata','wash-toy':'splash','grow-garden':'water','magic-reveal':'wow','roll-ball':'run','jelly-wiggle':'woohoo'};
+// While he says a longer line (2.2 s or more) he gestures with one of the rig's dialogue
+// clips, rotated and cut to the line's length. The recorded voice still drives his mouth.
+const TALK=['talk','talk2','talk3','talk4','talk5','talk6','talk7','talk8','talk9'];let talkTurn=Math.floor(Math.random()*TALK.length);
+function talkGesture(cue){if(reduced||!(cue?.duration>=2.2)||director.active!=='idle'||topic==='letters'||document.querySelector('.game')?.classList.contains('feeding-room'))return;talkTurn=(talkTurn+1)%TALK.length;const name=TALK[talkTurn];companion.faceChild();void director.react(name,{seconds:Math.min(cue.duration,director.animations?.get(director.clips[name])?.duration||cue.duration)}).catch(()=>{});}
 function respond(name,seconds=1.2){
  // Seated feeding Sparky plays only his own seated clips; standing gestures (win clap,
  // hurray, guide) stretch his arms over the table and flare the shirt.
@@ -237,14 +243,14 @@ document.querySelector('.game').classList.toggle('activity-scene',!!pic.fun&&pic
  if(topic==='variants'){
   const token=roundToken;pieces=[];$('next').disabled=false;$('board').setAttribute('aria-busy','false');roundBanner.hide({immediate:true});
   activeRound=new VariantRoundController({element:$('board'),picture:pic,director,reduced,isPaused:()=>navigationLoading||screenUnavailable()||document.hidden||portraitScreen.matches||$('pause-dialog').open,isSoundOn:()=>soundOn,sound,onActivity:idleSchedule,onWrong:()=>flow.mistake(),onMatch:matchCelebration,onSpeaking:()=>syncSpeaking(),onComplete:()=>{if(token===roundToken&&!done)finish()}});
-  if(location.hostname==='127.0.0.1'||location.hostname==='localhost')window.sparkyVariant=activeRound;
+  if(location.hostname==='127.0.0.1'||location.hostname==='localhost'){window.sparkyVariant=activeRound;window.sparkyDirector=director;}
   updateLearningUI();$('task-rule').textContent=pic.rule;tell(pic.intro,{speak:false});layoutArt();idleSchedule();showTopBanner();say(pic.rule);return;
  }
  if(pic.fun){
   let lastActivityGesture=-Infinity;
   pieces=[];$('next').disabled=false;$('board').setAttribute('aria-busy','false');
   activeRound=createPlayBreak({element:$('board'),picture:pic,reduced,isPaused:()=>navigationLoading||screenUnavailable()||document.hidden||portraitScreen.matches||$('pause-dialog').open,
-   onPlay:({index=0,taps,kind,effect,x,y,demo})=>{sound(effect||(kind==='balloon-pop'?'pop':'jelly'));companion.look(x??(index%3+.5)/3,y??(Math.floor(index/3)+.5)/2);const now=performance.now();if(now-lastActivityGesture>1200&&(demo||taps===1||taps%3===0)){lastActivityGesture=now;companion.act(kind==='jelly-wiggle'?'ponder':'nod');}},
+   onPlay:({index=0,taps,kind,effect,x,y,demo})=>{sound(effect||(kind==='balloon-pop'?'pop':'jelly'));companion.look(x??(index%3+.5)/3,y??(Math.floor(index/3)+.5)/2);const now=performance.now(),joinIn=FUN_JOIN[kind];if(joinIn&&now-lastActivityGesture>2800&&(demo||taps===1||taps%4===0)&&director.active==='idle'){lastActivityGesture=now;respond(joinIn);}else if(now-lastActivityGesture>1200&&(demo||taps===1||taps%3===0)){lastActivityGesture=now;companion.act(kind==='jelly-wiggle'?'ponder':'nod');}},
    onComplete:({played})=>{done=true;if(played){confetti();sound('friend');respond(pic.topic==='balloon-pop'?'delight':'encourage',1.2);if(soundOn&&voiceUnlocked)voice.say('small_success_03',{volume:.8});}},onNext:()=>void advance()});
   layoutArt();tell(pic.intro,{speak:false});say(pic.rule);introduce();return;
  }

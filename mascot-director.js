@@ -1,4 +1,4 @@
-import {SparkyRigPlayer} from './sparky-current/player.js?v=worker-4';
+import {SparkyRigPlayer} from './sparky-current/player.js?v=worker-5';
 
 export const CLIPS={
  idle:'0Final/Idle/Idle_EB',
@@ -14,7 +14,26 @@ export const CLIPS={
  think:'0Final/Vocal/I wonder what magical flavor',
  guide:'0Final/Vocal/Let’s add some sprinkles!',
  proud:"0Final/Vocal/You're doing amazing! This",
- wow:'0Final/Wow_2'
+ wow:'0Final/Wow_2',
+ // More of the rig's own clips (the full animation library), each used where it fits.
+ // Not used on the standing boards: clips that bring their ice-cream/pancake/bedtime props
+ // (Sleep, Brush, Pancake_*, Eat_Icecream) - a blanket, toothbrush or chef's hat looks broken here.
+ stall:'0Final/Look_Stall',          // turns to look at the new board
+ happy:'Sequence/1/Look_Dr_Happy',    // quick happy look after a good match
+ yummy:'0Final/Yummy_2',              // tummy-rub celebration
+ pinata:'Sequence/3/Lu_Pinata_Hit_P', // swings along with balloon popping and drumming
+ splash:'Sequence/4/Water_Splash_P',  // splashes along with watering the garden
+ water:'Sequence/4/Water_Look',       // watches the plants drink
+ run:'0Final/N_Front_Run_P',          // a little run for the rolling ball
+ // Talking gestures, rotated while Sparky speaks longer lines (the voice drives the mouth).
+ talk2:'0Final/Vocal/Every scoop you make is a',
+ talk3:"0Final/Vocal/I can't wait to taste it",
+ talk4:'0Final/Vocal/Thank you for making this for me',
+ talk5:'0Final/Vocal/What a fantastic flavor',
+ talk6:"0Final/Vocal/Wow, you're a true ice",
+ talk7:'0Final/Vocal/Your ice cream is looking',
+ talk8:'0Final/Vocal/Yum I can almost taste it3',
+ talk9:"0Final/Vocal/Let's make this ice cream"
 };
 
 /** One shared rig, complete actions, and the newest pending reaction. */
