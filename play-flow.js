@@ -29,7 +29,7 @@ export class PlayFlow{
  entry(){
   this.entries++;if(this.entries===1){this.react('invite',1.8);return;}
   // Acknowledge the new board, then give the child room to concentrate.
-  this.react(this.responses.next('entry',['guide','ponder','nod','attend','stall','intro','curious','lookhappy2']),1.2);
+  this.react(this.responses.next('entry',['guide','ponder','nod','attend','stall','intro','lookhappy2']),1.2);
  }
  speechGesture(category){
   if(category?.endsWith('_intro'))return null; // Entry already supplies the board gesture.
@@ -54,7 +54,7 @@ export class PlayFlow{
  match(){this.activity();if(this.round?.done)return;this.matchCount++;this.react(this.responses.next('match',['nod','attend','happy','lookhappy','tada']),.85);}
  mistake(){this.activity();if(!this.round||this.round.done)return;this.round.mistakes++;if(this.round.mistakes<2||this.round.hinted)return;this.round.hinted=true;this.react('guide',1.6);this.automatic(this.help(),{gap:20000});return true;}
  complete(){if(!this.round||this.round.done)return;this.activity();this.round.done=true;this.wins++;
-  const gesture=this.responses.next('celebration',['yes','win','encourage','hurray','woohoo','delight','yummy','wow','tada','splash','jog','aww']);
+  const gesture=this.responses.next('celebration',['yes','win','encourage','hurray','woohoo','delight','yummy','wow','tada','splash','jog']);
   this.react(gesture,1.8);
   const success=this.line('win');
   this.later(()=>{if(this.canSpeak()){this.lastSpeech=this.now();this.cheer({text:success,reaction:gesture,rate:1,pitch:1,volume:.8});}},120);

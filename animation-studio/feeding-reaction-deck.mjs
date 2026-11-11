@@ -1,7 +1,7 @@
 // FD03 (Lucas source thumbs-up) is kept in the library but out of play: on Sparky's seated body it
 // swings the arms wide, tips the head steeply and points the left thumb sideways.
 // FD10 (yummy) is out of play too: on the seated body its gloves float in front of the chest without arms.
-export const FEEDING_REACTIONS={happy:['FD08','FD09'],tooth:['FD07','FD12','FD13'],no:['FD05','FD11']};
+export const FEEDING_REACTIONS={happy:['FD08','FD09','FD15'],tooth:['FD07','FD12','FD13'],no:['FD05','FD11']};
 export const feedingFamily=food=>food.reaction??(food.category==='everyday'?'happy':food.index<14?'tooth':'no');
 export class FeedingReactionDeck{
  constructor(random=Math.random){this.random=random;this.bags=new Map();this.last=new Map()}

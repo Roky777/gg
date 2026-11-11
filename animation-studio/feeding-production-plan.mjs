@@ -13,6 +13,7 @@ export const FEEDING_SHOTS={
  FD10:shot(3.35,[[0,'notice taste'],[.55,'hands lift'],[1.05,'yummy expression'],[1.65,'enjoy the taste'],[2.4,'hands descend'],[3.35,'rest']],'Lucas’s expressive yummy action without changing the character’s proportions.','Palms frame cheeks rather than covering eyes or mouth.','Retain source acting accents and hand arcs; soften the final landing.'),
  FD11:shot(1.95,[[0,'notice'],[.32,'small no'],[.76,'opposite sweep'],[1.12,'smaller recovery'],[1.5,'head settles'],[1.95,'rest']],'A quiet head-only refusal, distinct from FD04.','Hands remain down throughout.','Two low-amplitude unequal sweeps; no metronomic oscillation.'),
  FD12:shot(3.45,[[0,'notice discomfort'],[1.2,'hand reaches cheek'],[2,'short open-eyed hold'],[2.4,'release'],[3.45,'rest']],'A shorter single toothache wince.','Same approved cheek attachment, with a shorter source hold.','No added shake; short pause and unhurried recovery.'),
+ FD15:shot(2.2,[[0,'rest'],[.2,'hands burst up'],[.36,'first splash'],[.72,'gather'],[1.09,'bigger splash'],[1.46,'gather'],[1.83,'last splash'],[2.2,'rest']],'Super happy: Lucas’s Water_Splash joy played three times (forward, back, forward), the biggest celebration.','Hands fling up and out beside the shoulders, never across the face.','Source clock ping-pongs 0 → end → 0 → end and eases at each turn; arms fling on each splash peak.'),
  FD13:shot(4.85,[[0,'notice discomfort'],[1.2,'hand reaches cheek'],[2,'longer sore-cheek hold'],[2.8,'slow blink'],[3.55,'release'],[4.85,'rest']],'A longer sore-cheek reaction with slower blink timing.','Cheek hand stays planted while the source hold moves subtly.','Longer hold, reduced blink rate and a gentle recovery.'),
 };
 export function polishFeedingClips(clips){
@@ -64,5 +65,11 @@ export function polishFeedingClips(clips){
  yum.referenceArmTargets=true;yum.elbowProjection={L:.85,R:.85};delete yum.armOffsets;yum.feedingHandScale=.82;
  for(const side of['L','R']){const s=side==='L'?-1:1;yum.channels[side]=[[0,s*59,124,0],[.55,s*42,136,0],[1.05,s*26,144,0],[1.35,s*30,140,0],[1.65,s*24,146,0],[1.95,s*30,140,0],[2.4,s*42,136,0],[3.35,s*59,124,0]];}
  yum.shotPlan.contact='Hands come together at the tummy for two small rubs; the hands never cross.';
+ // Super happy splash: Water_Splash starts and ends at rest, so a ping-pong source clock
+ // gives three smooth splashes. Arms are authored (source arm paths are Lucas-sized).
+ const splash=by.get('FD15');
+ if(splash){splash.referenceMotion={name:'Sequence/4/Water_Splash',keys:[[0,0],[.72,.6666],[1.46,0],[2.2,.6666]],duration:splash.duration,pingPong:true};
+  splash.referenceArmTargets=true;splash.elbowProjection={L:.85,R:.85};splash.feedingHandScale=.82;
+  for(const side of['L','R']){const s=side==='L'?-1:1;splash.channels[side]=[[0,s*59,124,0],[.2,s*52,146,0],[.36,s*68,188,0],[.72,s*48,160,0],[1.09,s*70,192,0],[1.46,s*48,160,0],[1.83,s*68,188,0],[2.02,s*52,146,0],[2.2,s*59,124,0]];}}
  for(const c of clips)c.notes=c.shotPlan.intent+' '+c.shotPlan.contact+' '+c.shotPlan.spacing;
 }

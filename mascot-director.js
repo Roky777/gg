@@ -25,13 +25,12 @@ export const CLIPS={
  splash:'Sequence/4/Water_Splash_P',  // splashes along with watering the garden
  water:'Sequence/4/Water_Look',       // watches the plants drink
  run:'0Final/N_Front_Run_P',          // a little run for the rolling ball
- // Chosen by how they look, not by their names:
- tada:'Sequence/4/Water_Splash',      // arms flung wide: a big 'ta-da!'
- curious:'Sequence/1/Lookaround_Sad', // hands on hips, looking around with interest
+ // Chosen by how they look frame by frame, not by their names:
+ tada:'Sequence/4/Water_Splash',      // super happy splash of joy
  lookhappy:'Sequence/1/Look_Dr_Happy_Loop',
  lookhappy2:'Sequence/1/Look_Dr_Happy_Loop_EB',
- aww:'Sequence/1/Lu_Teeth_Pain_1',     // hand to cheek, eyes closed: a sweet 'aww'
- hmm:'Sequence/1/Lu_Teeth_Pain_2',     // hand to cheek: thinking
+ // Never in play: Lu_Teeth_Pain_* (eyes shut, frown, hand on a sore cheek = pain) and
+ // Lookaround_Sad (frowning, hands on hips = sad). Wins and idles only use happy clips.
  jog:'0Final/N_Front_Run',             // excited running on the spot
  jog2:'0Final/N_Front_Run_R',
  // Talking gestures, rotated while Sparky speaks longer lines (the voice drives the mouth).

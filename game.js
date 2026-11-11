@@ -8,16 +8,16 @@ import {BreakSchedule,createPlayBreak,makeFunBoard,FUN_KINDS} from './play-break
 import {reviewVoices,pictureVoice,RECORDINGS,recordingFor} from './voice-cues.js?v=lip-sync-40';
 import {syncLayout} from './responsive-layout.js?v=board-finish-14';
 import {CompanionPose} from './companion-pose.js?v=companion-57';
-import {PlayFlow,ModeDeck} from './play-flow.js?v=clips-2';
+import {PlayFlow,ModeDeck} from './play-flow.js?v=clips-3';
 import {solved,swap,scramble,slotAt,swapFeedback} from './model.js?v=lip-sync-40';
-import {MascotDirector,CLIPS} from './mascot-director.js?v=clips-5';
+import {MascotDirector,CLIPS} from './mascot-director.js?v=clips-6';
 import {GameAudio} from './game-audio.js?v=activities-53';
 import {makeBoard} from './puzzle-generator.js?v=drag-only-47';
 import {LearningVoice} from './learning-voice.js?v=recorded-only-1';
 import {AssemblyRound,createAssemblyBoard} from './assembly-game.js?v=polish-52';
 import {AssemblyDeck} from './assembly-catalog.js?v=lip-sync-40';
 import {CountingRound,makeCountingBoard,COUNT_WORDS} from './counting-game.js?v=drop-pocket-15';
-import {RoundBanner,ROUND_INTROS} from './round-banner.js?v=top-1';import {TopBanner} from './top-banner.js?v=5';
+import {RoundBanner,ROUND_INTROS} from './round-banner.js?v=top-1';import {TopBanner} from './top-banner.js?v=6';
 import {DifferenceRound,createDifferenceBoard} from './differences-game.js?v=red-contours-55';
 import {VARIANTS,makeVariantBoard,freshMatchContent} from './variants/content.mjs';
 let VariantRoundController=null,variantRoundNumber=0,letterAnimations=null;
@@ -162,7 +162,7 @@ function idleSchedule(){
  if(activeRound?.feeding)return;
  if(reduced||done||document.hidden||$('pause-dialog').open)return;
  idleTimer=setTimeout(()=>{
-  if(!done&&!busy&&!drag&&!document.hidden&&!$('pause-dialog').open&&director.active==='idle'){if(idleCount===0)companion.act('ponder');else if(idleCount===1)respond(Math.random()<.5?'intro':'stall');else if(idleCount%2===0){const look=['water','happy','wow','curious','lookhappy','hmm','aww'];respond(look[Math.floor(Math.random()*look.length)]);}idleCount++;}
+  if(!done&&!busy&&!drag&&!document.hidden&&!$('pause-dialog').open&&director.active==='idle'){if(idleCount===0)companion.act('ponder');else if(idleCount===1)respond(Math.random()<.5?'intro':'stall');else if(idleCount%2===0){const look=['water','happy','wow','lookhappy','lookhappy2','tada'];respond(look[Math.floor(Math.random()*look.length)]);}idleCount++;}
   idleSchedule();
  },18000);
 }

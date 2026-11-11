@@ -23,6 +23,7 @@ feedingClips.push(
  sourceReaction('FD08','A happy little clap','0Final/Appreciation/Clapping',2.5,2.133333444595337),
  action('FD09','A contented thank-you nod',1.5,{head:[[0,0],[.35,1.4],[.65,-.8],[1.05,.5],[1.5,0]],headPosition:[[0,0,0],[.35,0,-1],[.65,0,.2],[1.5,0,0]]},[[0,'smile'],[.35,'thank-you nod'],[1.05,'relax'],[1.5,'rest']],[[0,'Happy'],[1.2,'Smile']]),
  sourceReaction('FD10','Mmm, that is yummy!','0Final/Yummy_2',3.2,3.200000286102295),
+ sourceReaction('FD15','Super happy splash!','Sequence/4/Water_Splash',2.2,.6666666865348816),
  action('FD11','A quiet no, thank you',2.1,{head:[[0,0],[.35,-3],[.75,3],[1.15,-2.5],[1.55,1],[2.1,0]],gaze:[[0,0,0],[.4,.4,-.1],[1.3,.4,-.1],[2.1,0,0]]},[[0,'notice'],[.35,'no'],[.75,'no'],[1.55,'settle'],[2.1,'rest']],[[0,'Smile'],[.3,'O'],[.55,'Smile'],[.8,'O'],[1.1,'Smile']])
 );
 const softNo=feedingClips.find(c=>c.id==='FD05');softNo.channels.L=structuredClone(seated.L);softNo.channels.R=structuredClone(seated.R);softNo.name='A thoughtful no';
