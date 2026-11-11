@@ -18,7 +18,7 @@ const measurer = document.createElement('canvas').getContext('2d');
 const esc = s => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
 /** Returns an <svg> element; height follows the box it is placed in. */
-export function bubbleTitle(text, { scheme = 'sun', size = 100, bounce = .07, tilt = 4, letterSpacing = .02 } = {}) {
+export function bubbleTitle(text, { scheme = 'sun', size = 100, bounce = .07, tilt = 4, letterSpacing = .02, outline = '#12397a', shadow = '#0c2f66' } = {}) {
   const id = 'bt' + Math.random().toString(36).slice(2, 6) + (++serial), colors = SCHEMES[scheme] ?? SCHEMES.sun;
   measurer.font = `1000 ${size}px Nunito, 'Arial Rounded MT Bold', Arial, sans-serif`;
   const chars = [...text], rim = size * .36, pad = rim * .75;
@@ -30,9 +30,9 @@ export function bubbleTitle(text, { scheme = 'sun', size = 100, bounce = .07, ti
   const attrs = `x="50%" y="${base}" text-anchor="middle" dy="${dy.join(' ')}" rotate="${rot.join(' ')}" letter-spacing="${(size * letterSpacing).toFixed(1)}" font-family="Nunito, 'Arial Rounded MT Bold', Arial, sans-serif" font-weight="1000" font-size="${size}" stroke-linejoin="round" paint-order="stroke"`;
   const t = esc(text), svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   svg.setAttribute('viewBox', `0 0 ${width} ${height}`); svg.setAttribute('class', 'bubble-title'); svg.setAttribute('aria-hidden', 'true');
-  svg.innerHTML = `<defs><linearGradient id="${id}f" x1="0" y1="${base - size * .82}" x2="0" y2="${base + size * .12}" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="${colors[0]}"/><stop offset=".38" stop-color="${colors[1]}"/><stop offset=".72" stop-color="${colors[2]}"/><stop offset="1" stop-color="${colors[3]}"/></linearGradient><linearGradient id="${id}g" x1="0" y1="${base - size * .8}" x2="0" y2="${base - size * .32}" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><filter id="${id}s" x="-10%" y="-20%" width="120%" height="160%"><feDropShadow dx="0" dy="${(size * .085).toFixed(1)}" stdDeviation="${(size * .02).toFixed(1)}" flood-color="#0c2f66" flood-opacity=".75"/></filter></defs>`
+  svg.innerHTML = `<defs><linearGradient id="${id}f" x1="0" y1="${base - size * .82}" x2="0" y2="${base + size * .12}" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="${colors[0]}"/><stop offset=".38" stop-color="${colors[1]}"/><stop offset=".72" stop-color="${colors[2]}"/><stop offset="1" stop-color="${colors[3]}"/></linearGradient><linearGradient id="${id}g" x1="0" y1="${base - size * .8}" x2="0" y2="${base - size * .32}" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><filter id="${id}s" x="-10%" y="-20%" width="120%" height="160%"><feDropShadow dx="0" dy="${(size * .085).toFixed(1)}" stdDeviation="${(size * .02).toFixed(1)}" flood-color="${shadow}" flood-opacity=".75"/></filter></defs>`
     + `<text ${attrs} fill="#fff" stroke="#fff" stroke-width="${rim.toFixed(1)}" filter="url(#${id}s)">${t}</text>`
-    + `<text ${attrs} fill="#12397a" stroke="#12397a" stroke-width="${(size * .17).toFixed(1)}">${t}</text>`
+    + `<text ${attrs} fill="${outline}" stroke="${outline}" stroke-width="${(size * .17).toFixed(1)}">${t}</text>`
     + `<text ${attrs} fill="url(#${id}f)">${t}</text>`
     + `<text ${attrs} fill="url(#${id}g)">${t}</text>`;
   return svg;
