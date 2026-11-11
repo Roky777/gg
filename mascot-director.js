@@ -36,7 +36,8 @@ export const CLIPS={
  // Talking gestures, rotated while Sparky speaks longer lines (the voice drives the mouth).
  talk2:'0Final/Vocal/Every scoop you make is a',
  talk3:"0Final/Vocal/I can't wait to taste it",
- talk4:'0Final/Vocal/Thank you for making this for me',
+ // Not used: 'Thank you for making this for me' holds both gloves clasped and overlapping
+ // in front of the belly for the whole clip.
  talk5:'0Final/Vocal/What a fantastic flavor',
  talk6:"0Final/Vocal/Wow, you're a true ice",
  talk7:'0Final/Vocal/Your ice cream is looking',

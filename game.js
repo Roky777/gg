@@ -10,7 +10,7 @@ import {syncLayout} from './responsive-layout.js?v=board-finish-14';
 import {CompanionPose} from './companion-pose.js?v=companion-57';
 import {PlayFlow,ModeDeck} from './play-flow.js?v=clips-3';
 import {solved,swap,scramble,slotAt,swapFeedback} from './model.js?v=lip-sync-40';
-import {MascotDirector,CLIPS} from './mascot-director.js?v=clips-6';
+import {MascotDirector,CLIPS} from './mascot-director.js?v=clips-7';
 import {GameAudio} from './game-audio.js?v=activities-53';
 import {makeBoard} from './puzzle-generator.js?v=drag-only-47';
 import {LearningVoice} from './learning-voice.js?v=recorded-only-1';
@@ -179,7 +179,7 @@ const flow=new PlayFlow({celebrationDuration:(_topic,text)=>1000*(RECORDINGS[rec
 const FUN_JOIN={'balloon-pop':'pinata','drum-duet':'pinata','wash-toy':'splash','grow-garden':'water','magic-reveal':'wow','roll-ball':'jog','jelly-wiggle':'woohoo'};
 // While he says a longer line (2.2 s or more) he gestures with one of the rig's dialogue
 // clips, rotated and cut to the line's length. The recorded voice still drives his mouth.
-const TALK=['talk','talk2','talk3','talk4','talk5','talk6','talk7','talk8','talk9'];let talkTurn=Math.floor(Math.random()*TALK.length);
+const TALK=['talk','talk2','talk3','talk5','talk6','talk7','talk8','talk9'];let talkTurn=Math.floor(Math.random()*TALK.length);
 function talkGesture(cue){if(reduced||!(cue?.duration>=2.2)||director.active!=='idle'||topic==='letters'||document.querySelector('.game')?.classList.contains('feeding-room'))return;talkTurn=(talkTurn+1)%TALK.length;const name=TALK[talkTurn];companion.faceChild();void director.react(name,{seconds:Math.min(cue.duration,director.animations?.get(director.clips[name])?.duration||cue.duration)}).catch(()=>{});}
 function respond(name,seconds=1.2){
  // Seated feeding Sparky plays only his own seated clips; standing gestures (win clap,
