@@ -16,7 +16,7 @@ export const FEEDING_SHOTS={
  FD13:shot(4.85,[[0,'notice discomfort'],[1.2,'hand reaches cheek'],[2,'longer sore-cheek hold'],[2.8,'slow blink'],[3.55,'release'],[4.85,'rest']],'A longer sore-cheek reaction with slower blink timing.','Cheek hand stays planted while the source hold moves subtly.','Longer hold, reduced blink rate and a gentle recovery.'),
 };
 export function polishFeedingClips(clips){
- for(const c of clips){const p=FEEDING_SHOTS[c.id];c.duration=p.duration;c.beats=p.beats;c.shotPlan=p;c.notes=p.intent+' '+p.contact+' '+p.spacing;c.nativeSettle=c.referenceMotion?{in:.12,out:.24}:null;}
+ for(const c of clips){const p=FEEDING_SHOTS[c.id];c.duration=p.duration;c.beats=p.beats;c.shotPlan=p;c.notes=p.intent+' '+p.contact+' '+p.spacing;c.nativeSettle=c.referenceMotion?{in:.4,out:.4}:null;/* head and body ease into and out of each source animation (0.12 s snapped) */}
  const by=new Map(clips.map(c=>[c.id,c])),set=(id,channels,mouth,blinks)=>{const c=by.get(id);Object.assign(c.channels,channels);if(mouth)c.mouth=mouth;c.blinks=blinks??[];};
  for(const id of['FD00','FD02','FD06'])by.get(id).feedingFace=true;
  set('FD00',{headPosition:[[0,0,0],[1.15,0,.18],[2.3,0,.05],[3.5,0,-.04],[4,0,0]]},[[0,'Smile']],[[2.65,.18]]);
@@ -46,7 +46,7 @@ export function polishFeedingClips(clips){
  // Entry and exit stay close to the body: hands rise/fall straight below the table
  // edge, and only slide out to the wide rest (±59) while hidden. The old diagonal
  // sweep swung the elbows out above the table and flared the shirt like a skirt.
- for(const side of['L','R']){const s=side==='L'?-1:1,keys=clap.channels[side].filter(k=>k[0]>=.28&&k[0]<=1.68);clap.channels[side]=[[0,s*59,124,0],[.12,s*40,102,0],[.2,s*35,118,0],...keys,[2,s*33,128,0],[2.28,s*36,102,0],[2.6,s*59,124,0]];}
+ for(const side of['L','R']){const s=side==='L'?-1:1,keys=clap.channels[side].filter(k=>k[0]>=.42&&k[0]<=1.68);/* hands rise over ~0.4 s, matching the body's ease-in */clap.channels[side]=[[0,s*59,124,0],[.2,s*50,114,0],[.38,s*40,104,0],...keys,[2,s*33,128,0],[2.28,s*36,102,0],[2.6,s*59,124,0]];}
  clap.armImpacts=[.62,1.04,1.47];
  for(const side of['L','R']){const keys=clap.channels[side];for(const at of clap.armImpacts){const hit=keys.find(k=>Math.abs(k[0]-at)<1e-5);keys.push([at+.04,...hit.slice(1)])}keys.sort((a,b)=>a[0]-b[0]);}
  clap.shotPlan.contact='Clap at chest height, with three deliberate contacts and clear space below the eyes.';

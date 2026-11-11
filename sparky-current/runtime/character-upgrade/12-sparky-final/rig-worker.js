@@ -98,11 +98,12 @@ function anchors(rendered) {
 function draw(p) {
   const started = performance.now(), v = view(p.id);
   apply(v, p);
-  const rendered = adapter(v), gl = context.gl;
+  const t0 = performance.now(), rendered = adapter(v), t1 = performance.now(), gl = context.gl;
   gl.viewport(0, 0, canvas.width, canvas.height); gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
   renderer.begin(); renderer.drawSkeleton(rendered, false); renderer.end();
   const bitmap = canvas.transferToImageBitmap();
-  return { id: p.id, bitmap, anchors: anchors(rendered), cost: performance.now() - started };
+  const end = performance.now();
+  return { id: p.id, bitmap, anchors: anchors(rendered), cost: end - started, parts: [Math.round(t1 - t0), Math.round(end - t1)], clip: p.pose?.referenceMotion?.name ?? p.entry?.name, at: +(p.pose?.referenceMotion?.time ?? p.fixedTime ?? p.entry?.trackTime ?? 0).toFixed(2) };
 }
 
 self.onmessage = async ({ data: message }) => {

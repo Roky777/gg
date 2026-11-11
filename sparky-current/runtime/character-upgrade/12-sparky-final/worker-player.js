@@ -36,7 +36,7 @@ export class WorkerRigPlayer {
       const c = document.createElement('canvas'); c.width = img.naturalWidth; c.height = img.naturalHeight; c.getContext('2d').drawImage(img, 0, 0);
       svgPages[src] = await new Promise(r => c.toBlob(r, 'image/png'));
     }));
-    const worker = new Worker(new URL('./rig-worker.js?v=2', import.meta.url), { type: 'module' });
+    const worker = new Worker(new URL('./rig-worker.js?v=3', import.meta.url), { type: 'module' });
     const player = new WorkerRigPlayer(manifest, data, worker, renderWidth, camera);
     await new Promise((resolve, reject) => {
       const timer = setTimeout(() => reject(Error('Rig worker did not start')), timeout);
@@ -109,6 +109,8 @@ export class WorkerRigPlayer {
       v.rendered = anchorSkeleton(f.anchors); this.framesShown++;
       try { this.afterFrame?.(v.rendered, v); } catch (error) { console.error(error); }
       this.workerCost = this.workerCost ? this.workerCost * .85 + f.cost * .15 : f.cost;
+      // Diagnostics: the last 50 slow worker frames (which clip, when, reshaping vs drawing time).
+      if (f.cost > 40) { const log = (this.slowFrames ??= []); log.push({ t: Math.round(performance.now()), cost: Math.round(f.cost), parts: f.parts, clip: f.clip, at: f.at }); if (log.length > 50) log.shift(); }
     }
     if (sent !== null) { const cost = performance.now() - sent; this.renderCost = this.renderCost ? this.renderCost * .85 + cost * .15 : cost; }
   }
