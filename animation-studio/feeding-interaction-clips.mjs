@@ -1,3 +1,4 @@
+import{remapSeatedRest,NEW_REST}from'./seated-rest.mjs';
 const rest={body:[[0,0,-18]],seat:[[0,1]],L:[[0,-58,124,0]],R:[[0,59,124,0]]};
 function action(id,name,duration,channels,beats,mouth,blinks){return{id,name,duration,base:'0Final/Idle/Idle_EB',upperBodyOnly:true,scene:'table',sceneState:{feeding:true},channels:structuredClone({...rest,...channels}),elbowProjection:{L:.85,R:.85},beats,mouth,blinks,status:'Interactive feeding review',games:['08'],group:'Food Choices · Responding to the child',description:name,notes:'Triggered by the child, not an ambient loop. Returns to the feeding rest and yields immediately to a food offer.'}}
 export const feedingInteractionClips=[
@@ -5,5 +6,6 @@ export const feedingInteractionClips=[
  action('FI02','Hello, little friend',2.2,{head:[[0,0],[.5,-1.7],[1.1,-1.2],[1.65,.35],[2.2,0]],gaze:[[0,0,0],[.5,.1,.05],[1.6,0,0],[2.2,0,0]]},[[0,'look at the child'],[.5,'warm hello'],[1.1,'hold the smile'],[2.2,'rest']],[[0,'Smile'],[.4,'Happy'],[1.45,'Smile']],[[.9,.2]]),
  action('FI03','Here is a food we can try',2.6,{R:[[0,59,124,0],[.4,63,132,0],[.9,74,150,-5],[1.5,74,149,-4],[2,64,133,0],[2.6,59,124,0]],gaze:[[0,0,0],[.5,.5,-.5],[1.65,.5,-.5],[2.6,0,0]],head:[[0,0],[.7,-.7],[1.5,-.6],[2.6,0]]},[[0,'look at the available food'],[.9,'invite a choice from the tray'],[1.5,'wait for the child'],[2.6,'hand rests']],[[0,'Smile']],[[1.85,.18]])
 ];
+remapSeatedRest(feedingInteractionClips);
 export const feedingInteractionById=new Map(feedingInteractionClips.map(c=>[c.id,c]));
-export function foodSuggestionClip(side='R'){const clip=structuredClone(feedingInteractionById.get('FI03'));clip.sceneState.pointSide=side;if(side==='L'){clip.channels.L=clip.channels.R.map(([t,x,y,flex])=>[t,-x,y,-flex]);clip.channels.R=[[0,59,124,0]];}return clip;}
+export function foodSuggestionClip(side='R'){const clip=structuredClone(feedingInteractionById.get('FI03'));clip.sceneState.pointSide=side;if(side==='L'){clip.channels.L=clip.channels.R.map(([t,x,y,flex])=>[t,-x,y,-flex]);clip.channels.R=[[0,NEW_REST.R[0],NEW_REST.R[1],0]];}return clip;}

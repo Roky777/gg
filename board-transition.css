@@ -1,4 +1,4 @@
-﻿/* Board to board: the old board fades out, the next one (already prepared) is built out of
+/* Board to board: the old board fades out, the next one (already prepared) is built out of
    sight and pops in only when every picture in it is ready. Size at rest is unchanged. */
 .game .puzzle-frame{transition:opacity .2s ease}
 .game.board-leaving .puzzle-frame{opacity:0}
@@ -12,3 +12,8 @@
 .game.feeding-room.board-leaving .feeding-tray,.game.feeding-room.board-leaving .dining-serving{opacity:0}
 .game.feeding-room.board-arriving .food-choice-grid{animation:board-arrive .38s cubic-bezier(.2,1.25,.4,1) both}
 @media(prefers-reduced-motion:reduce){.game.feeding-room .feeding-tray,.game.feeding-room .dining-serving{transition:none}.game.feeding-room.board-arriving .food-choice-grid{animation:none}}
+/* Changing room (feeding/sticker <-> board): the whole scene, Sparky included, fades through so his
+   sit/stand change and the set change are never seen as a jump. */
+.game.scene-swap>*:not(.top-banner){opacity:0;transition:opacity .3s ease}
+.game.scene-in>*:not(.top-banner){animation:scene-in .4s ease both}
+@keyframes scene-in{from{opacity:0}}
