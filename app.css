@@ -653,8 +653,10 @@ body{height:100vh;height:100dvh;padding:env(safe-area-inset-top,0px) env(safe-ar
 .food-portion{position:relative;display:block;width:100%;height:100%;overflow:hidden;clip-path:ellipse(49% 47% at 50% 50%);pointer-events:none}
 .food-portion>img{position:absolute;max-width:none!important;max-height:none!important;object-fit:fill;pointer-events:none}
 .utensil-carry{position:relative;display:block;width:100%;height:100%;pointer-events:none}
-.utensil-carry>.carried-tool{position:absolute;left:calc(50% - 16px);top:calc(50% - 20px);width:32px;height:110px;max-width:none;max-height:none;object-fit:fill;transform:rotate(-65deg);transform-origin:50% 18%;filter:drop-shadow(0 2px 1px #4b3a2b30)}
-.carried-bite{position:absolute;left:calc(50% - 15px);top:calc(50% - 11px);width:30px;height:22px}
+.utensil-carry>.carried-tool{position:absolute;left:calc(50% - 16px);top:calc(50% - 21.1px);width:32px;height:110px;max-width:none;max-height:none;object-fit:fill;transform:rotate(-65deg);transform-origin:50% 19.2%;filter:drop-shadow(0 2px 1px #4b3a2b30)}
+.carried-bite{position:absolute;left:calc(50% - 14px);top:calc(50% - 10px);width:28px;height:20px;z-index:1;filter:drop-shadow(0 1px 1px #5a3a1a40)}
+/* The fork's tines sit a little nearer the end of the picture than the spoon's bowl. */
+.utensil-carry[data-tool=fork]>.carried-tool{top:calc(50% - 18.3px);transform-origin:50% 16.6%}
 .carried-bite>.variant-art{width:100%;height:100%}
 .game.feeding-room .feeding-utensil{position:absolute;padding:0;border:0;border-radius:18px;background:transparent;z-index:7;pointer-events:auto;touch-action:none;min-width:44px;min-height:44px;cursor:grab}
 .game.feeding-room .feeding-utensil:active{cursor:grabbing}
@@ -664,11 +666,20 @@ body{height:100vh;height:100dvh;padding:env(safe-area-inset-top,0px) env(safe-ar
 .game.feeding-room .feeding-utensil:focus-visible,.game.feeding-room .feeding-utensil.utensil-selected{outline:2px solid #ffd15b;outline-offset:1px;background:#fff8d32b}
 .game.feeding-room .feeding-utensil.utensil-hint{outline:2px dashed #ffe587;outline-offset:2px;background:#fff8d344}
 .game.feeding-room .feeding-utensil:disabled{cursor:default}
-.tool-loaded-bite{position:absolute;bottom:4%;left:25%;width:50%;height:25%;pointer-events:none}
+/* On the stand the utensil picture is flipped (bowl at the bottom): the food rests on the bowl,
+   drawn above it, centred where the bowl is (80.8% down the spoon picture, 83.4% for the fork). */
+.tool-loaded-bite{position:absolute;left:50%;top:calc(5px + (100% - 10px) * .808);width:calc((100% - 28px) * 1.15);height:calc((100% - 10px) * .19);translate:-50% -50%;z-index:5;pointer-events:none;filter:drop-shadow(0 1px 1px #5a3a1a50)}
+.fork-tool>.tool-loaded-bite{top:calc(5px + (100% - 10px) * .834)}
 .tool-loaded-bite>.variant-art{width:100%;height:100%}
 .game.feeding-room .feeding-target:not(:focus-visible) .feeding-target-label{opacity:0}
 .game.feeding-room .feeding-utensil.food-being-dragged>img,.game.feeding-room .feeding-utensil.utensil-in-use>img{opacity:.18}
 .feeding-utensil.food-being-dragged .tool-loaded-bite,.feeding-utensil.utensil-in-use .tool-loaded-bite{visibility:hidden}
+
+/* Served: food picked up with the spoon or fork sits on the plate in front of Sparky. */
+.game.feeding-room .dining-serving>.food-portion,.game.feeding-room .dining-serving>.variant-art{width:100%;height:100%;filter:drop-shadow(0 2px 2px #5a3a1a33)}
+.game.feeding-room .dining-serving.just-served>*{animation:plate-plop .5s cubic-bezier(.2,1.45,.4,1) both}
+@keyframes plate-plop{from{opacity:0;transform:translateY(-45%) scale(.55)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.game.feeding-room .dining-serving.just-served>*{animation:none}}
 
 /* variants/sticker-studio.css */
 /* Native .fig frame 2155:12514, 1920 x 1080. Static SVGs retain original paths. */
@@ -1271,6 +1282,13 @@ html:not([data-sparky=ready]):not([data-sparky=poster]) #mascot{opacity:0}
 .game.board-arriving .puzzle-frame{animation:board-arrive .38s cubic-bezier(.2,1.25,.4,1) both}
 @keyframes board-arrive{from{opacity:0;scale:.94}to{opacity:1;scale:1}}
 @media(prefers-reduced-motion:reduce){.game .puzzle-frame{transition:none}.game.board-arriving .puzzle-frame{animation:none}}
+/* Feeding room: Sparky stays seated at the table between rounds; only the food changes. */
+.game.feeding-room.board-leaving .puzzle-frame{opacity:1}
+.game.feeding-room.board-arriving .puzzle-frame{animation:none}
+.game.feeding-room .feeding-tray,.game.feeding-room .dining-serving{transition:opacity .2s ease}
+.game.feeding-room.board-leaving .feeding-tray,.game.feeding-room.board-leaving .dining-serving{opacity:0}
+.game.feeding-room.board-arriving .food-choice-grid{animation:board-arrive .38s cubic-bezier(.2,1.25,.4,1) both}
+@media(prefers-reduced-motion:reduce){.game.feeding-room .feeding-tray,.game.feeding-room .dining-serving{transition:none}.game.feeding-room.board-arriving .food-choice-grid{animation:none}}
 
 /* counting-finish.css */
 /* Counting board finish (loaded last).

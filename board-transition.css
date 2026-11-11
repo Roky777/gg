@@ -5,3 +5,10 @@
 .game.board-arriving .puzzle-frame{animation:board-arrive .38s cubic-bezier(.2,1.25,.4,1) both}
 @keyframes board-arrive{from{opacity:0;scale:.94}to{opacity:1;scale:1}}
 @media(prefers-reduced-motion:reduce){.game .puzzle-frame{transition:none}.game.board-arriving .puzzle-frame{animation:none}}
+/* Feeding room: Sparky stays seated at the table between rounds; only the food changes. */
+.game.feeding-room.board-leaving .puzzle-frame{opacity:1}
+.game.feeding-room.board-arriving .puzzle-frame{animation:none}
+.game.feeding-room .feeding-tray,.game.feeding-room .dining-serving{transition:opacity .2s ease}
+.game.feeding-room.board-leaving .feeding-tray,.game.feeding-room.board-leaving .dining-serving{opacity:0}
+.game.feeding-room.board-arriving .food-choice-grid{animation:board-arrive .38s cubic-bezier(.2,1.25,.4,1) both}
+@media(prefers-reduced-motion:reduce){.game.feeding-room .feeding-tray,.game.feeding-room .dining-serving{transition:none}.game.feeding-room.board-arriving .food-choice-grid{animation:none}}
