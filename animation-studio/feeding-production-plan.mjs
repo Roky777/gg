@@ -69,6 +69,10 @@ export function polishFeedingClips(clips){
  // gives three smooth splashes. Arms are authored (source arm paths are Lucas-sized).
  const splash=by.get('FD15');
  if(splash){splash.referenceMotion={name:'Sequence/4/Water_Splash',keys:[[0,0],[.72,.6666],[1.46,0],[2.2,.6666]],duration:splash.duration,pingPong:true};
+  // Seated at the table, the full source sway tips Sparky's head and body far sideways
+  // (looked like falling over). Play the source bones at 55%: a happy head bop. The
+  // face drawings still switch (they follow the source while the weight is above 0.5).
+  splash.nativeSettle={in:.4,out:.4,strength:.55};
   splash.referenceArmTargets=true;splash.elbowProjection={L:.85,R:.85};splash.feedingHandScale=.82;
   for(const side of['L','R']){const s=side==='L'?-1:1;splash.channels[side]=[[0,s*59,124,0],[.2,s*52,146,0],[.36,s*68,188,0],[.72,s*48,160,0],[1.09,s*70,192,0],[1.46,s*48,160,0],[1.83,s*68,188,0],[2.02,s*52,146,0],[2.2,s*59,124,0]];}}
  for(const c of clips)c.notes=c.shotPlan.intent+' '+c.shotPlan.contact+' '+c.shotPlan.spacing;

@@ -15,7 +15,7 @@ function referenceMotion(sk,reference,time,settle,duration){
  else if(time<reference.entryEnd){name=reference.entry;t=time;apply(name,t)}
  else if(time<reference.holdEnd){name=reference.hold;t=(time-reference.entryEnd)*(reference.holdRate??1);apply(name,t,true);fromPose(reference.entry,reference.entryEnd,false,ease((time-reference.entryEnd)/.15))}
  else{name=reference.entry;const u=(time-reference.holdEnd)/(reference.duration-reference.holdEnd);t=reference.entryEnd*(1-ease(u));apply(name,t);fromPose(reference.hold,(reference.holdEnd-reference.entryEnd)*(reference.holdRate??1),true,ease((time-reference.holdEnd)/.15))}
- if(baseline){const w=Math.min(ease(time/settle.in),ease((duration-time)/settle.out));for(let i=0;i<sk.bones.length;i++)blendNativeBone(sk.bones[i],baseline[i],w);if(w<.5)for(let i=0;i<sk.slots.length;i++)sk.slots[i].setAttachment(attachments[i]);}
+ if(baseline){const w=Math.min(ease(time/settle.in),ease((duration-time)/settle.out))*(settle.strength??1);/* strength < 1 plays the source body motion partly (seated reactions) */for(let i=0;i<sk.bones.length;i++)blendNativeBone(sk.bones[i],baseline[i],w);if(w<.5)for(let i=0;i<sk.slots.length;i++)sk.slots[i].setAttachment(attachments[i]);}
  sk.updateWorldTransform(S.Physics.none);return{name,time:t,loop:!!reference.hold&&name===reference.hold};
 }
 export function applyAuthoredMotion(sk,clip,time){
