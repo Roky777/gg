@@ -11,7 +11,8 @@ const SCHEMES = {
   sun: ['#fffbd2', '#ffe25a', '#ffbe1e', '#ff8d0f'],
   sky: ['#f2fcff', '#9ae0ff', '#45b4f6', '#1f80e0'],
   berry: ['#ffe9f4', '#ff9fcb', '#ff5f9e', '#e43a7f'],
-  snow: ['#ffffff', '#ffffff', '#f1f9ff', '#c9e8ff']
+  snow: ['#ffffff', '#ffffff', '#f1f9ff', '#c9e8ff'],
+  navy: ['#4a68ee', '#2c4cd4', '#1f3bb4', '#172d94']
 };
 let serial = 0;
 const measurer = document.createElement('canvas').getContext('2d');
