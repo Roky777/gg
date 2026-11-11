@@ -1252,13 +1252,13 @@ html:not([data-sparky=ready]):not([data-sparky=poster]) #mascot{opacity:0}
 .top-banner .tb-shine{position:absolute;inset:0;-webkit-mask:url('assets/art/loading/carnival2/banner-golden.webp') center/100% 100% no-repeat;mask:url('assets/art/loading/carnival2/banner-golden.webp') center/100% 100% no-repeat;background:linear-gradient(105deg,#fff0 40%,#fffbe6d0 50%,#fff0 60%) 0 0/300% 100% no-repeat;background-position:110% 0;opacity:0}
 .top-banner.in .tb-shine{animation:tb-shine .85s ease-in-out .62s both}
 @keyframes tb-shine{0%{opacity:1;background-position:110% 0}100%{opacity:1;background-position:-10% 0}}
-.top-banner .tb-copy{position:absolute;left:15%;right:15%;top:29%;bottom:18%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.9cqw;font-family:Nunito,sans-serif;text-align:center}
-.top-banner .tb-svg{display:block;height:12.6cqw;max-width:100%}
-.top-banner.no-rule .tb-svg{height:15cqw}
-.top-banner .tb-svg svg{display:block;height:100%;width:auto;max-width:100%;overflow:visible}
+/* Text is placed inside the measured cream panel (x 16-84%, y 33-77% of the art): title centred at 46%, instruction pill at 67%. */
+.top-banner .tb-svg{position:absolute;left:50%;top:46%;translate:-50% -50%;display:block;height:11cqw;max-width:62cqw}
+.top-banner.no-rule .tb-svg{top:55%;height:13cqw}
+.top-banner .tb-svg svg{display:block;height:100%;width:auto;max-width:62cqw;overflow:visible}
 .top-banner.in .tb-svg{animation:tb-pop .5s cubic-bezier(.2,1.6,.4,1) .45s both}
 @keyframes tb-pop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
-.top-banner .tb-rule{display:flex;align-items:center;justify-content:center;gap:.35em;max-width:100%;padding:.5cqw 2.4cqw .65cqw;border-radius:99cqw;background:linear-gradient(#fffaf0,#fff0cf);box-shadow:inset 0 .2cqw 0 #fff,0 0 0 .22cqw #f5c86a;font-weight:900;font-size:3.2cqw;line-height:1.15;color:#4a1d96;white-space:nowrap}
+.top-banner .tb-rule{position:absolute;left:50%;top:67%;translate:-50% -50%;display:flex;align-items:center;justify-content:center;gap:.35em;max-width:62cqw;padding:.45cqw 2.2cqw .6cqw;border-radius:99cqw;background:linear-gradient(#fffaf0,#fff0cf);box-shadow:inset 0 .2cqw 0 #fff,0 0 0 .22cqw #f5c86a;font-weight:900;font-size:2.7cqw;line-height:1.15;color:#4a1d96;white-space:nowrap}
 .top-banner.in .tb-rule{animation:tb-fade .35s ease-out .62s both}
 @keyframes tb-fade{from{opacity:0;transform:translateY(-30%)}to{opacity:1;transform:none}}
 .top-banner .tb-rule[hidden]{display:none}

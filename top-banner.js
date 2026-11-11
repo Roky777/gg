@@ -18,7 +18,7 @@ export class TopBanner{
   if(!title)return;this.clear();
   // Wait for the loading screen (and its fade-out copy) to be gone so the drop is seen in full.
   if(tries<25&&[...document.querySelectorAll('.loading')].some(l=>!l.hidden)){this.timers.push(setTimeout(()=>this.show({...opts,tries:tries+1}),100));return;}
-  this.slot.replaceChildren(bubbleTitle(title,{scheme:'sun',size:110,bounce:.04,tilt:2,outline:'#4a1d96',shadow:'#2e0f66',outlineWidth:.13}));this.el.setAttribute('aria-label',rule?title+'. '+rule:title);
+  this.slot.replaceChildren(bubbleTitle(title,{scheme:'sun',size:110,bounce:0,tilt:0,outline:'#4a1d96',shadow:'#2e0f66',outlineWidth:.13}));this.el.setAttribute('aria-label',rule?title+'. '+rule:title);
   this.rule.textContent=rule;this.ruleRow.hidden=!rule;this.el.classList.toggle('no-rule',!rule);
   if(swatch){this.swatch.src='assets/art/objects/balloon.webp';this.swatch.style.filter=`hue-rotate(${swatch.hue}deg)`;this.swatch.hidden=false;}else this.swatch.hidden=true;
   const el=this.el;el.hidden=false;el.classList.remove('in','out');void el.offsetWidth;el.classList.add('in');
