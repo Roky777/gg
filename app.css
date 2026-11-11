@@ -1228,108 +1228,50 @@ html:not([data-sparky=ready]):not([data-sparky=poster]) #mascot{opacity:0}
 
 
 /* top-banner.css */
-/* Top banner (top-banner.js): a sunny signboard that swings down on two ropes from the
-   top of the screen with the game's name and what to do, then rises away. */
-.game>.top-banner{position:absolute;left:50%;top:0;z-index:40;max-width:min(62%,640px);min-width:min(38%,360px);transform:translate(-50%,-140%);transform-origin:50% -40px;pointer-events:none;will-change:transform}
+/* Top banner (top-banner.js): the asset pack's warm-gold blank banner (1600x533) with the title
+   and instruction rendered live inside its cream panel (x 13-87%, y 30-80% of the art). */
+.game>.top-banner{position:absolute;left:50%;top:0;z-index:40;width:clamp(300px,calc(var(--stage-w,900px)*.44),700px);aspect-ratio:1600/533;container-type:inline-size;transform:translate(-50%,-130%);pointer-events:none;will-change:transform;filter:drop-shadow(0 6px 8px #7a3a0040)}
 .game>.top-banner[hidden]{display:none}
-.game>.top-banner.in{animation:tb-swing-in .9s cubic-bezier(.25,1.2,.4,1) forwards}
-.game>.top-banner.out{animation:tb-rise .38s ease-in forwards}
-@keyframes tb-swing-in{0%{transform:translate(-50%,-140%) rotate(0)}45%{transform:translate(-50%,14%) rotate(3.5deg)}65%{transform:translate(-50%,6%) rotate(-2.2deg)}82%{transform:translate(-50%,10%) rotate(1deg)}100%{transform:translate(-50%,9%) rotate(0)}}
-@keyframes tb-rise{from{transform:translate(-50%,9%)}to{transform:translate(-50%,-150%)}}
-.top-banner .tb-shell{display:none}
-.top-banner .tb-ribbon{position:relative;filter:drop-shadow(0 8px 10px #0b3a6a40)}
-/* Two golden ropes the board hangs from. */
-.top-banner .tb-ribbon::before,.top-banner .tb-ribbon::after{content:'';position:absolute;top:-60px;width:5px;height:66px;border-radius:3px;background:repeating-linear-gradient(-35deg,#e9a43a 0 5px,#c27a1c 5px 9px);box-shadow:0 0 0 1px #8f560f55}
-.top-banner .tb-ribbon::before{left:18%}.top-banner .tb-ribbon::after{right:18%}
-.top-banner .tb-text{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15em;padding:calc(var(--stage-w,900px)*.011) calc(var(--stage-w,900px)*.045) calc(var(--stage-w,900px)*.013);border-radius:calc(var(--stage-w,900px)*.026);background:linear-gradient(#fff3a6 0%,#ffd84d 46%,#ffc02e 100%);border:max(3px,calc(var(--stage-w,900px)*.004)) solid #fffdf2;box-shadow:0 0 0 max(3px,calc(var(--stage-w,900px)*.0038)) #f08a1c,0 max(4px,calc(var(--stage-w,900px)*.007)) 0 max(3px,calc(var(--stage-w,900px)*.0038)) #b85f0c,inset 0 3px 0 #ffffffc0,inset 0 -4px 0 #f0a52566;text-align:center;font-family:Nunito,sans-serif;line-height:1.08}
-/* Rope rings on the board. */
-.top-banner .tb-text::before,.top-banner .tb-text::after{content:'\2605';position:absolute;top:50%;translate:0 -50%;font-size:max(14px,calc(var(--stage-w,900px)*.024));color:#fff;text-shadow:0 0 6px #ffe36b,0 2px 0 #e07a0c;animation:tb-twinkle 1.6s ease-in-out infinite alternate}
-.top-banner .tb-text::before{left:calc(var(--stage-w,900px)*.013)}.top-banner .tb-text::after{right:calc(var(--stage-w,900px)*.013);animation-delay:.8s}
-@keyframes tb-twinkle{from{scale:.75;opacity:.65}to{scale:1.1;opacity:1}}
-.top-banner strong{font-weight:1000;font-size:max(17px,calc(var(--stage-w,900px)*.03));letter-spacing:.01em;color:#fff;-webkit-text-stroke:max(4px,calc(var(--stage-w,900px)*.0055)) #1d5fc0;paint-order:stroke fill;text-shadow:0 max(2px,calc(var(--stage-w,900px)*.003)) 0 #123f86;white-space:nowrap}
-.top-banner span{display:flex;align-items:center;gap:.35em;font-weight:900;font-size:max(12px,calc(var(--stage-w,900px)*.0172));color:#7a3a00}
-.top-banner span[hidden]{display:none}
-.top-banner em{font-style:normal}
-.top-banner .tb-swatch{height:1.75em;width:auto;filter:drop-shadow(0 1px 1px #0005)}
+.game>.top-banner.in{animation:tb-drop .65s cubic-bezier(.3,1.3,.5,1) forwards}
+.game>.top-banner.out{animation:tb-lift .36s ease-in forwards}
+@keyframes tb-drop{0%{transform:translate(-50%,-130%)}100%{transform:translate(-50%,-6%)}}
+@keyframes tb-lift{from{transform:translate(-50%,-6%)}to{transform:translate(-50%,-135%)}}
+.top-banner .tb-art{position:absolute;inset:0;width:100%;height:100%;display:block}
+.top-banner .tb-copy{position:absolute;left:16%;right:16%;top:31%;bottom:20%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4cqw;font-family:Nunito,sans-serif;text-align:center}
+.top-banner .tb-svg{display:block;height:10.5cqw;max-width:100%}
+.top-banner.no-rule .tb-svg{height:13cqw}
+.top-banner .tb-svg svg{display:block;height:100%;width:auto;max-width:100%;overflow:visible}
+.top-banner .tb-rule{display:flex;align-items:center;justify-content:center;gap:.35em;max-width:100%;font-weight:900;font-size:3.5cqw;line-height:1.1;color:#6b3410;white-space:nowrap}
+.top-banner .tb-rule[hidden]{display:none}
+.top-banner em{font-style:normal;overflow:hidden;text-overflow:ellipsis}
+.top-banner .tb-swatch{height:1.6em;width:auto;filter:drop-shadow(0 1px 1px #0005)}
 .top-banner .tb-swatch[hidden]{display:none}
 /* Rooms where Sparky sits at the top centre keep the top clear. */
 .game.feeding-room>.top-banner,.game.sticker-room>.top-banner{display:none}
-@media(prefers-reduced-motion:reduce){.game>.top-banner.in{animation:none;transform:translate(-50%,9%)}.game>.top-banner.out{animation:none}.top-banner .tb-text::before,.top-banner .tb-text::after{animation:none}}
+@media(prefers-reduced-motion:reduce){.game>.top-banner.in{animation:none;transform:translate(-50%,-6%)}.game>.top-banner.out{animation:none}}
 
 /* load-meter.css */
-/* Carnival loading screen (Sparkys_Carnival_Complete_Agent_Kit): carnival park background,
-   bunting, Sparky waving on the left, "Sparky's Carnival" on a marquee sign with a tent top,
-   ABC/123 tiles, and the kit's bar (frame over a fill revealed from the left, never stretched). */
-.loading.loading-carnival{position:fixed;inset:0;z-index:1000;overflow:hidden;isolation:isolate;background:#27c0f2 linear-gradient(#25b8f0,#7fd6f6 55%,#8bd35a 56%,#5fb83a);font-family:Nunito,'Arial Rounded MT Bold',Arial,sans-serif;--s:min(1vw,1.777vh)}
-.loading.loading-carnival[hidden]{display:none}
-.loading-carnival .lc-bg{position:absolute;inset:0;z-index:-2;background:url('assets/art/loading/carnival/background.webp') center 60%/cover no-repeat;opacity:0;transition:opacity .5s ease}
-.loading-carnival.lc-ready .lc-bg{opacity:1}
-.loading-carnival::after{content:'';position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse 60% 45% at 50% 38%,#fff8,#fff0 70%),linear-gradient(0deg,#09508026,#0000 45%);pointer-events:none}
-/* Bunting across the top corners */
-.loading-carnival .lc-bunting{position:absolute;top:-1.5%;width:calc(var(--s)*40);height:auto;filter:drop-shadow(0 4px 3px #0b3a6a33);animation:lc-flap 3s ease-in-out infinite alternate;transform-origin:50% 0}
-.loading-carnival .lc-bunting-l{left:-6%;rotate:-4deg}.loading-carnival .lc-bunting-r{right:-6%;rotate:4deg;animation-delay:-1.5s}
-@keyframes lc-flap{from{transform:scaleY(1)}to{transform:scaleY(1.08) translateY(2px)}}
-/* Floating sparkles */
-.loading-carnival .lc-sparkles i{position:absolute;width:calc(var(--s)*1.3);aspect-ratio:1;background:radial-gradient(circle,#fff 0 25%,#fff6c4 40%,#fff0 70%);border-radius:50%;animation:lc-twinkle 2.4s ease-in-out infinite}
-.loading-carnival .lc-sparkles i:nth-child(1){left:24%;top:18%}.loading-carnival .lc-sparkles i:nth-child(2){left:76%;top:14%;animation-delay:-.6s}
-.loading-carnival .lc-sparkles i:nth-child(3){left:31%;top:44%;animation-delay:-1.2s}.loading-carnival .lc-sparkles i:nth-child(4){left:70%;top:46%;animation-delay:-1.8s}
-.loading-carnival .lc-sparkles i:nth-child(5){left:88%;top:30%;animation-delay:-.3s}.loading-carnival .lc-sparkles i:nth-child(6){left:12%;top:36%;animation-delay:-.9s}
-.loading-carnival .lc-sparkles i:nth-child(7){left:58%;top:8%;animation-delay:-1.5s}.loading-carnival .lc-sparkles i:nth-child(8){left:42%;top:62%;animation-delay:-2.1s}
-@keyframes lc-twinkle{0%,100%{opacity:.2;transform:scale(.6)}50%{opacity:1;transform:scale(1.4)}}
-/* Sparky waving on the left */
-.loading-carnival .lc-sparky{position:absolute;left:5%;bottom:15%;height:calc(var(--s)*31);width:auto;max-width:34%;object-fit:contain;transform-origin:50% 100%;filter:drop-shadow(0 calc(var(--s)*.8) calc(var(--s)*.5) #15570a45);opacity:0;transition:opacity .4s ease;animation:lc-bob 2.2s ease-in-out infinite}
-.loading-carnival .lc-sparky.ready{opacity:1}
-@keyframes lc-bob{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-3%) rotate(1.5deg)}}
-/* Title on a marquee sign with a striped tent top */
-.loading-carnival .lc-title{position:absolute;left:50%;top:calc(var(--s)*4.6);translate:-50% 0;margin:0;padding:calc(var(--s)*1) calc(var(--s)*6) calc(var(--s)*.6);display:flex;flex-direction:column;align-items:center;line-height:0;animation:lc-in .8s cubic-bezier(.2,1.4,.4,1) both}
-.loading-carnival .lc-marquee{position:absolute;left:0;right:0;top:24%;bottom:2%;z-index:-1;border-radius:calc(var(--s)*6);background:linear-gradient(#e8434f,#b8202f);border:calc(var(--s)*.55) solid #ffcf3a;box-shadow:0 0 0 calc(var(--s)*.45) #12397a,0 calc(var(--s)*.9) 0 calc(var(--s)*.45) #0b2a5c,0 calc(var(--s)*1.4) calc(var(--s)*1.6) #0b2a5c66,inset 0 calc(var(--s)*.5) 0 #ff8a92}
-.loading-carnival .lc-marquee::before{content:'';position:absolute;inset:calc(var(--s)*.7);border-radius:calc(var(--s)*5);border:calc(var(--s)*.75) dotted #fff3b0;filter:drop-shadow(0 0 calc(var(--s)*.5) #ffe36b);animation:lc-bulbs 1.1s steps(2) infinite}
-@keyframes lc-bulbs{0%{opacity:1}100%{opacity:.55}}
-.loading-carnival .lc-tent{position:absolute;left:50%;top:calc(var(--s)*-1.2);translate:-50% 0;z-index:-2;width:calc(var(--s)*11);height:calc(var(--s)*5);border-radius:50% 50% 8% 8%/100% 100% 8% 8%;background:repeating-linear-gradient(90deg,#e8434f 0 calc(var(--s)*1.5),#fff4dc calc(var(--s)*1.5) calc(var(--s)*3));box-shadow:0 0 0 calc(var(--s)*.4) #12397a}
-.loading-carnival .lc-tent i{position:absolute;left:50%;bottom:100%;width:calc(var(--s)*.45);height:calc(var(--s)*3.2);translate:-50% 0;background:#e3a83a;border-radius:9px}
-.loading-carnival .lc-tent i::after{content:'';position:absolute;left:100%;top:0;width:calc(var(--s)*2.6);height:calc(var(--s)*1.6);background:#e8434f;clip-path:polygon(0 0,100% 30%,0 100%);animation:lc-flag 1s ease-in-out infinite alternate;transform-origin:0 50%}
-@keyframes lc-flag{to{transform:scaleX(.8) skewY(6deg)}}
-.loading-carnival .lc-title svg{display:block;width:auto;overflow:visible}
-.loading-carnival .lc-a svg{height:calc(var(--s)*8)}
-.loading-carnival .lc-b{margin-top:calc(var(--s)*-2.6)}
-.loading-carnival .lc-b svg{height:calc(var(--s)*12)}
-.loading-carnival .lc-title>span{display:block}
-.loading-carnival .lc-ray{position:absolute;top:22%;width:calc(var(--s)*3);height:calc(var(--s)*8)}
-.loading-carnival .lc-ray::before,.loading-carnival .lc-ray::after{content:'';position:absolute;left:30%;width:26%;height:42%;border-radius:999px;background:#ffd23a;box-shadow:0 0 0 2px #12397a;animation:lc-spark 1.4s ease-in-out infinite}
-.loading-carnival .lc-ray-l{left:calc(var(--s)*-4)}.loading-carnival .lc-ray-r{right:calc(var(--s)*-4)}
-.loading-carnival .lc-ray-l::before{top:0;rotate:-35deg}.loading-carnival .lc-ray-l::after{bottom:0;rotate:35deg;animation-delay:-.35s}
-.loading-carnival .lc-ray-r::before{top:0;rotate:35deg;animation-delay:-.7s}.loading-carnival .lc-ray-r::after{bottom:0;rotate:-35deg;animation-delay:-1.05s}
-@keyframes lc-spark{0%,100%{opacity:.45;scale:.8}50%{opacity:1;scale:1.1}}
-/* ABC 123 tiles */
-.loading-carnival .lc-tiles{position:absolute;left:54%;top:56%;translate:-50% -50%;display:flex;align-items:center;gap:calc(var(--s)*.7)}
-.loading-carnival .lc-tile{display:grid;place-items:center;width:calc(var(--s)*5.4);aspect-ratio:1;border-radius:calc(var(--s)*1.1);background:linear-gradient(#fffdf6,#f3e6cc);box-shadow:0 calc(var(--s)*.55) 0 #d8c39b,0 calc(var(--s)*1) calc(var(--s)*.9) #0b3a6a40,inset 0 2px 0 #fff;font-weight:1000;font-size:calc(var(--s)*3.8);line-height:1;-webkit-text-stroke:calc(var(--s)*.18) #fff;paint-order:stroke fill;text-shadow:0 calc(var(--s)*.25) 0 #0003;animation:lc-hop 2.4s ease-in-out infinite}
-.loading-carnival .t1{color:#1f8ef0;rotate:-8deg}.loading-carnival .t2{color:#8a4fe0;rotate:5deg;animation-delay:-.2s}.loading-carnival .t3{color:#ef4f8f;rotate:-4deg;animation-delay:-.4s}
-.loading-carnival .t4{color:#f39a12;rotate:6deg;animation-delay:-.8s}.loading-carnival .t5{color:#3caf3a;rotate:-5deg;animation-delay:-1s}.loading-carnival .t6{color:#1f8ef0;rotate:7deg;animation-delay:-1.2s}
-@keyframes lc-hop{0%,100%{translate:0 0}50%{translate:0 calc(var(--s)*-1)}}
-.loading-carnival .lc-star{display:block;width:calc(var(--s)*4);aspect-ratio:1;margin:0 calc(var(--s)*2);background:linear-gradient(#ffe56a,#ffb81c);clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);filter:drop-shadow(0 2px 0 #c97b00);animation:lc-spin 3s ease-in-out infinite}
-.loading-carnival .lc-star.s2{position:absolute;right:calc(var(--s)*-7);top:calc(var(--s)*-5);width:calc(var(--s)*3);animation-delay:-1.5s}
-@keyframes lc-spin{0%,100%{transform:rotate(-12deg) scale(.9)}50%{transform:rotate(12deg) scale(1.1)}}
-/* Bottom: label + kit progress bar */
-.loading-carnival .lc-bottom{position:absolute;left:50%;bottom:calc(var(--s)*3);translate:-50% 0;width:calc(var(--s)*56);display:flex;flex-direction:column;align-items:center;gap:calc(var(--s)*.4)}
-.loading-carnival .lc-label span{all:unset;font:inherit;color:inherit;white-space:nowrap}
-.loading-carnival .lc-label{font-weight:1000;font-size:calc(var(--s)*2.6);color:#fff;-webkit-text-stroke:calc(var(--s)*.5) #0b4a9a;paint-order:stroke fill;text-shadow:0 calc(var(--s)*.3) 0 #0b4a9a;white-space:nowrap}
-.loading-carnival .lc-bar{position:relative;width:100%;aspect-ratio:1200/180}
-.loading-carnival .lc-frame{position:absolute;inset:0;width:100%;height:100%;z-index:1}
-/* Fill inset from the kit: left 52/1200, top 51/180, size 1096x78. Revealed by clip-path. */
-.loading-carnival .lc-fillclip{position:absolute;z-index:2;left:4.3333%;top:28.3333%;width:91.3333%;height:43.3333%;border-radius:999px;overflow:hidden}
-.loading-carnival .lc-fill{display:block;width:100%;height:100%;clip-path:inset(0 100% 0 0 round 999px);transition:clip-path .25s linear}
-.loading-carnival .lc-fillclip::after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,#fff0 40%,#ffffff80 50%,#fff0 60%) 0 0/250% 100% no-repeat;animation:lc-gloss 1.8s ease-in-out infinite;mix-blend-mode:soft-light}
-@keyframes lc-gloss{from{background-position:130% 0}to{background-position:-50% 0}}
-.loading-carnival .lc-cap{position:absolute;z-index:3;top:50%;translate:0 -50%;width:8.5%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 40% 35%,#ffb04a,#f07a12 70%);box-shadow:0 0 0 calc(var(--s)*.45) #fff,0 0 0 calc(var(--s)*.85) #0b4a9a,0 calc(var(--s)*.5) calc(var(--s)*.6) #0b2a5c55}
-.loading-carnival .lc-cap::after{content:'';position:absolute;inset:20%;background:linear-gradient(#fff36a,#ffc21c);clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);filter:drop-shadow(0 1px 0 #b86a00)}
-.loading-carnival .lc-cap-l{left:-3.5%}.loading-carnival .lc-cap-r{right:-3.5%}
-.loading-carnival .lc-pct{position:absolute;z-index:4;right:8%;top:50%;translate:0 -50%;font-weight:1000;font-size:calc(var(--s)*2.1);color:#0a448e;-webkit-text-stroke:calc(var(--s)*.35) #fff;paint-order:stroke fill;font-variant-numeric:tabular-nums}
-.loading.loading-carnival.leaving{animation:lc-out .75s cubic-bezier(.5,0,.75,0) forwards;pointer-events:none}
-@keyframes lc-in{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}
-@keyframes lc-out{to{opacity:0}}
-/* Upright phones: stack Sparky under the title, wider bar */
-@media(orientation:portrait){.loading-carnival{--s:2.7vw}.loading-carnival .lc-title{top:calc(var(--s)*9)}.loading-carnival .lc-sparky{left:50%;translate:-50% 0;bottom:24%;height:38vh;max-width:80%}.loading-carnival .lc-tiles{left:50%;top:calc(var(--s)*44)}.loading-carnival .lc-star.s2{display:none}.loading-carnival .lc-bottom{width:88vw;bottom:calc(var(--s)*6)}.loading-carnival .lc-bunting{width:60vw}}
-@media(prefers-reduced-motion:reduce){.loading-carnival *,.loading-carnival *::before,.loading-carnival *::after{animation:none!important;transition:none!important}}
+/* Loading screen from the Sparky's Carnival audited asset pack. A 1672x941 design canvas is
+   contain-scaled (every layer positioned in % of it, text in cqw); the scenery is a separate
+   cover layer underneath. Static art: only the progress fill (clip-path) and percent change. */
+.loading.loading-pack{position:fixed;inset:0;z-index:1000;overflow:hidden;background:#7fd3f7;font-family:Nunito,'Arial Rounded MT Bold',Arial,sans-serif}
+.loading.loading-pack[hidden]{display:none}
+.loading-pack .ld-scenery{position:absolute;inset:0;background:url('assets/art/loading/carnival2/scenery.webp') center/cover no-repeat;opacity:0;transition:opacity .35s ease}
+.loading-pack.ld-ready .ld-scenery{opacity:1}
+.loading-pack .ld-stage{position:absolute;left:50%;top:50%;width:min(100vw,calc(100vh * 1672 / 941));aspect-ratio:1672/941;translate:-50% -50%;container-type:inline-size}
+.loading-pack .ld-stage img{position:absolute;display:block;max-width:none;user-select:none}
+.loading-pack .ld-sparky{left:3.5%;top:31%;height:55%;width:auto}
+.loading-pack .ld-badge{left:32.2%;top:5%;width:41.5%;height:auto}
+.loading-pack .ld-label{position:absolute;left:0;right:0;top:69.5%;translate:0 -50%;text-align:center;font-weight:1000;font-size:2.75cqw;line-height:1;letter-spacing:.01em;color:#6a2bc4;-webkit-text-stroke:.42cqw #fff;paint-order:stroke fill;text-shadow:0 .25cqw 0 #3b1580,0 .4cqw .6cqw #3b158055}
+/* Bar: track 1100x116; fill 1028x54 inset (36,31); caps 100x100 at both ends. */
+.loading-pack .ld-bar{position:absolute;left:26.3%;top:85.3%;width:55%;aspect-ratio:1100/116}
+.loading-pack .ld-track{inset:0;width:100%;height:100%}
+.loading-pack .ld-clip{position:absolute;left:3.27%;top:26.7%;width:93.45%;height:46.55%;border-radius:999px;overflow:hidden}
+.loading-pack .ld-clip .ld-fill{position:static;width:100%;height:100%;clip-path:inset(0 100% 0 0);transition:clip-path .2s linear}
+.loading-pack .ld-cap{top:50%;width:8.2%;height:auto;translate:0 -50%}
+.loading-pack .ld-cap-l{left:.6%}.loading-pack .ld-cap-r{right:.6%}
+.loading-pack .ld-pct{position:absolute;right:11.5%;top:50%;translate:0 -50%;font-weight:1000;font-size:1.95cqw;line-height:1;color:#fff;-webkit-text-stroke:.28cqw #3b1580;paint-order:stroke fill;font-variant-numeric:tabular-nums}
+.loading.loading-pack.leaving{transition:opacity .7s ease;opacity:0;pointer-events:none}
 
 /* board-transition.css */
 ﻿/* Board to board: the old board fades out, the next one (already prepared) is built out of

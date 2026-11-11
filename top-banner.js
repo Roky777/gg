@@ -1,18 +1,21 @@
+import { bubbleTitle } from './bubble-title.js?v=2';
 /**
- * Top banner: at the start of each board a ribbon drops in from the top of the screen
- * with the game's name and what to do, stays a few seconds, then slides back up.
- * It sits above the board between the corner buttons and never blocks a tap.
+ * Top banner: the reusable warm-gold blank banner from the Sparky's Carnival asset pack, with
+ * the activity's title (crisp SVG bubble lettering) and what to do rendered live on it. It drops
+ * in at the start of each board, stays a few seconds, then lifts away. Never blocks a tap.
  */
 export class TopBanner{
- constructor(game,{duration=3600,reduced=false}={}){
+ constructor(game,{duration=3800,reduced=false}={}){
   const el=document.createElement('div');el.className='top-banner';el.hidden=true;el.setAttribute('role','status');el.setAttribute('aria-live','polite');
-  el.innerHTML='<div class="tb-ribbon"><img class="tb-shell" src="assets/art/ui-finish/ribbon-shell.svg" alt="" draggable="false"><div class="tb-text"><strong lang="en"></strong><span><img class="tb-swatch" alt="" draggable="false" hidden><em lang="en"></em></span></div></div>';
+  el.innerHTML='<img class="tb-art" src="assets/art/loading/carnival2/banner-golden.webp" alt="" draggable="false"><div class="tb-copy"><span class="tb-svg"></span><span class="tb-rule"><img class="tb-swatch" alt="" draggable="false" hidden><em lang="en"></em></span></div>';
   game.append(el);Object.assign(this,{el,duration,reduced,timers:[]});
-  this.title=el.querySelector('strong');this.rule=el.querySelector('em');this.swatch=el.querySelector('.tb-swatch');
+  this.slot=el.querySelector('.tb-svg');this.ruleRow=el.querySelector('.tb-rule');this.rule=el.querySelector('em');this.swatch=el.querySelector('.tb-swatch');
  }
  clear(){this.timers.forEach(clearTimeout);this.timers=[];}
  show({title,rule='',swatch=null}){
-  if(!title)return;this.clear();this.title.textContent=title;this.rule.textContent=rule;this.rule.parentElement.hidden=!rule;
+  if(!title)return;this.clear();
+  this.slot.replaceChildren(bubbleTitle(title,{scheme:'sky',size:110,bounce:.04,tilt:2}));this.el.setAttribute('aria-label',rule?title+'. '+rule:title);
+  this.rule.textContent=rule;this.ruleRow.hidden=!rule;this.el.classList.toggle('no-rule',!rule);
   if(swatch){this.swatch.src='assets/art/objects/balloon.webp';this.swatch.style.filter=`hue-rotate(${swatch.hue}deg)`;this.swatch.hidden=false;}else this.swatch.hidden=true;
   const el=this.el;el.hidden=false;el.classList.remove('in','out');void el.offsetWidth;el.classList.add('in');
   this.timers.push(setTimeout(()=>this.hide(),this.duration));
