@@ -1,33 +1,56 @@
-/* Top banner (top-banner.js): a little sister of the play board. The same glossy blue rim,
-   cream panel and orange star bolts (the board artwork itself, sliced so the rim and bolts
-   stay crisp), with the title lettered like the board's letters: light-to-deep blue fill,
-   navy outline. It drops in with a soft bounce, a gloss shine sweeps across, then it lifts away. */
-.game>.top-banner{position:absolute;left:50%;top:0;z-index:40;max-width:min(64%,660px);min-width:min(36%,340px);transform:translate(-50%,-140%);transform-origin:50% 0;pointer-events:none;will-change:transform}
+/* Top banner (top-banner.js): a little sister of the play board (the board artwork itself,
+   sliced so the glossy rim and orange star bolts stay crisp) with orange prize-ribbon tails,
+   a warm glow, a title that pops in letter by letter in the board-letter style, a burst of
+   stars and confetti on landing and one gloss sweep. Then it lifts away. */
+.game>.top-banner{position:absolute;left:50%;top:0;z-index:40;max-width:min(64%,660px);min-width:min(36%,340px);transform:translate(-50%,-150%);transform-origin:50% 0;pointer-events:none;will-change:transform}
 .game>.top-banner[hidden]{display:none}
 .game>.top-banner.in{animation:tb-drop .78s cubic-bezier(.3,1.1,.45,1) forwards}
-.game>.top-banner.out{animation:tb-lift .36s ease-in forwards}
-@keyframes tb-drop{0%{transform:translate(-50%,-140%)}58%{transform:translate(-50%,16%) scale(1.035,.94)}76%{transform:translate(-50%,4%) scale(.985,1.02)}90%{transform:translate(-50%,10%) scale(1.005,.995)}100%{transform:translate(-50%,8%) scale(1)}}
-@keyframes tb-lift{0%{transform:translate(-50%,8%)}30%{transform:translate(-50%,13%) scale(1.02,.97)}100%{transform:translate(-50%,-150%)}}
-.top-banner .tb-shell{display:none}
-.top-banner .tb-ribbon{position:relative;filter:drop-shadow(0 6px 6px #0b3a6a3a)}
-.top-banner .tb-ribbon::before,.top-banner .tb-ribbon::after{content:none}
-.top-banner .tb-text{--rim:max(15px,calc(var(--stage-w,900px)*.026));position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.08em;padding:calc(var(--stage-w,900px)*.003) calc(var(--stage-w,900px)*.03) calc(var(--stage-w,900px)*.005);border:var(--rim) solid transparent;border-image:url('assets/art/toy-board/board.webp') 150 fill / var(--rim) / 0 stretch;background:none;box-shadow:none;text-align:center;font-family:Nunito,sans-serif;line-height:1.1;overflow:hidden}
-/* One gloss sweep across the panel as it lands. */
-.top-banner .tb-text::before{content:'';position:absolute;top:-20%;bottom:-20%;left:-40%;width:28%;background:linear-gradient(100deg,#fff0 0%,#ffffffb0 50%,#fff0 100%);transform:translateX(0) skewX(-18deg);opacity:0;pointer-events:none}
-.top-banner.in .tb-text::before{animation:tb-shine .9s ease-in-out .55s 1 both}
+.game>.top-banner.out{animation:tb-lift .38s ease-in forwards}
+@keyframes tb-drop{0%{transform:translate(-50%,-150%)}58%{transform:translate(-50%,18%) scale(1.04,.93)}76%{transform:translate(-50%,5%) scale(.985,1.02)}90%{transform:translate(-50%,11%) scale(1.005,.995)}100%{transform:translate(-50%,10%) scale(1)}}
+@keyframes tb-lift{0%{transform:translate(-50%,10%)}30%{transform:translate(-50%,15%) scale(1.02,.97)}100%{transform:translate(-50%,-160%)}}
+/* Warm glow behind */
+.top-banner .tb-glow{position:absolute;left:50%;top:50%;width:130%;height:240%;translate:-50% -50%;border-radius:50%;background:radial-gradient(ellipse,#fff3b0cc 0%,#ffe27a55 38%,#ffe27a00 70%);opacity:0;pointer-events:none}
+.top-banner.in .tb-glow{animation:tb-glow 2.2s ease-in-out .45s infinite}
+@keyframes tb-glow{0%,100%{opacity:.55;transform:scale(.94)}50%{opacity:1;transform:scale(1.06)}}
+.top-banner .tb-ribbon{position:relative;filter:drop-shadow(0 7px 7px #0b3a6a3a)}
+/* Orange prize-ribbon tails behind both ends */
+.top-banner .tb-tail{position:absolute;top:34%;width:calc(var(--stage-w,900px)*.07);height:52%;z-index:-1;background:linear-gradient(#ffa24d,#f2701f 55%,#c8500c);clip-path:polygon(0 0,100% 0,100% 100%,0 100%,22% 50%);box-shadow:inset 0 2px 0 #ffd3a3}
+.top-banner .tb-tail::after{content:'';position:absolute;top:0;width:28%;height:100%;background:#a23f07;clip-path:polygon(0 0,100% 0,100% 100%)}
+.top-banner .tb-tail-l{left:calc(var(--stage-w,900px)*-.045)}
+.top-banner .tb-tail-l::after{right:0}
+.top-banner .tb-tail-r{right:calc(var(--stage-w,900px)*-.045);transform:scaleX(-1)}
+.top-banner .tb-tail-r::after{right:0}
+.top-banner.in .tb-tail{animation:tb-tail .55s cubic-bezier(.2,1.5,.4,1) .3s both}
+.top-banner.in .tb-tail-r{animation-name:tb-tail-r}
+@keyframes tb-tail{from{transform:translateX(40%) scaleX(.2)}to{transform:none}}
+@keyframes tb-tail-r{from{transform:translateX(-40%) scaleX(-.2)}to{transform:scaleX(-1)}}
+/* The board panel */
+.top-banner .tb-text{--rim:max(15px,calc(var(--stage-w,900px)*.026));position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.08em;padding:calc(var(--stage-w,900px)*.003) calc(var(--stage-w,900px)*.03) calc(var(--stage-w,900px)*.005);border:var(--rim) solid transparent;border-image:url('assets/art/toy-board/board.webp') 150 fill / var(--rim) / 0 stretch;text-align:center;font-family:Nunito,sans-serif;line-height:1.1;overflow:hidden}
+.top-banner .tb-text::before{content:'';position:absolute;top:-20%;bottom:-20%;left:-40%;width:28%;background:linear-gradient(100deg,#fff0 0%,#ffffffb8 50%,#fff0 100%);transform:translateX(0) skewX(-18deg);opacity:0;pointer-events:none;z-index:2}
+.top-banner.in .tb-text::before{animation:tb-shine .9s ease-in-out 1.05s 1 both}
 @keyframes tb-shine{0%{opacity:0;transform:translateX(0) skewX(-18deg)}15%{opacity:1}100%{opacity:0;transform:translateX(560%) skewX(-18deg)}}
-.top-banner .tb-text::after{content:none}
-/* Title lettered like the board letters: navy outline underneath, blue gradient fill on top. */
-.top-banner strong{position:relative;display:block;font-weight:1000;font-size:max(18px,calc(var(--stage-w,900px)*.031));letter-spacing:.015em;white-space:nowrap;color:#174f7d;-webkit-text-stroke:max(4px,calc(var(--stage-w,900px)*.0058)) #174f7d;paint-order:stroke fill;text-shadow:0 max(2px,calc(var(--stage-w,900px)*.0032)) 0 #174f7d}
-.top-banner strong::after{content:attr(data-text);position:absolute;inset:0;-webkit-text-stroke:0;color:transparent;text-shadow:none;background:linear-gradient(#c8f6ff 0%,#5ccdf8 42%,#2b9ee8 70%,#1679c8 100%);-webkit-background-clip:text;background-clip:text}
-.top-banner span{display:flex;align-items:center;gap:.35em;white-space:nowrap;font-weight:900;font-size:max(12px,calc(var(--stage-w,900px)*.0168));color:#2a5f8c}
-.top-banner span[hidden]{display:none}
+/* Title: one board-letter per character, popping in on a wave */
+.top-banner strong{display:block;white-space:nowrap;font-weight:1000;font-size:max(18px,calc(var(--stage-w,900px)*.031));letter-spacing:.015em}
+.top-banner .tb-sp{display:inline-block;width:.32em}
+.top-banner .tb-ch{position:relative;display:inline-block;color:#174f7d;-webkit-text-stroke:max(4px,calc(var(--stage-w,900px)*.0058)) #174f7d;paint-order:stroke fill;text-shadow:0 max(2px,calc(var(--stage-w,900px)*.0032)) 0 #174f7d}
+.top-banner .tb-ch::after{content:attr(data-text);position:absolute;inset:0;-webkit-text-stroke:0;color:transparent;text-shadow:none;background:linear-gradient(#c8f6ff 0%,#5ccdf8 42%,#2b9ee8 70%,#1679c8 100%);-webkit-background-clip:text;background-clip:text}
+.top-banner.in .tb-ch{animation:tb-letter .5s cubic-bezier(.2,1.7,.4,1) calc(.32s + var(--i) * 38ms) both}
+@keyframes tb-letter{0%{opacity:0;transform:translateY(-70%) scale(.3) rotate(-12deg)}100%{opacity:1;transform:none}}
+.top-banner span:not(.tb-ch):not(.tb-sp){display:flex;align-items:center;gap:.35em;white-space:nowrap;font-weight:900;font-size:max(12px,calc(var(--stage-w,900px)*.0168));color:#2a5f8c}
+.top-banner.in .tb-text>span{animation:tb-rule .45s ease-out .75s both}
+@keyframes tb-rule{from{opacity:0;transform:translateY(30%)}to{opacity:1;transform:none}}
+.top-banner span[hidden]{display:none!important}
 .top-banner em{font-style:normal}
 .top-banner .tb-swatch{height:1.7em;width:auto;filter:drop-shadow(0 1px 1px #0004)}
 .top-banner .tb-swatch[hidden]{display:none}
+/* Landing burst */
+.top-banner .tb-burst{position:absolute;left:50%;top:55%;width:0;height:0;pointer-events:none;z-index:3}
+.top-banner .tb-bit,.top-banner .tb-star{position:absolute;left:-5px;top:-7px;width:10px;height:14px;border-radius:3px;background:var(--c);box-shadow:0 1px 1px #0002;opacity:0;animation:tb-fly 1.1s cubic-bezier(.15,.7,.35,1) both}
+.top-banner .tb-star{width:16px;height:16px;left:-8px;top:-8px;border-radius:0;clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);filter:drop-shadow(0 0 3px #fff7)}
+@keyframes tb-fly{0%{opacity:0;transform:translate(0,0) scale(.3) rotate(0)}12%{opacity:1}70%{opacity:1}100%{opacity:0;transform:translate(var(--dx),calc(var(--dy) + 30px)) scale(1) rotate(var(--spin))}}
 /* Rooms where Sparky sits at the top centre keep the top clear. */
 .game.feeding-room>.top-banner,.game.sticker-room>.top-banner{display:none}
-@media(prefers-reduced-motion:reduce){.game>.top-banner.in{animation:none;transform:translate(-50%,8%)}.game>.top-banner.out{animation:none}.top-banner.in .tb-text::before{animation:none}}
 /* Short phone stages: a slimmer banner so it never reaches the board. */
 .game[data-short-stage]>.top-banner .tb-text{--rim:max(13px,calc(var(--stage-w,900px)*.022));padding-top:0;padding-bottom:0}
 .game[data-short-stage]>.top-banner strong{font-size:max(16px,calc(var(--stage-w,900px)*.028))}
+@media(prefers-reduced-motion:reduce){.game>.top-banner.in{animation:none;transform:translate(-50%,10%)}.game>.top-banner.out{animation:none}.top-banner *,.top-banner *::before,.top-banner *::after{animation:none!important}}

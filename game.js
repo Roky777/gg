@@ -8,16 +8,16 @@ import {BreakSchedule,createPlayBreak,makeFunBoard,FUN_KINDS} from './play-break
 import {reviewVoices,pictureVoice,RECORDINGS,recordingFor} from './voice-cues.js?v=lip-sync-40';
 import {syncLayout} from './responsive-layout.js?v=board-finish-14';
 import {CompanionPose} from './companion-pose.js?v=companion-57';
-import {PlayFlow,ModeDeck} from './play-flow.js?v=clips-1';
+import {PlayFlow,ModeDeck} from './play-flow.js?v=clips-2';
 import {solved,swap,scramble,slotAt,swapFeedback} from './model.js?v=lip-sync-40';
-import {MascotDirector,CLIPS} from './mascot-director.js?v=clips-3';
+import {MascotDirector,CLIPS} from './mascot-director.js?v=clips-4';
 import {GameAudio} from './game-audio.js?v=activities-53';
 import {makeBoard} from './puzzle-generator.js?v=drag-only-47';
 import {LearningVoice} from './learning-voice.js?v=recorded-only-1';
 import {AssemblyRound,createAssemblyBoard} from './assembly-game.js?v=polish-52';
 import {AssemblyDeck} from './assembly-catalog.js?v=lip-sync-40';
 import {CountingRound,makeCountingBoard,COUNT_WORDS} from './counting-game.js?v=drop-pocket-15';
-import {RoundBanner,ROUND_INTROS} from './round-banner.js?v=top-1';import {TopBanner} from './top-banner.js?v=2';
+import {RoundBanner,ROUND_INTROS} from './round-banner.js?v=top-1';import {TopBanner} from './top-banner.js?v=3';
 import {DifferenceRound,createDifferenceBoard} from './differences-game.js?v=red-contours-55';
 import {VARIANTS,makeVariantBoard,freshMatchContent} from './variants/content.mjs';
 let VariantRoundController=null,variantRoundNumber=0,letterAnimations=null;
@@ -162,7 +162,7 @@ function idleSchedule(){
  if(activeRound?.feeding)return;
  if(reduced||done||document.hidden||$('pause-dialog').open)return;
  idleTimer=setTimeout(()=>{
-  if(!done&&!busy&&!drag&&!document.hidden&&!$('pause-dialog').open&&director.active==='idle'){if(idleCount===0)companion.act('ponder');else if(idleCount===1)respond(Math.random()<.5?'intro':'stall');else if(idleCount%2===0)respond(['water','happy','wow'][Math.floor(Math.random()*3)]);idleCount++;}
+  if(!done&&!busy&&!drag&&!document.hidden&&!$('pause-dialog').open&&director.active==='idle'){if(idleCount===0)companion.act('ponder');else if(idleCount===1)respond(Math.random()<.5?'intro':'stall');else if(idleCount%2===0){const look=['water','happy','wow','curious','lookhappy','hmm','aww'];respond(look[Math.floor(Math.random()*look.length)]);}idleCount++;}
   idleSchedule();
  },18000);
 }
@@ -176,7 +176,7 @@ addEventListener('keydown',()=>{if(screenUnavailable())return;const first=!voice
 function sound(kind='swap'){gameAudio.cue(kind);}
 const flow=new PlayFlow({celebrationDuration:(_topic,text)=>1000*(RECORDINGS[recordingFor(text)]?.duration||0),next:()=>{if(done)void advance();},speak:text=>voice.say(topic==='letters'&&recordingFor(text)?.startsWith('letters_intro')&&currentPicture.targets[0]===currentPicture.targets[0].toLowerCase()?'letters_intro_03':text),cheer:cue=>voice.say(cue.text,cue),react:respond,ready:show=>$('next').classList.toggle('round-ready',show),canSpeak:()=>!screenUnavailable()&&voiceUnlocked&&soundOn&&!document.hidden&&!$('pause-dialog').open&&!navigationLoading});
 // Sparky joins fun rounds with the rig's own activity clips.
-const FUN_JOIN={'balloon-pop':'pinata','drum-duet':'pinata','wash-toy':'splash','grow-garden':'water','magic-reveal':'wow','roll-ball':'run','jelly-wiggle':'woohoo'};
+const FUN_JOIN={'balloon-pop':'pinata','drum-duet':'pinata','wash-toy':'splash','grow-garden':'water','magic-reveal':'wow','roll-ball':'jog','jelly-wiggle':'woohoo'};
 // While he says a longer line (2.2 s or more) he gestures with one of the rig's dialogue
 // clips, rotated and cut to the line's length. The recorded voice still drives his mouth.
 const TALK=['talk','talk2','talk3','talk4','talk5','talk6','talk7','talk8','talk9'];let talkTurn=Math.floor(Math.random()*TALK.length);
