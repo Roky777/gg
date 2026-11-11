@@ -38,8 +38,6 @@ export function polishFeedingClips(clips){
  // separate arm layout on Sparky rather than copying their screen positions.
  for(const c of clips)c.feedingHandScale=c.id==='FD08'?.78:c.id==='FD10'?.85:c.id==='FD03'?.9:/FD07|FD12|FD13/.test(c.id)?.9:1;
  for(const id of['FD07','FD12','FD13'])by.get(id).armOffsets={R:[8,-10]};
- // The free (left) hand rests on the table during the tooth reactions; the cheek hand keeps Lucas's motion.
- for(const id of['FD07','FD12','FD13']){const c=by.get(id);c.channels.L=[[0,-58,124,0]];c.authoredArmSides=['L'];}
  by.get('FD10').armOffsets={L:[-9,-8],R:[9,-8]};
  const refusal=by.get('FD04');refusal.elbowProjection={L:.75,R:.85};
  refusal.channels.R=[[0,59,124,0],[.3,61,140,0],[.72,72,182,-8],[1.08,73,181,-6],[1.42,72,180,-6],[1.85,66,146,-2],[2.3,59,124,0]];
@@ -49,7 +47,7 @@ export function polishFeedingClips(clips){
  // Entry and exit stay close to the body: hands rise/fall straight below the table
  // edge, and only slide out to the wide rest (±59) while hidden. The old diagonal
  // sweep swung the elbows out above the table and flared the shirt like a skirt.
- for(const side of['L','R']){const s=side==='L'?-1:1,keys=clap.channels[side].filter(k=>k[0]>=.42&&k[0]<=1.68);/* hands rise over ~0.4 s, matching the body's ease-in */clap.channels[side]=[[0,s*59,124,0],[.2,s*40,154,0],[.38,s*36,158,0],...keys,[2,s*34,156,0],[2.28,s*40,152,0],[2.6,s*59,124,0]];/* from and back to the hands-on-table rest (seated-rest.mjs maps the end keys) */}
+ for(const side of['L','R']){const s=side==='L'?-1:1,keys=clap.channels[side].filter(k=>k[0]>=.42&&k[0]<=1.68);/* hands rise over ~0.4 s, matching the body's ease-in */clap.channels[side]=[[0,s*59,124,0],[.2,s*50,114,0],[.38,s*40,104,0],...keys,[2,s*33,128,0],[2.28,s*36,102,0],[2.6,s*59,124,0]];}
  clap.armImpacts=[.62,1.04,1.47];
  for(const side of['L','R']){const keys=clap.channels[side];for(const at of clap.armImpacts){const hit=keys.find(k=>Math.abs(k[0]-at)<1e-5);keys.push([at+.04,...hit.slice(1)])}keys.sort((a,b)=>a[0]-b[0]);}
  clap.shotPlan.contact='Clap at chest height, with three deliberate contacts and clear space below the eyes.';

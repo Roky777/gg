@@ -1,4 +1,3 @@
-import{remapSeatedRest}from'./seated-rest.mjs';
 const rest={body:[[0,0,-18]],seat:[[0,1]],L:[[0,-58,124,0]],R:[[0,59,124,0]]};
 function waiting(id,name,duration,channels,beats,mouth,blinks,voiceKey){return{id,name,duration,base:'0Final/Idle/Idle_EB',upperBodyOnly:true,scene:'table',sceneState:{feeding:true},channels:structuredClone({...rest,...channels}),elbowProjection:{L:.85,R:.85},beats,mouth,blinks,voiceKey,status:'Feeding waiting review',games:['08'],group:'Food Choices · Waiting reactions',description:name,notes:'Patient, interruptible waiting action. Hands return below the table. Recorded voice is optional; the game never blocks feeding to finish this clip.'}}
 export const feedingWaitingClips=[
@@ -10,6 +9,5 @@ export const feedingWaitingClips=[
  waiting('FW06','A patient smile and head tilt',3.1,{head:[[0,0],[.65,1.8],[1.35,1.45],[2.15,.35],[3.1,0]],headPosition:[[0,0,0],[.8,0,.3],[1.7,0,.1],[3.1,0,0]]},[[0,'child'],[.65,'friendly tilt'],[1.35,'patient smile'],[3.1,'rest']],[[0,'Smile'],[.7,'Happy'],[1.9,'Smile']],[[1.25,.24]],'aaraam_se_khilao')
 ];
 feedingWaitingClips.find(c=>c.id==='FW04').feedingFace=true;
-remapSeatedRest(feedingWaitingClips);
 export const feedingWaitingById=new Map(feedingWaitingClips.map(c=>[c.id,c]));
 export const WAITING_CAPTIONS={FW01:'That looks yummy!',FW02:'I’m getting a little hungry.',FW03:'Would you feed me a little bite?',FW04:'Ready for a bite!',FW05:'Which food shall we try?',FW06:'Take your time. I’m right here.'};

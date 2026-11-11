@@ -1,4 +1,3 @@
-import{remapSeatedRest}from'./seated-rest.mjs';
 import{thumbsUpReference}from'./thumbs-up-reference.mjs';
 import{FEEDING_REACTIONS,feedingFamily}from'./feeding-reaction-deck.mjs';
 import{polishFeedingClips}from'./feeding-production-plan.mjs';
@@ -34,6 +33,5 @@ feedingClips.unshift(feedingIdle);
 for(const clip of feedingClips){clip.upperBodyOnly=true;delete clip.channels.legL;delete clip.channels.legR;}
 polishFeedingClips(feedingClips);
 const sip=structuredClone(feedingClips.find(c=>c.id==='FD02'));Object.assign(sip,{id:'FD14',name:'A small sip, then swallow',feedingFace:true,beats:[[0,'rim at lower lip'],[.3,'small sip'],[.76,'cup lowers'],[1.15,'swallow'],[1.35,'rest']]});sip.channels.eating=[[0,.12,0,0,0],[.22,.18,0,0,0],[.62,.12,0,0,0],[.82,0,0,0,0],[1.05,0,0,0,.45],[1.35,0,0,0,0]];sip.channels.head=[[0,0],[.35,-.7],[.7,-.5],[1.35,0]];sip.mouth=[[0,'O'],[.82,'Smile']];sip.sceneState={feeding:true,foodIndex:51,serviceUtensil:'cup'};sip.shotPlan={duration:sip.duration,beats:sip.beats,intent:'A small sip without taking the glass into the mouth.',contact:'Rim rests at the lower lip; cup stays outside.',spacing:'Small accepting hold, then withdrawal and a quiet swallow.'};feedingClips.push(sip);
-remapSeatedRest(feedingClips);
 export const feedingById=new Map(feedingClips.map(c=>[c.id,c]));
 export function feedingResponse(food,{reactionId}={}){const family=feedingFamily(food),pool=FEEDING_REACTIONS[family],chosen=reactionId??pool[0];if(!pool.includes(chosen))throw Error('Reaction does not match this food: '+chosen);const everyday=family==='happy',ids=everyday?[food.serving==='sip'?'FD14':'FD02',...(food.serving==='sip'?[]:['FD06']),chosen]:family==='tooth'?['FD02',chosen]:[chosen],lines={FD04:'Na, na, na! Let’s try another food.',FD05:'Hmm. No, thank you.',FD11:'Not this one!',FD07:'Ouch, my tooth!',FD12:'Ooh, my tooth!',FD13:'Ow! That tooth again!'};let at=0;const segments=ids.map(clipId=>{const c=feedingById.get(clipId),s={clipId,from:0,to:c.duration,at,label:lines[clipId]??''};at+=c.duration;return s});return{id:everyday?'FEED_EVERYDAY':'FEED_TREAT',name:'Offer '+food.label,duration:at,base:idle,reactionId:chosen,segments,beats:segments.map(s=>[s.at,feedingById.get(s.clipId).name]),foodIndex:food.index,sceneState:{foodIndex:food.index,feeding:true,serviceUtensil:servingPlan(food).method},games:['08']}}

@@ -22,7 +22,7 @@ export function applyAuthoredMotion(sk,clip,time){
  if(!clip){sk.sparkyAuthoredPose=null;return null}
  const reference=clip.referenceMotion?referenceMotion(sk,clip.referenceMotion,time,clip.nativeSettle,clip.duration):null;
  let pose=evaluateMotion(clip,time);if(clip.transitionFrom)pose=blendMotionPoses(clip.transitionFrom.pose??evaluateMotion(clip.transitionFrom.clip,clip.transitionFrom.time),pose,clip.transitionFrom.weight);pose.gloves=glovePoseFor(clip,time);sk.sparkyAuthoredPose=pose;
- if(reference){pose.referenceMotion=reference;pose.keepOriginalGloves=true;pose.gloves=null;if(!clip.referenceArmTargets){if(clip.authoredArmSides){for(const s of['L','R'])if(!clip.authoredArmSides.includes(s)){delete pose.arms[s];delete pose.wrist[s]}}else{pose.arms={};pose.wrist={};}}/* authoredArmSides: those arms follow the channels, the rest keep the source animation */}
+ if(reference){pose.referenceMotion=reference;pose.keepOriginalGloves=true;pose.gloves=null;if(!clip.referenceArmTargets){pose.arms={};pose.wrist={};}}
  pose.armOffsets=clip.armOffsets;pose.feedingHandScale=clip.feedingHandScale??1;
  pose.upperBodyOnly=!!clip.upperBodyOnly;
  pose.tableOcclusionY=clip.upperBodyOnly&&!clip.sceneState?.fullFeeding?116:null;
