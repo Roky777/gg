@@ -1,38 +1,33 @@
-/* Top banner (top-banner.js): one clean glossy plate in the style of the game's buttons:
-   bright blue with a white rim, a dark outline and a chunky 3D bottom edge; the title in
-   white letters with a dark outline popping in letter by letter; one gloss sweep. */
-.game>.top-banner{position:absolute;left:50%;top:0;z-index:40;max-width:min(62%,640px);min-width:min(32%,300px);transform:translate(-50%,-150%);transform-origin:50% 0;pointer-events:none;will-change:transform}
+/* Top banner (top-banner.js): a bubble title (SVG: white rim, navy outline, glossy sunny
+   fill, bouncy letters) with yellow spark rays, and the instruction on a cream pill. */
+.game>.top-banner{position:absolute;left:50%;top:0;z-index:40;display:flex;flex-direction:column;align-items:center;transform:translate(-50%,-140%);pointer-events:none;will-change:transform}
 .game>.top-banner[hidden]{display:none}
-.game>.top-banner.in{animation:tb-drop .72s cubic-bezier(.3,1.15,.45,1) forwards}
+.game>.top-banner.in{animation:tb-drop .7s cubic-bezier(.3,1.2,.45,1) forwards}
 .game>.top-banner.out{animation:tb-lift .36s ease-in forwards}
-@keyframes tb-drop{0%{transform:translate(-50%,-150%)}60%{transform:translate(-50%,22%) scale(1.03,.95)}80%{transform:translate(-50%,10%) scale(.99,1.01)}100%{transform:translate(-50%,14%) scale(1)}}
-@keyframes tb-lift{0%{transform:translate(-50%,14%)}100%{transform:translate(-50%,-160%)}}
-.top-banner .tb-glow,.top-banner .tb-tail,.top-banner .tb-burst{display:none}
-.top-banner .tb-ribbon{position:relative;filter:drop-shadow(0 10px 12px #06264a55)}
-.top-banner .tb-text{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.06em;padding:calc(var(--stage-w,900px)*.009) calc(var(--stage-w,900px)*.04) calc(var(--stage-w,900px)*.011);border-radius:calc(var(--stage-w,900px)*.024);background:linear-gradient(#63d2ff 0%,#2fa6f5 46%,#1a83e6 54%,#1468cc 100%);border:max(3px,calc(var(--stage-w,900px)*.0035)) solid #ffffff;box-shadow:0 0 0 max(2px,calc(var(--stage-w,900px)*.003)) #0a3a78,0 max(5px,calc(var(--stage-w,900px)*.008)) 0 max(2px,calc(var(--stage-w,900px)*.003)) #0a3a78,inset 0 -5px 0 #0d55b066;text-align:center;font-family:Nunito,sans-serif;line-height:1.08;overflow:hidden}
-/* Glossy top half */
-.top-banner .tb-text::after{content:'';position:absolute;left:4%;right:4%;top:6%;height:42%;border-radius:999px;background:linear-gradient(#ffffff70,#ffffff10);pointer-events:none}
-/* One gloss sweep as it lands */
-.top-banner .tb-text::before{content:'';position:absolute;top:-30%;bottom:-30%;left:-40%;width:24%;background:linear-gradient(100deg,#fff0 0%,#ffffffa8 50%,#fff0 100%);transform:translateX(0) skewX(-18deg);opacity:0;pointer-events:none;z-index:2}
-.top-banner.in .tb-text::before{animation:tb-shine .85s ease-in-out .9s 1 both}
-@keyframes tb-shine{0%{opacity:0;transform:translateX(0) skewX(-18deg)}15%{opacity:1}100%{opacity:0;transform:translateX(620%) skewX(-18deg)}}
-/* Title: white letters, dark outline, deep shadow; popping in on a wave. */
-.top-banner strong{position:relative;z-index:1;display:block;white-space:nowrap;font-weight:1000;font-size:max(18px,calc(var(--stage-w,900px)*.032));letter-spacing:.02em}
-.top-banner .tb-sp{display:inline-block;width:.3em}
-.top-banner .tb-ch{display:inline-block;color:#fff;-webkit-text-stroke:max(4px,calc(var(--stage-w,900px)*.0055)) #0a3a78;paint-order:stroke fill;text-shadow:0 max(2px,calc(var(--stage-w,900px)*.0035)) 0 #0a3a78}
-.top-banner .tb-ch::after{content:none}
-.top-banner.in .tb-ch{animation:tb-letter .42s cubic-bezier(.2,1.7,.4,1) calc(.28s + var(--i) * 30ms) both}
-@keyframes tb-letter{0%{opacity:0;transform:translateY(-55%) scale(.4)}100%{opacity:1;transform:none}}
-.top-banner span:not(.tb-ch):not(.tb-sp){position:relative;z-index:1;display:flex;align-items:center;gap:.35em;white-space:nowrap;font-weight:900;font-size:max(12px,calc(var(--stage-w,900px)*.0165));color:#fff6c4;-webkit-text-stroke:max(2.5px,calc(var(--stage-w,900px)*.0034)) #0a3a78;paint-order:stroke fill}
-.top-banner.in .tb-text>span{animation:tb-rule .4s ease-out .65s both}
-@keyframes tb-rule{from{opacity:0;transform:translateY(30%)}to{opacity:1;transform:none}}
-.top-banner span[hidden]{display:none!important}
+@keyframes tb-drop{0%{transform:translate(-50%,-140%)}62%{transform:translate(-50%,6%)}82%{transform:translate(-50%,-2%)}100%{transform:translate(-50%,2%)}}
+@keyframes tb-lift{0%{transform:translate(-50%,2%)}100%{transform:translate(-50%,-150%)}}
+.top-banner .tb-title{position:relative;display:flex;align-items:center}
+.top-banner .tb-svg{display:block;height:calc(var(--stage-w,900px)*.1);min-height:46px;max-height:132px}
+.top-banner .tb-svg svg{display:block;height:100%;width:auto;overflow:visible}
+.top-banner.in .tb-svg{animation:tb-pop .55s cubic-bezier(.2,1.6,.4,1) .2s both}
+@keyframes tb-pop{0%{transform:scale(.55);opacity:0}100%{transform:none;opacity:1}}
+/* Spark rays: three short yellow strokes each side, like a cartoon "ta-da". */
+.top-banner .tb-ray{position:relative;width:calc(var(--stage-w,900px)*.028);height:calc(var(--stage-w,900px)*.05);flex:none}
+.top-banner .tb-ray::before,.top-banner .tb-ray::after,.top-banner .tb-ray{background:none}
+.top-banner .tb-ray::before,.top-banner .tb-ray::after{content:'';position:absolute;left:30%;width:22%;height:42%;border-radius:999px;background:#ffd23a;box-shadow:0 0 0 2px #12397a}
+.top-banner .tb-ray-l::before{top:0;rotate:-35deg}.top-banner .tb-ray-l::after{bottom:0;rotate:35deg}
+.top-banner .tb-ray-r::before{top:0;rotate:35deg}.top-banner .tb-ray-r::after{bottom:0;rotate:-35deg}
+.top-banner.in .tb-ray{animation:tb-ray .5s cubic-bezier(.2,1.6,.4,1) .55s both}
+@keyframes tb-ray{from{opacity:0;scale:.3}to{opacity:1;scale:1}}
+/* Cream pill with the instruction */
+.top-banner .tb-pill{display:flex;align-items:center;gap:.4em;margin-top:calc(var(--stage-w,900px)*-.006);padding:.22em .95em .28em;border-radius:999px;background:linear-gradient(#fffdf3,#fff1cf);border:max(2px,calc(var(--stage-w,900px)*.0028)) solid #fff;box-shadow:0 0 0 max(2px,calc(var(--stage-w,900px)*.0026)) #f2b33d,0 5px 10px #0c2f6640;font-family:Nunito,sans-serif;font-weight:900;font-size:max(12px,calc(var(--stage-w,900px)*.0148));color:#12397a;white-space:nowrap}
+.top-banner .tb-pill[hidden]{display:none}
+.top-banner.in .tb-pill{animation:tb-pill .45s cubic-bezier(.2,1.4,.4,1) .55s both}
+@keyframes tb-pill{from{opacity:0;transform:translateY(-40%) scale(.8)}to{opacity:1;transform:none}}
 .top-banner em{font-style:normal}
-.top-banner .tb-swatch{height:1.7em;width:auto;filter:drop-shadow(0 1px 1px #0005)}
+.top-banner .tb-swatch{height:1.6em;width:auto;filter:drop-shadow(0 1px 1px #0005)}
 .top-banner .tb-swatch[hidden]{display:none}
 /* Rooms where Sparky sits at the top centre keep the top clear. */
 .game.feeding-room>.top-banner,.game.sticker-room>.top-banner{display:none}
-/* Short phone stages: a slimmer plate so it never reaches the board. */
-.game[data-short-stage]>.top-banner .tb-text{padding-top:2px;padding-bottom:3px}
-.game[data-short-stage]>.top-banner strong{font-size:max(16px,calc(var(--stage-w,900px)*.029))}
-@media(prefers-reduced-motion:reduce){.game>.top-banner.in{animation:none;transform:translate(-50%,14%)}.game>.top-banner.out{animation:none}.top-banner *,.top-banner *::before,.top-banner *::after{animation:none!important}}
+.game[data-short-stage]>.top-banner .tb-svg{height:calc(var(--stage-w,900px)*.075)}
+@media(prefers-reduced-motion:reduce){.game>.top-banner.in{animation:none;transform:translate(-50%,2%)}.game>.top-banner.out{animation:none}.top-banner *{animation:none!important}}

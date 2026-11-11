@@ -1,75 +1,52 @@
-/* Loading key art: one full-bleed scene built from the game's own art, with depth.
-   Far: the amusement-park scene, a rainbow over the hill, clouds (soft). Sky: a kite and a
-   cluster of balloons. Middle: the play board standing on the lawn with floating letters.
-   Front: Sparky cheering mid-jump, butterflies. Nearest: a ball and a teddy, big and out of
-   focus. A gold logo on top and a slim "Loading" bar at the bottom. Transform/opacity only. */
-.loading.loading-key{position:fixed;inset:0;z-index:1000;overflow:hidden;isolation:isolate;background:linear-gradient(#3fb7ff 0%,#9fe0ff 46%,#b9ec74 47%,#7bc94a 75%,#4f9f37 100%);font-family:Nunito,'Arial Rounded MT Bold',Arial,sans-serif}
-.loading.loading-key[hidden]{display:none}
-.loading-key .lk-scene{position:absolute;inset:-4%;background:url('assets/art/worlds-v3/amusement.webp') center 58%/cover no-repeat;filter:blur(1.6px) saturate(1.25) contrast(1.05);opacity:0;transition:opacity .8s ease;animation:lk-push 26s ease-in-out infinite alternate;will-change:transform}
-.loading-key.lk-scene-ready .lk-scene{opacity:1}
-/* Warm light from the top and a deep vignette, like a lit stage. */
-.loading-key::before{content:'';position:absolute;inset:0;z-index:7;pointer-events:none;background:radial-gradient(ellipse 60% 45% at 50% 6%,#fff6c866,#fff6c800 70%),radial-gradient(ellipse 85% 80% at 50% 50%,#0000 50%,#0b2a4a4d 82%,#06182e99 100%)}
-.loading-key .lk-rainbow{position:absolute;left:46%;top:6vh;width:min(46vw,80vh);opacity:.55;filter:blur(2px);mix-blend-mode:screen;pointer-events:none}
-.loading-key .lk-cloud{position:absolute;width:clamp(120px,19vw,290px);filter:blur(1.5px) drop-shadow(0 8px 10px #0b3a6a22);opacity:.9;will-change:transform}
-.loading-key .lk-cloud-a{top:14vh;left:-24%;animation:lk-cloud 46s linear infinite}
-.loading-key .lk-cloud-b{top:26vh;left:-24%;width:clamp(90px,13vw,200px);opacity:.75;animation:lk-cloud 64s linear -34s infinite}
-/* Sky */
-.loading-key .lk-kite{position:absolute;left:9vw;top:9vh;height:23vh;filter:blur(.8px) drop-shadow(0 8px 8px #0b2a4a33);transform-origin:50% 100%;animation:lk-kite 4.5s ease-in-out infinite;will-change:transform}
-.loading-key .lk-balloons{position:absolute;right:6vw;top:13vh;width:20vh;height:30vh;filter:blur(1.2px);animation:lk-rise 6s ease-in-out infinite;will-change:transform}
-.loading-key .lk-balloons img{position:absolute;height:62%;filter:drop-shadow(0 6px 6px #0b2a4a33)}
-.loading-key .lk-balloons img:nth-child(1){left:0;top:12%;rotate:-10deg;filter:hue-rotate(20deg) drop-shadow(0 6px 6px #0b2a4a33)}
-.loading-key .lk-balloons img:nth-child(2){left:30%;top:0;filter:hue-rotate(245deg) drop-shadow(0 6px 6px #0b2a4a33)}
-.loading-key .lk-balloons img:nth-child(3){left:58%;top:16%;rotate:9deg;filter:hue-rotate(140deg) drop-shadow(0 6px 6px #0b2a4a33)}
-.loading-key .lk-balloons img:nth-child(4){left:26%;top:34%;height:52%;filter:hue-rotate(50deg) drop-shadow(0 6px 6px #0b2a4a33)}
-/* Middle ground: the play board standing on the lawn, slightly soft. */
-.loading-key .lk-board{position:absolute;right:4vw;bottom:15vh;width:min(46vw,78vh);aspect-ratio:1737/905;rotate:4deg;filter:blur(.9px) drop-shadow(0 22px 16px #0b2a4a55);animation:lk-sway 6s ease-in-out infinite;will-change:transform;z-index:1}
-.loading-key .lk-board-art{position:absolute;inset:0;width:100%;height:100%}
-.loading-key .lk-cards{position:absolute;left:13%;right:13%;top:23%;bottom:23%;display:grid;grid-template-columns:repeat(3,1fr);gap:6%;align-items:center}
-.loading-key .lk-cards span{display:grid;place-items:center;aspect-ratio:1;border-radius:18%;background:linear-gradient(#fff,#f3eee0);box-shadow:0 0 0 3px #8fd3f5,0 5px 0 #d7cdb3}
-.loading-key .lk-cards img{width:70%;height:70%;object-fit:contain}
-.loading-key .lk-letter{position:absolute;z-index:2;height:14vh;filter:drop-shadow(0 8px 6px #0b2a4a44);will-change:transform}
-.loading-key .lk-letter-a{right:42vw;top:30vh;rotate:-14deg;filter:blur(.6px) drop-shadow(0 8px 6px #0b2a4a44);animation:lk-bob 3.6s ease-in-out infinite}
-.loading-key .lk-letter-b{right:5vw;top:24vh;height:11vh;rotate:12deg;filter:blur(1.4px);animation:lk-bob 4.2s ease-in-out -1.6s infinite}
-/* Front: Sparky mid-cheer with a warm rim light; butterflies around him. */
-.loading-key .lk-hero{position:absolute;z-index:4;left:12vw;bottom:6vh;height:76vh;aspect-ratio:512/760}
-.loading-key .lk-hero::after{content:'';position:absolute;left:50%;bottom:-1%;width:62%;height:7%;translate:-50% 0;border-radius:50%;background:#0b2a1450;filter:blur(7px);animation:lk-shadow 1.6s ease-in-out infinite}
-.loading-key .lv-sparky{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .45s ease;transform-origin:50% 100%;filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 26px #ffd25aa8) drop-shadow(0 14px 10px #0b2a4a55);animation:lk-hop 1.6s cubic-bezier(.4,0,.3,1) infinite;will-change:transform}
-.loading-key .lv-sparky.ready{opacity:1}
-.loading-key .lk-fly{position:absolute;z-index:5;height:7vh;will-change:transform}
-.loading-key .lk-fly-a{left:7vw;top:40vh;animation:lk-flutter 5s ease-in-out infinite}
-.loading-key .lk-fly-b{left:36vw;top:28vh;height:5vh;filter:blur(.8px) hue-rotate(160deg);animation:lk-flutter 6.5s ease-in-out -2.5s infinite}
-/* Nearest: big and out of focus */
-.loading-key .lk-near{position:absolute;z-index:6;pointer-events:none;will-change:transform}
-.loading-key .lk-near-a{left:-5vw;bottom:-12vh;height:40vh;filter:blur(8px);animation:lk-near 8s ease-in-out infinite}
-.loading-key .lk-near-b{right:-3vw;bottom:-14vh;height:44vh;filter:blur(9px);animation:lk-near 9s ease-in-out -4s infinite}
-/* Logo: gold letters with a deep brown outline and bevel light, a shine passing through. */
-.loading-key .lk-logo{position:absolute;z-index:8;left:50%;top:3vh;translate:-50% 0;margin:0;line-height:.88;text-align:center;white-space:nowrap;filter:drop-shadow(0 8px 10px #3a1a0080);animation:lk-logo-in 1s cubic-bezier(.2,1.4,.4,1) both}
-.loading-key .lk-logo span{position:relative;display:block;font-weight:1000;color:#5a2600;-webkit-text-stroke:clamp(6px,1.4vh,12px) #5a2600;paint-order:stroke fill;text-shadow:0 clamp(4px,1vh,8px) 0 #3d1900}
-.loading-key .lk-logo span::after{content:attr(data-text);position:absolute;inset:0;-webkit-text-stroke:0;color:transparent;text-shadow:none;background:linear-gradient(100deg,#fff0 40%,#ffffffe0 50%,#fff0 60%) -100% 0/250% 100% no-repeat,linear-gradient(#fffbe0 0%,#ffe36a 30%,#ffc21f 55%,#f08a0c 100%);-webkit-background-clip:text;background-clip:text;animation:lk-shine 3.6s ease-in-out 1.2s infinite}
-.loading-key .lk-logo-top{font-size:clamp(22px,6vh,52px);letter-spacing:.04em}
-.loading-key .lk-logo-main{font-size:clamp(38px,12vh,112px);letter-spacing:.01em}
-/* Bottom: a slim bar with the word Loading on it. */
-.loading-key .lk-bottom{position:absolute;z-index:8;left:50%;bottom:3.5vh;translate:-50% 0;width:min(560px,52vw)}
-.loading-key .load-meter{display:flex;align-items:center;width:100%}
-.loading-key .load-track{position:relative;flex:1;height:clamp(24px,5.2vh,36px);padding:3px;border-radius:12px;background:#1d1238;box-shadow:0 0 0 2px #fffc,0 6px 14px #06182e88,inset 0 2px 3px #0008}
-.loading-key .load-track i{position:relative;display:block;height:100%;width:0;min-width:14px;border-radius:9px;background:linear-gradient(100deg,#fff0 42%,#ffffff90 50%,#fff0 58%) 0 0/260% 100% no-repeat,linear-gradient(#b5f0ff 0%,#4fc3ff 38%,#1d8ef0 62%,#1466c8 100%);box-shadow:inset 0 2px 0 #ffffffc0,inset 0 -3px 0 #0a4aa080;transition:width .28s linear;animation:lk-bar-shine 1.8s ease-in-out infinite}
-.loading-key .lk-label{position:absolute;inset:0;display:grid;place-items:center;font-size:clamp(15px,3.2vh,23px);font-weight:1000;letter-spacing:.05em;color:#fff;-webkit-text-stroke:clamp(3px,.6vh,5px) #1d1238;paint-order:stroke fill;text-shadow:0 2px 0 #1d1238;pointer-events:none}
-.loading-key .load-meter b{display:none}
-.loading.loading-key.leaving{animation:lk-out .8s cubic-bezier(.5,0,.75,0) forwards;pointer-events:none}
-@keyframes lk-push{from{transform:scale(1.03)}to{transform:scale(1.1) translate(-1%,-1%)}}
-@keyframes lk-cloud{from{transform:translateX(0)}to{transform:translateX(160vw)}}
-@keyframes lk-kite{0%,100%{transform:rotate(-6deg) translateY(0)}50%{transform:rotate(7deg) translateY(-4%)}}
-@keyframes lk-rise{0%,100%{transform:translateY(0)}50%{transform:translateY(-5%)}}
-@keyframes lk-sway{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-1.2%) rotate(-.8deg)}}
-@keyframes lk-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12%)}}
-@keyframes lk-hop{0%,100%{transform:translateY(0) scale(1,1)}12%{transform:translateY(0) scale(1.04,.95)}45%{transform:translateY(-6%) scale(.98,1.03)}70%{transform:translateY(-1%) scale(1,1)}}
-@keyframes lk-shadow{0%,100%{scale:1;opacity:1}45%{scale:.78;opacity:.55}}
-@keyframes lk-flutter{0%{transform:translate(0,0) rotate(-8deg) scaleX(1)}25%{transform:translate(18%,-30%) rotate(6deg) scaleX(.7)}50%{transform:translate(40%,-10%) rotate(-4deg) scaleX(1)}75%{transform:translate(20%,20%) rotate(8deg) scaleX(.7)}100%{transform:translate(0,0) rotate(-8deg) scaleX(1)}}
-@keyframes lk-near{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-4%) rotate(3deg)}}
-@keyframes lk-logo-in{from{opacity:0;scale:.4}to{opacity:1;scale:1}}
-@keyframes lk-shine{0%,30%{background-position:-100% 0,0 0}70%,100%{background-position:200% 0,0 0}}
-@keyframes lk-bar-shine{from{background-position:120% 0,0 0}to{background-position:-60% 0,0 0}}
-@keyframes lk-out{to{opacity:0}}
-/* Upright phones: the logo on top, Sparky in front of the board. */
-@media(orientation:portrait){.loading-key .lk-logo-main{font-size:clamp(30px,10.5vw,64px)}.loading-key .lk-logo-top{font-size:clamp(18px,6vw,36px)}.loading-key .lk-board{right:-6vw;bottom:30vh;width:84vw}.loading-key .lk-hero{left:4vw;bottom:8vh;height:48vh}.loading-key .lk-bottom{width:80vw}.loading-key .lk-kite{top:15vh;height:14vh}.loading-key .lk-balloons{top:16vh;height:20vh;width:14vh}.loading-key .lk-letter{height:8vh}.loading-key .lk-near-a,.loading-key .lk-near-b{height:24vh}.loading-key .lk-rainbow{left:20%;top:12vh;width:80vw}}
-@media(prefers-reduced-motion:reduce){.loading-key *,.loading-key *::before,.loading-key *::after{animation:none!important}}
+/* Loading screen: the game's market scene, heavily blurred, soft light drifting up; Sparky
+   cheering on a cloud beside the bubbly logo (SVG lettering, the game's title style);
+   "Loading..." over a clean bar with a white rim and glossy orange fill, status and percent. */
+.loading.loading-soft{position:fixed;inset:0;z-index:1000;overflow:hidden;isolation:isolate;display:grid;grid-template-rows:1fr auto;place-items:center;padding:max(10px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));background:linear-gradient(#8fd2ff,#cfeefa 50%,#f6e6c8);font-family:Nunito,'Arial Rounded MT Bold',Arial,sans-serif}
+.loading.loading-soft[hidden]{display:none}
+.loading-soft .ls-scene{position:absolute;inset:-6%;z-index:-3;background:url('assets/art/worlds-v3/market.webp') center 55%/cover no-repeat;filter:blur(12px) saturate(1.15) brightness(1.03);opacity:0;transition:opacity .8s ease;animation:ls-drift 30s ease-in-out infinite alternate;will-change:transform}
+.loading-soft.ls-scene-ready .ls-scene{opacity:1}
+.loading-soft .ls-glow{position:absolute;inset:0;z-index:-2;background:radial-gradient(ellipse 48% 42% at 50% 44%,#fff8e0b8,#fff8e000 72%),radial-gradient(ellipse 90% 85% at 50% 50%,#0000 55%,#0c2f6630 100%)}
+.loading-soft .ls-bokeh{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.loading-soft .ls-bokeh i{position:absolute;bottom:-12%;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ffffff,#fff6d6 45%,#fff6d600 72%);filter:blur(2px);animation:ls-float 14s linear infinite;will-change:transform}
+/* Centre: Sparky on a cloud + logo */
+.loading-soft .ls-center{display:flex;align-items:center;justify-content:center;gap:clamp(4px,1.5vw,24px);animation:ls-in .9s cubic-bezier(.2,1.3,.4,1) both}
+.loading-soft .ls-hero{position:relative;height:min(52vh,34vw);aspect-ratio:512/760;flex:none}
+.loading-soft .ls-cloud{position:absolute;left:-28%;right:-28%;bottom:-9%;width:156%;filter:drop-shadow(0 10px 14px #0c2f6633);animation:ls-cloud 3.2s ease-in-out infinite;will-change:transform}
+.loading-soft .lv-sparky{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .45s ease;transform-origin:50% 100%;filter:drop-shadow(0 0 18px #ffd65a99) drop-shadow(0 8px 6px #0c2f6640);animation:ls-hop 1.7s cubic-bezier(.4,0,.3,1) infinite;will-change:transform}
+.loading-soft .lv-sparky.ready{opacity:1}
+.loading-soft .ls-logo{position:relative;margin:0;display:flex;flex-direction:column;align-items:center;line-height:0}
+.loading-soft .ls-logo svg{display:block;width:auto;overflow:visible}
+.loading-soft .ls-logo-a svg{height:min(13vh,9vw)}
+.loading-soft .ls-logo-b{margin-top:calc(-1 * min(4vh,2.6vw))}
+.loading-soft .ls-logo-b svg{height:min(22vh,15vw)}
+.loading-soft .ls-logo-a{animation:ls-wobble 3.4s ease-in-out infinite}
+.loading-soft .ls-logo-b{animation:ls-wobble 3.4s ease-in-out -.6s infinite}
+/* Spark rays around the logo */
+.loading-soft .ls-ray{position:absolute;top:30%;width:min(5vh,3.4vw);height:min(13vh,8.6vw)}
+.loading-soft .ls-ray::before,.loading-soft .ls-ray::after{content:'';position:absolute;left:30%;width:24%;height:40%;border-radius:999px;background:#ffd23a;box-shadow:0 0 0 2px #12397a;animation:ls-spark 1.6s ease-in-out infinite}
+.loading-soft .ls-ray-l{left:max(-6vh,-4vw)}.loading-soft .ls-ray-r{right:max(-6vh,-4vw)}
+.loading-soft .ls-ray-l::before{top:0;rotate:-35deg}.loading-soft .ls-ray-l::after{bottom:0;rotate:35deg;animation-delay:-.4s}
+.loading-soft .ls-ray-r::before{top:0;rotate:35deg;animation-delay:-.8s}.loading-soft .ls-ray-r::after{bottom:0;rotate:-35deg;animation-delay:-1.2s}
+/* Bottom: label, bar, status */
+.loading-soft .ls-bottom{width:min(820px,58vw);display:flex;flex-direction:column;align-items:center;gap:clamp(6px,1.3vh,10px);margin-bottom:clamp(8px,3vh,30px)}
+.loading-soft .ls-label{font-size:clamp(18px,4.2vh,46px);font-weight:1000;letter-spacing:.03em;color:#fff;-webkit-text-stroke:clamp(4px,.8vh,9px) #12397a;paint-order:stroke fill;text-shadow:0 3px 0 #12397a}
+.loading-soft .load-meter{width:100%}
+.loading-soft .load-track{position:relative;height:clamp(16px,3.4vh,36px);border-radius:999px;background:#12397ab3;border:clamp(3px,.5vh,6px) solid #fff;box-shadow:0 6px 14px #0c2f6640,inset 0 2px 4px #0006;overflow:hidden}
+.loading-soft .load-track i{display:block;height:100%;width:0;min-width:10px;border-radius:999px;background:linear-gradient(100deg,#fff0 42%,#ffffffa0 50%,#fff0 58%) 0 0/260% 100% no-repeat,linear-gradient(#ffe48a 0%,#ffb23a 45%,#ff8a12 100%);box-shadow:inset 0 2px 0 #fff4c4,inset 0 -2px 0 #c95f0080;transition:width .28s linear;animation:ls-bar 1.8s ease-in-out infinite}
+.loading-soft .ls-status{display:flex;justify-content:space-between;align-items:baseline;width:100%;margin-top:clamp(4px,.9vh,10px);font-size:clamp(13px,2.4vh,24px);font-weight:900;color:#fff;-webkit-text-stroke:clamp(3px,.45vh,5px) #12397a;paint-order:stroke fill;text-shadow:0 2px 0 #12397a}
+.loading-soft .ls-status span,.loading-soft .ls-status b{all:unset;font:inherit;color:inherit;-webkit-text-stroke:inherit;paint-order:inherit;text-shadow:inherit;white-space:nowrap}
+.loading-soft .ls-status b{color:#fff3b0;font-variant-numeric:tabular-nums}
+.loading-soft .ls-logo span{all:unset;display:block;line-height:0}
+.loading.loading-soft.leaving{animation:ls-out .7s cubic-bezier(.5,0,.75,0) forwards;pointer-events:none}
+@keyframes ls-drift{from{transform:scale(1.03)}to{transform:scale(1.1) translate(-1.5%,-1%)}}
+@keyframes ls-float{from{transform:translateY(0)}to{transform:translateY(-120vh)}}
+@keyframes ls-in{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:none}}
+@keyframes ls-cloud{0%,100%{transform:translateY(0)}50%{transform:translateY(4%)}}
+@keyframes ls-hop{0%,100%{transform:translateY(0) scale(1,1)}12%{transform:translateY(0) scale(1.03,.96)}45%{transform:translateY(-5%) scale(.98,1.03)}70%{transform:translateY(-1%)}}
+@keyframes ls-wobble{0%,100%{transform:rotate(-1.2deg) scale(1)}50%{transform:rotate(1.2deg) scale(1.02)}}
+@keyframes ls-spark{0%,100%{opacity:.4;scale:.8}50%{opacity:1;scale:1.08}}
+@keyframes ls-bar{from{background-position:120% 0,0 0}to{background-position:-60% 0,0 0}}
+@keyframes ls-out{to{opacity:0}}
+/* Upright phones: Sparky above the logo */
+@media(orientation:portrait){.loading-soft .ls-center{flex-direction:column}.loading-soft .ls-hero{height:min(30vh,56vw)}.loading-soft .ls-logo-a svg{height:auto;width:min(56vw,30vh)}.loading-soft .ls-logo-b svg{height:auto;width:min(90vw,50vh)}.loading-soft .ls-logo-b{margin-top:-2.5vw}.loading-soft .ls-bottom{width:84vw}.loading-soft .ls-ray{display:none}}
+@media(prefers-reduced-motion:reduce){.loading-soft *,.loading-soft *::before,.loading-soft *::after{animation:none!important}}
