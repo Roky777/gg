@@ -1286,6 +1286,8 @@ html:not([data-sparky=ready]):not([data-sparky=poster]) #mascot{opacity:0}
 .loading.loading-pack[hidden]{display:none}
 .loading-pack .ld-scenery{position:absolute;inset:0;background:url('assets/art/loading/carnival2/scenery.webp') center/cover no-repeat;opacity:0;transition:opacity .35s ease}
 .loading-pack.ld-ready .ld-scenery{opacity:1}
+.loading-pack .ld-scenery-lo{position:absolute;inset:-4%;background-position:center;background-size:cover;filter:blur(10px)}
+.loading-pack .ld-stage{opacity:0;transition:opacity .3s ease}.loading-pack.ld-art .ld-stage{opacity:1}
 .loading-pack .ld-stage{position:absolute;left:50%;top:50%;width:min(100vw,calc(100vh * 1672 / 941));aspect-ratio:1672/941;translate:-50% -50%;container-type:inline-size}
 .loading-pack .ld-stage img{position:absolute;display:block;max-width:none;user-select:none}
 .loading-pack .ld-sparky{left:3.5%;top:31%;height:55%;width:auto}

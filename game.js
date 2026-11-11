@@ -74,7 +74,7 @@ async function boardReady(pic,limit=2500){
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 // After the first board: quietly fetch every image the stylesheets use (board frames, trays,
 // guide hand, room furniture), one at a time, so later boards never wait for them.
-async function warmStyleArt(){const urls=new Set();for(const sheet of document.styleSheets){let rules;try{rules=sheet.cssRules;}catch{continue;}for(const rule of rules){const text=rule.cssText;if(!text.includes('url('))continue;for(const m of text.matchAll(/url\("?([^")]+)"?\)/g))if(!m[1].startsWith('data:')&&/\/assets\/art\/|^assets\/art\//.test(new URL(m[1],sheet.href||location.href).href))urls.add(new URL(m[1],sheet.href||location.href).href);}}for(const url of urls){if(document.hidden)await sleep(1000);try{await fetch(url,{priority:'low'});}catch{}}}
+async function warmStyleArt(){const urls=new Set();for(const sheet of document.styleSheets){let rules;try{rules=sheet.cssRules;}catch{continue;}for(const rule of rules){const text=rule.cssText;if(!text.includes('url('))continue;for(const m of text.matchAll(/url\("?([^")]+)"?\)/g))if(!m[1].startsWith('data:')&&/\/assets\/art\/|^assets\/art\//.test(new URL(m[1],sheet.href||location.href).href))urls.add(new URL(m[1],sheet.href||location.href).href);}}for(const url of urls){while(document.hidden||navigationLoading)await sleep(600);/* never compete with a board being prepared */try{await fetch(url,{priority:'low'});}catch{}}}
 async function loadOpeningArt(picture){
  // Decode only art used by the opening activity; later modes load on demand.
  const paths=[backgroundFor(picture).image,'toy-controls/shell.webp','toy-board/board.webp'];
@@ -142,8 +142,8 @@ async function advance(){
  if(globalThis.sparkyRig)globalThis.sparkyRig.holdUntil=performance.now()+700;flow.cancel();cancelReactions();const breakKind=breakSchedule.take(wins);const next=breakKind?makeFunBoard(breakKind):(upcomingBoard||newBoard());if(!breakKind)upcomingBoard=null;clearTimeout(prefetchTimer);roundBanner.hide({immediate:true});voice.cancel();clearTimeout(settle);clearDrag();activeRound?.cancelDrag();roundToken++;
  // The old board fades out while the next one (normally already prepared) is checked; the new
  // board is built out of sight and fades in only when every picture in it is ready.
- const gameEl=document.querySelector('.game');gameEl.classList.remove('board-arriving');gameEl.classList.add('board-leaving');
- try{const t0=performance.now();await Promise.all([loadPicture(next),prepareVariant(next),prepareBoardArt(next),sleep(reduced?0:200)]);const t1=performance.now();roundCount++;sound('next');start(next);syncOrientation();const t2=performance.now();await boardReady(next);window.sparkyBoardTiming={prepare:Math.round(t1-t0),build:Math.round(t2-t1),settle:Math.round(performance.now()-t2)};}
+ const gameEl=document.querySelector('.game');gameEl.classList.remove('board-arriving');
+ try{const t0=performance.now();await Promise.all([loadPicture(next),prepareVariant(next),Promise.race([prepareBoardArt(next),sleep(1200)])]);gameEl.classList.add('board-leaving');await sleep(reduced?0:200);/* the finished board stays up until the next one is ready, then a quick fade *//* never hold an empty board for slow pictures; late ones fade in */const t1=performance.now();roundCount++;sound('next');start(next);syncOrientation();const t2=performance.now();await boardReady(next,1200);window.sparkyBoardTiming={prepare:Math.round(t1-t0),build:Math.round(t2-t1),settle:Math.round(performance.now()-t2)};}
  catch(e){if(!breakKind)upcomingBoard=next;busy=false;say('Could not load the next picture. Tap the arrow to try again.');console.error(e);}
  finally{gameEl.classList.remove('board-leaving');if(!reduced){gameEl.classList.add('board-arriving');setTimeout(()=>gameEl.classList.remove('board-arriving'),450);}navigationLoading=false;activeRound?.focus?.guide.schedule(1400);if(!done)introduce();warmNextRound();if(warmStarted)warmGame();}
 }
@@ -321,11 +321,12 @@ portraitScreen.addEventListener('change',syncOrientation);
 const refreshLayout=()=>{clearDrag();activeRound?.cancelDrag();layoutArt();syncOrientation();};
 addEventListener('resize',refreshLayout);window.visualViewport?.addEventListener('resize',refreshLayout);
 if('ResizeObserver' in window)new ResizeObserver(()=>layoutArt()).observe($('board'));
-async function boot(){performance.mark('sparky:boot-start');try{
+async function boot(){performance.mark('sparky:boot-start');const diffAsked=new URLSearchParams(location.search).get('game')==='differences';try{
+ await Promise.race([window.sparkyLoadingArt||Promise.resolve(),sleep(2500)]);// loading screen pictures first, then the game's big downloads
  await Promise.all([
   (async()=>{try{const response=await fetch('assets/art/assembly/manifest.json?v=lip-sync-40');if(response.ok){const catalog=await response.json();assemblyEnabled=catalog.ready===true&&catalog.images?.length===40;}}catch{}})(),
   (async()=>{try{const response=await fetch('assets/art/counting/manifest.json?v=lip-sync-40');if(response.ok){const catalog=await response.json();countingEnabled=catalog.ready===true&&catalog.images?.length===20;}}catch{}})(),
-  (async()=>{try{const response=await fetch('assets/art/differences/manifest.json?v=red-contours-55');if(response.ok){const catalog=await response.json();differencesEnabled=catalog.ready===true&&catalog.boards?.length===20&&catalog.boards.every(p=>p.images?.length===2&&p.regions?.filter(r=>r.changed).length===3);if(differencesEnabled)differenceDeck=new AssemblyDeck(catalog.boards);}}catch{}})()
+  ((p=>diffAsked?p:null)((async()=>{if(!diffAsked)await sleep(6000);/* 412 KB, used ~9 boards in: fetch it after the first board */try{const response=await fetch('assets/art/differences/manifest.json?v=red-contours-55');if(response.ok){const catalog=await response.json();differencesEnabled=catalog.ready===true&&catalog.boards?.length===20&&catalog.boards.every(p=>p.images?.length===2&&p.regions?.filter(r=>r.changed).length===3);if(differencesEnabled)differenceDeck=new AssemblyDeck(catalog.boards);}}catch{}})()))
  ]);
  const previewKind=new URLSearchParams(location.search).get('game');const first=FUN_KINDS.includes(previewKind)?makeFunBoard(previewKind):newBoard();// The board opens as soon as its own art is ready; Sparky's rig (most of the first
  // download) fades in when it arrives. Feeding drives Sparky directly, so it waits.
@@ -333,9 +334,9 @@ async function boot(){performance.mark('sparky:boot-start');try{
   // and Sparky has drawn his first live frame (at most 25 s; then his still picture stands in).
   const needsSparky=first.variant==='food-sort';releaseSparky();const sparky=director.ready.then(()=>director.show('idle'));
   const sparkyLive=Promise.race([sparky.then(()=>sparkyDrawn()).then(()=>{document.documentElement.dataset.sparky='ready';return true;}),sleep(25000).then(()=>false)]).catch(()=>false);
- await Promise.all([loadPicture(first),loadOpeningArt(first),prepareVariant(first),prepareBoardArt(first)]);roundCount=1;start(first);
- const[live]=await Promise.all([sparkyLive,boardReady(first,8000)]);if(live)document.documentElement.dataset.sparky='ready';else if(!needsSparky)showSparkyPoster();$('loading').hidden=true;
- sparky.then(()=>{document.documentElement.dataset.sparky='ready'},e=>console.error('Sparky could not load',e));sparky.finally(()=>setTimeout(warmGame,1500));setTimeout(()=>void warmStyleArt(),2500);setTimeout(warmGame,30000);performance.mark('sparky:ready');performance.measure('sparky:boot','sparky:boot-start','sparky:ready');syncOrientation();warmNextRound();
+ await Promise.all([loadPicture(first),loadOpeningArt(first),prepareVariant(first),Promise.race([prepareBoardArt(first),sleep(5000)])]);roundCount=1;start(first);
+ await boardReady(first,5000);/* then give Sparky up to 4 s more; on slow lines his still picture stands in until he is live */const live=needsSparky?await sparkyLive:await Promise.race([sparkyLive,sleep(4000).then(()=>false)]);if(live)document.documentElement.dataset.sparky='ready';else if(!needsSparky)showSparkyPoster();$('loading').hidden=true;
+ sparky.then(()=>{document.documentElement.dataset.sparky='ready'},e=>console.error('Sparky could not load',e));sparky.finally(()=>setTimeout(warmGame,1500));setTimeout(()=>{if(!navigator.connection?.saveData)void warmStyleArt();},12000);setTimeout(warmGame,30000);performance.mark('sparky:ready');performance.measure('sparky:boot','sparky:boot-start','sparky:ready');syncOrientation();warmNextRound();
  }catch(e){$('loading').querySelector('p').textContent='Could not load the game. Please refresh.';console.error(e);}}
 
 if(location.hostname==='127.0.0.1'||location.hostname==='localhost')window.sparkyReview={async startVariant(id,round=0,content=null){clearTimeout(prefetchTimer);upcomingBoard=null;const picture=makeVariantBoard(id,round);if(content)picture.content=content;await prepareVariant(picture);const url=new URL(location.href);url.searchParams.set('game',id);history.replaceState(null,'',url);variantRoundNumber=round+1;start(picture);syncOrientation();return activeRound;},get current(){return activeRound},get picture(){return currentPicture},get navigating(){return navigationLoading},get breaks(){return breakSchedule}};
