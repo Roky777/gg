@@ -28,7 +28,7 @@ export class TopBanner{
  show({title,rule='',swatch=null}){
   if(!title)return;this.clear();this.letters(title);this.rule.textContent=rule;this.rule.parentElement.hidden=!rule;
   if(swatch){this.swatch.src='assets/art/objects/balloon.webp';this.swatch.style.filter=`hue-rotate(${swatch.hue}deg)`;this.swatch.hidden=false;}else this.swatch.hidden=true;
-  const el=this.el;el.hidden=false;el.classList.remove('in','out');void el.offsetWidth;el.classList.add('in');this.pop();
+  const el=this.el;el.hidden=false;el.classList.remove('in','out');void el.offsetWidth;el.classList.add('in');
   this.timers.push(setTimeout(()=>this.hide(),this.duration));
  }
  hide({immediate=false}={}){

@@ -1,66 +1,75 @@
-/* Loading poster: the game's own art composed with depth. Far: the park, blurred. Middle: the
-   play board with letter and picture cards, slightly soft. Near: Sparky, sharp, and big
-   blurred balloons and letters at the edges (depth of field). Logo on top, a wide glossy
-   "Loading" bar at the bottom. Animation uses transform/opacity only. */
-.loading.loading-v3{position:fixed;inset:0;z-index:1000;overflow:hidden;background:linear-gradient(#53c0ff 0%,#a9e4ff 44%,#c4ef8a 45%,#80cc4f 72%,#56ad3c 100%);font-family:Nunito,'Arial Rounded MT Bold',Arial,sans-serif;color:#174f7d;text-align:center;isolation:isolate}
-.loading.loading-v3[hidden]{display:none}
-.loading-v3 .lp-scene{position:absolute;inset:-5%;background:url('assets/art/worlds-v3/garden.webp') center 62%/cover no-repeat;filter:blur(5px) saturate(1.15);opacity:0;transition:opacity .8s ease;animation:lp-drift 24s ease-in-out infinite alternate;will-change:transform}
-.loading-v3.lp-scene-ready .lp-scene{opacity:1}
-.loading-v3::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:6;background:radial-gradient(ellipse 80% 75% at 50% 48%,#0000 45%,#0b2e5c33 80%,#0b2e5c70 100%)}
-.loading-v3 .lp-rays{position:absolute;left:50%;top:14%;width:150vmax;aspect-ratio:1;translate:-50% -50%;background:repeating-conic-gradient(from 0deg,#fff6c24d 0deg 7deg,#fff6c200 7deg 17deg);-webkit-mask-image:radial-gradient(circle,#000 0 10%,#0000 46%);mask-image:radial-gradient(circle,#000 0 10%,#0000 46%);animation:lp-spin 50s linear infinite;will-change:transform}
-.loading-v3 .lp-cloud{position:absolute;width:clamp(120px,20vw,300px);opacity:.9;filter:blur(1px) drop-shadow(0 8px 10px #0b3a6a1f);will-change:transform}
-.loading-v3 .lp-cloud-a{top:5%;left:-25%;animation:lp-cloud 40s linear infinite}
-.loading-v3 .lp-cloud-b{top:20%;left:-25%;width:clamp(90px,14vw,210px);opacity:.75;animation:lp-cloud 58s linear -30s infinite}
-/* Middle ground: the play board, tilted, slightly out of focus. */
-.loading-v3 .lp-board{position:absolute;left:37vw;top:27vh;width:min(54vw,96vh);aspect-ratio:1737/905;rotate:-3deg;filter:blur(.8px) drop-shadow(0 18px 18px #0b3a6a45);animation:lp-float 5s ease-in-out infinite;will-change:transform}
-.loading-v3 .lp-board-art{position:absolute;inset:0;width:100%;height:100%}
-.loading-v3 .lp-cards{position:absolute;left:12%;right:12%;top:22%;bottom:22%;display:grid;grid-template-columns:repeat(4,1fr);gap:4%;align-items:center}
-.loading-v3 .lp-card{display:grid;place-items:center;aspect-ratio:1;border-radius:18%;background:linear-gradient(#ffffff,#f4f0e4);box-shadow:0 0 0 3px #8fd3f5,0 5px 0 #d9cfb6;animation:lp-card 3.2s ease-in-out infinite}
-.loading-v3 .lp-card:nth-child(2){animation-delay:-.8s}.loading-v3 .lp-card:nth-child(3){animation-delay:-1.6s}.loading-v3 .lp-card:nth-child(4){animation-delay:-2.4s}
-.loading-v3 .lp-card img{width:68%;height:68%;object-fit:contain}
-.loading-v3 .lp-card:nth-child(4) img{filter:hue-rotate(245deg)}
-/* Near: big blurred objects at the edges, close to the camera. */
-.loading-v3 .lp-near{position:absolute;z-index:4;pointer-events:none;will-change:transform}
-.loading-v3 .lp-near-a{right:-4vw;bottom:-10vh;height:52vh;filter:blur(7px) hue-rotate(20deg);opacity:.9;animation:lp-near 7s ease-in-out infinite}
-.loading-v3 .lp-near-b{left:-3vw;top:-6vh;height:34vh;filter:blur(6px);opacity:.75;animation:lp-near 9s ease-in-out -3s infinite}
-.loading-v3 .lp-near-c{right:20vw;bottom:-14vh;height:26vh;filter:blur(9px);opacity:.6;animation:lp-near 8s ease-in-out -5s infinite}
-/* Sparky, sharp, in front. */
-.loading-v3 .lp-hero{position:absolute;z-index:5;left:5vw;bottom:9vh;height:70vh;aspect-ratio:768/960}
-.loading-v3 .lp-hero::after{content:'';position:absolute;left:50%;bottom:7%;width:48%;height:7%;translate:-50% 0;border-radius:50%;background:#0b3a1c50;filter:blur(6px);animation:lv-shadow 2.4s ease-in-out infinite}
-.loading-v3 .lv-sparky{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .45s ease;transform-origin:50% 92%;filter:drop-shadow(0 0 22px #ffd65aa0) drop-shadow(0 10px 8px #0b2e5c40);animation:lv-bob 2.4s ease-in-out infinite;will-change:transform}
-.loading-v3 .lv-sparky.ready{opacity:1}
-/* Logo */
-.loading-v3 .lp-logo{position:absolute;z-index:5;left:50%;top:4vh;translate:-50% 0;margin:0;line-height:.9;white-space:nowrap;animation:lp-logo-in .9s cubic-bezier(.2,1.4,.4,1) both}
-.loading-v3 .lp-logo small{display:block;font-size:clamp(18px,4.4vh,40px);font-weight:1000;color:#fff;letter-spacing:.04em;-webkit-text-stroke:clamp(4px,.8vh,7px) #e2560c;paint-order:stroke fill;text-shadow:0 3px 0 #b23f04}
-.loading-v3 .lp-logo span{position:relative;display:block;font-size:clamp(36px,11.5vh,104px);font-weight:1000;letter-spacing:.01em;color:#174f7d;-webkit-text-stroke:clamp(6px,1.5vh,13px) #174f7d;paint-order:stroke fill;text-shadow:0 clamp(4px,.9vh,8px) 0 #174f7d,0 clamp(10px,2.4vh,20px) 24px #0b2e5c66}
-.loading-v3 .lp-logo span::after{content:attr(data-text);position:absolute;inset:0;-webkit-text-stroke:0;color:transparent;text-shadow:none;background:linear-gradient(100deg,#fff0 40%,#ffffffd0 50%,#fff0 60%) -100% 0/250% 100% no-repeat,linear-gradient(#d6f9ff 0%,#5ccdf8 42%,#2b9ee8 70%,#1679c8 100%);-webkit-background-clip:text;background-clip:text;animation:lp-logo-shine 3.4s ease-in-out 1s infinite}
-/* Bottom: the Loading bar */
-.loading-v3 .lp-bottom{position:absolute;z-index:5;left:50%;bottom:3.5vh;translate:-50% 0;display:flex;flex-direction:column;align-items:center;gap:6px;width:min(680px,64vw)}
-.loading-v3 .load-meter{display:flex;align-items:center;gap:12px;width:100%}
-.loading-v3 .load-track{position:relative;flex:1;height:clamp(28px,6vh,42px);padding:clamp(4px,.7vh,6px);border-radius:999px;background:linear-gradient(#7fd8ff,#2a9df0 55%,#1474cf);box-shadow:0 4px 0 #0f5aa8,0 10px 22px #0b2e5c55,inset 0 2px 0 #ffffffb0}
-.loading-v3 .load-track::before{content:'';position:absolute;inset:clamp(4px,.7vh,6px);border-radius:999px;background:linear-gradient(#fffdf6,#efe6cf);box-shadow:inset 0 3px 4px #0b3a6a38}
-.loading-v3 .load-track i{position:relative;display:block;height:100%;width:0;min-width:clamp(20px,4vh,30px);border-radius:999px;background:linear-gradient(100deg,#fff0 42%,#ffffffa8 50%,#fff0 58%) 0 0/260% 100% no-repeat,linear-gradient(#ffe892 0%,#ffc93a 45%,#ff9f1c 100%);box-shadow:inset 0 2px 0 #fffbe0,inset 0 -4px 0 #d9700a80;transition:width .28s linear;animation:lv-shine 1.8s ease-in-out infinite}
-.loading-v3 .lv-bolt{position:absolute;right:calc(-1 * clamp(8px,1.6vh,12px));top:50%;width:clamp(32px,7vh,48px);aspect-ratio:1;translate:0 -50%;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffb08a,#f0643a 55%,#c9431f);box-shadow:0 2px 0 #9a3214,0 0 16px #ffb15a,0 0 0 2px #fff8;z-index:2}
-.loading-v3 .lv-bolt::after{content:'\2605';position:absolute;inset:0;display:grid;place-items:center;font-style:normal;font-size:70%;color:#fff1c4;text-shadow:0 1px 0 #c9431f;animation:lv-spin 3s linear infinite}
-.loading-v3 .lp-bar-label{position:absolute;inset:0;display:grid;place-items:center;font-size:clamp(15px,3.2vh,24px);font-weight:1000;letter-spacing:.06em;color:#fff;-webkit-text-stroke:clamp(3px,.6vh,5px) #174f7d;paint-order:stroke fill;text-shadow:0 2px 0 #174f7d;pointer-events:none;z-index:3}
-.loading-v3 .load-meter b{min-width:3.2em;text-align:left;font-size:clamp(17px,3.6vh,28px);font-weight:1000;color:#fff;-webkit-text-stroke:clamp(3px,.7vh,6px) #174f7d;paint-order:stroke fill;text-shadow:0 2px 0 #174f7d;font-variant-numeric:tabular-nums}
-.loading-v3 .lv-tip{margin:0;font-size:clamp(12px,2.3vh,17px);font-weight:900;color:#fff;-webkit-text-stroke:3px #174f7d;paint-order:stroke fill;letter-spacing:.03em}
-.loading.loading-v3.leaving{animation:lp-out .8s cubic-bezier(.5,0,.75,0) forwards;pointer-events:none}
-.loading.loading-v3.leaving .lp-logo{animation:lp-logo-out .7s ease-in forwards}
-@keyframes lp-drift{from{transform:scale(1.02)}to{transform:scale(1.1) translate(-1.5%,-1%)}}
-@keyframes lp-spin{to{rotate:360deg}}
-@keyframes lp-cloud{from{transform:translateX(0)}to{transform:translateX(160vw)}}
-@keyframes lp-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.6%)}}
-@keyframes lp-card{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-6%) rotate(2deg)}}
-@keyframes lp-near{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-4%) rotate(3deg)}}
-@keyframes lv-bob{0%,100%{transform:translateY(0) scale(1,1)}45%,55%{transform:translateY(-4%) scale(.985,1.015)}}
-@keyframes lv-shadow{0%,100%{scale:1;opacity:1}50%{scale:.8;opacity:.6}}
-@keyframes lv-shine{from{background-position:120% 0,0 0}to{background-position:-60% 0,0 0}}
-@keyframes lv-spin{to{rotate:360deg}}
-@keyframes lp-logo-in{from{opacity:0;scale:.5}to{opacity:1;scale:1}}
-@keyframes lp-logo-shine{0%,30%{background-position:-100% 0,0 0}70%,100%{background-position:200% 0,0 0}}
-@keyframes lp-logo-out{to{opacity:0;scale:1.15}}
-@keyframes lp-out{to{opacity:0}}
-/* Upright phones */
-@media(orientation:portrait){.loading-v3 .lp-logo span{font-size:clamp(28px,10vw,64px)}.loading-v3 .lp-logo small{font-size:clamp(16px,5vw,32px)}.loading-v3 .lp-board{left:6vw;top:24vh;width:88vw}.loading-v3 .lp-hero{left:2vw;bottom:13vh;height:42vh}.loading-v3 .lp-bottom{width:86vw}.loading-v3 .lp-near-a{height:28vh}.loading-v3 .lp-near-b{height:18vh}.loading-v3 .lp-rays{top:10%}}
-@media(prefers-reduced-motion:reduce){.loading-v3 *,.loading-v3 *::before,.loading-v3 *::after{animation:none!important}}
+/* Loading key art: one full-bleed scene built from the game's own art, with depth.
+   Far: the amusement-park scene, a rainbow over the hill, clouds (soft). Sky: a kite and a
+   cluster of balloons. Middle: the play board standing on the lawn with floating letters.
+   Front: Sparky cheering mid-jump, butterflies. Nearest: a ball and a teddy, big and out of
+   focus. A gold logo on top and a slim "Loading" bar at the bottom. Transform/opacity only. */
+.loading.loading-key{position:fixed;inset:0;z-index:1000;overflow:hidden;isolation:isolate;background:linear-gradient(#3fb7ff 0%,#9fe0ff 46%,#b9ec74 47%,#7bc94a 75%,#4f9f37 100%);font-family:Nunito,'Arial Rounded MT Bold',Arial,sans-serif}
+.loading.loading-key[hidden]{display:none}
+.loading-key .lk-scene{position:absolute;inset:-4%;background:url('assets/art/worlds-v3/amusement.webp') center 58%/cover no-repeat;filter:blur(1.6px) saturate(1.25) contrast(1.05);opacity:0;transition:opacity .8s ease;animation:lk-push 26s ease-in-out infinite alternate;will-change:transform}
+.loading-key.lk-scene-ready .lk-scene{opacity:1}
+/* Warm light from the top and a deep vignette, like a lit stage. */
+.loading-key::before{content:'';position:absolute;inset:0;z-index:7;pointer-events:none;background:radial-gradient(ellipse 60% 45% at 50% 6%,#fff6c866,#fff6c800 70%),radial-gradient(ellipse 85% 80% at 50% 50%,#0000 50%,#0b2a4a4d 82%,#06182e99 100%)}
+.loading-key .lk-rainbow{position:absolute;left:46%;top:6vh;width:min(46vw,80vh);opacity:.55;filter:blur(2px);mix-blend-mode:screen;pointer-events:none}
+.loading-key .lk-cloud{position:absolute;width:clamp(120px,19vw,290px);filter:blur(1.5px) drop-shadow(0 8px 10px #0b3a6a22);opacity:.9;will-change:transform}
+.loading-key .lk-cloud-a{top:14vh;left:-24%;animation:lk-cloud 46s linear infinite}
+.loading-key .lk-cloud-b{top:26vh;left:-24%;width:clamp(90px,13vw,200px);opacity:.75;animation:lk-cloud 64s linear -34s infinite}
+/* Sky */
+.loading-key .lk-kite{position:absolute;left:9vw;top:9vh;height:23vh;filter:blur(.8px) drop-shadow(0 8px 8px #0b2a4a33);transform-origin:50% 100%;animation:lk-kite 4.5s ease-in-out infinite;will-change:transform}
+.loading-key .lk-balloons{position:absolute;right:6vw;top:13vh;width:20vh;height:30vh;filter:blur(1.2px);animation:lk-rise 6s ease-in-out infinite;will-change:transform}
+.loading-key .lk-balloons img{position:absolute;height:62%;filter:drop-shadow(0 6px 6px #0b2a4a33)}
+.loading-key .lk-balloons img:nth-child(1){left:0;top:12%;rotate:-10deg;filter:hue-rotate(20deg) drop-shadow(0 6px 6px #0b2a4a33)}
+.loading-key .lk-balloons img:nth-child(2){left:30%;top:0;filter:hue-rotate(245deg) drop-shadow(0 6px 6px #0b2a4a33)}
+.loading-key .lk-balloons img:nth-child(3){left:58%;top:16%;rotate:9deg;filter:hue-rotate(140deg) drop-shadow(0 6px 6px #0b2a4a33)}
+.loading-key .lk-balloons img:nth-child(4){left:26%;top:34%;height:52%;filter:hue-rotate(50deg) drop-shadow(0 6px 6px #0b2a4a33)}
+/* Middle ground: the play board standing on the lawn, slightly soft. */
+.loading-key .lk-board{position:absolute;right:4vw;bottom:15vh;width:min(46vw,78vh);aspect-ratio:1737/905;rotate:4deg;filter:blur(.9px) drop-shadow(0 22px 16px #0b2a4a55);animation:lk-sway 6s ease-in-out infinite;will-change:transform;z-index:1}
+.loading-key .lk-board-art{position:absolute;inset:0;width:100%;height:100%}
+.loading-key .lk-cards{position:absolute;left:13%;right:13%;top:23%;bottom:23%;display:grid;grid-template-columns:repeat(3,1fr);gap:6%;align-items:center}
+.loading-key .lk-cards span{display:grid;place-items:center;aspect-ratio:1;border-radius:18%;background:linear-gradient(#fff,#f3eee0);box-shadow:0 0 0 3px #8fd3f5,0 5px 0 #d7cdb3}
+.loading-key .lk-cards img{width:70%;height:70%;object-fit:contain}
+.loading-key .lk-letter{position:absolute;z-index:2;height:14vh;filter:drop-shadow(0 8px 6px #0b2a4a44);will-change:transform}
+.loading-key .lk-letter-a{right:42vw;top:30vh;rotate:-14deg;filter:blur(.6px) drop-shadow(0 8px 6px #0b2a4a44);animation:lk-bob 3.6s ease-in-out infinite}
+.loading-key .lk-letter-b{right:5vw;top:24vh;height:11vh;rotate:12deg;filter:blur(1.4px);animation:lk-bob 4.2s ease-in-out -1.6s infinite}
+/* Front: Sparky mid-cheer with a warm rim light; butterflies around him. */
+.loading-key .lk-hero{position:absolute;z-index:4;left:12vw;bottom:6vh;height:76vh;aspect-ratio:512/760}
+.loading-key .lk-hero::after{content:'';position:absolute;left:50%;bottom:-1%;width:62%;height:7%;translate:-50% 0;border-radius:50%;background:#0b2a1450;filter:blur(7px);animation:lk-shadow 1.6s ease-in-out infinite}
+.loading-key .lv-sparky{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .45s ease;transform-origin:50% 100%;filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 26px #ffd25aa8) drop-shadow(0 14px 10px #0b2a4a55);animation:lk-hop 1.6s cubic-bezier(.4,0,.3,1) infinite;will-change:transform}
+.loading-key .lv-sparky.ready{opacity:1}
+.loading-key .lk-fly{position:absolute;z-index:5;height:7vh;will-change:transform}
+.loading-key .lk-fly-a{left:7vw;top:40vh;animation:lk-flutter 5s ease-in-out infinite}
+.loading-key .lk-fly-b{left:36vw;top:28vh;height:5vh;filter:blur(.8px) hue-rotate(160deg);animation:lk-flutter 6.5s ease-in-out -2.5s infinite}
+/* Nearest: big and out of focus */
+.loading-key .lk-near{position:absolute;z-index:6;pointer-events:none;will-change:transform}
+.loading-key .lk-near-a{left:-5vw;bottom:-12vh;height:40vh;filter:blur(8px);animation:lk-near 8s ease-in-out infinite}
+.loading-key .lk-near-b{right:-3vw;bottom:-14vh;height:44vh;filter:blur(9px);animation:lk-near 9s ease-in-out -4s infinite}
+/* Logo: gold letters with a deep brown outline and bevel light, a shine passing through. */
+.loading-key .lk-logo{position:absolute;z-index:8;left:50%;top:3vh;translate:-50% 0;margin:0;line-height:.88;text-align:center;white-space:nowrap;filter:drop-shadow(0 8px 10px #3a1a0080);animation:lk-logo-in 1s cubic-bezier(.2,1.4,.4,1) both}
+.loading-key .lk-logo span{position:relative;display:block;font-weight:1000;color:#5a2600;-webkit-text-stroke:clamp(6px,1.4vh,12px) #5a2600;paint-order:stroke fill;text-shadow:0 clamp(4px,1vh,8px) 0 #3d1900}
+.loading-key .lk-logo span::after{content:attr(data-text);position:absolute;inset:0;-webkit-text-stroke:0;color:transparent;text-shadow:none;background:linear-gradient(100deg,#fff0 40%,#ffffffe0 50%,#fff0 60%) -100% 0/250% 100% no-repeat,linear-gradient(#fffbe0 0%,#ffe36a 30%,#ffc21f 55%,#f08a0c 100%);-webkit-background-clip:text;background-clip:text;animation:lk-shine 3.6s ease-in-out 1.2s infinite}
+.loading-key .lk-logo-top{font-size:clamp(22px,6vh,52px);letter-spacing:.04em}
+.loading-key .lk-logo-main{font-size:clamp(38px,12vh,112px);letter-spacing:.01em}
+/* Bottom: a slim bar with the word Loading on it. */
+.loading-key .lk-bottom{position:absolute;z-index:8;left:50%;bottom:3.5vh;translate:-50% 0;width:min(560px,52vw)}
+.loading-key .load-meter{display:flex;align-items:center;width:100%}
+.loading-key .load-track{position:relative;flex:1;height:clamp(24px,5.2vh,36px);padding:3px;border-radius:12px;background:#1d1238;box-shadow:0 0 0 2px #fffc,0 6px 14px #06182e88,inset 0 2px 3px #0008}
+.loading-key .load-track i{position:relative;display:block;height:100%;width:0;min-width:14px;border-radius:9px;background:linear-gradient(100deg,#fff0 42%,#ffffff90 50%,#fff0 58%) 0 0/260% 100% no-repeat,linear-gradient(#b5f0ff 0%,#4fc3ff 38%,#1d8ef0 62%,#1466c8 100%);box-shadow:inset 0 2px 0 #ffffffc0,inset 0 -3px 0 #0a4aa080;transition:width .28s linear;animation:lk-bar-shine 1.8s ease-in-out infinite}
+.loading-key .lk-label{position:absolute;inset:0;display:grid;place-items:center;font-size:clamp(15px,3.2vh,23px);font-weight:1000;letter-spacing:.05em;color:#fff;-webkit-text-stroke:clamp(3px,.6vh,5px) #1d1238;paint-order:stroke fill;text-shadow:0 2px 0 #1d1238;pointer-events:none}
+.loading-key .load-meter b{display:none}
+.loading.loading-key.leaving{animation:lk-out .8s cubic-bezier(.5,0,.75,0) forwards;pointer-events:none}
+@keyframes lk-push{from{transform:scale(1.03)}to{transform:scale(1.1) translate(-1%,-1%)}}
+@keyframes lk-cloud{from{transform:translateX(0)}to{transform:translateX(160vw)}}
+@keyframes lk-kite{0%,100%{transform:rotate(-6deg) translateY(0)}50%{transform:rotate(7deg) translateY(-4%)}}
+@keyframes lk-rise{0%,100%{transform:translateY(0)}50%{transform:translateY(-5%)}}
+@keyframes lk-sway{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-1.2%) rotate(-.8deg)}}
+@keyframes lk-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12%)}}
+@keyframes lk-hop{0%,100%{transform:translateY(0) scale(1,1)}12%{transform:translateY(0) scale(1.04,.95)}45%{transform:translateY(-6%) scale(.98,1.03)}70%{transform:translateY(-1%) scale(1,1)}}
+@keyframes lk-shadow{0%,100%{scale:1;opacity:1}45%{scale:.78;opacity:.55}}
+@keyframes lk-flutter{0%{transform:translate(0,0) rotate(-8deg) scaleX(1)}25%{transform:translate(18%,-30%) rotate(6deg) scaleX(.7)}50%{transform:translate(40%,-10%) rotate(-4deg) scaleX(1)}75%{transform:translate(20%,20%) rotate(8deg) scaleX(.7)}100%{transform:translate(0,0) rotate(-8deg) scaleX(1)}}
+@keyframes lk-near{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-4%) rotate(3deg)}}
+@keyframes lk-logo-in{from{opacity:0;scale:.4}to{opacity:1;scale:1}}
+@keyframes lk-shine{0%,30%{background-position:-100% 0,0 0}70%,100%{background-position:200% 0,0 0}}
+@keyframes lk-bar-shine{from{background-position:120% 0,0 0}to{background-position:-60% 0,0 0}}
+@keyframes lk-out{to{opacity:0}}
+/* Upright phones: the logo on top, Sparky in front of the board. */
+@media(orientation:portrait){.loading-key .lk-logo-main{font-size:clamp(30px,10.5vw,64px)}.loading-key .lk-logo-top{font-size:clamp(18px,6vw,36px)}.loading-key .lk-board{right:-6vw;bottom:30vh;width:84vw}.loading-key .lk-hero{left:4vw;bottom:8vh;height:48vh}.loading-key .lk-bottom{width:80vw}.loading-key .lk-kite{top:15vh;height:14vh}.loading-key .lk-balloons{top:16vh;height:20vh;width:14vh}.loading-key .lk-letter{height:8vh}.loading-key .lk-near-a,.loading-key .lk-near-b{height:24vh}.loading-key .lk-rainbow{left:20%;top:12vh;width:80vw}}
+@media(prefers-reduced-motion:reduce){.loading-key *,.loading-key *::before,.loading-key *::after{animation:none!important}}
