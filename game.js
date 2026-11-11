@@ -17,7 +17,7 @@ import {LearningVoice} from './learning-voice.js?v=recorded-only-1';
 import {AssemblyRound,createAssemblyBoard} from './assembly-game.js?v=polish-52';
 import {AssemblyDeck} from './assembly-catalog.js?v=lip-sync-40';
 import {CountingRound,makeCountingBoard,COUNT_WORDS} from './counting-game.js?v=drop-pocket-15';
-import {RoundBanner,ROUND_INTROS} from './round-banner.js?v=top-1';import {TopBanner} from './top-banner.js?v=11';
+import {RoundBanner,ROUND_INTROS} from './round-banner.js?v=top-1';import {TopBanner} from './top-banner.js?v=13';
 import {DifferenceRound,createDifferenceBoard} from './differences-game.js?v=red-contours-55';
 import {VARIANTS,makeVariantBoard,freshMatchContent} from './variants/content.mjs';
 let VariantRoundController=null,variantRoundNumber=0,letterAnimations=null;
@@ -89,9 +89,9 @@ let topBannerRound=-1;
 function showTopBanner(){if(topBannerRound===roundToken||!currentPicture||done)return;
  // Under the loading screen it would drop unseen: wait until the board is revealed.
  if(!$('loading').hidden){const loading=$('loading'),watch=new MutationObserver(()=>{if(loading.hidden){watch.disconnect();showTopBanner();}});watch.observe(loading,{attributes:true,attributeFilter:['hidden']});return;}topBannerRound=roundToken;const p=currentPicture,intro=ROUND_INTROS[topic];
- const text=p.fun||p.variant?{title:p.title,rule:BANNER_LINES[p.variant]??p.rule,swatch:p.target||null}:intro?{title:intro.title,rule:intro.rule}:null;if(text)topBanner.show(text);}
-// One short line per game on the banner (the full rule stays for narration and the board).
-const BANNER_LINES={'count-connect':'Count, then connect to the number.','equal-groups':'Connect groups with the same amount.','colour-match':'Connect each object to its colour.','word-picture':'Connect each word to its picture.','letter-case':'Connect big and small letters.','letter-picture':'Connect each letter to its picture.'};
+ const text=p.fun||p.variant?{title:p.title,rule:BANNER_LINES[p.variant]??p.rule,swatch:p.target||null}:intro?{title:intro.title,rule:BANNER_LINES[topic]??intro.rule}:null;if(text)topBanner.show(text);}
+// One short, different line per board (shown on the banner; voice lines are separate recordings).
+const BANNER_LINES={'letter-picture':'Which picture starts with this letter?','letter-case':'Pair the big and small letters.','word-picture':'Read the word, then find its picture.','count-connect':'Count them, then pick the number.','equal-groups':'Find the groups that are equal.','colour-match':'Put each thing with its colour.',letters:'Find the picture for each letter.',numbers:'Count, then match the number.','count-groups':'How many in each group?',assembly:'Put the pieces together.',differences:'Spot the 3 things that changed.'};
 let bannerRound=-1;
 const introducedVariants=new Set();
 function introduce(){
