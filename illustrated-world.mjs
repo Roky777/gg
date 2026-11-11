@@ -5,7 +5,7 @@ import{SCENES}from'./scene-backgrounds.mjs';
 // The canvas covers the whole screen. Inside the 16:9 stage the artwork maps
 // exactly as before; wider screens continue it with a mirrored edge, taller
 // screens with a soft blurred edge, so nothing in the stage moves or stretches.
-const game=document.querySelector('.game'),dialog=document.getElementById('pause-dialog'),reduce=matchMedia('(prefers-reduced-motion:reduce)');
+const game=document.querySelector('.game'),dialog=document.getElementById('pause-dialog'),reduce=matchMedia('(prefers-reduced-motion:reduce)'),portrait=matchMedia('(orientation:portrait)');
 const canvas=document.createElement('canvas');canvas.className='illustrated-world';canvas.setAttribute('aria-hidden','true');canvas.hidden=true;game.prepend(canvas);
 const atmosphere=document.createElement('div');atmosphere.className='scene-atmosphere';atmosphere.setAttribute('aria-hidden','true');atmosphere.hidden=true;canvas.after(atmosphere);
 const cloudSpecs=[{phase:.26,duration:84,width:16,top:2.5,opacity:.96},{phase:.73,duration:110,width:12,top:3.5,opacity:.86},{phase:1.08,duration:96,width:18,top:7.5,opacity:.95}];
@@ -24,14 +24,23 @@ function measure(){
 const mirror=x=>{x=Math.abs(x);return x>1?2-x:x;};
 // Runtime occlusion matte: clouds belong in the sky, behind the painted trees.
 // This samples the current artwork; it does not add or repaint scenic objects.
+// Masks are cached per scene and layout (boards reuse the same few scenes), and a new one is
+// built in idle time after the board has arrived, never during the board change itself.
+const maskCache=new Map();let maskJob=0;
 function updateSkyMask(){
  if(!current()?.life?.clouds||!image){atmosphere.style.maskImage='none';maskKey='';return;}
- const key=sceneName+'|'+(current()?.pan??0)+'|'+[layout.x,layout.top,layout.w,layout.h].map(n=>n.toFixed(3)).join(',');if(key===maskKey)return;maskKey=key;
+ const key=sceneName+'|'+(current()?.pan??0)+'|'+[layout.x,layout.top,layout.w,layout.h].map(n=>n.toFixed(3)).join(',');if(key===maskKey)return;
+ const cached=maskCache.get(key);if(cached){maskKey=key;atmosphere.style.maskImage=cached;atmosphere.style.visibility='';return;}
+ atmosphere.style.visibility='hidden';/* clouds wait for their matte */const job=++maskJob,idle=globalThis.requestIdleCallback?cb=>requestIdleCallback(cb,{timeout:1500}):cb=>setTimeout(cb,600);
+ const keyNow=()=>sceneName+'|'+(current()?.pan??0)+'|'+[layout.x,layout.top,layout.w,layout.h].map(n=>n.toFixed(3)).join(',');
+ setTimeout(()=>idle(()=>{if(job!==maskJob||keyNow()!==key||!image)return;try{buildSkyMask(key);}catch(error){console.warn('Cloud matte unavailable; scenery continues.',error);}}),2000);/* after the banner has landed */
+}
+function buildSkyMask(key){if(key===maskKey)return;maskKey=key;
  // Artwork in stage space, exactly as the original stage-sized matte drew it.
- const art=document.createElement('canvas');art.width=768;art.height=432;const actx=art.getContext('2d',{willReadFrequently:true});
+ const art=document.createElement('canvas');art.width=384;art.height=216;/* half resolution: the clouds are soft, a quarter of the work */const actx=art.getContext('2d',{willReadFrequently:true});
  const scale=Math.max(art.width/image.naturalWidth,art.height/image.naturalHeight)*1.012,w=image.naturalWidth*scale,h=image.naturalHeight*scale;actx.drawImage(image,(art.width-w)/2,(art.height-h)/2,w,h);
  const src=actx.getImageData(0,0,art.width,art.height).data;
- const mw=768,mh=Math.max(1,Math.round(768*(layout.ch||432)/(layout.cw||768)));
+ const mw=384,mh=Math.max(1,Math.round(384*(layout.ch||432)/(layout.cw||768)));
  const mask=document.createElement('canvas');mask.width=mw;mask.height=mh;const ctx=mask.getContext('2d');const pixels=ctx.createImageData(mw,mh),clamp=n=>Math.max(0,Math.min(1,n));
  for(let j=0;j<mh;j++){const sy=((j+.5)/mh-(layout.top||0))/layout.h;const ay=Math.min(art.height-1,Math.max(0,Math.floor(clamp(sy)*art.height)));
   const pan=current()?.pan??0;for(let i=0;i<mw;i++){let sx=((i+.5)/mw-layout.x)/layout.w+pan;
@@ -43,7 +52,7 @@ function updateSkyMask(){
  // white awning) so a passing cloud never shows through as dots; open sky keeps its shape.
  const alpha=new Uint8ClampedArray(mw*mh);for(let k=0;k<alpha.length;k++)alpha[k]=pixels.data[k*4+3];
  for(let j=0;j<mh;j++)for(let i=0;i<mw;i++){let m=255;for(let dj=-1;dj<=1;dj++)for(let di=-1;di<=1;di++){const y=Math.min(mh-1,Math.max(0,j+dj)),x=Math.min(mw-1,Math.max(0,i+di)),v=alpha[y*mw+x];if(v<m)m=v}pixels.data[(j*mw+i)*4+3]=m}
- ctx.putImageData(pixels,0,0);atmosphere.style.maskImage=`url("${mask.toDataURL('image/png')}")`;
+ ctx.putImageData(pixels,0,0);const url=`url("${mask.toDataURL('image/png')}")`;maskCache.set(key,url);if(maskCache.size>24)maskCache.delete(maskCache.keys().next().value);atmosphere.style.maskImage=url;atmosphere.style.visibility='';
 }
 let gl,program,buffer,texture,image,sceneName='',serial=0,raf=0,last=0,time=0,frames=0,lost=false,failed=false,ready=false;
 let pointer={x:0,y:0},target={x:0,y:0},locations;
@@ -51,7 +60,7 @@ const current=()=>SCENES[game.dataset.sceneBackground];
 // Outdoor and themed plates animate; dedicated rooms (kitchen, chalkboard) are drawn once.
 const wanted=()=>current()?.mode==='background';
 const shown=()=>wanted()||current()?.mode==='dedicated';
-const blocked=()=>!wanted()||document.hidden||dialog.open||game.inert||document.body.classList.contains('compact-screen')||matchMedia('(orientation:portrait)').matches;
+const blocked=()=>!wanted()||document.hidden||dialog.open||game.inert||document.body.classList.contains('compact-screen')||portrait.matches;
 const vertex=`attribute vec2 position;varying vec2 uv;void main(){uv=position*.5+.5;gl_Position=vec4(position,0.,1.);}`;
 const fragment=`precision mediump float;varying vec2 uv;uniform sampler2D artwork;uniform vec2 cover;uniform vec4 stage;uniform float zoom;uniform float tiles;uniform float board;uniform float sky;uniform float pan;uniform vec2 pointer;uniform float time;uniform float motion;uniform float vegetation;uniform float water;uniform float sunlight;
 float mirror(float x){x=abs(x);return x>1.?2.-x:x;}

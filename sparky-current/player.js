@@ -14,7 +14,7 @@ export class SparkyRigPlayer{
   const camera={x:0,y:201.5,width:360*1.2,height:450*1.2};
   if(useWorker()){
    try{
-    const{WorkerRigPlayer}=await import('./runtime/character-upgrade/12-sparky-final/worker-player.js?v=6');
+    const{WorkerRigPlayer}=await import('./runtime/character-upgrade/12-sparky-final/worker-player.js?v=8');
     if(WorkerRigPlayer.supported()){
      const player=await WorkerRigPlayer.load(new URL(manifest.sourceManifest,here),{renderWidth,camera,spineURL:new URL('runtime/vendor/spine-webgl.min.js',here),profileURL:new URL('./runtime/character-upgrade/12-sparky-final/motion-fit-painted.js?gesture-fit=perf-2',here)});
      player.manifest=manifest;return player;

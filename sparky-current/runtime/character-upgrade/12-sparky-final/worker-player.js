@@ -112,7 +112,11 @@ export class WorkerRigPlayer {
       // Diagnostics: the last 50 slow worker frames (which clip, when, reshaping vs drawing time).
       if (f.cost > 40) { const log = (this.slowFrames ??= []); log.push({ t: Math.round(performance.now()), cost: Math.round(f.cost), parts: f.parts, clip: f.clip, at: f.at }); if (log.length > 50) log.shift(); }
     }
-    if (sent !== null) { const cost = performance.now() - sent; this.renderCost = this.renderCost ? this.renderCost * .85 + cost * .15 : cost; }
+    if (sent !== null) { const cost = performance.now() - sent; this.renderCost = this.renderCost ? this.renderCost * .85 + cost * .15 : cost;
+      // Even pacing reads smoother than uneven: a device whose frames take over ~24 ms on a slow,
+      // steady average runs a fixed 30 fps for the rest of the session (never flips back and forth).
+      this.steadyCost = this.steadyCost ? this.steadyCost * .97 + cost * .03 : cost; this.costSamples = (this.costSamples || 0) + 1;
+      if (this.costSamples > 90 && this.steadyCost > 24 && this.minInterval < 33) this.minInterval = 33.3; }
   }
 
   add(canvas, clip, { loop = true, baseClip = null, preserveSlots = [] } = {}) {
