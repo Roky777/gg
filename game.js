@@ -138,6 +138,15 @@ function newBoard(){
 }
 
 function updateLearningUI(){$('progress').textContent=`★ ${wins}`;}
+// Changing room (board <-> feeding table <-> sticker room): a full-screen wipe closes over the whole
+// screen, the new room is built and its scenery drawn underneath, then the wipe opens from the
+// centre. The stage resize, the scenery swap and Sparky sitting/standing are never seen.
+let veilTimer=0;
+function sceneVeil(on){let v=document.querySelector('.scene-veil');if(!v){v=document.createElement('div');v.className='scene-veil';v.setAttribute('aria-hidden','true');v.innerHTML='<i class="sv-star"></i><i class="sv-spark"></i><i class="sv-spark"></i><i class="sv-spark"></i><i class="sv-spark"></i>';document.body.append(v);}
+ clearTimeout(veilTimer);if(on){v.classList.remove('out');void v.offsetWidth;v.classList.add('in');}else{v.classList.remove('in');v.classList.add('out');veilTimer=setTimeout(()=>v.classList.remove("out"),700);}}
+async function sceneDrawn(ms){const want=document.querySelector('.game')?.dataset.sceneBackground,end=performance.now()+ms;
+ while(performance.now()<end){const s=window.sparkyIllustratedWorld?.status;if(!s||s.failed||!s.shown||(s.ready&&s.scene===want))break;await sleep(40);}
+ await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));}
 async function advance(){
  if(navigationLoading)return;navigationLoading=true;
  // Give the board swap and the background fade the phone's full attention: Sparky holds his pose briefly.
@@ -145,9 +154,9 @@ async function advance(){
  // The old board fades out while the next one (normally already prepared) is checked; the new
  // board is built out of sight and fades in only when every picture in it is ready.
  const gameEl=document.querySelector('.game');gameEl.classList.remove('board-arriving');const roomOf=p=>p?.variant==='food-sort'?'feeding':p?.variant==='accessory-grid'?'sticker':'board';const sceneSwap=!reduced&&roomOf(currentPicture)!==roomOf(next);/* changing room (Sparky sits/stands, the set changes): fade the whole scene */
- try{const t0=performance.now();await Promise.all([loadPicture(next),prepareVariant(next),Promise.race([prepareBoardArt(next),sleep(1200)])]);gameEl.classList.add('board-leaving');if(sceneSwap)gameEl.classList.add('scene-swap');await sleep(reduced?0:sceneSwap?320:200);/* the finished board stays up until the next one is ready, then a quick fade *//* never hold an empty board for slow pictures; late ones fade in */const t1=performance.now();roundCount++;sound('next');start(next);syncOrientation();const t2=performance.now();await boardReady(next,1200);window.sparkyBoardTiming={prepare:Math.round(t1-t0),build:Math.round(t2-t1),settle:Math.round(performance.now()-t2)};}
+ try{const t0=performance.now();await Promise.all([loadPicture(next),prepareVariant(next),Promise.race([prepareBoardArt(next),sleep(1200)])]);gameEl.classList.add('board-leaving');if(sceneSwap)sceneVeil(true);await sleep(reduced?0:sceneSwap?380:200);/* the finished board stays up until the next one is ready, then a quick fade *//* never hold an empty board for slow pictures; late ones fade in */const t1=performance.now();roundCount++;sound('next');start(next);syncOrientation();const t2=performance.now();await boardReady(next,1200);if(sceneSwap)await sceneDrawn(1200);window.sparkyBoardTiming={prepare:Math.round(t1-t0),build:Math.round(t2-t1),settle:Math.round(performance.now()-t2)};}
  catch(e){if(!breakKind)upcomingBoard=next;busy=false;say('Could not load the next picture. Tap the arrow to try again.');console.error(e);}
- finally{gameEl.classList.remove('board-leaving');if(sceneSwap){gameEl.classList.remove('scene-swap');gameEl.classList.add('scene-in');setTimeout(()=>gameEl.classList.remove('scene-in'),450);}if(!reduced){gameEl.classList.add('board-arriving');setTimeout(()=>gameEl.classList.remove('board-arriving'),450);}navigationLoading=false;activeRound?.focus?.guide.schedule(1400);if(!done)introduce();warmNextRound();if(warmStarted)warmGame();}
+ finally{gameEl.classList.remove('board-leaving');if(sceneSwap)sceneVeil(false);if(!reduced){gameEl.classList.add('board-arriving');setTimeout(()=>gameEl.classList.remove('board-arriving'),450);}navigationLoading=false;activeRound?.focus?.guide.schedule(1400);if(!done)introduce();warmNextRound();if(warmStarted)warmGame();}
 }
 
 function readCard(picture,card){

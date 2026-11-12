@@ -116,7 +116,8 @@
 /* The sticky note is the supplied art (.sticker-decor .note); the tray itself is transparent. */
 .figma-sticker-studio .figma-sticker-tray.sticker-tray{background:none!important;padding:0!important;left:66%!important;top:29%!important;width:23%!important;height:53%!important;gap:7% 9%!important}
 .figma-sticker-studio .figma-sticker-tray .sticker-piece{filter:drop-shadow(0 .3cqw .3cqw #8a5a0033)}
-.sticker-decor .chalk{top:93.6%}
+/* chalk pieces lie on the board just above the wooden frame (they were cut off under it) */
+.sticker-decor .chalk{top:auto;bottom:2.4%}
 .figma-sticker-studio .figma-sticker-tray .sticker-piece:last-child{width:46%!important}
 /* Where each accessory sits on the head (sticker art is square; the animal fills it). */
 .figma-sticker-art>.sticker-worn-glasses{left:12%;top:16%;width:76%;height:76%}
@@ -124,3 +125,39 @@
 .figma-sticker-art{isolation:isolate}
 .figma-sticker-art>.sticker-worn-headphones{left:-14%;top:-12%;width:128%;height:128%;z-index:-1}
 .figma-sticker-art>.sticker-worn-flower{left:55%;top:-6%;width:44%;height:44%}
+
+/* Per-animal fit, generated from the measured eye centres of each sticker (the faces differ:
+   the bunny's eyes sit far lower under its ears, the giraffe has horns). Glasses: lenses on the
+   eyes; mask: eye holes on the eyes; hat and crown rest just above the eyes; the
+   flower moves with the head (headphones keep one placement, behind the head). Accessory art geometry: glasses lenses at x .506 +/- .217, y .45;
+   mask holes at x .499 +/- .187, y .576; hat brim bottom .795; crown base .912. */
+.figma-sticker-art[data-friend=panda]>.sticker-worn-glasses{left:7.8%;top:11.5%;width:84.0%;height:84.0%}
+.figma-sticker-art[data-friend=panda]>.sticker-worn-mask{left:1.1%;top:-7.5%;width:98.7%;height:98.7%}
+.figma-sticker-art[data-friend=panda]>.sticker-worn-hat{left:10.3%;top:-21.8%;width:80.0%;height:80.0%}
+.figma-sticker-art[data-friend=panda]>.sticker-worn-crown{left:17.3%;top:-17.9%;width:66.0%;height:66.0%}
+.figma-sticker-art[data-friend=panda]>.sticker-worn-flower{left:55.4%;top:-6.0%;width:44.0%;height:44.0%}
+.figma-sticker-art[data-friend=elephant]>.sticker-worn-glasses{left:17.0%;top:23.0%;width:65.7%;height:65.7%}
+.figma-sticker-art[data-friend=elephant]>.sticker-worn-mask{left:10.3%;top:6.5%;width:80.0%;height:80.0%}
+.figma-sticker-art[data-friend=elephant]>.sticker-worn-hat{left:10.2%;top:-18.5%;width:80.0%;height:80.0%}
+.figma-sticker-art[data-friend=elephant]>.sticker-worn-crown{left:17.2%;top:-14.6%;width:66.0%;height:66.0%}
+.figma-sticker-art[data-friend=elephant]>.sticker-worn-flower{left:55.3%;top:-3.2%;width:44.0%;height:44.0%}
+.figma-sticker-art[data-friend=bunny]>.sticker-worn-glasses{left:17.5%;top:38.3%;width:64.7%;height:64.7%}
+.figma-sticker-art[data-friend=bunny]>.sticker-worn-mask{left:10.3%;top:21.3%;width:80.0%;height:80.0%}
+.figma-sticker-art[data-friend=bunny]>.sticker-worn-hat{left:10.2%;top:-3.7%;width:80.0%;height:80.0%}
+.figma-sticker-art[data-friend=bunny]>.sticker-worn-crown{left:17.2%;top:0.2%;width:66.0%;height:66.0%}
+.figma-sticker-art[data-friend=bunny]>.sticker-worn-flower{left:55.3%;top:9.4%;width:44.0%;height:44.0%}
+.figma-sticker-art[data-friend=giraffe]>.sticker-worn-glasses{left:13.4%;top:29.3%;width:71.4%;height:71.4%}
+.figma-sticker-art[data-friend=giraffe]>.sticker-worn-mask{left:8.1%;top:13.7%;width:82.9%;height:82.9%}
+.figma-sticker-art[data-friend=giraffe]>.sticker-worn-hat{left:9.5%;top:-9.7%;width:80.0%;height:80.0%}
+.figma-sticker-art[data-friend=giraffe]>.sticker-worn-crown{left:16.5%;top:-5.8%;width:66.0%;height:66.0%}
+.figma-sticker-art[data-friend=giraffe]>.sticker-worn-flower{left:54.5%;top:4.3%;width:44.0%;height:44.0%}
+.figma-sticker-art[data-friend=lion]>.sticker-worn-glasses{left:17.0%;top:27.6%;width:62.0%;height:62.0%}
+.figma-sticker-art[data-friend=lion]>.sticker-worn-mask{left:8.4%;top:9.4%;width:80.0%;height:80.0%}
+.figma-sticker-art[data-friend=lion]>.sticker-worn-hat{left:8.3%;top:-15.6%;width:80.0%;height:80.0%}
+.figma-sticker-art[data-friend=lion]>.sticker-worn-crown{left:15.3%;top:-11.7%;width:66.0%;height:66.0%}
+.figma-sticker-art[data-friend=lion]>.sticker-worn-flower{left:53.4%;top:-0.7%;width:44.0%;height:44.0%}
+.figma-sticker-art[data-friend=fox]>.sticker-worn-glasses{left:13.7%;top:27.7%;width:70.3%;height:70.3%}
+.figma-sticker-art[data-friend=fox]>.sticker-worn-mask{left:8.6%;top:12.3%;width:81.6%;height:81.6%}
+.figma-sticker-art[data-friend=fox]>.sticker-worn-hat{left:9.3%;top:-11.8%;width:80.0%;height:80.0%}
+.figma-sticker-art[data-friend=fox]>.sticker-worn-crown{left:16.3%;top:-7.9%;width:66.0%;height:66.0%}
+.figma-sticker-art[data-friend=fox]>.sticker-worn-flower{left:54.3%;top:2.5%;width:44.0%;height:44.0%}

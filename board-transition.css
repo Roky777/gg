@@ -17,3 +17,28 @@
 .game.scene-swap>*:not(.top-banner){opacity:0;transition:opacity .3s ease}
 .game.scene-in>*:not(.top-banner){animation:scene-in .4s ease both}
 @keyframes scene-in{from{opacity:0}}
+
+/* Room change wipe (game.js sceneVeil): a sky-blue circle closes over the whole screen with a
+   spinning golden star, the new room is built underneath, then the circle opens from the centre. */
+@property --veil-hole{syntax:'<percentage>';inherits:false;initial-value:0%}
+.scene-veil{position:fixed;inset:0;z-index:950;pointer-events:none;visibility:hidden;overflow:hidden;
+ background:radial-gradient(circle at 50% 50%,#fffdf0 0,#d8f1ff 30%,#8fd3fa 65%,#5bb5ee 100%)}
+.scene-veil.in{visibility:visible;pointer-events:auto;animation:veil-close .38s cubic-bezier(.55,0,.35,1) both}
+.scene-veil.out{visibility:visible;animation:veil-open .55s cubic-bezier(.45,0,.25,1) .06s both;
+ -webkit-mask:radial-gradient(circle at 50% 50%,transparent var(--veil-hole),#000 calc(var(--veil-hole) + 7%));mask:radial-gradient(circle at 50% 50%,transparent var(--veil-hole),#000 calc(var(--veil-hole) + 7%))}
+@keyframes veil-close{from{clip-path:circle(0% at 50% 50%)}to{clip-path:circle(75% at 50% 50%)}}
+@keyframes veil-open{from{--veil-hole:0%}to{--veil-hole:101%}}
+.scene-veil i{position:absolute;left:50%;top:50%;aspect-ratio:1;clip-path:polygon(50% 0,61.8% 35%,98% 35%,68.5% 57%,79.5% 91%,50% 70%,20.5% 91%,31.5% 57%,2% 35%,38.2% 35%);translate:-50% -50%}
+.scene-veil .sv-star{width:min(16vmin,130px);background:linear-gradient(#fff3a6,#ffd23a 45%,#ffa516);filter:drop-shadow(0 4px 6px #c46a0055)}
+.scene-veil.in .sv-star{animation:veil-star .9s cubic-bezier(.2,1.4,.4,1) .12s both,veil-spin 1.6s linear .12s infinite}
+.scene-veil.out .sv-star{animation:veil-star-out .2s ease both}
+.scene-veil .sv-spark{width:min(5vmin,40px);background:#fff;opacity:0}
+.scene-veil.in .sv-spark{animation:veil-spark 1s ease-in-out infinite}
+.scene-veil .sv-spark:nth-of-type(2){margin:-13vmin 0 0 -15vmin;animation-delay:.25s!important}
+.scene-veil .sv-spark:nth-of-type(3){margin:-9vmin 0 0 16vmin;animation-delay:.45s!important}
+.scene-veil .sv-spark:nth-of-type(4){margin:12vmin 0 0 -12vmin;animation-delay:.65s!important}
+.scene-veil .sv-spark:nth-of-type(5){margin:13vmin 0 0 14vmin;animation-delay:.1s!important}
+@keyframes veil-star{from{scale:0;rotate:-90deg}to{scale:1;rotate:0deg}}
+@keyframes veil-spin{to{rotate:360deg}}
+@keyframes veil-star-out{to{scale:1.6;opacity:0}}
+@keyframes veil-spark{0%,100%{opacity:0;scale:.4}50%{opacity:.95;scale:1}}
