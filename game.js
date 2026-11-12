@@ -22,7 +22,7 @@ import {RoundBanner,ROUND_INTROS} from './round-banner.js?v=top-1';import {TopBa
 import {DifferenceRound,createDifferenceBoard} from './differences-game.js?v=red-contours-55';import {HandGuide} from './hand-guide.mjs?v=1';
 import {VARIANTS,makeVariantBoard,freshMatchContent} from './variants/content.mjs';
 let VariantRoundController=null,variantRoundNumber=0,letterAnimations=null;
-async function prepareVariant(picture){if(picture.topic==='variants'&&!VariantRoundController)VariantRoundController=(await import('./variants/round.mjs?v=voice-7')).VariantRound;if(picture.topic==='letters'&&!letterAnimations){const{LetterCompanion}=await import('./letter-companion.mjs');letterAnimations=new LetterCompanion({director,companion,reduced});}}
+async function prepareVariant(picture){if(picture.topic==='variants'&&!VariantRoundController)VariantRoundController=(await import('./variants/round.mjs?v=voice-8')).VariantRound;if(picture.topic==='letters'&&!letterAnimations){const{LetterCompanion}=await import('./letter-companion.mjs');letterAnimations=new LetterCompanion({director,companion,reduced});}}
 const $=id=>document.getElementById(id),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 // Sparky's rig waits for the first board's art (at most 6 s) so the board opens sooner.
 // Sparky appears with the first board: a still of his idle pose (captured from the rig at its own
@@ -75,7 +75,7 @@ async function boardReady(pic,limit=2500){
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 // After the first board: quietly fetch every image the stylesheets use (board frames, trays,
 // guide hand, room furniture), one at a time, so later boards never wait for them.
-async function warmStyleArt(){const urls=new Set();for(const sheet of document.styleSheets){let rules;try{rules=sheet.cssRules;}catch{continue;}for(const rule of rules){const text=rule.cssText;if(!text.includes('url('))continue;for(const m of text.matchAll(/url\("?([^")]+)"?\)/g))if(!m[1].startsWith('data:')&&/\/assets\/art\/|^assets\/art\//.test(new URL(m[1],sheet.href||location.href).href))urls.add(new URL(m[1],sheet.href||location.href).href);}}for(const url of urls){while(document.hidden||navigationLoading)await sleep(600);/* never compete with a board being prepared */try{await fetch(url,{priority:'low'});}catch{}}}
+async function warmStyleArt(){const urls=new Set();for(const sheet of document.styleSheets){let rules;try{rules=sheet.cssRules;}catch{continue;}let n=0;for(const rule of rules){if(++n%150===0)await sleep(0);/* small steps: never one long block */const text=rule.cssText;if(!text.includes('url('))continue;for(const m of text.matchAll(/url\("?([^")]+)"?\)/g))if(!m[1].startsWith('data:')&&/\/assets\/art\/|^assets\/art\//.test(new URL(m[1],sheet.href||location.href).href))urls.add(new URL(m[1],sheet.href||location.href).href);}}for(const url of urls){while(document.hidden||navigationLoading)await sleep(600);/* never compete with a board being prepared */try{await fetch(url,{priority:'low'});}catch{}}}
 async function loadOpeningArt(picture){
  // Decode only art used by the opening activity; later modes load on demand.
  const paths=[backgroundFor(picture).image,'toy-board/board.webp'];
@@ -148,6 +148,12 @@ function sceneVeil(on){const v=veilEl();
 async function sceneDrawn(ms){const want=document.querySelector('.game')?.dataset.sceneBackground,end=performance.now()+ms;
  while(performance.now()<end){const s=window.sparkyIllustratedWorld?.status;if(!s||s.failed||!s.shown||(s.ready&&s.scene===want))break;await sleep(40);}
  await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));}
+// After a finished board, the automatic move to the next board waits until Sparky has stopped
+// talking (each board can add its own praise or celebration line), so a line is never cut off
+// mid-sentence; at most 6 s, then a short breath. The child's Next tap still moves at once.
+async function advanceWhenQuiet(){const token=roundToken,t0=performance.now(),speaking=()=>!!(voice.current||activeRound?.voice?.current);
+ while(speaking()&&performance.now()-t0<6000){await sleep(120);if(token!==roundToken||!done||navigationLoading)return;}
+ if(performance.now()-t0>50)await sleep(350);if(token===roundToken&&done&&!navigationLoading)void advance();}
 async function advance(){
  if(navigationLoading)return;navigationLoading=true;
  // Give the board swap and the background fade the phone's full attention: Sparky holds his pose briefly.
@@ -199,7 +205,7 @@ const gameAudio=new GameAudio({enabled:soundOn,element:$('background-music')});
 addEventListener('pointerdown',()=>{if(screenUnavailable())return;const first=!voiceUnlocked;voiceUnlocked=true;voice.unlock();gameAudio.unlock();if(first&&currentPicture)introduce();},{capture:true});
 addEventListener('keydown',()=>{if(screenUnavailable())return;const first=!voiceUnlocked;voiceUnlocked=true;voice.unlock();gameAudio.unlock();if(first&&currentPicture)introduce();},{capture:true});
 function sound(kind='swap'){gameAudio.cue(kind);}
-const flow=new PlayFlow({celebrationDuration:(_topic,text)=>1000*(RECORDINGS[recordingFor(text)]?.duration||0),next:()=>{if(done)void advance();},speak:text=>voice.say(topic==='letters'&&recordingFor(text)?.startsWith('letters_intro')&&currentPicture.targets[0]===currentPicture.targets[0].toLowerCase()?'letters_intro_03':text),cheer:cue=>voice.say(cue.text,cue),react:respond,ready:show=>$('next').classList.toggle('round-ready',show),canSpeak:()=>!screenUnavailable()&&voiceUnlocked&&soundOn&&!document.hidden&&!$('pause-dialog').open&&!navigationLoading});
+const flow=new PlayFlow({celebrationDuration:(_topic,text)=>1000*(RECORDINGS[recordingFor(text)]?.duration||0),next:()=>{if(done)void advanceWhenQuiet();},speak:text=>voice.say(topic==='letters'&&recordingFor(text)?.startsWith('letters_intro')&&currentPicture.targets[0]===currentPicture.targets[0].toLowerCase()?'letters_intro_03':text),cheer:cue=>voice.say(cue.text,cue),react:respond,ready:show=>$('next').classList.toggle('round-ready',show),canSpeak:()=>!screenUnavailable()&&voiceUnlocked&&soundOn&&!document.hidden&&!$('pause-dialog').open&&!navigationLoading});
 // Sparky joins fun rounds with the rig's own activity clips.
 const FUN_JOIN={'balloon-pop':'pinata','drum-duet':'pinata','wash-toy':'splash','grow-garden':'water','magic-reveal':'wow','roll-ball':'jog','jelly-wiggle':'woohoo'};
 // While he says a longer line (2.2 s or more) he gestures with one of the rig's dialogue
