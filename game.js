@@ -1,5 +1,6 @@
 import{OrderingGuide}from'./ordering-guide.mjs';
-let orderingGuide=null;
+import{CountingGuide}from'./counting-guide.mjs?v=3';
+let orderingGuide=null,countingGuide=null;
 import{renderLearningType,learningTypeAsset}from'./learning-type.mjs';
 import{applySceneBackground,backgroundFor}from'./scene-backgrounds.mjs';
 import{GamePlaylist}from'./game-playlist.mjs';
@@ -8,7 +9,7 @@ import {BreakSchedule,createPlayBreak,makeFunBoard,FUN_KINDS} from './play-break
 import {reviewVoices,pictureVoice,RECORDINGS,recordingFor} from './voice-cues.js?v=lip-sync-40';
 import {syncLayout} from './responsive-layout.js?v=board-finish-14';
 import {CompanionPose} from './companion-pose.js?v=companion-57';
-import {PlayFlow,ModeDeck} from './play-flow.js?v=clips-3';
+import {PlayFlow,ModeDeck} from './play-flow.js?v=clips-4';
 import {solved,swap,scramble,slotAt,swapFeedback} from './model.js?v=lip-sync-40';
 import {MascotDirector,CLIPS} from './mascot-director.js?v=clips-8';
 import {GameAudio} from './game-audio.js?v=activities-53';
@@ -16,12 +17,12 @@ import {makeBoard} from './puzzle-generator.js?v=drag-only-47';
 import {LearningVoice} from './learning-voice.js?v=recorded-only-1';
 import {AssemblyRound,createAssemblyBoard} from './assembly-game.js?v=polish-52';
 import {AssemblyDeck} from './assembly-catalog.js?v=lip-sync-40';
-import {CountingRound,makeCountingBoard,COUNT_WORDS} from './counting-game.js?v=drop-pocket-15';
+import {CountingRound,makeCountingBoard,COUNT_WORDS} from './counting-game.js?v=drop-pocket-16';
 import {RoundBanner,ROUND_INTROS} from './round-banner.js?v=top-1';import {TopBanner} from './top-banner.js?v=15';
 import {DifferenceRound,createDifferenceBoard} from './differences-game.js?v=red-contours-55';
 import {VARIANTS,makeVariantBoard,freshMatchContent} from './variants/content.mjs';
 let VariantRoundController=null,variantRoundNumber=0,letterAnimations=null;
-async function prepareVariant(picture){if(picture.topic==='variants'&&!VariantRoundController)VariantRoundController=(await import('./variants/round.mjs')).VariantRound;if(picture.topic==='letters'&&!letterAnimations){const{LetterCompanion}=await import('./letter-companion.mjs');letterAnimations=new LetterCompanion({director,companion,reduced});}}
+async function prepareVariant(picture){if(picture.topic==='variants'&&!VariantRoundController)VariantRoundController=(await import('./variants/round.mjs?v=voice-2')).VariantRound;if(picture.topic==='letters'&&!letterAnimations){const{LetterCompanion}=await import('./letter-companion.mjs');letterAnimations=new LetterCompanion({director,companion,reduced});}}
 const $=id=>document.getElementById(id),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 // Sparky's rig waits for the first board's art (at most 6 s) so the board opens sooner.
 // Sparky appears with the first board: a still of his idle pose (captured from the rig at its own
@@ -93,11 +94,11 @@ function showTopBanner(){if(topBannerRound===roundToken||!currentPicture||done)r
 // One short, different line per board (shown on the banner; voice lines are separate recordings).
 const BANNER_LINES={'letter-picture':'Which picture starts with this letter?','letter-case':'Pair the big and small letters.','word-picture':'Read the word, then find its picture.','count-connect':'Count them, then pick the number.','equal-groups':'Find the groups that are equal.','colour-match':'Put each thing with its colour.',letters:'Find the picture for each letter.',numbers:'Count, then match the number.','count-groups':'How many in each group?',assembly:'Put the pieces together.',differences:'Spot the 3 things that changed.'};
 let bannerRound=-1;
-const introducedVariants=new Set();
+let introducedRound=-1;
 function introduce(){
  showTopBanner();
- // Newer boards: their recorded introduction plays the first time each game appears this session.
- if(currentPicture?.variant){if(currentPicture.variant!=='food-sort'&&!introducedVariants.has(currentPicture.variant)&&voiceUnlocked&&soundOn&&activeRound?.narrate&&!activeRound.complete){introducedVariants.add(currentPicture.variant);activeRound.narrate(currentPicture.rule);}return;}
+ // Every board (including Food Choices) opens with its recorded instruction.
+ if(currentPicture?.variant){if(introducedRound!==roundToken&&voiceUnlocked&&soundOn&&activeRound?.narrate&&!activeRound.complete){introducedRound=roundToken;if(activeRound.feeding)activeRound.feeding.intro();else activeRound.narrate(currentPicture.rule);}return;}
  if(currentPicture?.fun){if(!activeRound?.announced&&voiceUnlocked&&soundOn&&activeRound){activeRound.announced=true;voice.say(currentPicture.intro,{volume:.85});}return;}
  if(bannerRound!==roundToken)bannerRound=roundToken;
  flow.offerIntro();
@@ -108,7 +109,7 @@ const isCombinedGame=()=>{const id=new URLSearchParams(location.search).get('gam
 async function loadPicture(pic){
  const loaded=await Promise.all(pic.cards.map(async card=>{if(pictureImages.has(card.image)){const cached=pictureImages.get(card.image);pictureImages.delete(card.image);pictureImages.set(card.image,cached);return cached;}let pending=pictureLoads.get(card.image);if(!pending){pending=(async()=>{const image=new Image();image.src=`assets/art/${card.image}`;await image.decode();pictureImages.set(card.image,image);while(pictureImages.size>24)pictureImages.delete(pictureImages.keys().next().value);return image;})();pictureLoads.set(card.image,pending);}try{return await pending;}finally{pictureLoads.delete(card.image);}}));return loaded;
 }
-let idleTimer=null,reactionCount=0,idleCount=0,tapCount=0;
+let idleTimer=null,reactionCount=0,idleCount=0,idleHelps=0,tapCount=0;
 let wins=0,topic='letters',voiceUnlocked=false,lastSpoken='',completed=new Set(),roundCount=0,navigationLoading=false,currentPicture=null,letterWins=0,numberWins=0,lastTopic=null,recentBoards=[];
 try{const saved=JSON.parse(localStorage.getItem('sparky-learning-pictures-v1')||'[]');if(Array.isArray(saved))completed=new Set(saved.filter(id=>typeof id==='string').slice(-200));}catch{}
 
@@ -157,14 +158,27 @@ function readCard(picture,card){
 }
 
 function cancelReactions(){clearTimeout(idleTimer);director.clearQueue();}
-function idleSchedule(){
+// Child activity restarts the idle clock. After ~10s with no touch Sparky gives spoken help with the
+// board's hand/highlight; if the child stays stuck he repeats it (alternating with "Help chaahiye? Mujh
+// par tap karo.") up to three times, then falls back to quiet idle reactions.
+function idleSchedule(fromTimer){
  flow.activity();clearTimeout(idleTimer);
+ if(fromTimer!==true)idleCount=0;
  if(activeRound?.feeding)return;
- if(reduced||done||document.hidden||$('pause-dialog').open)return;
+ if(done||document.hidden||$('pause-dialog').open)return;
+ const helping=!currentPicture?.fun&&idleCount<3&&idleHelps<6;
  idleTimer=setTimeout(()=>{
-  if(!done&&!busy&&!drag&&!document.hidden&&!$('pause-dialog').open&&director.active==='idle'){if(idleCount===0)companion.act('ponder');else if(idleCount===1)respond(Math.random()<.5?'intro':'stall');else if(idleCount%2===0){const look=['water','happy','wow','lookhappy','lookhappy2','tada'];respond(look[Math.floor(Math.random()*look.length)]);}idleCount++;}
-  idleSchedule();
- },18000);
+  if(!done&&!busy&&!drag&&!activeRound?.drag&&!document.hidden&&!$('pause-dialog').open&&!navigationLoading&&!screenUnavailable()){
+   if(helping){if(!voiceBusy()){giveIdleHelp(idleCount);idleHelps++;idleCount++;}}
+   else if(!reduced&&director.active==='idle'){if(idleCount===3)companion.act('ponder');else if(idleCount%2===0){const look=['water','happy','wow','lookhappy','lookhappy2','tada'];respond(look[Math.floor(Math.random()*look.length)]);}idleCount++;}
+  }
+  idleSchedule(true);
+ },helping?(idleCount===0?10000:15000):18000);
+}
+function voiceBusy(){return voice.pending>0||(topic==='variants'&&activeRound?.voice?.pending>0);}
+function giveIdleHelp(count){
+ if(topic==='variants'){activeRound?.hint?.();return;}
+ visualHint();flow.idleHelp(count);
 }
 
 try{soundOn=localStorage.getItem('sparky-swap-sound')!=='off';}catch{}
@@ -225,7 +239,15 @@ function exchange(a,b){
  if(navigationLoading||done||busy||$('pause-dialog').open)return;clearDrag();
  if(a===b){position();return;}
  idleSchedule();const previous=order;order=swap(order,a,b);const feedback=swapFeedback(previous,order);busy=true;$('board').setAttribute('aria-busy','true');position();sound();say(`Swapped positions ${a+1} and ${b+1}.`);const token=roundToken;
- settle=setTimeout(()=>{if(token!==roundToken)return;busy=false;$('board').setAttribute('aria-busy','false');if(solved(order))finish();else if(feedback==='yes'){matchCelebration();}else if(feedback==='no'){if(topic==='letters')letterAnimations?.play('LM04');voice.cancel();tell('फिर से कोशिश करो।',{speak:false});if(flow.mistake())showMatchHint();}},reduced?0:160);
+ settle=setTimeout(()=>{if(token!==roundToken)return;busy=false;$('board').setAttribute('aria-busy','false');if(solved(order))finish();else if(feedback==='yes'){matchCelebration();}else if(feedback==='no'){if(topic==='letters')letterAnimations?.play('LM04');voice.cancel();tell('फिर से कोशिश करो।',{speak:false});if(flow.mistake())visualHint();}},reduced?0:160);
+}
+// Point at the next step on the board: highlight plus the hand guide where the board has one.
+function visualHint(){
+ if(done||!currentPicture)return;
+ if(topic==='letters'||topic==='numbers'){showMatchHint();if(orderingGuide?.layer.hidden)orderingGuide.show();}
+ else if(topic==='count-groups'&&activeRound?.rows){const row=currentPicture.cards.findIndex((_,i)=>!activeRound.answers.has(i));if(row>=0){const helpedRow=activeRound.rows[row];helpedRow.classList.remove('count-hint');void helpedRow.offsetWidth;helpedRow.classList.add('count-hint');companion.look(.5,(row+.5)/4);setTimeout(()=>helpedRow.classList.remove('count-hint'),1800);if(!countingGuide?.playing)countingGuide?.show(row);}}
+ else if(topic==='assembly'&&activeRound?.zones){const id=[0,1,2].find(i=>!activeRound.placed.has(i));if(id!==undefined){const zone=activeRound.zones[id];zone.classList.add('hint');companion.look(.4,(id+.5)/3);setTimeout(()=>zone.classList.remove('hint'),1800);}}
+ else if(topic==='differences')companion.look(.5,.4);
 }
 function showMatchHint(){
  const id=order.find((value,slot)=>value!==slot);if(id===undefined)return;
@@ -235,8 +257,8 @@ function showMatchHint(){
 }
 
 function start(index){
- orderingGuide?.destroy();orderingGuide=null;
- voice.cancel();cancelReactions();clearTimeout(settle);clearTimeout(celebration);clearDrag();activeRound?.destroy();activeRound=null;countVoiceRow=null;idleCount=0;void director.show('idle').catch(()=>{});roundToken++;currentPicture=index;const stage=document.querySelector('.game');stage.dataset.sessionGame=currentPicture.session?.id??currentPicture.variant??currentPicture.topic;stage.dataset.sessionPosition=String(currentPicture.session?.position??'');topic=currentPicture.topic;applySceneBackground(document.querySelector('.game'),currentPicture);$('board').dataset.topic=topic;letterAnimations?.begin(topic==='letters');flow.start(topic);companion.clear();flow.entry();done=false;busy=false;order=scramble();const pic=currentPicture,vertical=true;
+ orderingGuide?.destroy();orderingGuide=null;countingGuide?.destroy();countingGuide=null;
+ voice.cancel();cancelReactions();clearTimeout(settle);clearTimeout(celebration);clearDrag();activeRound?.destroy();activeRound=null;countVoiceRow=null;idleCount=0;idleHelps=0;void director.show('idle').catch(()=>{});roundToken++;currentPicture=index;const stage=document.querySelector('.game');stage.dataset.sessionGame=currentPicture.session?.id??currentPicture.variant??currentPicture.topic;stage.dataset.sessionPosition=String(currentPicture.session?.position??'');topic=currentPicture.topic;applySceneBackground(document.querySelector('.game'),currentPicture);$('board').dataset.topic=topic;letterAnimations?.begin(topic==='letters');flow.start(topic);companion.clear();flow.entry();done=false;busy=false;order=scramble();const pic=currentPicture,vertical=true;
  // Fun rounds now play inside the same blue board as every other game.
 // Grow a Garden plays in the garden itself (no board); the other fun rounds use the board.
 document.querySelector('.game').classList.toggle('activity-scene',!!pic.fun&&pic.topic==='grow-garden');document.querySelector('.game').classList.toggle('fun-round',!!pic.fun);document.querySelector('.game').classList.toggle('sky-scene',!!pic.fun&&pic.topic==='balloon-pop'&&!reduced);
@@ -256,15 +278,16 @@ document.querySelector('.game').classList.toggle('activity-scene',!!pic.fun&&pic
  }
  $('next').disabled=false;$('board').setAttribute('aria-busy','false');$('board').className='board '+(vertical?'vertical':'horizontal');$('board').setAttribute('aria-label',`${pic.rule} Drag a whole picture onto another to swap their positions.`);$('confetti').replaceChildren();$('board').replaceChildren();pieces=[];
  if(topic==='differences'){
-  const token=roundToken;activeRound=new DifferenceRound({element:$('board'),picture:pic,sound,tell,onActivity:idleSchedule,isPaused:()=>navigationLoading||screenUnavailable()||document.hidden||$('pause-dialog').open,onWrong:()=>flow.mistake(),onMatch:matchCelebration,onComplete:()=>{if(token===roundToken&&!done)finish();}});
+  const token=roundToken;activeRound=new DifferenceRound({element:$('board'),picture:pic,sound,tell,onActivity:idleSchedule,isPaused:()=>navigationLoading||screenUnavailable()||document.hidden||$('pause-dialog').open,onWrong:()=>{if(flow.mistake())visualHint();},onMatch:matchCelebration,onComplete:()=>{if(token===roundToken&&!done)finish();}});
   updateLearningUI();$('task-rule').textContent=pic.rule;tell(pic.intro,{speak:false});layoutArt();idleSchedule();introduce();say(pic.rule);return;
  }
  if(topic==='count-groups'){
   const token=roundToken;
   activeRound=new CountingRound({element:$('board'),picture:pic,sound,tell,onActivity:idleSchedule,isPaused:()=>navigationLoading||screenUnavailable()||document.hidden||$('pause-dialog').open,onWrong:()=>flow.mistake(),onRead:number=>readCard(pic,{amount:number}),onCount:(ordinal,row)=>{companion.look(.55,(row+.5)/4);flow.requestedSpeech();if(!soundOn)return;voiceUnlocked=true;voice.unlock();if(countVoiceRow!==row){voice.cancel();countVoiceRow=row;}voice.say(COUNT_WORDS[ordinal],{queue:true,rate:1.05});},onMatch:matchCelebration,onComplete:()=>{if(token===roundToken&&!done)finish();}});
+  countingGuide=new CountingGuide(activeRound,{paused:()=>navigationLoading||screenUnavailable()||document.hidden||$('pause-dialog').open,reduced});activeRound.guide=countingGuide;
   updateLearningUI();$('task-rule').textContent=pic.rule;tell(pic.intro,{speak:false});layoutArt();idleSchedule();introduce();say(pic.rule);return;
  }
- if(topic==='assembly'){const token=roundToken;activeRound=new AssemblyRound({element:$('board'),picture:pic,onRead:()=>readCard(pic),director,sound,tell,reduced,onActivity:idleSchedule,isPaused:()=>navigationLoading||screenUnavailable()||document.hidden||$('pause-dialog').open,onWrong:()=>flow.mistake(),onMatch:matchCelebration,onComplete:()=>{if(token===roundToken&&!done)finish();}});updateLearningUI();$('task-rule').textContent=pic.rule;tell(pic.intro,{speak:false});layoutArt();idleSchedule();introduce();say(pic.rule);return;}
+ if(topic==='assembly'){const token=roundToken;activeRound=new AssemblyRound({element:$('board'),picture:pic,onRead:()=>readCard(pic),director,sound,tell,reduced,onActivity:idleSchedule,isPaused:()=>navigationLoading||screenUnavailable()||document.hidden||$('pause-dialog').open,onWrong:()=>{if(flow.mistake())visualHint();},onMatch:matchCelebration,onComplete:()=>{if(token===roundToken&&!done)finish();}});updateLearningUI();$('task-rule').textContent=pic.rule;tell(pic.intro,{speak:false});layoutArt();idleSchedule();introduce();say(pic.rule);return;}
 
  for(let id=0;id<3;id++){
   const card=pic.cards[id],piece=document.createElement('button');piece.className='piece';piece.dataset.cardIndex=String(id);piece.type='button';piece.style.width='29.333334%';piece.style.height='61%';const grip=document.createElement('span');grip.className='card-grip';grip.setAttribute('aria-hidden','true');piece.append(grip);
@@ -293,10 +316,7 @@ $('mascot-button').onclick=()=>{
  if(topic==='variants'){if(!$('pause-dialog').open&&!navigationLoading)activeRound?.hint();return;}
  if($('pause-dialog').open||navigationLoading)return;if(currentPicture?.fun){if(soundOn){voiceUnlocked=true;voice.unlock();voice.say(currentPicture.intro);}return;}idleSchedule();sound('tap');companion.faceChild();flow.requestedSpeech();
  let explanation=currentPicture.intro;
- if(!done&&(topic==='letters'||topic==='numbers')){showMatchHint();explanation=flow.help();}
- else if(!done&&topic==='count-groups'){const row=currentPicture.cards.findIndex((_,i)=>!activeRound.answers.has(i));if(row>=0){const helpedRow=activeRound.rows[row];helpedRow.classList.add('count-hint');companion.look(.5,(row+.5)/4);setTimeout(()=>helpedRow.classList.remove('count-hint'),1800);}explanation=flow.help();}
- else if(!done&&topic==='assembly'){const id=[0,1,2].find(i=>!activeRound.placed.has(i));if(id!==undefined){activeRound.zones[id].classList.add('hint');companion.look(.4,(id+.5)/3);const zone=activeRound.zones[id];setTimeout(()=>zone.classList.remove('hint'),1800);}explanation=flow.help();}
- else if(!done&&topic==='differences'){companion.look(.5,.4);explanation=flow.help();}
+ if(!done&&['letters','numbers','count-groups','assembly','differences'].includes(topic)){visualHint();explanation=flow.help();}
  if(soundOn){voiceUnlocked=true;voice.unlock();if(done){voice.cancel();flow.pause();voice.saySequence(reviewVoices(currentPicture),{volume:.85});reviewActive=voice.pending>0;if(!reviewActive)flow.resume();}else voice.say(explanation,{volume:.85});}
 };
 $('exit').onclick=pause;$('resume').onclick=closePause;$('restart').onclick=()=>{closePause();sound('swap');start(currentPicture);};$('pause-dialog').addEventListener('cancel',e=>{e.preventDefault();closePause();});

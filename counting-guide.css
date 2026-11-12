@@ -1,0 +1,20 @@
+/* Counting board hand tutorial (counting-guide.mjs) and a visible "look here" row hint. */
+.game #board .counting-guide{position:absolute;inset:0;z-index:12;pointer-events:none;overflow:visible}
+.game #board .counting-guide[hidden]{display:none}
+.game #board .counting-guide svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.game #board .counting-guide path{fill:none;stroke:#55b8dc;stroke-width:4;stroke-dasharray:4 9;stroke-linecap:round;opacity:0}
+.game #board .counting-guide .counting-demo-hand{position:absolute;left:0;top:0;z-index:1;width:clamp(40px,7cqw,72px);height:auto;aspect-ratio:1;max-width:none;max-height:none;pointer-events:none;opacity:0;filter:drop-shadow(0 4px 6px #0003)}
+
+/* While the hand plays: the number to pick up and the pocket it goes to glow. */
+.game #board .number-chip.count-guide-source{filter:drop-shadow(0 0 10px #ffd34d) drop-shadow(0 0 4px #ffb300)}
+.game #board .quantity-dock.count-guide-target{filter:drop-shadow(0 0 10px #ffd34d) drop-shadow(0 0 4px #ffb300)}
+
+/* "Count this row" hint (tap Sparky, or two wrong tries). The old hint only changed
+   a background that board-finish.css forces to none, so nothing was visible. */
+.game #board .quantity-row.count-hint::after{content:'';position:absolute;inset:-5px;z-index:4;border:4px solid #ffc12e;border-radius:16px;box-shadow:0 0 14px #ffd34dcc;pointer-events:none;animation:count-hint-pulse .45s ease-in-out 4 alternate}
+.game #board .quantity-row.count-hint .count-object:not(.counted){animation:count-hint-bob .45s ease-in-out 4 alternate}
+@keyframes count-hint-pulse{from{opacity:.55}to{opacity:1}}
+@keyframes count-hint-bob{from{transform:translateY(0)}to{transform:translateY(-6%)}}
+@media(prefers-reduced-motion:reduce){
+ .game #board .quantity-row.count-hint::after,.game #board .quantity-row.count-hint .count-object:not(.counted){animation:none}
+}

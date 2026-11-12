@@ -43,16 +43,24 @@ export class PlayFlow{
  cancelIntro(){if(this.introTimer!==null&&this.introTimer!==undefined){this.clearTimer(this.introTimer);this.timers.delete(this.introTimer);this.introTimer=null;}}
  cancel(){this.token++;for(const id of this.timers)this.clearTimer(id);this.timers.clear();this.introTimer=null;this.advanceTimer=null;this.advanceDue=null;this.ready(false);}
  start(topic){this.cancel();this.topic=topic;this.paused=false;this.remaining=2500;this.round={done:false,advanced:false,mistakes:0,hinted:false};this.matchCount=0;this.visits.set(topic,(this.visits.get(topic)||0)+1);this.offerIntro();}
+ // Spoken feedback the child earned by acting (correct/wrong/idle): never blocked by the quiet gap.
+ speakNow(text){if(!text||!this.canSpeak())return false;this.lastSpeech=this.now();this.speak(text);return true;}
  automatic(text,{gap=12000}={}){if(!text||!this.canSpeak()||this.now()-this.lastSpeech<gap)return false;this.lastSpeech=this.now();this.speak(text);return true;}
  offerIntro(){if(!this.round||this.round.done||!this.canSpeak()||this.introTimer!=null)return;
-  // Explain each mechanic once per session. Further explanations are requested or earned by difficulty.
-  if(this.introduced.has(this.topic))return;
-  this.introTimer=this.later(()=>{this.introTimer=null;if(this.automatic(this.line('intro'))){this.introduced.add(this.topic);}},450);
+  // Every board opens with its spoken instruction, so a child never lands on a silent board.
+  this.introTimer=this.later(()=>{this.introTimer=null;if(this.speakNow(this.line('intro')))this.introduced.add(this.topic);},450);
  }
  activity(){this.cancelIntro();}
  requestedSpeech(){this.cancelIntro();this.lastSpeech=this.now();}
- match(){this.activity();if(this.round?.done)return;this.matchCount++;this.react(this.responses.next('match',['nod','attend','happy','lookhappy','tada']),.85);}
- mistake(){this.activity();if(!this.round||this.round.done)return;this.round.mistakes++;if(this.round.mistakes<2||this.round.hinted)return;this.round.hinted=true;this.react('guide',1.6);this.automatic(this.help(),{gap:20000});return true;}
+ // Each correct step: a nod plus a short recorded praise ("Haan, yahi!", "Waah, sahi jagah!").
+ match(){this.activity();if(this.round?.done)return;this.matchCount++;this.react(this.responses.next('match',['nod','attend','happy','lookhappy','tada']),.85);this.speakNow(this.responses.next('praise',['small_success_01','small_success_02','small_success_03','small_success_04']));}
+ // Every wrong try gets a voice reply: a gentle retry line, and from the second try on
+ // the game's own help line (returns true then, so the board can also show its hand guide).
+ mistake(){this.activity();if(!this.round||this.round.done)return;const n=++this.round.mistakes;
+  if(n%2===0){this.round.hinted=true;this.react('guide',1.6);this.speakNow(this.help());return true;}
+  this.speakNow(n===1?'retry_01':this.responses.next('retry',['retry_02','retry_03']));return false;}
+ // Idle help: alternate the game's help line with "Help chaahiye? Mujh par tap karo."
+ idleHelp(count){this.react('guide',1.6);return this.speakNow(count%2===1?'controls_05':this.help());}
  complete(){if(!this.round||this.round.done)return;this.activity();this.round.done=true;this.wins++;
   const gesture=this.responses.next('celebration',['yes','win','encourage','hurray','woohoo','delight','yummy','wow','tada','splash','jog']);
   this.react(gesture,1.8);

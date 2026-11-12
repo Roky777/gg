@@ -62,3 +62,7 @@ if(offered){
  }
 }
 window.sparkyScreenFill={get status(){return{fill:game.dataset.screenFill,fullscreenOffered:offered,fullscreen:!!fullscreenElement()};}};
+
+// Board frame height for the 9-slice board art (wide-stage.css). offsetHeight ignores
+// transforms, so the corners do not flicker during the board's pop-in animation.
+{const frame=document.querySelector('.puzzle-frame');if(frame&&'ResizeObserver'in window){const set=()=>frame.style.setProperty('--frame-h',frame.offsetHeight+'px');new ResizeObserver(set).observe(frame);set();}}
