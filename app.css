@@ -1585,7 +1585,9 @@ html,body{overflow:hidden}
 #pause-dialog .home-play-glow{position:absolute;inset:6%;border-radius:32%;background:radial-gradient(circle,#fff8c4cc 0,#ffd23a88 45%,#ffd23a00 72%);animation:arcade-halo 1.5s ease-out .9s infinite;pointer-events:none}
 @keyframes arcade-halo{0%{opacity:.9;scale:.9}100%{opacity:0;scale:1.55}}
 #pause-dialog .home-play:active img{scale:.93;animation:none}
-#pause-dialog button:focus-visible{outline:3px solid #fff;outline-offset:4px;border-radius:28%}
+#pause-dialog:focus,#pause-dialog button:focus{outline:none}
+/* keyboard focus: a white glow that follows the button shape (no box) */
+#pause-dialog button:focus-visible img{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0 7px #fff)}
 #pause-dialog .arcade-btn{position:relative;display:block;width:clamp(60px,15vh,104px);height:auto;min-width:0;margin:0;aspect-ratio:1;padding:0;border:0;background:none;cursor:pointer;line-height:0;-webkit-tap-highlight-color:transparent;filter:drop-shadow(0 4px 4px #4a0a3040);transition:transform .14s ease}
 .arcade-btn img{width:100%;height:100%;pointer-events:none}
 .arcade-btn:active{transform:translateY(3px) scale(.94)}

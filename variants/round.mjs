@@ -1,4 +1,4 @@
-import{LearningVoice}from'../learning-voice.js?v=recorded-only-1';
+import{LearningVoice}from'../learning-voice.js?v=one-voice-1';
 import{recordingFor}from'../voice-cues.js?v=lip-sync-40';
 import{renderLearningType}from'../learning-type.mjs';
 import{PairConnections}from'./pair-connections.mjs';

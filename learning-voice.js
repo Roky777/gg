@@ -1,6 +1,10 @@
 import {mouthShapeAt} from './lip-sync.js?v=lip-sync-40';
 import {RECORDINGS,recordingFor} from './voice-cues.js?v=lip-sync-40';
 /** One cancellable voice queue. Supplied recordings keep their natural pace/pitch. */
+// Sparky has one voice: the game and each board keep their own queue, but they share this channel.
+// When a line starts, any other queue that is speaking (or waiting to) is cancelled, so two
+// recordings never play over each other. All importers must use the same module URL.
+const speaking=new Set();
 export class LearningVoice {
  constructor({onStart=()=>{},onEnd=()=>{},onUnavailable=()=>{},audioFactory=typeof Audio==='function'?()=>new Audio():null}={}){
   Object.assign(this,{onStart,onEnd,onUnavailable});this.enabled=true;this.serial=0;this.pending=0;this.jobs=[];this.current=null;
@@ -14,7 +18,7 @@ export class LearningVoice {
   const promise=this.audio.play();promise?.catch(()=>{});this.audio.pause();
  }
  cancel(){
-  this.serial++;this.jobs=[];this.pending=0;this.current=null;
+  this.serial++;this.jobs=[];this.pending=0;this.current=null;speaking.delete(this);
   if(this.audio){this.audio.onplaying=null;this.audio.onended=null;this.audio.onerror=null;this.audio.onwaiting=null;this.audio.pause();this.audio.removeAttribute('src');this.audio.load();}
   this.onEnd();
  }
@@ -37,9 +41,10 @@ export class LearningVoice {
   if(this.current||!this.jobs.length||!this.enabled)return;
   const job=this.jobs.shift(),token=this.serial;this.current=job;
   const valid=()=>token===this.serial&&this.current===job;
-  const finish=()=>{if(!valid())return;this.current=null;this.pending--;if(this.jobs.length)this.pump();else this.onEnd();};
+  const finish=()=>{if(!valid())return;this.current=null;this.pending--;if(this.jobs.length)this.pump();else{speaking.delete(this);this.onEnd();}};
   const start=()=>{if(!valid())return;job.playing=true;if(!job.started){job.started=true;this.onStart({id:job.id,category:job.recording?.category,duration:job.recording?.duration});}};
   if(!job.recording||!this.audio){finish();return;}
+  for(const other of [...speaking])if(other!==this)other.cancel();speaking.add(this);
   const audio=this.audio;let failed=false;
   const error=e=>{if(!valid()||failed)return;failed=true;audio.onplaying=audio.onended=audio.onerror=null;audio.pause();if(e?.name==='NotAllowedError')this.unlocked=false;this.onUnavailable();finish();};
   audio.src=new URL(job.recording.path,import.meta.url).href;audio.volume=job.volume;audio.playbackRate=1;audio.onplaying=start;audio.onended=finish;audio.onerror=error;audio.onwaiting=()=>{if(valid())job.playing=false;};

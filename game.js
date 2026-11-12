@@ -14,7 +14,7 @@ import {solved,swap,scramble,slotAt,swapFeedback} from './model.js?v=lip-sync-40
 import {MascotDirector,CLIPS} from './mascot-director.js?v=clips-8';
 import {GameAudio} from './game-audio.js?v=activities-53';
 import {makeBoard} from './puzzle-generator.js?v=drag-only-47';
-import {LearningVoice} from './learning-voice.js?v=recorded-only-1';
+import {LearningVoice} from './learning-voice.js?v=one-voice-1';
 import {AssemblyRound,createAssemblyBoard} from './assembly-game.js?v=polish-52';
 import {AssemblyDeck} from './assembly-catalog.js?v=lip-sync-40';
 import {CountingRound,makeCountingBoard,COUNT_WORDS} from './counting-game.js?v=drop-pocket-16';
@@ -22,7 +22,7 @@ import {RoundBanner,ROUND_INTROS} from './round-banner.js?v=top-1';import {TopBa
 import {DifferenceRound,createDifferenceBoard} from './differences-game.js?v=red-contours-55';
 import {VARIANTS,makeVariantBoard,freshMatchContent} from './variants/content.mjs';
 let VariantRoundController=null,variantRoundNumber=0,letterAnimations=null;
-async function prepareVariant(picture){if(picture.topic==='variants'&&!VariantRoundController)VariantRoundController=(await import('./variants/round.mjs?v=voice-4')).VariantRound;if(picture.topic==='letters'&&!letterAnimations){const{LetterCompanion}=await import('./letter-companion.mjs');letterAnimations=new LetterCompanion({director,companion,reduced});}}
+async function prepareVariant(picture){if(picture.topic==='variants'&&!VariantRoundController)VariantRoundController=(await import('./variants/round.mjs?v=voice-5')).VariantRound;if(picture.topic==='letters'&&!letterAnimations){const{LetterCompanion}=await import('./letter-companion.mjs');letterAnimations=new LetterCompanion({director,companion,reduced});}}
 const $=id=>document.getElementById(id),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 // Sparky's rig waits for the first board's art (at most 6 s) so the board opens sooner.
 // Sparky appears with the first board: a still of his idle pose (captured from the rig at its own
@@ -315,7 +315,7 @@ function closePause(){$('pause-dialog').close();if(voiceUnlocked&&currentPicture
 // ---- Start / home screen (the pause dialog, styled by arcade-ui.css) ----------------------------
 // Pause dialog has two views: the start screen ('home': logo, Sparky, PLAY) and the pause card
 // ('card': home / play / sound). Both keep the game paused; PLAY resumes.
-function homeView(view,fromCard){const d=$('pause-dialog');d.dataset.view=view;d.querySelector('.home-back').hidden=!fromCard;(view==='home'?$('resume'):$('card-play')).focus({preventScroll:true});}
+function homeView(view,fromCard){const d=$('pause-dialog');d.dataset.view=view;d.querySelector('.home-back').hidden=!fromCard;d.focus({preventScroll:true});/* no ring on PLAY when the screen opens; Tab still reaches every button */}
 function pause(view='card'){reviewActive=false;flow.pause();companion.clear();roundBanner.hide({immediate:true});activeRound?.pause?.();voice.cancel();cancelReactions();clearDrag();activeRound?.cancelDrag();if(!$('pause-dialog').open){sound('tap');gameAudio.setPaused(true);director.pause();$('pause-dialog').showModal();}homeView(view==='home'?'home':'card',false);}
 $('mascot-button').onclick=()=>{
  if(topic==='variants'){if(!$('pause-dialog').open&&!navigationLoading)activeRound?.hint();return;}
