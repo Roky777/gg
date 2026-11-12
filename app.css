@@ -1647,6 +1647,10 @@ html,body{overflow:hidden}
 #pause-dialog .home-play-glow{position:absolute;inset:6%;border-radius:32%;background:radial-gradient(circle,#fff8c4cc 0,#ffd23a88 45%,#ffd23a00 72%);animation:arcade-halo 1.5s ease-out .9s infinite;pointer-events:none}
 @keyframes arcade-halo{0%{opacity:.9;scale:.9}100%{opacity:0;scale:1.55}}
 #pause-dialog .home-play:active img{scale:.93;animation:none}
+/* PLAY tapped before Sparky is ready: a soft white ring spins round the button until the game starts */
+#pause-dialog .home-play.home-wait img{animation:none;filter:saturate(.75) drop-shadow(0 .8cqw .7cqw #7a1a0a55)}
+#pause-dialog .home-play.home-wait::after{content:'';position:absolute;inset:-5%;border-radius:34%;border:.55cqw solid #ffffff55;border-top-color:#fff;border-right-color:#fff;animation:home-wait-spin .9s linear infinite;pointer-events:none}
+@keyframes home-wait-spin{to{rotate:360deg}}
 #pause-dialog:focus,#pause-dialog button:focus{outline:none}
 /* keyboard focus: a white glow that follows the button shape (no box) */
 #pause-dialog button:focus-visible img{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0 7px #fff)}

@@ -19,24 +19,42 @@ export class WorkerRigPlayer {
     catch { return false; }
   }
 
+  // Sparky's skeleton is 1.8 MB but only 0.5 MB gzipped; the server sends it uncompressed, so the
+  // build ships a .gz copy that is unpacked here (falls back to the plain file). Downloaded once:
+  // the worker receives these bytes instead of fetching the file again.
+  static async skeletonBytes(url) {
+    const plain = async () => { const r = await fetch(url); if (!r.ok) throw Error('Unable to load skeleton'); return r.arrayBuffer(); };
+    if (typeof DecompressionStream !== 'function') return plain();
+    try {
+      const r = await fetch(url.replace(/\.skel(?=\?|$)/, '.skel.gz')); if (!r.ok) return plain();
+      const buf = await r.arrayBuffer(), b = new Uint8Array(buf);
+      if (!(b[0] === 0x1f && b[1] === 0x8b)) return buf; // already unpacked on the way (Content-Encoding)
+      return await new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
+    } catch { return plain(); }
+  }
+
   static async load(manifestURL, { renderWidth = 768, camera, spineURL, profileURL, timeout = 30000 } = {}) {
     const url = new URL(manifestURL, document.baseURI), manifest = await (await fetch(url)).json();
-    const resource = p => new URL(p, url).href + '?v=' + manifest.revision;
+    const resource = p => new URL(p, url).href + '?v=' + manifest.revision, loadSkeletonBytes = u => WorkerRigPlayer.skeletonBytes(u);
     // Pose data only: textures are loaded by the worker, which draws.
     const [skel, atlasText] = await Promise.all([
-      fetch(resource(manifest.skeleton)).then(r => { if (!r.ok) throw Error('Unable to load skeleton'); return r.arrayBuffer(); }),
+      loadSkeletonBytes(resource(manifest.skeleton)),
       fetch(resource(manifest.atlas)).then(r => { if (!r.ok) throw Error('Unable to load atlas'); return r.text(); })
     ]);
     const data = new spine.SkeletonBinary(new spine.AtlasAttachmentLoader(new spine.TextureAtlas(atlasText))).readSkeletonData(new Uint8Array(skel));
     // Workers cannot decode SVG, and two atlas pages are SVG: rasterize them here at their
     // natural size (what the page renderer uploads) and hand the worker PNGs instead.
     const svgPages = {};
+    // The PNGs are pre-rendered next to the SVGs (same method), so a phone does not spend seconds
+    // encoding them on the main thread; rasterizing here is only the fallback.
     await Promise.all(SVG_PAGES.map(async path => {
-      const src = new URL(path, import.meta.url).href, img = new Image(); img.src = src; await img.decode();
+      const src = new URL(path, import.meta.url).href;
+      try { const r = await fetch(new URL(path.replace(/\.svg$/, '.png'), import.meta.url).href + '?v=1'); if (r.ok) { svgPages[src] = await r.blob(); return; } } catch {}
+      const img = new Image(); img.src = src; await img.decode();
       const c = document.createElement('canvas'); c.width = img.naturalWidth; c.height = img.naturalHeight; c.getContext('2d').drawImage(img, 0, 0);
       svgPages[src] = await new Promise(r => c.toBlob(r, 'image/png'));
     }));
-    const worker = new Worker(new URL('./rig-worker.js?v=3', import.meta.url), { type: 'module' });
+    const worker = new Worker(new URL('./rig-worker.js?v=4', import.meta.url), { type: 'module' });
     const player = new WorkerRigPlayer(manifest, data, worker, renderWidth, camera);
     await new Promise((resolve, reject) => {
       const timer = setTimeout(() => reject(Error('Rig worker did not start')), timeout);
@@ -48,7 +66,7 @@ export class WorkerRigPlayer {
           worker.onmessage = e => player.receive(e.data); worker.onerror = e => console.error('Rig worker error', e.message); resolve();
         } else if (m.type === 'error') { clearTimeout(timer); reject(Error(m.message)); }
       };
-      worker.postMessage({ type: 'init', svgPages, spineURL: new URL(spineURL, document.baseURI).href, manifestURL: url.href, renderWidth, camera, profileURL: new URL(profileURL, document.baseURI).href });
+      worker.postMessage({ type: 'init', skelBytes: skel.slice(0), svgPages, spineURL: new URL(spineURL, document.baseURI).href, manifestURL: url.href, renderWidth, camera, profileURL: new URL(profileURL, document.baseURI).href });
     }).catch(error => { worker.terminate(); throw error; });
     player.start();
     return player;

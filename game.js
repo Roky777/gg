@@ -11,7 +11,7 @@ import {syncLayout} from './responsive-layout.js?v=board-finish-14';
 import {CompanionPose} from './companion-pose.js?v=companion-57';
 import {PlayFlow,ModeDeck} from './play-flow.js?v=clips-4';
 import {solved,swap,scramble,slotAt,swapFeedback} from './model.js?v=lip-sync-40';
-import {MascotDirector,CLIPS} from './mascot-director.js?v=clips-9';
+import {MascotDirector,CLIPS} from './mascot-director.js?v=clips-12';
 import {GameAudio} from './game-audio.js?v=activities-53';
 import {makeBoard} from './puzzle-generator.js?v=drag-only-47';
 import {LearningVoice} from './learning-voice.js?v=one-voice-2';
@@ -327,6 +327,11 @@ function closePause(){$('pause-dialog').close();if(voiceUnlocked&&currentPicture
 // Pause dialog has two views: the start screen ('home': logo, Sparky, PLAY) and the pause card
 // ('card': home / play / sound). Both keep the game paused; PLAY resumes.
 function homeView(view,fromCard){const d=$('pause-dialog');d.dataset.view=view;d.querySelector('.home-back').hidden=!fromCard;d.focus({preventScroll:true});/* no ring on PLAY when the screen opens; Tab still reaches every button */}
+// The start screen opens as soon as the first board is built, while Sparky and the scenery finish
+// getting ready behind it. PLAY waits for that (a ring spins on the button), so the heavy start-up
+// work never lands in the middle of play on a slow phone.
+let gameWarm=null,gameWarmDone=true;
+async function playFromHome(){const b=$('resume');if(!gameWarmDone&&gameWarm){if(b.classList.contains('home-wait'))return;b.classList.add('home-wait');sound('tap');await gameWarm;b.classList.remove('home-wait');if(!$('pause-dialog').open)return;}closePause();}
 function pause(view='card'){reviewActive=false;flow.pause();companion.clear();roundBanner.hide({immediate:true});activeRound?.pause?.();voice.cancel();cancelReactions();clearDrag();activeRound?.cancelDrag();if(!$('pause-dialog').open){sound('tap');gameAudio.setPaused(true);director.pause();$('pause-dialog').showModal();}homeView(view==='home'?'home':'card',false);}
 $('mascot-button').onclick=()=>{
  if(topic==='variants'){if(!$('pause-dialog').open&&!navigationLoading)activeRound?.hint();return;}
@@ -335,7 +340,7 @@ $('mascot-button').onclick=()=>{
  if(!done&&['letters','numbers','count-groups','assembly','differences'].includes(topic)){visualHint();explanation=flow.help();}
  if(soundOn){voiceUnlocked=true;voice.unlock();if(done){voice.cancel();flow.pause();voice.saySequence(reviewVoices(currentPicture),{volume:.85});reviewActive=voice.pending>0;if(!reviewActive)flow.resume();}else voice.say(explanation,{volume:.85});}
 };
-$('exit').onclick=()=>pause('card');$('resume').onclick=closePause;$('card-play').onclick=closePause;$('card-home').onclick=()=>{sound('tap');homeView('home',true);};document.querySelector('#pause-dialog .home-back').onclick=()=>{sound('tap');homeView('card',false);};$('card-sound').onclick=()=>$('sound').click();$('pause-dialog').addEventListener('cancel',e=>{e.preventDefault();closePause();});
+$('exit').onclick=()=>pause('card');$('resume').onclick=playFromHome;$('card-play').onclick=closePause;$('card-home').onclick=()=>{sound('tap');homeView('home',true);};document.querySelector('#pause-dialog .home-back').onclick=()=>{sound('tap');homeView('card',false);};$('card-sound').onclick=()=>$('sound').click();$('pause-dialog').addEventListener('cancel',e=>{e.preventDefault();closePause();});
 $('next').onclick=advance;
 function muteUI(){$('sound').setAttribute('aria-label',soundOn?'Mute sound':'Turn sound on');$('sound').setAttribute('aria-pressed',String(!soundOn));const art='assets/art/arcade2/btn-sound-'+(soundOn?'on':'off')+'.webp';$('sound').querySelector('img').src=art;const card=$('card-sound');if(card){card.querySelector('img').src=art;card.setAttribute('aria-label',$('sound').getAttribute('aria-label'));card.setAttribute('aria-pressed',String(!soundOn));}}
 $('sound').onclick=()=>{soundOn=!soundOn;try{localStorage.setItem('sparky-swap-sound',soundOn?'on':'off');}catch{}muteUI();gameAudio.setEnabled(soundOn);voice.setEnabled(soundOn);activeRound?.setSound?.(soundOn);if(soundOn){sound('tap');introduce();}};muteUI();voice.setEnabled(soundOn);
@@ -371,7 +376,7 @@ async function boot(){performance.mark('sparky:boot-start');const diffAsked=new 
   const needsSparky=first.variant==='food-sort';releaseSparky();const sparky=director.ready.then(()=>director.show('idle'));
   const sparkyLive=Promise.race([sparky.then(()=>sparkyDrawn()).then(()=>{document.documentElement.dataset.sparky='ready';return true;}),sleep(25000).then(()=>false)]).catch(()=>false);
  await Promise.all([loadPicture(first),loadOpeningArt(first),prepareVariant(first),Promise.race([prepareBoardArt(first),sleep(5000)])]);roundCount=1;start(first);
- await boardReady(first,5000);/* then give Sparky up to 4 s more; on slow lines his still picture stands in until he is live */const homeFirst=!new URLSearchParams(location.search).get('game');/* the start screen covers the board: no need to hold the loading screen for live Sparky */const live=needsSparky?await sparkyLive:await Promise.race([sparkyLive,sleep(homeFirst?0:4000).then(()=>false)]);if(live)document.documentElement.dataset.sparky='ready';else if(!needsSparky)showSparkyPoster();$('loading').hidden=true;setTimeout(veilEl,2500);if(!new URLSearchParams(location.search).get('game'))pause('home');
+ await boardReady(first,5000);/* then give Sparky up to 4 s more; on slow lines his still picture stands in until he is live */const homeFirst=!new URLSearchParams(location.search).get('game');/* the start screen covers the board: no need to hold the loading screen for live Sparky */const live=needsSparky?await sparkyLive:await Promise.race([sparkyLive,sleep(homeFirst?0:4000).then(()=>false)]);if(live)document.documentElement.dataset.sparky='ready';else if(!needsSparky)showSparkyPoster();if(homeFirst&&!live){gameWarmDone=false;gameWarm=Promise.race([Promise.all([sparkyLive,sparkyLive.then(()=>sceneDrawn(8000))]),sleep(25000)]).then(()=>{gameWarmDone=true;});}$('loading').hidden=true;setTimeout(veilEl,2500);if(!new URLSearchParams(location.search).get('game'))pause('home');
  sparky.then(()=>{document.documentElement.dataset.sparky='ready'},e=>console.error('Sparky could not load',e));sparky.finally(()=>setTimeout(warmGame,1500));setTimeout(()=>{if(!navigator.connection?.saveData)void warmStyleArt();},12000);setTimeout(warmGame,30000);performance.mark('sparky:ready');performance.measure('sparky:boot','sparky:boot-start','sparky:ready');syncOrientation();warmNextRound();
  }catch(e){$('loading').querySelector('p').textContent='Could not load the game. Please refresh.';console.error(e);}}
 

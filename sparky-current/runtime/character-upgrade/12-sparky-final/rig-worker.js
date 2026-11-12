@@ -20,7 +20,7 @@ async function loadSpine(url) {
 
 const loadAsset = (am, kind, url, ...rest) => new Promise((ok, no) => am[kind](url, ok, (_, e) => no(Error(String(e))), ...rest));
 
-async function init({ spineURL, manifestURL, renderWidth, camera, profileURL, svgPages = {} }) {
+async function init({ spineURL, manifestURL, renderWidth, camera, profileURL, svgPages = {}, skelBytes = null }) {
   // SVG atlas pages arrive pre-rasterized from the page (workers cannot decode SVG).
   const realFetch = self.fetch.bind(self);
   self.fetch = (input, options) => { const url = String(input?.url ?? input).split('?')[0]; return svgPages[url] ? Promise.resolve(new Response(svgPages[url], { headers: { 'Content-Type': 'image/png' } })) : realFetch(input, options); };
@@ -32,8 +32,9 @@ async function init({ spineURL, manifestURL, renderWidth, camera, profileURL, sv
   context = new spine.ManagedWebGLRenderingContext(canvas, { alpha: true, antialias: true, premultipliedAlpha: true, preserveDrawingBuffer: false });
   renderer = new spine.SceneRenderer(canvas, context);
   const am = new spine.AssetManager(context);
-  await Promise.all([loadAsset(am, 'loadBinary', skel), loadAsset(am, 'loadTextureAtlas', atlas, { [manifest.texture.split('/').at(-1)]: texture })]);
-  data = new spine.SkeletonBinary(new spine.AtlasAttachmentLoader(am.get(atlas))).readSkeletonData(am.get(skel));
+  // the page already downloaded (and unpacked) the skeleton: use its bytes instead of a second download
+  await Promise.all([skelBytes ? null : loadAsset(am, 'loadBinary', skel), loadAsset(am, 'loadTextureAtlas', atlas, { [manifest.texture.split('/').at(-1)]: texture })]);
+  data = new spine.SkeletonBinary(new spine.AtlasAttachmentLoader(am.get(atlas))).readSkeletonData(skelBytes ? new Uint8Array(skelBytes) : am.get(skel));
   table = attachmentTable(data);
   // The same painted profile the page used to install, given a minimal player.
   const { installPaintedProfile } = await import(profileURL);

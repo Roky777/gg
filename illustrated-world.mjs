@@ -45,25 +45,27 @@ function updateSkyMask(){
  const cached=maskCache.get(key);if(cached){maskKey=key;atmosphere.style.maskImage=cached;atmosphere.style.visibility='';return;}
  atmosphere.style.visibility='hidden';/* clouds wait for their matte */const job=++maskJob,idle=globalThis.requestIdleCallback?cb=>requestIdleCallback(cb,{timeout:1500}):cb=>setTimeout(cb,600);
  const keyNow=()=>sceneName+'|'+(current()?.pan??0)+'|'+[layout.x,layout.top,layout.w,layout.h,(layout.cw||1)/(layout.ch||1)].map(n=>n.toFixed(3)).join(',');
- setTimeout(()=>idle(()=>{if(job!==maskJob||keyNow()!==key||!image)return;try{buildSkyMask(key);}catch(error){console.warn('Cloud matte unavailable; scenery continues.',error);}}),2000);/* after the banner has landed */
+ setTimeout(()=>idle(()=>{if(job!==maskJob||keyNow()!==key||!image)return;buildSkyMask(key).catch(error=>{maskKey='';console.warn('Cloud matte unavailable; scenery continues.',error);});}),2000);/* after the banner has landed */
 }
-function buildSkyMask(key){if(key===maskKey)return;maskKey=key;
+// Built in slices of 24 rows with a pause between them (one long block froze slow
+// phones for most of a second on every new scene); stops early if the scene changes meanwhile.
+async function buildSkyMask(key){if(key===maskKey)return;maskKey=key;const job=maskJob,breath=()=>new Promise(r=>setTimeout(r,0)),gone=()=>job!==maskJob||maskKey!==key;
  // Artwork in stage space, exactly as the original stage-sized matte drew it.
  const art=document.createElement('canvas');art.width=384;art.height=216;/* half resolution: the clouds are soft, a quarter of the work */const actx=art.getContext('2d',{willReadFrequently:true});
  const scale=Math.max(art.width/image.naturalWidth,art.height/image.naturalHeight),w=image.naturalWidth*scale,h=image.naturalHeight*scale;actx.drawImage(image,(art.width-w)/2,(art.height-h)/2,w,h);
  const src=actx.getImageData(0,0,art.width,art.height).data;
  const mw=384,mh=Math.max(1,Math.round(384*(layout.ch||432)/(layout.cw||768)));
- const mask=document.createElement('canvas');mask.width=mw;mask.height=mh;const ctx=mask.getContext('2d');const pixels=ctx.createImageData(mw,mh),clamp=n=>Math.max(0,Math.min(1,n));
+ const mask=document.createElement('canvas');mask.width=mw;mask.height=mh;const ctx=mask.getContext('2d',{willReadFrequently:true});/* software canvas: encoding a GPU canvas waits for the GPU (seconds while Sparky and the scenery draw) */const pixels=ctx.createImageData(mw,mh),clamp=n=>Math.max(0,Math.min(1,n));
  const fw=fitWorld();/* screen pixel -> artwork, exactly as the shader does */
- for(let j=0;j<mh;j++){const sy=1-(fw.ky*(1-(j+.5)/mh)+fw.by);const ay=Math.min(art.height-1,Math.max(0,Math.floor(clamp(sy)*art.height)));
+ for(let j=0;j<mh;j++){if(j&&j%24===0){await breath();if(gone())return;}const sy=1-(fw.ky*(1-(j+.5)/mh)+fw.by);const ay=Math.min(art.height-1,Math.max(0,Math.floor(clamp(sy)*art.height)));
   for(let i=0;i<mw;i++){const sx=fw.kx*(i+.5)/mw+fw.bx;
    const ax=Math.min(art.width-1,Math.max(0,Math.floor(sx*art.width))),k=(ay*art.width+ax)*4,o=(j*mw+i)*4,r=src[k],g=src[k+1],b=src[k+2];
    pixels.data[o]=pixels.data[o+1]=pixels.data[o+2]=255;pixels.data[o+3]=Math.round(255*Math.min(clamp((b-r-20)/40),clamp((b-g-4)/20))*clamp((.28-sy)/.035));}}
  // 3x3 minimum: removes single-pixel 'sky' speckles inside painted scenery (e.g. a
  // white awning) so a passing cloud never shows through as dots; open sky keeps its shape.
  const alpha=new Uint8ClampedArray(mw*mh);for(let k=0;k<alpha.length;k++)alpha[k]=pixels.data[k*4+3];
- for(let j=0;j<mh;j++)for(let i=0;i<mw;i++){let m=255;for(let dj=-1;dj<=1;dj++)for(let di=-1;di<=1;di++){const y=Math.min(mh-1,Math.max(0,j+dj)),x=Math.min(mw-1,Math.max(0,i+di)),v=alpha[y*mw+x];if(v<m)m=v}pixels.data[(j*mw+i)*4+3]=m}
- ctx.putImageData(pixels,0,0);const url=`url("${mask.toDataURL('image/png')}")`;maskCache.set(key,url);if(maskCache.size>24)maskCache.delete(maskCache.keys().next().value);atmosphere.style.maskImage=url;atmosphere.style.visibility='';
+ for(let j=0;j<mh;j++){if(j&&j%24===0){await breath();if(gone())return;}for(let i=0;i<mw;i++){let m=255;for(let dj=-1;dj<=1;dj++)for(let di=-1;di<=1;di++){const y=Math.min(mh-1,Math.max(0,j+dj)),x=Math.min(mw-1,Math.max(0,i+di)),v=alpha[y*mw+x];if(v<m)m=v}pixels.data[(j*mw+i)*4+3]=m}}
+ ctx.putImageData(pixels,0,0);/* toBlob looked asynchronous but blocked a slow phone for seconds; a small data URL is quick */const url=`url("${mask.toDataURL('image/png')}")`;maskCache.set(key,url);if(maskCache.size>24)maskCache.delete(maskCache.keys().next().value);atmosphere.style.maskImage=url;atmosphere.style.visibility='';
 }
 let gl,program,buffer,texture,image,sceneName='',serial=0,raf=0,last=0,time=0,frames=0,lost=false,failed=false,ready=false;
 let pointer={x:0,y:0},target={x:0,y:0},locations;
