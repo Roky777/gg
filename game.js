@@ -18,7 +18,7 @@ import {LearningVoice} from './learning-voice.js?v=one-voice-2';
 import {AssemblyRound,createAssemblyBoard} from './assembly-game.js?v=polish-52';
 import {AssemblyDeck} from './assembly-catalog.js?v=lip-sync-40';
 import {CountingRound,makeCountingBoard,COUNT_WORDS} from './counting-game.js?v=drop-pocket-16';
-import {RoundBanner,ROUND_INTROS} from './round-banner.js?v=top-1';import {TopBanner} from './top-banner.js?v=15';
+import {RoundBanner,ROUND_INTROS} from './round-banner.js?v=top-1';import {TopBanner} from './top-banner.js?v=16';
 import {DifferenceRound,createDifferenceBoard} from './differences-game.js?v=red-contours-55';import {HandGuide} from './hand-guide.mjs?v=1';
 import {VARIANTS,makeVariantBoard,freshMatchContent} from './variants/content.mjs';
 let VariantRoundController=null,variantRoundNumber=0,letterAnimations=null;

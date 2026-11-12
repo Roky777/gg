@@ -220,3 +220,14 @@
 .figma-sticker-art[data-friend=fox][data-wear=glasses]{transform-origin:0 0;transform:translate(0.5%,-1.7%) scale(1.000)}
 .figma-sticker-art[data-friend=fox][data-wear=headphones]{transform-origin:0 0;transform:translate(11.2%,5.4%) scale(0.794)}
 .figma-sticker-art[data-friend=fox][data-wear=flower]{transform-origin:0 0;transform:translate(0.5%,-1.7%) scale(1.000)}
+
+/* ---- 4. Layout polish (2026-11-13) ----------------------------------------------------------
+   Board and Sparky centred in the stage (they sat 3% low: 20%-86%, now 17%-83%); bigger corner
+   buttons (they were 5.5% of the stage, 44 px on a phone); a larger banner with readable text. */
+.game{--layout-board-top:17%}
+.game>.mascot{top:17%!important}
+.game>.game-button.game-button{width:clamp(58px,6%,84px)!important;height:auto!important;aspect-ratio:1;min-width:58px!important;min-height:58px!important}
+.game>.top-banner{width:clamp(300px,calc(var(--stage-w,900px)*.44),680px)}
+.top-banner .tb-svg{height:12.6cqw;max-width:66cqw}
+.top-banner .tb-svg svg{max-width:66cqw}
+.top-banner .tb-rule{top:69%;max-width:70cqw;padding:.55cqw 2.6cqw .7cqw;font-size:3.6cqw;font-weight:900;letter-spacing:.01em;color:#3b1580;background:linear-gradient(#fffdf6,#fff3d6);box-shadow:inset 0 .2cqw 0 #fff,0 0 0 .3cqw #f0b94a,0 .35cqw .5cqw #8a4a0030}
