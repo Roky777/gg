@@ -90,3 +90,9 @@
 .figma-sticker-studio .figma-sticker-tray .sticker-piece{filter:drop-shadow(0 .3cqw .3cqw #8a5a0033)}
 .sticker-decor .chalk{top:93.6%}
 .figma-sticker-studio .figma-sticker-tray .sticker-piece:last-child{width:46%!important}
+/* Where each accessory sits on the head (sticker art is square; the animal fills it). */
+.figma-sticker-art>.sticker-worn-glasses{left:12%;top:16%;width:76%;height:76%}
+/* Headphones go behind the head: the band shows above it and the cups at the sides. */
+.figma-sticker-art{isolation:isolate}
+.figma-sticker-art>.sticker-worn-headphones{left:-14%;top:-12%;width:128%;height:128%;z-index:-1}
+.figma-sticker-art>.sticker-worn-flower{left:55%;top:-6%;width:44%;height:44%}

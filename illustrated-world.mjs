@@ -18,10 +18,14 @@ function measure(){
  if(!c.width||!c.height||!g.width||!g.height)return layout;
  layout={x:(g.left-c.left)/c.width,y:(c.bottom-g.bottom)/c.height,top:(g.top-c.top)/c.height,w:g.width/c.width,h:g.height/c.height,aspect:g.width/g.height,cw:c.width,ch:c.height,gw:g.width,gh:g.height};
  worldWidth=c.width;
- for(const cloud of clouds){cloud.node.style.width=cloud.width*g.width/100+'px';cloud.node.style.top=(g.top-c.top)+cloud.top*g.height/100+'px';}
+ const clip=Math.max(0,c.top-g.top);/* stage taller than the screen: keep clouds in view */for(const cloud of clouds){cloud.node.style.width=cloud.width*g.width/100+'px';cloud.node.style.top=(g.top-c.top)+clip+cloud.top*g.height/100+'px';}
  return layout;
 }
 const mirror=x=>{x=Math.abs(x);return x>1?2-x:x;};
+// Outdoor scenes cover the whole screen as one picture (no mirrored copies at the sides). On a
+// screen wider than the art the picture is cropped, mostly from the plain foreground: the
+// visible window is lifted 60% of the way toward the top, so sky, houses and trees stay in view.
+function fullCover(){const screen=(layout.cw||1)/(layout.ch||1),art=image?image.naturalWidth/image.naturalHeight:16/9,cover=[art>screen?screen/art:1,art>screen?1:art/screen];return{cover,lift:(1-cover[1])*.3};}
 // Runtime occlusion matte: clouds belong in the sky, behind the painted trees.
 // This samples the current artwork; it does not add or repaint scenic objects.
 // Masks are cached per scene and layout (boards reuse the same few scenes), and a new one is
@@ -29,10 +33,10 @@ const mirror=x=>{x=Math.abs(x);return x>1?2-x:x;};
 const maskCache=new Map();let maskJob=0;
 function updateSkyMask(){
  if(!current()?.life?.clouds||!image){atmosphere.style.maskImage='none';maskKey='';return;}
- const key=sceneName+'|'+(current()?.pan??0)+'|'+[layout.x,layout.top,layout.w,layout.h].map(n=>n.toFixed(3)).join(',');if(key===maskKey)return;
+ const key=sceneName+'|'+(current()?.pan??0)+'|'+[layout.x,layout.top,layout.w,layout.h,(layout.cw||1)/(layout.ch||1)].map(n=>n.toFixed(3)).join(',');if(key===maskKey)return;
  const cached=maskCache.get(key);if(cached){maskKey=key;atmosphere.style.maskImage=cached;atmosphere.style.visibility='';return;}
  atmosphere.style.visibility='hidden';/* clouds wait for their matte */const job=++maskJob,idle=globalThis.requestIdleCallback?cb=>requestIdleCallback(cb,{timeout:1500}):cb=>setTimeout(cb,600);
- const keyNow=()=>sceneName+'|'+(current()?.pan??0)+'|'+[layout.x,layout.top,layout.w,layout.h].map(n=>n.toFixed(3)).join(',');
+ const keyNow=()=>sceneName+'|'+(current()?.pan??0)+'|'+[layout.x,layout.top,layout.w,layout.h,(layout.cw||1)/(layout.ch||1)].map(n=>n.toFixed(3)).join(',');
  setTimeout(()=>idle(()=>{if(job!==maskJob||keyNow()!==key||!image)return;try{buildSkyMask(key);}catch(error){console.warn('Cloud matte unavailable; scenery continues.',error);}}),2000);/* after the banner has landed */
 }
 function buildSkyMask(key){if(key===maskKey)return;maskKey=key;
@@ -42,8 +46,9 @@ function buildSkyMask(key){if(key===maskKey)return;maskKey=key;
  const src=actx.getImageData(0,0,art.width,art.height).data;
  const mw=384,mh=Math.max(1,Math.round(384*(layout.ch||432)/(layout.cw||768)));
  const mask=document.createElement('canvas');mask.width=mw;mask.height=mh;const ctx=mask.getContext('2d');const pixels=ctx.createImageData(mw,mh),clamp=n=>Math.max(0,Math.min(1,n));
- for(let j=0;j<mh;j++){const sy=((j+.5)/mh-(layout.top||0))/layout.h;const ay=Math.min(art.height-1,Math.max(0,Math.floor(clamp(sy)*art.height)));
-  const pan=current()?.pan??0;for(let i=0;i<mw;i++){let sx=((i+.5)/mw-layout.x)/layout.w+pan;
+ const fc=fullCover();/* screen pixel -> artwork, exactly as the shader does (zoom is in the art canvas) */
+ for(let j=0;j<mh;j++){const sy=.5+((j+.5)/mh-.5)*fc.cover[1]-fc.lift;const ay=Math.min(art.height-1,Math.max(0,Math.floor(clamp(sy)*art.height)));
+  const pan=current()?.pan??0;for(let i=0;i<mw;i++){let sx=.5+((i+.5)/mw-.5)*fc.cover[0]+pan;
    // Same mirror as the shader: reflect at the artwork edge, then return to stage space.
    if(sx<0||sx>1)sx=.5+(mirror(.5+(sx-.5)/1.012)-.5)*1.012;
    const ax=Math.min(art.width-1,Math.max(0,Math.floor(sx*art.width))),k=(ay*art.width+ax)*4,o=(j*mw+i)*4,r=src[k],g=src[k+1],b=src[k+2];
@@ -62,10 +67,10 @@ const wanted=()=>current()?.mode==='background';
 const shown=()=>wanted()||current()?.mode==='dedicated';
 const blocked=()=>!wanted()||document.hidden||dialog.open||game.inert||document.body.classList.contains('compact-screen')||portrait.matches;
 const vertex=`attribute vec2 position;varying vec2 uv;void main(){uv=position*.5+.5;gl_Position=vec4(position,0.,1.);}`;
-const fragment=`precision mediump float;varying vec2 uv;uniform sampler2D artwork;uniform vec2 cover;uniform vec4 stage;uniform float zoom;uniform float tiles;uniform float board;uniform float sky;uniform float pan;uniform vec2 pointer;uniform float time;uniform float motion;uniform float vegetation;uniform float water;uniform float sunlight;
+const fragment=`precision mediump float;varying vec2 uv;uniform sampler2D artwork;uniform vec2 cover;uniform vec4 stage;uniform float zoom;uniform float tiles;uniform float board;uniform float sky;uniform float pan;uniform vec2 pointer;uniform float time;uniform float motion;uniform float vegetation;uniform float water;uniform float sunlight;uniform float lift;
 float mirror(float x){x=abs(x);return x>1.?2.-x:x;}
 vec4 art(vec2 p){return texture2D(artwork,clamp(vec2(mirror(p.x),tiles>0.?mirror(p.y):p.y),vec2(.0005),vec2(.9995)));}
-void main(){vec2 s=(uv-stage.xy)/stage.zw;s.x+=pan;vec2 p=.5+(s-.5)*cover/zoom;
+void main(){vec2 s=(uv-stage.xy)/stage.zw;s.x+=pan;vec2 p=.5+(s-.5)*cover/zoom;p.y+=lift;
 if(board>0.&&(stage.z<.999||stage.w<.999)){
 // A framed board grows to the screen: its frame bands sit at the screen edges and
 // the plain interior continues between them. Units are artwork fractions.
@@ -94,13 +99,13 @@ function initialize(){
  gl=canvas.getContext('webgl',{alpha:false,antialias:false,powerPreference:'low-power',preserveDrawingBuffer:true});if(!gl)throw Error('WebGL unavailable');
  const vs=shader(gl.VERTEX_SHADER,vertex),fs=shader(gl.FRAGMENT_SHADER,fragment);program=gl.createProgram();gl.attachShader(program,vs);gl.attachShader(program,fs);gl.linkProgram(program);gl.deleteShader(vs);gl.deleteShader(fs);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));gl.useProgram(program);
  buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);const pos=gl.getAttribLocation(program,'position');gl.enableVertexAttribArray(pos);gl.vertexAttribPointer(pos,2,gl.FLOAT,false,0,0);
- locations={};for(const name of['cover','stage','zoom','tiles','board','sky','pan','pointer','time','motion','vegetation','water','sunlight'])locations[name]=gl.getUniformLocation(program,name);gl.uniform1i(gl.getUniformLocation(program,'artwork'),0);
+ locations={};for(const name of['cover','stage','zoom','tiles','board','sky','pan','pointer','time','motion','vegetation','water','sunlight','lift'])locations[name]=gl.getUniformLocation(program,name);gl.uniform1i(gl.getUniformLocation(program,'artwork'),0);
  texture=gl.createTexture();gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,texture);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);if(image)upload();
 }
 function upload(){gl.bindTexture(gl.TEXTURE_2D,texture);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,image);ready=true;}
 function resize(){measure();const dpr=Math.min(devicePixelRatio,1.5);canvas.width=Math.max(1,Math.round((layout.cw||1)*dpr));canvas.height=Math.max(1,Math.round((layout.ch||1)*dpr));if(gl&&!lost){gl.viewport(0,0,canvas.width,canvas.height);if(ready&&shown()){if(wanted()){try{updateSkyMask();}catch(error){maskKey='';console.warn('Cloud matte unavailable; scenery continues.',error);}}render();}}}
 function drawAtmosphere(){atmosphere.hidden=!current()?.life?.clouds||!wanted()||!ready||lost||failed;if(atmosphere.hidden)return;for(const cloud of clouds){cloud.x=(((reduce.matches?0:time)/cloud.duration+cloud.phase)%1.28)-.18;cloud.node.style.transform=`translate3d(${cloud.x*worldWidth}px,0,0)`;}}
-function render(){if(!ready||lost||failed)return;gl.useProgram(program);const screen=layout.aspect,art=image.naturalWidth/image.naturalHeight,life=wanted()?current()?.life??{}:{},motion=wanted()&&!reduce.matches?1:0;gl.uniform2f(locations.cover,art>screen?screen/art:1,art>screen?1:art/screen);gl.uniform4f(locations.stage,layout.x,layout.y,layout.w,layout.h);gl.uniform1f(locations.zoom,wanted()?1.012:1);gl.uniform1f(locations.tiles,current()?.edge==='tiles'?1:0);gl.uniform1f(locations.board,current()?.edge==='board'?1:0);gl.uniform1f(locations.sky,wanted()&&life.clouds?1:0);gl.uniform1f(locations.pan,current()?.pan??0);gl.uniform2f(locations.pointer,motion?pointer.x:0,motion?pointer.y:0);gl.uniform1f(locations.time,time);gl.uniform1f(locations.motion,motion);for(const name of['vegetation','water','sunlight'])gl.uniform1f(locations[name],life[name]??0);gl.drawArrays(gl.TRIANGLES,0,3);drawAtmosphere();frames++;canvas.hidden=!shown();game.dataset.illustratedWorld='ready';}
+function render(){if(!ready||lost||failed)return;gl.useProgram(program);const screen=layout.aspect,art=image.naturalWidth/image.naturalHeight,life=wanted()?current()?.life??{}:{},motion=wanted()&&!reduce.matches?1:0;const full=wanted()?fullCover():null;if(full){gl.uniform2f(locations.cover,full.cover[0],full.cover[1]);gl.uniform4f(locations.stage,0,0,1,1);gl.uniform1f(locations.lift,full.lift);}else{gl.uniform2f(locations.cover,art>screen?screen/art:1,art>screen?1:art/screen);gl.uniform4f(locations.stage,layout.x,layout.y,layout.w,layout.h);gl.uniform1f(locations.lift,0);}gl.uniform1f(locations.zoom,wanted()?1.012:1);gl.uniform1f(locations.tiles,current()?.edge==='tiles'?1:0);gl.uniform1f(locations.board,current()?.edge==='board'?1:0);gl.uniform1f(locations.sky,wanted()&&life.clouds?1:0);gl.uniform1f(locations.pan,current()?.pan??0);gl.uniform2f(locations.pointer,motion?pointer.x:0,motion?pointer.y:0);gl.uniform1f(locations.time,time);gl.uniform1f(locations.motion,motion);for(const name of['vegetation','water','sunlight'])gl.uniform1f(locations[name],life[name]??0);gl.drawArrays(gl.TRIANGLES,0,3);drawAtmosphere();frames++;canvas.hidden=!shown();game.dataset.illustratedWorld='ready';}
 function tick(now){raf=0;if(blocked()||!ready||lost||failed)return;if(!last||now-last>=1000/30-1){const dt=last?Math.min((now-last)/1000,.1):0;last=now;time+=dt;const blend=1-Math.exp(-3.5*dt);pointer.x+=(target.x-pointer.x)*blend;pointer.y+=(target.y-pointer.y)*blend;if(still()){const key=[image?.src,layout.x,layout.y,layout.w,layout.h,canvas.width,canvas.height,current()?.edge,wanted()].join();if(key!==stillKey){stillKey=key;render();}else drawAtmosphere();}else render();}raf=requestAnimationFrame(tick);}
 // Touch devices: the scenery sway is about one pixel, but redrawing the whole
 // screen 30 times a second competes with Sparky on phone GPUs. There the picture
@@ -117,5 +122,5 @@ let pending=0;const relayout=()=>{if(pending)return;pending=requestAnimationFram
 new MutationObserver(sceneChanged).observe(game,{attributes:true,attributeFilter:['data-scene-background']});new MutationObserver(sync).observe(game,{attributes:true,attributeFilter:['inert']});new MutationObserver(sync).observe(document.body,{attributes:true,attributeFilter:['class']});new MutationObserver(sync).observe(dialog,{attributes:true,attributeFilter:['open']});new ResizeObserver(relayout).observe(game);new ResizeObserver(relayout).observe(canvas);addEventListener('resize',relayout);game.addEventListener('screenfill',relayout);document.addEventListener('visibilitychange',sync);reduce.addEventListener('change',sync);
 game.addEventListener('pointermove',event=>{if(event.pointerType==='touch'||reduce.matches||blocked())return;const r=game.getBoundingClientRect();target={x:Math.max(-1,Math.min(1,(event.clientX-r.left)/r.width*2-1)),y:Math.max(-1,Math.min(1,(event.clientY-r.top)/r.height*2-1))};},{passive:true});game.addEventListener('pointerleave',()=>{target={x:0,y:0};},{passive:true});
 canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();lost=true;canvas.hidden=true;atmosphere.hidden=true;cancelAnimationFrame(raf);raf=0;game.dataset.illustratedWorld='fallback';});canvas.addEventListener('webglcontextrestored',()=>{try{lost=false;initialize();resize();sync();}catch(error){failed=true;canvas.hidden=true;atmosphere.hidden=true;game.dataset.illustratedWorld='fallback';}});
-window.sparkyIllustratedWorld={get status(){return{type:'sculpted-2.5d',scene:sceneName,source:current()?.image,active:wanted(),shown:shown(),paused:blocked(),ready,failed,lost,reduced:reduce.matches,time,frames,width:canvas.width,height:canvas.height,stage:{...layout},drawCalls:ready?1:0,clouds:atmosphere.hidden?[]:clouds.map(c=>({x:c.x,width:c.width,duration:c.duration})),life:{...current()?.life},pointer:{...pointer}};},sample(u,v){if(!ready||lost)return null;render();const rgba=new Uint8Array(4);gl.readPixels(Math.floor(u*canvas.width),Math.floor((1-v)*canvas.height),1,1,gl.RGBA,gl.UNSIGNED_BYTE,rgba);return Array.from(rgba);}};
+window.sparkyIllustratedWorld={get status(){return{type:'sculpted-2.5d',mapping:wanted()&&image?{full:true,...fullCover()}:{full:false},scene:sceneName,source:current()?.image,active:wanted(),shown:shown(),paused:blocked(),ready,failed,lost,reduced:reduce.matches,time,frames,width:canvas.width,height:canvas.height,stage:{...layout},drawCalls:ready?1:0,clouds:atmosphere.hidden?[]:clouds.map(c=>({x:c.x,width:c.width,duration:c.duration})),life:{...current()?.life},pointer:{...pointer}};},sample(u,v){if(!ready||lost)return null;render();const rgba=new Uint8Array(4);gl.readPixels(Math.floor(u*canvas.width),Math.floor((1-v)*canvas.height),1,1,gl.RGBA,gl.UNSIGNED_BYTE,rgba);return Array.from(rgba);}};
 resize();sceneChanged();

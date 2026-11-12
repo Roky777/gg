@@ -12,7 +12,11 @@ function update(){
  const fill={left:g.left,top:g.top,right:w-g.right,bottom:h-g.bottom};
  const safe={left:g.left-px(body.paddingLeft),top:g.top-px(body.paddingTop),right:w-g.right-px(body.paddingRight),bottom:h-g.bottom-px(body.paddingBottom)};
  const values={'--stage-w':g.width,'--stage-h':g.height};
- for(const side of['left','top','right','bottom']){values['--fill-'+side]=Math.max(0,fill[side]);values['--safe-'+side]=Math.max(0,safe[side]);}
+ // Top/bottom may be negative: on long phones the stage is taller than the screen (wide-stage.css),
+ // so scenery and controls move inward by that amount. --clip-top is how much of the stage is above the screen.
+ for(const side of['left','right']){values['--fill-'+side]=Math.max(0,fill[side]);values['--safe-'+side]=Math.max(0,safe[side]);}
+ for(const side of['top','bottom']){values['--fill-'+side]=fill[side];values['--safe-'+side]=safe[side];}
+ values['--clip-top']=Math.max(0,-fill.top);
  const key=Object.values(values).map(n=>n.toFixed(1)).join(',');if(key===lastKey)return;lastKey=key;
  for(const[name,value]of Object.entries(values))game.style.setProperty(name,value.toFixed(2)+'px');
  game.dataset.screenFill=fill.left+fill.right>1?'wide':fill.top+fill.bottom>1?'tall':'exact';

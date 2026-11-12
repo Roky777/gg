@@ -1,14 +1,16 @@
 import{shuffled}from'./content.mjs';
 // Sticker art and room decorations from DUPE GAMES UI (3) and (4).
 const ROOT='assets/art/sticker-room/';
-const FRIENDS=['panda','elephant','bunny'],ACCESSORIES=['hat','mask','crown'];
-const names={panda:'Panda',elephant:'Elephant',bunny:'Bunny',hat:'cowboy hat',mask:'party mask',crown:'crown'};
+// Every round picks its animals and accessories at random from all six of each.
+const FRIEND_POOL=['panda','elephant','bunny','giraffe','lion','fox'],ACCESSORY_POOL=['hat','mask','crown','glasses','headphones','flower'];
+const names={panda:'Panda',elephant:'Elephant',bunny:'Bunny',giraffe:'Giraffe',lion:'Lion',fox:'Fox',hat:'cowboy hat',mask:'party mask',crown:'crown',glasses:'funny glasses',headphones:'headphones',flower:'flower clip'};
 function image(file){const img=new Image();img.src=ROOT+file;img.alt='';img.draggable=false;return img;}
 export function stickerArt(friend,accessory){const art=document.createElement('span');art.className='figma-sticker-art';art.dataset.friend=friend;art.setAttribute('aria-hidden','true');art.append(image(friend+'.webp'));if(accessory){const extra=image(accessory+'.webp');extra.className='sticker-worn sticker-worn-'+accessory;art.append(extra);}return art;}
 export class StickerStudio{
  constructor(round){
   this.round=round;this.room=round.element.closest('.game');this.room.classList.add('sticker-room');
   const n=round.picture.round<2?2:3;this.n=n;
+  const FRIENDS=shuffled([...FRIEND_POOL],round.random).slice(0,n),ACCESSORIES=shuffled([...ACCESSORY_POOL],round.random).slice(0,n);
   const body=round.body;body.classList.add('figma-sticker-studio');body.style.setProperty('--sticker-n',n);
   const rows=document.createElement('div'),columns=document.createElement('div'),grid=document.createElement('div'),tray=document.createElement('div');
   rows.className='figma-sticker-rows';columns.className='figma-sticker-columns';grid.className='sticker-grid figma-sticker-grid';tray.className='sticker-tray figma-sticker-tray';tray.setAttribute('aria-label','Stickers to place');

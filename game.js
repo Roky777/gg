@@ -22,7 +22,7 @@ import {RoundBanner,ROUND_INTROS} from './round-banner.js?v=top-1';import {TopBa
 import {DifferenceRound,createDifferenceBoard} from './differences-game.js?v=red-contours-55';
 import {VARIANTS,makeVariantBoard,freshMatchContent} from './variants/content.mjs';
 let VariantRoundController=null,variantRoundNumber=0,letterAnimations=null;
-async function prepareVariant(picture){if(picture.topic==='variants'&&!VariantRoundController)VariantRoundController=(await import('./variants/round.mjs?v=voice-3')).VariantRound;if(picture.topic==='letters'&&!letterAnimations){const{LetterCompanion}=await import('./letter-companion.mjs');letterAnimations=new LetterCompanion({director,companion,reduced});}}
+async function prepareVariant(picture){if(picture.topic==='variants'&&!VariantRoundController)VariantRoundController=(await import('./variants/round.mjs?v=voice-4')).VariantRound;if(picture.topic==='letters'&&!letterAnimations){const{LetterCompanion}=await import('./letter-companion.mjs');letterAnimations=new LetterCompanion({director,companion,reduced});}}
 const $=id=>document.getElementById(id),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 // Sparky's rig waits for the first board's art (at most 6 s) so the board opens sooner.
 // Sparky appears with the first board: a still of his idle pose (captured from the rig at its own

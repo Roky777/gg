@@ -26,3 +26,20 @@
  .game:not(.activity-scene) .puzzle-frame .assembly-tray{container-type:size}
  .game:not(.activity-scene) .puzzle-frame .assembly-tray .assembly-choice{width:min(92%,90cqh)!important;left:50%!important;translate:-50% -50%!important}
 }
+
+/* Long phones: the 16:9 stage grows up to 12% beyond the screen height, so less of the
+   screen is empty at the sides. Nothing is stretched (the stage stays exactly 16:9); the
+   extra height spills only into the stage's empty top/bottom bands (the board and Sparky
+   sit between 20% and 86%). Corner controls and the banner use --safe-top/--clip-top from
+   screen-fill.mjs, so they stay on screen. Full-stage rooms keep the plain fit. */
+@supports(width:1cqw){
+ /* Grow only while both side margins can still hold a corner button (>= 52px each, or the
+    button's own size), so the buttons never sit over the board; at most 12%; never smaller
+    than the normal fit. Height follows (exactly 16:9) and the stage is centred vertically. */
+ .game:not(.sticker-room):not(.feeding-room):not(.activity-scene){
+  --zoom-w:max(min(100cqw,calc(100cqh * 16 / 9)),min(calc(100cqh * 16 / 9 * 1.12),calc(100cqw - max(104px,23.2cqh))));
+  width:var(--zoom-w)!important;height:calc(var(--zoom-w) * .5625)!important;max-height:none!important;
+  margin-top:min(0px,calc((100cqh - var(--zoom-w) * .5625) / 2))!important}
+}
+html,body{overflow:hidden}
+.game>.top-banner{--land:calc(max(6px,calc(var(--stage-w,900px)*.006)) + var(--clip-top,0px))}
