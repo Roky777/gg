@@ -12,7 +12,7 @@ export const SCENES={
  art:scene('art','floor',{sunlight:1}),
  // edge: how the scenery continues beyond the 16:9 stage on other screen shapes.
  kitchen:{name:'kitchen',image:'figma-ui/feeding-wall.webp',surface:'floor',mode:'dedicated',edge:'tiles'},
- chalkboard:{name:'chalkboard',image:'play-kit/studio-backdrop.svg',surface:'floor',mode:'dedicated',edge:'board'}
+ chalkboard:{name:'chalkboard',image:'sticker-room/chalkboard-clean.svg',surface:'floor',mode:'dedicated',edge:'board'}
 };
 export const GAME_SCENES={
  // The indoor art room and playroom are retired; their games use outdoor scenes.

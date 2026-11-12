@@ -1,4 +1,4 @@
-import{SCENES}from'./scene-backgrounds.mjs';
+import{SCENES}from'./scene-backgrounds.mjs?v=2';
 
 // Sculpted scene artwork supplies the forms; bounded motion supplies the life.
 // A single image draw plus three shared cloud sprites keeps the scene lightweight.

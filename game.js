@@ -2,7 +2,7 @@ import{OrderingGuide}from'./ordering-guide.mjs';
 import{CountingGuide}from'./counting-guide.mjs?v=3';
 let orderingGuide=null,countingGuide=null;
 import{renderLearningType,learningTypeAsset}from'./learning-type.mjs';
-import{applySceneBackground,backgroundFor}from'./scene-backgrounds.mjs';
+import{applySceneBackground,backgroundFor}from'./scene-backgrounds.mjs?v=2';
 import{GamePlaylist}from'./game-playlist.mjs';
 import {cardReadings,bindCardReading} from './card-audio.js?v=polish-52';
 import {BreakSchedule,createPlayBreak,makeFunBoard,FUN_KINDS} from './play-breaks.js?v=target-2';
@@ -22,7 +22,7 @@ import {RoundBanner,ROUND_INTROS} from './round-banner.js?v=top-1';import {TopBa
 import {DifferenceRound,createDifferenceBoard} from './differences-game.js?v=red-contours-55';
 import {VARIANTS,makeVariantBoard,freshMatchContent} from './variants/content.mjs';
 let VariantRoundController=null,variantRoundNumber=0,letterAnimations=null;
-async function prepareVariant(picture){if(picture.topic==='variants'&&!VariantRoundController)VariantRoundController=(await import('./variants/round.mjs?v=voice-2')).VariantRound;if(picture.topic==='letters'&&!letterAnimations){const{LetterCompanion}=await import('./letter-companion.mjs');letterAnimations=new LetterCompanion({director,companion,reduced});}}
+async function prepareVariant(picture){if(picture.topic==='variants'&&!VariantRoundController)VariantRoundController=(await import('./variants/round.mjs?v=voice-3')).VariantRound;if(picture.topic==='letters'&&!letterAnimations){const{LetterCompanion}=await import('./letter-companion.mjs');letterAnimations=new LetterCompanion({director,companion,reduced});}}
 const $=id=>document.getElementById(id),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 // Sparky's rig waits for the first board's art (at most 6 s) so the board opens sooner.
 // Sparky appears with the first board: a still of his idle pose (captured from the rig at its own
@@ -89,7 +89,8 @@ const topBanner=new TopBanner(document.querySelector('.game'),{reduced});{const 
 let topBannerRound=-1;
 function showTopBanner(){if(topBannerRound===roundToken||!currentPicture||done)return;
  // Under the loading screen it would drop unseen: wait until the board is revealed.
- if(!$('loading').hidden){const loading=$('loading'),watch=new MutationObserver(()=>{if(loading.hidden){watch.disconnect();showTopBanner();}});watch.observe(loading,{attributes:true,attributeFilter:['hidden']});return;}topBannerRound=roundToken;const p=currentPicture,intro=ROUND_INTROS[topic];
+ if($('pause-dialog').open){const dialog=$('pause-dialog'),watchHome=new MutationObserver(()=>{if(!dialog.open){watchHome.disconnect();showTopBanner();}});watchHome.observe(dialog,{attributes:true,attributeFilter:['open']});return;}
+  if(!$('loading').hidden){const loading=$('loading'),watch=new MutationObserver(()=>{if(loading.hidden){watch.disconnect();showTopBanner();}});watch.observe(loading,{attributes:true,attributeFilter:['hidden']});return;}topBannerRound=roundToken;const p=currentPicture,intro=ROUND_INTROS[topic];
  const text=p.fun||p.variant?{title:p.title,rule:BANNER_LINES[p.variant]??p.rule,swatch:p.target||null}:intro?{title:intro.title,rule:BANNER_LINES[topic]??intro.rule}:null;if(text)topBanner.show(text);}
 // One short, different line per board (shown on the banner; voice lines are separate recordings).
 const BANNER_LINES={'letter-picture':'Which picture starts with this letter?','letter-case':'Pair the big and small letters.','word-picture':'Read the word, then find its picture.','count-connect':'Count them, then pick the number.','equal-groups':'Find the groups that are equal.','colour-match':'Put each thing with its colour.',letters:'Find the picture for each letter.',numbers:'Count, then match the number.','count-groups':'How many in each group?',assembly:'Put the pieces together.',differences:'Spot the 3 things that changed.'};
@@ -310,7 +311,12 @@ document.querySelector('.game').classList.toggle('activity-scene',!!pic.fun&&pic
  const targets=document.createElement('div');targets.className='slot-targets';targets.setAttribute('aria-hidden','true');pic.targets.forEach(target=>{const badge=document.createElement('span');badge.className='slot-target';renderLearningType(badge,target);targets.append(badge);});$('board').append(targets);const sockets=document.createElement('div');sockets.className='picture-sockets';sockets.setAttribute('aria-hidden','true');for(let n=0;n<3;n++)sockets.append(document.createElement('span'));$('board').prepend(sockets);
  position();layoutArt();orderingGuide=new OrderingGuide($('board'),{state:()=>({pieces,order,done,busy,drag}),paused:()=>navigationLoading||document.hidden||screenUnavailable()||$('pause-dialog').open,reduced});updateLearningUI();$('task-rule').textContent=currentPicture.rule;tell(currentPicture.intro,{speak:false});idleSchedule();introduce();say(pic.rule);
 }
-function closePause(){$('pause-dialog').close();flow.resume();director.resume();activeRound?.resume?.();gameAudio.setPaused(false);sound('tap');idleSchedule();}
+function closePause(){showModes(false);$('pause-dialog').close();if(voiceUnlocked&&currentPicture)setTimeout(introduce,0);flow.resume();director.resume();activeRound?.resume?.();gameAudio.setPaused(false);sound('tap');idleSchedule();}
+// ---- Start / home screen (the pause dialog, styled by arcade-ui.css) ----------------------------
+// SELECT MODES lists every game; choosing one pins it (?game=) and changes board right away.
+const MODES=[['all','All games','objects/balloon.webp'],['letters','Match the Letters','objects/apple.webp'],['letter-picture','Letter Connections','objects/zebra.webp'],['letter-case','Big & Small Letters','objects/kite.webp'],['word-picture','Words & Pictures','objects/duck.webp'],['counting','Count and Match','counting/ladybird.webp'],['count-connect','Count & Connect','counting/strawberry.webp'],['equal-groups','Same Amount','counting/apple.webp'],['colour-match','Colour Connections','objects/rainbow.webp'],['assembly','Build the Picture','assembly/turtle.webp'],['differences','Find 3 Differences','objects/sun.webp'],['food-sort','Food Choices','curated-foods/banana-yellow-whole.webp'],['accessory-grid','Sticker Studio','sticker-room/panda.webp']];
+function showModes(open){const panel=document.querySelector('#pause-dialog .home-modes');if(!panel)return;if(open&&!panel.querySelector('.mode-card')){const grid=panel.querySelector('.mode-grid'),current=new URLSearchParams(location.search).get('game')||'all';for(const[id,label,art]of MODES){const b=document.createElement('button');b.type='button';b.className='mode-card';b.dataset.mode=id;if(id===current)b.classList.add('current');const img=new Image();img.src='assets/art/'+art;img.alt='';img.draggable=false;const span=document.createElement('span');span.textContent=label;b.append(img,span);b.onclick=()=>selectMode(id);grid.append(b);}}panel.hidden=!open;document.querySelector('#pause-dialog .home-stage').hidden=!!open;}
+function selectMode(id){const url=new URL(location.href);if(id==='all')url.searchParams.delete('game');else url.searchParams.set('game',id);history.replaceState(null,'',url);for(const c of document.querySelectorAll('#pause-dialog .mode-card'))c.classList.toggle('current',c.dataset.mode===id);clearTimeout(prefetchTimer);upcomingBoard=null;sound('tap');closePause();void advance();}
 function pause(){reviewActive=false;flow.pause();companion.clear();roundBanner.hide({immediate:true});activeRound?.pause?.();voice.cancel();cancelReactions();clearDrag();activeRound?.cancelDrag();if(!$('pause-dialog').open){sound('tap');gameAudio.setPaused(true);director.pause();$('pause-dialog').showModal();}}
 $('mascot-button').onclick=()=>{
  if(topic==='variants'){if(!$('pause-dialog').open&&!navigationLoading)activeRound?.hint();return;}
@@ -319,9 +325,9 @@ $('mascot-button').onclick=()=>{
  if(!done&&['letters','numbers','count-groups','assembly','differences'].includes(topic)){visualHint();explanation=flow.help();}
  if(soundOn){voiceUnlocked=true;voice.unlock();if(done){voice.cancel();flow.pause();voice.saySequence(reviewVoices(currentPicture),{volume:.85});reviewActive=voice.pending>0;if(!reviewActive)flow.resume();}else voice.say(explanation,{volume:.85});}
 };
-$('exit').onclick=pause;$('resume').onclick=closePause;$('restart').onclick=()=>{closePause();sound('swap');start(currentPicture);};$('pause-dialog').addEventListener('cancel',e=>{e.preventDefault();closePause();});
+$('exit').onclick=pause;$('resume').onclick=closePause;$('modes').onclick=()=>{sound('tap');showModes(true);};document.querySelector('#pause-dialog .mode-back').onclick=()=>{sound('tap');showModes(false);};$('pause-dialog').addEventListener('cancel',e=>{e.preventDefault();closePause();});
 $('next').onclick=advance;
-function muteUI(){$('sound').setAttribute('aria-label',soundOn?'Mute sound':'Turn sound on');$('sound').setAttribute('aria-pressed',String(!soundOn));$('sound').querySelector('img').src='assets/art/toy-controls/'+(soundOn?'sound-on.svg':'sound-off.svg');}
+function muteUI(){$('sound').setAttribute('aria-label',soundOn?'Mute sound':'Turn sound on');$('sound').setAttribute('aria-pressed',String(!soundOn));$('sound').querySelector('img').src='assets/art/arcade/icon-sound.webp';/* muted: arcade-ui.css draws a slash from aria-pressed */}
 $('sound').onclick=()=>{soundOn=!soundOn;try{localStorage.setItem('sparky-swap-sound',soundOn?'on':'off');}catch{}muteUI();gameAudio.setEnabled(soundOn);voice.setEnabled(soundOn);activeRound?.setSound?.(soundOn);if(soundOn){sound('tap');introduce();}};muteUI();voice.setEnabled(soundOn);
 addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('pause-dialog').open){e.preventDefault();pause();}});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)activeRound?.pause?.();clearDrag();activeRound?.cancelDrag();gameAudio.setHidden(document.hidden);if(document.hidden){flow.pause();companion.clear();roundBanner.hide({immediate:true});voice.cancel();clearTimeout(idleTimer);director.pause();}else if(!$('pause-dialog').open&&!screenUnavailable()){director.resume();activeRound?.resume?.();flow.resume();idleSchedule();}});
@@ -355,7 +361,7 @@ async function boot(){performance.mark('sparky:boot-start');const diffAsked=new 
   const needsSparky=first.variant==='food-sort';releaseSparky();const sparky=director.ready.then(()=>director.show('idle'));
   const sparkyLive=Promise.race([sparky.then(()=>sparkyDrawn()).then(()=>{document.documentElement.dataset.sparky='ready';return true;}),sleep(25000).then(()=>false)]).catch(()=>false);
  await Promise.all([loadPicture(first),loadOpeningArt(first),prepareVariant(first),Promise.race([prepareBoardArt(first),sleep(5000)])]);roundCount=1;start(first);
- await boardReady(first,5000);/* then give Sparky up to 4 s more; on slow lines his still picture stands in until he is live */const live=needsSparky?await sparkyLive:await Promise.race([sparkyLive,sleep(4000).then(()=>false)]);if(live)document.documentElement.dataset.sparky='ready';else if(!needsSparky)showSparkyPoster();$('loading').hidden=true;
+ await boardReady(first,5000);/* then give Sparky up to 4 s more; on slow lines his still picture stands in until he is live */const live=needsSparky?await sparkyLive:await Promise.race([sparkyLive,sleep(4000).then(()=>false)]);if(live)document.documentElement.dataset.sparky='ready';else if(!needsSparky)showSparkyPoster();$('loading').hidden=true;if(!new URLSearchParams(location.search).get('game'))pause();
  sparky.then(()=>{document.documentElement.dataset.sparky='ready'},e=>console.error('Sparky could not load',e));sparky.finally(()=>setTimeout(warmGame,1500));setTimeout(()=>{if(!navigator.connection?.saveData)void warmStyleArt();},12000);setTimeout(warmGame,30000);performance.mark('sparky:ready');performance.measure('sparky:boot','sparky:boot-start','sparky:ready');syncOrientation();warmNextRound();
  }catch(e){$('loading').querySelector('p').textContent='Could not load the game. Please refresh.';console.error(e);}}
 

@@ -1,0 +1,92 @@
+/* PW Arcade UI (DUPE GAMES UI assets), loaded last.
+   1. Red glossy corner buttons (sound / home / next): each image is the whole button.
+   2. Start / home screen: the pause dialog becomes the title screen (meadow, Sparky waving,
+      PW ARCADE logo, PLAY, SELECT MODES) with a game picker. A 16:9 stage, contain-scaled. */
+
+/* ---- 1. Corner buttons ------------------------------------------------------------------- */
+.game>.game-button{background:none!important;border-radius:28%;filter:drop-shadow(0 3px 3px #7a1a0a40)!important}
+.game>.game-button img{left:0!important;top:0!important;width:100%!important;height:100%!important;filter:none!important}
+.game>.game-button.next img{left:0!important;width:100%!important}
+/* Muted: the same red speaker with a white slash (no separate sound-off art was supplied). */
+.game>.game-button.sound[aria-pressed="true"] img{filter:saturate(.55) brightness(.92)!important}
+.game>.game-button.game-button.sound[aria-pressed="true"]::after{content:''!important;display:block!important;position:absolute;left:18%;top:46%;width:64%;height:10%;border-radius:99px;background:#fff;box-shadow:0 0 0 2px #b8321c;rotate:-45deg;pointer-events:none}
+/* Sticker Studio shows the same home button (its old Figma home button was never built). */
+.game.sticker-room>.game-button.exit{visibility:visible!important;pointer-events:auto!important}
+
+/* ---- 2. Start / home screen ----------------------------------------------------------------- */
+#pause-dialog.home-screen{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;border-radius:0;box-shadow:none;overflow:hidden;color:#2b2b2b;background:#8ad3f2 url('assets/art/arcade/start-bg.webp') center/cover no-repeat}
+#pause-dialog.home-screen::backdrop{background:#8ad3f2;backdrop-filter:none}
+#pause-dialog.home-screen .home-stage{position:absolute;left:50%;top:50%;width:min(100vw,calc(100dvh * 16 / 9));aspect-ratio:16/9;translate:-50% -50%;container-type:inline-size}
+#pause-dialog.home-screen .home-stage[hidden]{display:none}
+#pause-dialog.home-screen .home-sparky{position:absolute;left:5%;top:13%;height:78%;width:auto;max-width:none;filter:drop-shadow(0 1cqw .6cqw #1d5a1a33);transform-origin:50% 100%;animation:home-sparky 2.6s ease-in-out infinite}
+#pause-dialog.home-screen .home-main{position:absolute;left:42%;width:46%;top:5%;display:flex;flex-direction:column;align-items:center}
+#pause-dialog.home-screen h1{margin:0;line-height:0;font-size:0}
+#pause-dialog.home-screen .home-logo{display:block;width:37cqw;height:auto;filter:drop-shadow(0 .5cqw .4cqw #20306633);animation:home-logo .7s cubic-bezier(.2,1.5,.4,1) both}
+#pause-dialog.home-screen .home-cta{position:relative;display:block;margin:0;padding:0;border:0;background:none;width:27cqw;min-height:44px;cursor:pointer;line-height:0;filter:drop-shadow(0 .4cqw .3cqw #6a3a0a33);transition:transform .14s ease,filter .14s ease;-webkit-tap-highlight-color:transparent}
+#pause-dialog.home-screen #resume{margin-top:4.2cqw;animation:home-play 1.8s ease-in-out .8s infinite}
+#pause-dialog.home-screen #modes{margin-top:2.4cqw}
+#pause-dialog.home-screen .home-cta img{width:100%;height:auto;pointer-events:none}
+#pause-dialog.home-screen .home-cta:active{transform:translateY(2px) scale(.96)}
+#pause-dialog.home-screen .home-cta:focus-visible{outline:3px solid #fff;outline-offset:4px;border-radius:99px}
+@media(hover:hover){#pause-dialog.home-screen .home-cta:hover{filter:brightness(1.06) drop-shadow(0 .5cqw .4cqw #6a3a0a40)}}
+@keyframes home-sparky{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-1.6%) rotate(1deg)}}
+@keyframes home-logo{from{opacity:0;scale:.7}to{opacity:1;scale:1}}
+@keyframes home-play{0%,100%{scale:1}50%{scale:1.05}}
+
+/* Game picker */
+#pause-dialog.home-screen .home-modes{position:absolute;inset:0;display:grid;place-items:center;padding:max(10px,2.5vh) max(56px,7vw)}
+#pause-dialog.home-screen .home-modes[hidden]{display:none}
+#pause-dialog.home-screen .home-modes-panel{width:min(100%,1100px);max-height:100%;overflow:auto;padding:clamp(10px,2.4vh,22px) clamp(12px,2.2vw,26px);border-radius:clamp(18px,3vh,30px);background:linear-gradient(#fffaf0,#fff1d2);box-shadow:0 0 0 4px #fff,0 0 0 8px #f2a93b,0 10px 24px #6a3a0a40}
+#pause-dialog.home-screen .home-modes h2{margin:0 0 clamp(6px,1.6vh,14px);text-align:center;font-family:Nunito,sans-serif;font-weight:1000;font-size:clamp(18px,4.2vh,34px);color:#5b2a8c;-webkit-text-stroke:clamp(3px,.6vh,5px) #fff;paint-order:stroke fill}
+#pause-dialog.home-screen .mode-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(104px,17vw,200px),1fr));gap:clamp(6px,1.4vh,14px)}
+#pause-dialog.home-screen .mode-card{width:100%;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:44px;padding:clamp(6px,1.4vh,12px) 6px;border:0;border-radius:18px;background:linear-gradient(#fff,#ffeec8);box-shadow:inset 0 0 0 3px #f4c062,0 4px 0 #d98a1e;font-family:Nunito,sans-serif;font-weight:900;font-size:clamp(11px,2.3vh,16px);line-height:1.1;color:#6b3410;cursor:pointer;transition:transform .12s ease}
+#pause-dialog.home-screen .mode-card img{width:clamp(34px,10vh,72px);height:clamp(34px,10vh,72px);object-fit:contain}
+#pause-dialog.home-screen .mode-card.current{box-shadow:inset 0 0 0 4px #ff8a1f,0 4px 0 #d9601e;background:linear-gradient(#fff7e0,#ffd98a)}
+#pause-dialog.home-screen .mode-card:active{transform:translateY(3px)}
+#pause-dialog.home-screen .mode-back{position:absolute;right:max(10px,2vw);top:max(10px,3vh);width:clamp(44px,9vh,72px);height:clamp(44px,9vh,72px);padding:0;border:0;background:none;cursor:pointer}
+#pause-dialog.home-screen .mode-back img{width:100%;height:100%}
+@media(prefers-reduced-motion:reduce){#pause-dialog.home-screen *{animation:none!important}}
+
+/* ---- 3. Sticker Studio (DUPE GAMES UI 3 + 4) -----------------------------------------------
+   Clean chalkboard (only the board and its wooden frame) + the supplied sticky note, pin,
+   coloured chalk doodles and chalk pieces. The grid's cells are the same size as the animal and
+   accessory cards and sit right against them; the whole group is centred in the left part of
+   the board, with bigger cells when the grid is 2x2, so there is no empty field around it.
+   Units: cqw of the 16:9 sticker board (100cqw wide, 56.25cqw tall). */
+.game.sticker-room{background:#11593b url('assets/art/sticker-room/chalkboard-clean.svg') center/100% 100% no-repeat!important}
+.game.sticker-room::after{content:none!important}
+.figma-sticker-studio.variant-body{container-type:size;
+ --n:var(--sticker-n,3);--c:calc(10.2cqw + (3 - var(--n)) * 3.3cqw);--g:.7cqw;--p:1.3cqw;--gap:1.1cqw;
+ --span:calc(var(--n) * var(--c) + (var(--n) - 1) * var(--g));--gw:calc(var(--span) + 2 * var(--p));
+ --cw:calc(var(--c) + var(--gap) + var(--gw));--x0:calc(3cqw + (55cqw - var(--cw)) / 2);--y0:calc((56.25cqw - var(--cw)) / 2)}
+.figma-sticker-studio .figma-sticker-rows{left:var(--x0)!important;top:calc(var(--y0) + var(--c) + var(--gap) + var(--p))!important;width:var(--c)!important;height:var(--span)!important;gap:var(--g)}
+.figma-sticker-studio .figma-sticker-columns{left:calc(var(--x0) + var(--c) + var(--gap) + var(--p))!important;top:var(--y0)!important;width:var(--span)!important;height:var(--c)!important;gap:var(--g)}
+.figma-sticker-studio .figma-sticker-grid.sticker-grid{left:calc(var(--x0) + var(--c) + var(--gap))!important;top:calc(var(--y0) + var(--c) + var(--gap))!important;width:var(--gw)!important;height:var(--gw)!important}
+.figma-sticker-studio .figma-sticker-cells{left:var(--p)!important;top:var(--p)!important;width:var(--span)!important;height:var(--span)!important;gap:var(--g)!important}
+.figma-sticker-studio .sticker-header{width:100%;height:100%}
+.figma-sticker-studio .sticker-header>.figma-sticker-art,.figma-sticker-columns .sticker-header>img{width:84%!important;height:84%!important;max-width:none!important;max-height:none!important}
+/* Stickers to place, on the sticky note */
+.figma-sticker-studio .figma-sticker-tray.sticker-tray{left:66.5%!important;top:31%!important;width:22%!important;height:50%!important;gap:6%!important}
+/* Decorations */
+.sticker-decor{position:absolute;inset:0;pointer-events:none;z-index:0}
+.sticker-decor img{position:absolute;display:block;height:auto;max-width:none;pointer-events:none;user-select:none}
+.sticker-decor .note{left:63%;top:18%;width:29%;filter:drop-shadow(0 .6cqw .6cqw #0004)}
+.sticker-decor .pin{left:72%;top:13.5%;width:3.4%;z-index:2;filter:drop-shadow(0 .3cqw .3cqw #0005)}
+.sticker-decor .cloud{left:56%;top:4.5%;width:12%;opacity:.95}
+.sticker-decor .line{left:76%;top:6%;width:8%;opacity:.9}
+.sticker-decor .star-w{left:84.5%;top:3%;width:6%}
+.sticker-decor .star-b{left:2.6%;top:80%;width:5.6%}
+.sticker-decor .star-p{left:55.5%;top:80%;width:5%}
+.sticker-decor .swirl{left:59.5%;top:24%;width:2.4%}
+.sticker-decor .mark{left:calc(var(--x0) + var(--c) * .45);top:calc(var(--y0) + var(--c) * .12);width:calc(var(--c) * .42)}
+.sticker-decor .chalk{left:14%;top:96.2%;width:69%}
+@media(prefers-reduced-motion:no-preference){.sticker-decor .pin{animation:sticker-pin .5s cubic-bezier(.3,1.6,.5,1) .2s both}}
+@keyframes sticker-pin{from{translate:0 -60%;opacity:0}to{translate:0 0;opacity:1}}
+/* The scenery renderer draws an older chalkboard scene (with its own doodles) on top of the
+   room background in Sticker Studio; this room uses the clean board + supplied decorations. */
+.game.sticker-room>canvas.illustrated-world,.game.sticker-room>.scene-atmosphere{display:none!important}
+/* The sticky note is the supplied art (.sticker-decor .note); the tray itself is transparent. */
+.figma-sticker-studio .figma-sticker-tray.sticker-tray{background:none!important;padding:0!important;left:66%!important;top:29%!important;width:23%!important;height:53%!important;gap:7% 9%!important}
+.figma-sticker-studio .figma-sticker-tray .sticker-piece{filter:drop-shadow(0 .3cqw .3cqw #8a5a0033)}
+.sticker-decor .chalk{top:93.6%}
+.figma-sticker-studio .figma-sticker-tray .sticker-piece:last-child{width:46%!important}
