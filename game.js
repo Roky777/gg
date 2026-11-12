@@ -63,7 +63,7 @@ function preloadArt(src){let p=decodedArt.get(src);if(!p){const img=new Image();
 function boardArt(pic){const out=new Set(),seen=new Set();(function walk(v,depth){if(v==null||depth>7)return;if(typeof v==='string'){if(v.length<240&&ART.test(v))out.add(artURL(v));else if(v.length<=12){const type=learningTypeAsset(v);if(type)out.add('assets/art/'+type);}return;}if(typeof v!=='object'||seen.has(v))return;seen.add(v);for(const k in v)walk(v[k],depth+1);})(pic,0);try{out.add('assets/art/'+backgroundFor(pic).image);}catch{}return[...out];}
 // Fixed pictures each kind of board builds in code (frames, trays, kitchen, sticker sheets),
 // recorded from the game itself (board-art.json), so they are ready before that board opens.
-const kindArt=fetch('board-art.json?v=1').then(r=>r.ok?r.json():{}).catch(()=>({}));
+const kindArt=fetch('board-art.json?v=2').then(r=>r.ok?r.json():{}).catch(()=>({}));
 function prepareBoardArt(pic){if(!pic)return Promise.resolve();const fixed=kindArt.then(map=>Promise.all((map[pic.variant||pic.topic]||[]).map(preloadArt)));if(pic?.topic==='variants'&&MATCH_GAMES.has(pic.variant)&&!pic.content){try{pic.content=freshMatchContent(pic.variant,pic.round);}catch(e){console.warn(e);}}return Promise.all([fixed,...boardArt(pic).map(preloadArt)]);}
 function cssArt(root){const urls=new Set();if(!root)return urls;for(const el of[root,...root.querySelectorAll('*')]){const bg=getComputedStyle(el).backgroundImage;if(bg&&bg!=='none')for(const m of bg.matchAll(/url\("?([^")]+)"?\)/g))if(!m[1].startsWith('data:'))urls.add(m[1]);}return urls;}
 async function boardReady(pic,limit=2500){
@@ -78,7 +78,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 async function warmStyleArt(){const urls=new Set();for(const sheet of document.styleSheets){let rules;try{rules=sheet.cssRules;}catch{continue;}for(const rule of rules){const text=rule.cssText;if(!text.includes('url('))continue;for(const m of text.matchAll(/url\("?([^")]+)"?\)/g))if(!m[1].startsWith('data:')&&/\/assets\/art\/|^assets\/art\//.test(new URL(m[1],sheet.href||location.href).href))urls.add(new URL(m[1],sheet.href||location.href).href);}}for(const url of urls){while(document.hidden||navigationLoading)await sleep(600);/* never compete with a board being prepared */try{await fetch(url,{priority:'low'});}catch{}}}
 async function loadOpeningArt(picture){
  // Decode only art used by the opening activity; later modes load on demand.
- const paths=[backgroundFor(picture).image,'toy-controls/shell.webp','toy-board/board.webp'];
+ const paths=[backgroundFor(picture).image,'toy-board/board.webp'];
  await Promise.all([document.fonts.ready,...paths.map(async path=>{const image=new Image();image.src='assets/art/'+path;await image.decode();})]);
 }
 const assemblyDeck=new AssemblyDeck();
@@ -141,8 +141,10 @@ function updateLearningUI(){$('progress').textContent=`★ ${wins}`;}
 // Changing room (board <-> feeding table <-> sticker room): stage curtains close over the whole
 // screen, the new room is built and its scenery drawn behind them, then the curtains part. The stage resize, the scenery swap and Sparky sitting/standing are never seen.
 let veilTimer=0;
-function sceneVeil(on){let v=document.querySelector('.scene-veil');if(!v){v=document.createElement('div');v.className='scene-veil';v.setAttribute('aria-hidden','true');v.innerHTML='<div class="cur cur-l"></div><div class="cur cur-r"></div><div class="cur-light"></div><div class="valance-trim"></div><div class="valance"></div><img class="cur-badge" src="assets/art/arcade2/logo.webp" alt="" draggable="false">';document.body.append(v);}
- clearTimeout(veilTimer);if(on){v.classList.remove('out');void v.offsetWidth;v.classList.add('in');}else{v.classList.remove('in');v.classList.add('out');veilTimer=setTimeout(()=>v.classList.remove("out"),1000);}}
+/* built ahead of time (after the first board), so the first room change does no DOM work */
+function veilEl(){let v=document.querySelector('.scene-veil');if(!v){v=document.createElement('div');v.className='scene-veil';v.setAttribute('aria-hidden','true');v.innerHTML='<div class="cur cur-l"></div><div class="cur cur-r"></div><div class="cur-light"></div><div class="valance-trim"></div><div class="valance"></div><img class="cur-badge" src="assets/art/arcade2/logo.webp" alt="" draggable="false">';document.body.append(v);}return v;}
+function sceneVeil(on){const v=veilEl();
+ clearTimeout(veilTimer);if(on){v.classList.remove('out');v.classList.add('in');}else{v.classList.remove('in');v.classList.add('out');veilTimer=setTimeout(()=>v.classList.remove("out"),1000);}}
 async function sceneDrawn(ms){const want=document.querySelector('.game')?.dataset.sceneBackground,end=performance.now()+ms;
  while(performance.now()<end){const s=window.sparkyIllustratedWorld?.status;if(!s||s.failed||!s.shown||(s.ready&&s.scene===want))break;await sleep(40);}
  await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));}
@@ -368,7 +370,7 @@ async function boot(){performance.mark('sparky:boot-start');const diffAsked=new 
   const needsSparky=first.variant==='food-sort';releaseSparky();const sparky=director.ready.then(()=>director.show('idle'));
   const sparkyLive=Promise.race([sparky.then(()=>sparkyDrawn()).then(()=>{document.documentElement.dataset.sparky='ready';return true;}),sleep(25000).then(()=>false)]).catch(()=>false);
  await Promise.all([loadPicture(first),loadOpeningArt(first),prepareVariant(first),Promise.race([prepareBoardArt(first),sleep(5000)])]);roundCount=1;start(first);
- await boardReady(first,5000);/* then give Sparky up to 4 s more; on slow lines his still picture stands in until he is live */const live=needsSparky?await sparkyLive:await Promise.race([sparkyLive,sleep(4000).then(()=>false)]);if(live)document.documentElement.dataset.sparky='ready';else if(!needsSparky)showSparkyPoster();$('loading').hidden=true;if(!new URLSearchParams(location.search).get('game'))pause('home');
+ await boardReady(first,5000);/* then give Sparky up to 4 s more; on slow lines his still picture stands in until he is live */const homeFirst=!new URLSearchParams(location.search).get('game');/* the start screen covers the board: no need to hold the loading screen for live Sparky */const live=needsSparky?await sparkyLive:await Promise.race([sparkyLive,sleep(homeFirst?0:4000).then(()=>false)]);if(live)document.documentElement.dataset.sparky='ready';else if(!needsSparky)showSparkyPoster();$('loading').hidden=true;setTimeout(veilEl,2500);if(!new URLSearchParams(location.search).get('game'))pause('home');
  sparky.then(()=>{document.documentElement.dataset.sparky='ready'},e=>console.error('Sparky could not load',e));sparky.finally(()=>setTimeout(warmGame,1500));setTimeout(()=>{if(!navigator.connection?.saveData)void warmStyleArt();},12000);setTimeout(warmGame,30000);performance.mark('sparky:ready');performance.measure('sparky:boot','sparky:boot-start','sparky:ready');syncOrientation();warmNextRound();
  }catch(e){$('loading').querySelector('p').textContent='Could not load the game. Please refresh.';console.error(e);}}
 

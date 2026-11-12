@@ -37,8 +37,8 @@
 .game.sticker-room[data-short-stage][data-side-room] .puzzle-frame{top:5%!important;height:90%!important}
 
 /* Full-screen play button on the rotate / more-space prompt (touch devices only). */
-.rotate-prompt .fullscreen-play{position:relative;width:clamp(64px,18vmin,96px);aspect-ratio:1;padding:0;border:0;border-radius:29%;background:url('assets/art/toy-controls/shell.webp') center/100% 100% no-repeat;cursor:pointer;touch-action:manipulation;filter:drop-shadow(0 3px 3px #123d5a40)}
-.rotate-prompt .fullscreen-play img{position:absolute;left:27%;top:25%;width:50%;height:50%;object-fit:contain;pointer-events:none}
+.rotate-prompt .fullscreen-play{position:relative;width:clamp(64px,18vmin,96px);aspect-ratio:1;padding:0;border:0;border-radius:29%;background:url('assets/art/arcade2/btn-play.webp') center/100% 100% no-repeat;cursor:pointer;touch-action:manipulation;filter:drop-shadow(0 3px 3px #123d5a40)}
+.rotate-prompt .fullscreen-play img{display:none}
 .rotate-prompt .fullscreen-play:active{transform:translateY(2px) scale(.96)}
 .rotate-prompt .fullscreen-play:focus-visible{outline:3px solid #fffefa;outline-offset:3px;box-shadow:0 0 0 6px #245e6d}
 .rotate-prompt .fullscreen-play[hidden]{display:none}

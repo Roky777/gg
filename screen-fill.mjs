@@ -57,7 +57,7 @@ if(offered){
  const prompt=document.querySelector('.rotate-prompt');
  if(prompt){
   const play=document.createElement('button');play.type='button';play.className='fullscreen-play';play.setAttribute('aria-label','Play full screen');
-  play.innerHTML='<img src="assets/art/toy-controls/play.svg" alt="" draggable="false">';
+  /* the button art is the supplied red PLAY button (screen-fill.css) */
   // A tap anywhere on the upright screen turns the game sideways; the button stays
   // until the game really is sideways, so a refused rotation can be retried.
   prompt.addEventListener('click',enterFullscreen);prompt.append(play);
