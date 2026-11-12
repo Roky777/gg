@@ -19,7 +19,9 @@ export const CLIPS={
  // Not used on the standing boards: clips that bring their ice-cream/pancake/bedtime props
  // (Sleep, Brush, Pancake_*, Eat_Icecream) - a blanket, toothbrush or chef's hat looks broken here.
  stall:'0Final/Look_Stall',          // turns to look at the new board
- happy:'Sequence/1/Look_Dr_Happy',    // quick happy look after a good match
+ // Not used: Sequence/1/Look_Dr_Happy presses both gloves together on the belly from mid-clip
+ // (they merge into one blob). Its loop version keeps the same happy look with the hands apart.
+ happy:'Sequence/1/Look_Dr_Happy_Loop', // quick happy look after a good match
  yummy:'0Final/Yummy_2',              // tummy-rub celebration
  pinata:'Sequence/3/Lu_Pinata_Hit_P', // swings along with balloon popping and drumming
  splash:'Sequence/4/Water_Splash_P',  // splashes along with watering the garden

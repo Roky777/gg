@@ -11,7 +11,7 @@ import {syncLayout} from './responsive-layout.js?v=board-finish-14';
 import {CompanionPose} from './companion-pose.js?v=companion-57';
 import {PlayFlow,ModeDeck} from './play-flow.js?v=clips-4';
 import {solved,swap,scramble,slotAt,swapFeedback} from './model.js?v=lip-sync-40';
-import {MascotDirector,CLIPS} from './mascot-director.js?v=clips-8';
+import {MascotDirector,CLIPS} from './mascot-director.js?v=clips-9';
 import {GameAudio} from './game-audio.js?v=activities-53';
 import {makeBoard} from './puzzle-generator.js?v=drag-only-47';
 import {LearningVoice} from './learning-voice.js?v=one-voice-1';
@@ -138,12 +138,11 @@ function newBoard(){
 }
 
 function updateLearningUI(){$('progress').textContent=`★ ${wins}`;}
-// Changing room (board <-> feeding table <-> sticker room): a full-screen wipe closes over the whole
-// screen, the new room is built and its scenery drawn underneath, then the wipe opens from the
-// centre. The stage resize, the scenery swap and Sparky sitting/standing are never seen.
+// Changing room (board <-> feeding table <-> sticker room): stage curtains close over the whole
+// screen, the new room is built and its scenery drawn behind them, then the curtains part. The stage resize, the scenery swap and Sparky sitting/standing are never seen.
 let veilTimer=0;
-function sceneVeil(on){let v=document.querySelector('.scene-veil');if(!v){v=document.createElement('div');v.className='scene-veil';v.setAttribute('aria-hidden','true');v.innerHTML='<i class="sv-star"></i><i class="sv-spark"></i><i class="sv-spark"></i><i class="sv-spark"></i><i class="sv-spark"></i>';document.body.append(v);}
- clearTimeout(veilTimer);if(on){v.classList.remove('out');void v.offsetWidth;v.classList.add('in');}else{v.classList.remove('in');v.classList.add('out');veilTimer=setTimeout(()=>v.classList.remove("out"),700);}}
+function sceneVeil(on){let v=document.querySelector('.scene-veil');if(!v){v=document.createElement('div');v.className='scene-veil';v.setAttribute('aria-hidden','true');v.innerHTML='<div class="cur cur-l"></div><div class="cur cur-r"></div><div class="cur-light"></div><div class="valance-trim"></div><div class="valance"></div><img class="cur-badge" src="assets/art/arcade2/logo.webp" alt="" draggable="false">';document.body.append(v);}
+ clearTimeout(veilTimer);if(on){v.classList.remove('out');void v.offsetWidth;v.classList.add('in');}else{v.classList.remove('in');v.classList.add('out');veilTimer=setTimeout(()=>v.classList.remove("out"),1000);}}
 async function sceneDrawn(ms){const want=document.querySelector('.game')?.dataset.sceneBackground,end=performance.now()+ms;
  while(performance.now()<end){const s=window.sparkyIllustratedWorld?.status;if(!s||s.failed||!s.shown||(s.ready&&s.scene===want))break;await sleep(40);}
  await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));}
@@ -154,7 +153,7 @@ async function advance(){
  // The old board fades out while the next one (normally already prepared) is checked; the new
  // board is built out of sight and fades in only when every picture in it is ready.
  const gameEl=document.querySelector('.game');gameEl.classList.remove('board-arriving');const roomOf=p=>p?.variant==='food-sort'?'feeding':p?.variant==='accessory-grid'?'sticker':'board';const sceneSwap=!reduced&&roomOf(currentPicture)!==roomOf(next);/* changing room (Sparky sits/stands, the set changes): fade the whole scene */
- try{const t0=performance.now();await Promise.all([loadPicture(next),prepareVariant(next),Promise.race([prepareBoardArt(next),sleep(1200)])]);gameEl.classList.add('board-leaving');if(sceneSwap)sceneVeil(true);await sleep(reduced?0:sceneSwap?380:200);/* the finished board stays up until the next one is ready, then a quick fade *//* never hold an empty board for slow pictures; late ones fade in */const t1=performance.now();roundCount++;sound('next');start(next);syncOrientation();const t2=performance.now();await boardReady(next,1200);if(sceneSwap)await sceneDrawn(1200);window.sparkyBoardTiming={prepare:Math.round(t1-t0),build:Math.round(t2-t1),settle:Math.round(performance.now()-t2)};}
+ try{const t0=performance.now();await Promise.all([loadPicture(next),prepareVariant(next),Promise.race([prepareBoardArt(next),sleep(1200)])]);gameEl.classList.add('board-leaving');if(sceneSwap)sceneVeil(true);await sleep(reduced?0:sceneSwap?580:200);/* the finished board stays up until the next one is ready, then a quick fade *//* never hold an empty board for slow pictures; late ones fade in */const t1=performance.now();roundCount++;sound('next');start(next);syncOrientation();const t2=performance.now();await boardReady(next,1200);if(sceneSwap)await sceneDrawn(1200);window.sparkyBoardTiming={prepare:Math.round(t1-t0),build:Math.round(t2-t1),settle:Math.round(performance.now()-t2)};}
  catch(e){if(!breakKind)upcomingBoard=next;busy=false;say('Could not load the next picture. Tap the arrow to try again.');console.error(e);}
  finally{gameEl.classList.remove('board-leaving');if(sceneSwap)sceneVeil(false);if(!reduced){gameEl.classList.add('board-arriving');setTimeout(()=>gameEl.classList.remove('board-arriving'),450);}navigationLoading=false;activeRound?.focus?.guide.schedule(1400);if(!done)introduce();warmNextRound();if(warmStarted)warmGame();}
 }
