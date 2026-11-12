@@ -1,51 +1,77 @@
-/* PW Arcade UI (DUPE GAMES UI assets), loaded last.
-   1. Red glossy corner buttons (sound / home / next): each image is the whole button.
-   2. Start / home screen: the pause dialog becomes the title screen (meadow, Sparky waving,
-      PW ARCADE logo, PLAY, SELECT MODES) with a game picker. A 16:9 stage, contain-scaled. */
+/* PW Arcade UI, loaded last.
+   1. Red glossy buttons (DUPE GAMES UI 2): sound on/off, pause, next; each image is the whole button.
+   2. Loading screen, start screen and pause card share one 16:9 composition (DUPE GAMES UI 1:
+      park, Sparky, PW Arcade logo, "Loading..." lettering, purple star bar). The start screen sits
+      exactly where the loading screen was, so loading fades straight into it. Boards come at random.
+   Units: cqw of the 1672:941 stage. */
 
 /* ---- 1. Corner buttons ------------------------------------------------------------------- */
 .game>.game-button{background:none!important;border-radius:28%;filter:drop-shadow(0 3px 3px #7a1a0a40)!important}
 .game>.game-button img{left:0!important;top:0!important;width:100%!important;height:100%!important;filter:none!important}
 .game>.game-button.next img{left:0!important;width:100%!important}
-/* Muted: the same red speaker with a white slash (no separate sound-off art was supplied). */
-.game>.game-button.sound[aria-pressed="true"] img{filter:saturate(.55) brightness(.92)!important}
-.game>.game-button.game-button.sound[aria-pressed="true"]::after{content:''!important;display:block!important;position:absolute;left:18%;top:46%;width:64%;height:10%;border-radius:99px;background:#fff;box-shadow:0 0 0 2px #b8321c;rotate:-45deg;pointer-events:none}
-/* Sticker Studio shows the same home button (its old Figma home button was never built). */
+.game>.game-button.sound::after{content:none!important}
+/* Sticker Studio shows the same pause button (its old Figma button was never built). */
 .game.sticker-room>.game-button.exit{visibility:visible!important;pointer-events:auto!important}
 
-/* ---- 2. Start / home screen ----------------------------------------------------------------- */
-#pause-dialog.home-screen{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;border-radius:0;box-shadow:none;overflow:hidden;color:#2b2b2b;background:#8ad3f2 url('assets/art/arcade/start-bg.webp') center/cover no-repeat}
-#pause-dialog.home-screen::backdrop{background:#8ad3f2;backdrop-filter:none}
-#pause-dialog.home-screen .home-stage{position:absolute;left:50%;top:50%;width:min(100vw,calc(100dvh * 16 / 9));aspect-ratio:16/9;translate:-50% -50%;container-type:inline-size}
-#pause-dialog.home-screen .home-stage[hidden]{display:none}
-#pause-dialog.home-screen .home-sparky{position:absolute;left:5%;top:13%;height:78%;width:auto;max-width:none;filter:drop-shadow(0 1cqw .6cqw #1d5a1a33);transform-origin:50% 100%;animation:home-sparky 2.6s ease-in-out infinite}
-#pause-dialog.home-screen .home-main{position:absolute;left:42%;width:46%;top:5%;display:flex;flex-direction:column;align-items:center}
-#pause-dialog.home-screen h1{margin:0;line-height:0;font-size:0}
-#pause-dialog.home-screen .home-logo{display:block;width:37cqw;height:auto;filter:drop-shadow(0 .5cqw .4cqw #20306633);animation:home-logo .7s cubic-bezier(.2,1.5,.4,1) both}
-#pause-dialog.home-screen .home-cta{position:relative;display:block;margin:0;padding:0;border:0;background:none;width:27cqw;min-height:44px;cursor:pointer;line-height:0;filter:drop-shadow(0 .4cqw .3cqw #6a3a0a33);transition:transform .14s ease,filter .14s ease;-webkit-tap-highlight-color:transparent}
-#pause-dialog.home-screen #resume{margin-top:4.2cqw;animation:home-play 1.8s ease-in-out .8s infinite}
-#pause-dialog.home-screen #modes{margin-top:2.4cqw}
-#pause-dialog.home-screen .home-cta img{width:100%;height:auto;pointer-events:none}
-#pause-dialog.home-screen .home-cta:active{transform:translateY(2px) scale(.96)}
-#pause-dialog.home-screen .home-cta:focus-visible{outline:3px solid #fff;outline-offset:4px;border-radius:99px}
-@media(hover:hover){#pause-dialog.home-screen .home-cta:hover{filter:brightness(1.06) drop-shadow(0 .5cqw .4cqw #6a3a0a40)}}
-@keyframes home-sparky{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-1.6%) rotate(1deg)}}
-@keyframes home-logo{from{opacity:0;scale:.7}to{opacity:1;scale:1}}
-@keyframes home-play{0%,100%{scale:1}50%{scale:1.05}}
+/* ---- 2a. Shared scene ------------------------------------------------------------------------ */
+.loading-pack.loading-arcade{background:#5cbf2a}
+.loading-pack.loading-arcade .ld-scenery{background-image:url('assets/art/arcade2/bg.webp')}
+.loading-pack.loading-arcade .ld-stage,#pause-dialog.home-screen .home-stage{position:absolute;left:50%;top:50%;width:min(100vw,calc(100dvh * 1672 / 941));aspect-ratio:1672/941;translate:-50% -50%;container-type:inline-size}
+.loading-arcade .ld-sparky,#pause-dialog .home-sparky{position:absolute;left:11.6%;top:30%;height:47%;width:auto;max-width:none;filter:drop-shadow(0 1.2cqw .8cqw #1d5a1a40);transform-origin:50% 100%}
+.loading-arcade .ld-badge,#pause-dialog .home-logo{position:absolute;left:32.7%;top:7.5%;width:37.8%;height:auto;max-width:none;filter:drop-shadow(0 .8cqw 1cqw #3a106655);transform-origin:50% 60%}
+/* twinkling stars around the logo */
+.arcade-sparks{position:absolute;left:30%;top:4%;width:42%;height:60%;pointer-events:none}
+.arcade-sparks i{position:absolute;left:var(--x);top:var(--y);width:2.2cqw;aspect-ratio:1;background:radial-gradient(circle,#fff 0 22%,#fff6b0 40%,#ffd23a 70%);clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);opacity:0;animation:arcade-spark 2.4s ease-in-out var(--d) infinite}
+.arcade-sparks i:nth-child(even){width:1.5cqw}
+@keyframes arcade-spark{0%,100%{opacity:0;scale:.3;rotate:0deg}45%{opacity:1;scale:1;rotate:45deg}70%{opacity:.85;scale:.85}}
+@keyframes arcade-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.2%)}}
+@keyframes arcade-float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-1.4%) scale(1.012)}}
+@keyframes arcade-pop{from{opacity:0;scale:.6}70%{opacity:1;scale:1.06}to{opacity:1;scale:1}}
+@keyframes arcade-pulse{0%,100%{scale:1}50%{scale:1.05}}
+.loading-arcade .ld-sparky,#pause-dialog .home-sparky{animation:arcade-bob 2.8s ease-in-out infinite}
+.loading-arcade .ld-badge,#pause-dialog .home-logo{animation:arcade-float 3.4s ease-in-out infinite}
 
-/* Game picker */
-#pause-dialog.home-screen .home-modes{position:absolute;inset:0;display:grid;place-items:center;padding:max(10px,2.5vh) max(56px,7vw)}
-#pause-dialog.home-screen .home-modes[hidden]{display:none}
-#pause-dialog.home-screen .home-modes-panel{width:min(100%,1100px);max-height:100%;overflow:auto;padding:clamp(10px,2.4vh,22px) clamp(12px,2.2vw,26px);border-radius:clamp(18px,3vh,30px);background:linear-gradient(#fffaf0,#fff1d2);box-shadow:0 0 0 4px #fff,0 0 0 8px #f2a93b,0 10px 24px #6a3a0a40}
-#pause-dialog.home-screen .home-modes h2{margin:0 0 clamp(6px,1.6vh,14px);text-align:center;font-family:Nunito,sans-serif;font-weight:1000;font-size:clamp(18px,4.2vh,34px);color:#5b2a8c;-webkit-text-stroke:clamp(3px,.6vh,5px) #fff;paint-order:stroke fill}
-#pause-dialog.home-screen .mode-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(104px,17vw,200px),1fr));gap:clamp(6px,1.4vh,14px)}
-#pause-dialog.home-screen .mode-card{width:100%;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:44px;padding:clamp(6px,1.4vh,12px) 6px;border:0;border-radius:18px;background:linear-gradient(#fff,#ffeec8);box-shadow:inset 0 0 0 3px #f4c062,0 4px 0 #d98a1e;font-family:Nunito,sans-serif;font-weight:900;font-size:clamp(11px,2.3vh,16px);line-height:1.1;color:#6b3410;cursor:pointer;transition:transform .12s ease}
-#pause-dialog.home-screen .mode-card img{width:clamp(34px,10vh,72px);height:clamp(34px,10vh,72px);object-fit:contain}
-#pause-dialog.home-screen .mode-card.current{box-shadow:inset 0 0 0 4px #ff8a1f,0 4px 0 #d9601e;background:linear-gradient(#fff7e0,#ffd98a)}
-#pause-dialog.home-screen .mode-card:active{transform:translateY(3px)}
-#pause-dialog.home-screen .mode-back{position:absolute;right:max(10px,2vw);top:max(10px,3vh);width:clamp(44px,9vh,72px);height:clamp(44px,9vh,72px);padding:0;border:0;background:none;cursor:pointer}
-#pause-dialog.home-screen .mode-back img{width:100%;height:100%}
-@media(prefers-reduced-motion:reduce){#pause-dialog.home-screen *{animation:none!important}}
+/* ---- 2b. Loading screen ------------------------------------------------------------------- */
+.loading-arcade .ld-label{position:absolute;left:43.9%;top:61.4%;width:15.9%;height:auto;translate:0 0;font-size:0;filter:drop-shadow(0 .3cqw .3cqw #3a106640);animation:arcade-pulse 1.6s ease-in-out infinite}
+.loading-arcade .ld-bar{position:absolute;left:28.7%;top:78%;width:47.1%;aspect-ratio:1318/170;filter:drop-shadow(0 .5cqw .6cqw #2a0a5a40)}
+.loading-arcade .ld-track{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+/* fill sits in the frame's window (measured from bar-frame.webp: 140-1177 x 46-125 of 1318x170) */
+.loading-arcade .ld-clip{position:absolute;left:10.4%;top:26.2%;width:79.2%;height:48.2%;border-radius:999px;overflow:hidden;background:#3a137a}
+.loading-arcade .ld-clip .ld-fill{position:static;display:block;width:100%;height:100%;clip-path:inset(0 100% 0 0 round 999px);transition:clip-path .2s linear}
+.loading-arcade .ld-pct{position:absolute;right:15%;top:50%;z-index:2;translate:0 -50%;font-weight:1000;font-size:1.75cqw;line-height:1;color:#fff;-webkit-text-stroke:.3cqw #3b1580;paint-order:stroke fill;font-variant-numeric:tabular-nums;text-shadow:0 .15cqw 0 #3b1580}
+
+/* ---- 2c. Start screen (data-view=home) and pause card (data-view=card) ----------------------- */
+#pause-dialog.home-screen{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;border-radius:0;box-shadow:none;overflow:hidden;color:#2b2b2b;background:#5cbf2a url('assets/art/arcade2/bg.webp') center/cover no-repeat}
+#pause-dialog.home-screen::backdrop{background:#5cbf2a}
+#pause-dialog .home-title{margin:0;line-height:0;font-size:0}
+#pause-dialog .home-logo{animation:arcade-pop .6s cubic-bezier(.2,1.4,.4,1) both,arcade-float 3.4s ease-in-out .6s infinite}
+#pause-dialog .home-play{position:absolute;left:44.1%;top:64%;width:15%;height:auto;min-width:0;margin:0;aspect-ratio:1;padding:0;border:0;background:none;cursor:pointer;line-height:0;-webkit-tap-highlight-color:transparent;animation:arcade-pop .55s cubic-bezier(.2,1.5,.4,1) .25s both}
+#pause-dialog .home-play img{position:relative;width:100%;height:100%;pointer-events:none;filter:drop-shadow(0 .8cqw .7cqw #7a1a0a55);animation:arcade-pulse 1.5s ease-in-out .9s infinite}
+/* soft golden halo that breathes out behind PLAY */
+#pause-dialog .home-play-glow{position:absolute;inset:6%;border-radius:32%;background:radial-gradient(circle,#fff8c4cc 0,#ffd23a88 45%,#ffd23a00 72%);animation:arcade-halo 1.5s ease-out .9s infinite;pointer-events:none}
+@keyframes arcade-halo{0%{opacity:.9;scale:.9}100%{opacity:0;scale:1.55}}
+#pause-dialog .home-play:active img{scale:.93;animation:none}
+#pause-dialog button:focus-visible{outline:3px solid #fff;outline-offset:4px;border-radius:28%}
+#pause-dialog .arcade-btn{position:relative;display:block;width:clamp(60px,15vh,104px);height:auto;min-width:0;margin:0;aspect-ratio:1;padding:0;border:0;background:none;cursor:pointer;line-height:0;-webkit-tap-highlight-color:transparent;filter:drop-shadow(0 4px 4px #4a0a3040);transition:transform .14s ease}
+.arcade-btn img{width:100%;height:100%;pointer-events:none}
+.arcade-btn:active{transform:translateY(3px) scale(.94)}
+@media(hover:hover){.arcade-btn:hover,#pause-dialog .home-play:hover{filter:brightness(1.07) drop-shadow(0 4px 5px #4a0a3050)}}
+#pause-dialog .home-back{position:absolute;left:max(12px,calc(env(safe-area-inset-left) + 12px));top:max(10px,2.4vh);width:clamp(44px,11vh,80px)}
+#pause-dialog .home-back[hidden]{display:none}
+/* pause card: the game stays visible behind a soft purple veil */
+#pause-dialog .pause-card{display:none}
+#pause-dialog[data-view="card"]{background:#2a0b5c66;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+#pause-dialog[data-view="card"]::backdrop{background:transparent}
+#pause-dialog[data-view="card"] .home-stage{display:none}
+#pause-dialog[data-view="card"] .pause-card{display:flex;flex-direction:column;align-items:center;position:absolute;left:50%;top:50%;translate:-50% -50%;width:min(86vw,clamp(300px,64vh,520px));box-sizing:border-box;padding:clamp(30px,8vh,56px) clamp(16px,4vh,34px) clamp(18px,5vh,36px);border-radius:clamp(24px,6vh,44px);
+ background:linear-gradient(#b968ff,#8a2be2 52%,#6a19c4);box-shadow:inset 0 0 0 clamp(4px,1vh,7px) #ffd23a,0 0 0 clamp(3px,.8vh,5px) #fff,0 clamp(8px,2vh,16px) clamp(16px,4vh,30px) #1a053a66;animation:arcade-pop .4s cubic-bezier(.2,1.4,.4,1) both}
+#pause-dialog .pause-card::before{content:'';position:absolute;inset:clamp(4px,1vh,7px);border-radius:inherit;background:repeating-linear-gradient(-55deg,#ffffff14 0 14px,#ffffff00 14px 34px);pointer-events:none}
+#pause-dialog .pause-card-title{position:absolute;top:0;left:50%;translate:-50% -55%;padding:clamp(4px,1.2vh,9px) clamp(22px,6vh,44px);border-radius:999px;background:linear-gradient(#ffe878,#ffc21f 55%,#ff9d0a);box-shadow:inset 0 -4px 0 #e07a00,0 0 0 clamp(3px,.8vh,5px) #fff,0 6px 10px #3a106644;
+ font:1000 clamp(22px,6vh,42px)/1.1 Nunito,'Arial Rounded MT Bold',Arial,sans-serif;color:#fff;-webkit-text-stroke:clamp(4px,1vh,7px) #6a19c4;paint-order:stroke fill;letter-spacing:.02em;white-space:nowrap}
+#pause-dialog .pause-card-row{position:relative;display:flex;align-items:center;justify-content:center;gap:clamp(10px,3vh,24px)}
+#pause-dialog .pause-card-row .card-play{width:clamp(78px,20vh,140px)}
+#pause-dialog .pause-card-row .card-play img{animation:arcade-pulse 1.5s ease-in-out .5s infinite}
+@media(prefers-reduced-motion:reduce){#pause-dialog *,#pause-dialog,.loading-arcade *{animation:none!important}}
 
 /* ---- 3. Sticker Studio (DUPE GAMES UI 3 + 4) -----------------------------------------------
    Clean chalkboard (only the board and its wooden frame) + the supplied sticky note, pin,

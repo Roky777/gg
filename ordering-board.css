@@ -10,7 +10,7 @@
 .game #board.vertical .piece .card-art{top:31%;height:62%;left:9%;width:82%}
 .game #board.vertical .slot-target.ordering-home-filled{border-image-source:url('assets/art/toy-board/card-correct.webp')!important;filter:none}
 .game #board.vertical .picture-sockets>span.ordering-home-filled{border-image-source:url('assets/art/toy-board/card-correct.webp');opacity:.7}
-.game #board.vertical .slot-target.ordering-destination{filter:drop-shadow(0 0 5px #f7bd47)}
+.game #board.vertical .slot-target.ordering-destination{filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 7px #6fcaf7)}
 .game #board.vertical .piece.ordering-invite{filter:brightness(1.06)}
 .ordering-guide{position:absolute;inset:0;z-index:10;pointer-events:none}
 .ordering-guide[hidden]{display:none}

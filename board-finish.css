@@ -70,7 +70,7 @@
 /* Plate artwork supplies its own rim. Feedback stays within the serving. */
 .game.feeding-room .feeding-tray .variant-card.selected,.game.feeding-room .variant-card.food-invited:not(.selected){outline:0!important;background:transparent!important}
 .game.feeding-room .feeding-tray .variant-card.selected .serving-dish-back{filter:drop-shadow(0 0 4px #fff0a3)}
-.game.feeding-room .feeding-utensil.utensil-hint{outline:2px solid #ffdc69;outline-offset:0;background:#fff6ce70}
+.game.feeding-room .feeding-utensil.utensil-hint{outline:3px solid #fff;outline-offset:1px;background:#ffffff40;box-shadow:0 0 0 6px #6fcaf755,0 0 14px #6fcaf7aa}
 .game.feeding-room .feeding-target{min-width:44px;min-height:44px}
 .feeding-food-drag{transition:none!important}
 .feeding-food-drag[data-cup]{transform-origin:50% 16%}
