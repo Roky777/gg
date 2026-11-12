@@ -118,7 +118,7 @@
    across the whole screen; no travelling clouds in this room. */
 .game.sticker-room>.scene-atmosphere{display:none!important}
 /* The sticky note is the supplied art (.sticker-decor .note); the tray itself is transparent. */
-.figma-sticker-studio .figma-sticker-tray.sticker-tray{background:none!important;padding:0!important;left:66%!important;top:29%!important;width:23%!important;height:53%!important;gap:7% 9%!important}
+.figma-sticker-studio .figma-sticker-tray.sticker-tray{background:none!important;padding:0!important;left:66%!important;top:28%!important;width:23%!important;height:44%!important;gap:7% 9%!important}
 .figma-sticker-studio .figma-sticker-tray .sticker-piece{filter:drop-shadow(0 .3cqw .3cqw #8a5a0033)}
 /* chalk pieces lie on the board just above the wooden frame (they were cut off under it) */
 .sticker-decor .chalk{top:auto;bottom:2.4%}
