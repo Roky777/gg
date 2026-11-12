@@ -1,31 +1,12 @@
-/* Wide stage (loaded last).
-   The stage used to be locked to 16:9, so on long phones (19.5:9, 20:9) about a
-   fifth of the screen was empty scenery at the sides. The stage now takes the
-   whole screen height and grows in width up to 2.25:1:
-     - 16:9 and narrower screens (tablets, laptops) are unchanged;
-     - wider screens give the extra width to the play board.
-   Anything that has a fixed shape (Sparky, the Sticker Studio's Figma layout)
-   is sized from the stage height, so it never stretches.
-   --wide-h is the stage height; body is the size container (screen-fit.css). */
-@supports(width:1cqw){
- .game{
-  --wide-h:min(100cqh,56.25cqw);
-  width:min(100cqw,calc(100cqh * 2.25))!important;
-  height:var(--wide-h)!important;
-  aspect-ratio:auto!important;max-height:none!important;
-  /* Sparky keeps his 16:9 size (18.75% of a 16:9 stage = 33.33% of its height);
-     the board starts the same distance after him and takes all remaining width. */
-  --layout-board-left:calc(3.25% + var(--wide-h) * .39556)!important;
-  --layout-board-width:calc(93.5% - var(--wide-h) * .39556)!important;
- }
- .game>.mascot{width:calc(var(--wide-h) * .33333)!important}
+/* Layout extras (loaded last).
+   The play area stays the approved 16:9 composition on every screen: on long phones the
+   scenery continues at the sides (screen-fill / illustrated-world) while Sparky, the board
+   and its contents keep their designed proportions. (A version that stretched the board to
+   the full screen width left boards half-empty and zoomed the scenery; it was removed.) */
 
- /* Sticker Studio: the Figma frame is a full 1920x1080 screen. Give it the whole
-    stage height (it was squeezed into a 66% box: tiny, with empty space around it,
-    and on short phones the 3x3 grid collapsed) and keep it 16:9, centred. */
- .game.sticker-room .puzzle-frame{inset:0!important;left:0!important;top:0!important;width:100%!important;height:100%!important}
- .game.sticker-room #board.variant-board{inset:0 auto auto 50%!important;width:calc(var(--wide-h) * 16 / 9)!important;height:100%!important;translate:-50% 0}
-}
+/* Sticker Studio: the Figma frame is a full 1920x1080 screen; give it the whole stage. */
+.game.sticker-room .puzzle-frame{inset:0!important;left:0!important;top:0!important;width:100%!important;height:100%!important}
+.game.sticker-room #board.variant-board{inset:0!important;width:100%!important;height:100%!important;translate:none}
 
 /* The board frame picture is drawn as a 9-slice: the four corners (star pins and rounded
    inner corners, 160px of the art) keep their exact shape and only the straight edges and

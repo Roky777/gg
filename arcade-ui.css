@@ -82,9 +82,9 @@
 .sticker-decor .chalk{left:14%;top:96.2%;width:69%}
 @media(prefers-reduced-motion:no-preference){.sticker-decor .pin{animation:sticker-pin .5s cubic-bezier(.3,1.6,.5,1) .2s both}}
 @keyframes sticker-pin{from{translate:0 -60%;opacity:0}to{translate:0 0;opacity:1}}
-/* The scenery renderer draws an older chalkboard scene (with its own doodles) on top of the
-   room background in Sticker Studio; this room uses the clean board + supplied decorations. */
-.game.sticker-room>canvas.illustrated-world,.game.sticker-room>.scene-atmosphere{display:none!important}
+/* Sticker Studio: the scenery renderer draws the clean chalkboard scene (scene-backgrounds.mjs)
+   across the whole screen; no travelling clouds in this room. */
+.game.sticker-room>.scene-atmosphere{display:none!important}
 /* The sticky note is the supplied art (.sticker-decor .note); the tray itself is transparent. */
 .figma-sticker-studio .figma-sticker-tray.sticker-tray{background:none!important;padding:0!important;left:66%!important;top:29%!important;width:23%!important;height:53%!important;gap:7% 9%!important}
 .figma-sticker-studio .figma-sticker-tray .sticker-piece{filter:drop-shadow(0 .3cqw .3cqw #8a5a0033)}
