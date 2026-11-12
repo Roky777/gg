@@ -1,9 +1,9 @@
-import{LearningVoice}from'../learning-voice.js?v=one-voice-1';
+import{LearningVoice}from'../learning-voice.js?v=one-voice-2';
 import{recordingFor}from'../voice-cues.js?v=lip-sync-40';
 import{renderLearningType}from'../learning-type.mjs';
 import{PairConnections}from'./pair-connections.mjs';
 import{ConnectionLevel}from'./connection-level.mjs';
-import{StickerStudio}from'./sticker-studio.mjs?v=3';
+import{StickerStudio}from'./sticker-studio.mjs?v=5';
 import{VARIANTS,STORIES,matchContent,freshMatchContent,shuffled,randomFor}from'./content.mjs';
 import{artNode}from'./art.mjs';
 import{ProductionPlayer}from'../production-player.mjs';

@@ -1,6 +1,6 @@
 import{OrderingGuide}from'./ordering-guide.mjs';
 import{CountingGuide}from'./counting-guide.mjs?v=3';
-let orderingGuide=null,countingGuide=null;
+let orderingGuide=null,countingGuide=null,handGuide=null;
 import{renderLearningType,learningTypeAsset}from'./learning-type.mjs';
 import{applySceneBackground,backgroundFor}from'./scene-backgrounds.mjs?v=2';
 import{GamePlaylist}from'./game-playlist.mjs';
@@ -14,15 +14,15 @@ import {solved,swap,scramble,slotAt,swapFeedback} from './model.js?v=lip-sync-40
 import {MascotDirector,CLIPS} from './mascot-director.js?v=clips-9';
 import {GameAudio} from './game-audio.js?v=activities-53';
 import {makeBoard} from './puzzle-generator.js?v=drag-only-47';
-import {LearningVoice} from './learning-voice.js?v=one-voice-1';
+import {LearningVoice} from './learning-voice.js?v=one-voice-2';
 import {AssemblyRound,createAssemblyBoard} from './assembly-game.js?v=polish-52';
 import {AssemblyDeck} from './assembly-catalog.js?v=lip-sync-40';
 import {CountingRound,makeCountingBoard,COUNT_WORDS} from './counting-game.js?v=drop-pocket-16';
 import {RoundBanner,ROUND_INTROS} from './round-banner.js?v=top-1';import {TopBanner} from './top-banner.js?v=15';
-import {DifferenceRound,createDifferenceBoard} from './differences-game.js?v=red-contours-55';
+import {DifferenceRound,createDifferenceBoard} from './differences-game.js?v=red-contours-55';import {HandGuide} from './hand-guide.mjs?v=1';
 import {VARIANTS,makeVariantBoard,freshMatchContent} from './variants/content.mjs';
 let VariantRoundController=null,variantRoundNumber=0,letterAnimations=null;
-async function prepareVariant(picture){if(picture.topic==='variants'&&!VariantRoundController)VariantRoundController=(await import('./variants/round.mjs?v=voice-5')).VariantRound;if(picture.topic==='letters'&&!letterAnimations){const{LetterCompanion}=await import('./letter-companion.mjs');letterAnimations=new LetterCompanion({director,companion,reduced});}}
+async function prepareVariant(picture){if(picture.topic==='variants'&&!VariantRoundController)VariantRoundController=(await import('./variants/round.mjs?v=voice-7')).VariantRound;if(picture.topic==='letters'&&!letterAnimations){const{LetterCompanion}=await import('./letter-companion.mjs');letterAnimations=new LetterCompanion({director,companion,reduced});}}
 const $=id=>document.getElementById(id),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 // Sparky's rig waits for the first board's art (at most 6 s) so the board opens sooner.
 // Sparky appears with the first board: a still of his idle pose (captured from the rig at its own
@@ -268,7 +268,7 @@ function showMatchHint(){
 }
 
 function start(index){
- orderingGuide?.destroy();orderingGuide=null;countingGuide?.destroy();countingGuide=null;
+ orderingGuide?.destroy();orderingGuide=null;countingGuide?.destroy();countingGuide=null;handGuide?.destroy();handGuide=null;
  voice.cancel();cancelReactions();clearTimeout(settle);clearTimeout(celebration);clearDrag();activeRound?.destroy();activeRound=null;countVoiceRow=null;idleCount=0;idleHelps=0;void director.show('idle').catch(()=>{});roundToken++;currentPicture=index;const stage=document.querySelector('.game');stage.dataset.sessionGame=currentPicture.session?.id??currentPicture.variant??currentPicture.topic;stage.dataset.sessionPosition=String(currentPicture.session?.position??'');topic=currentPicture.topic;applySceneBackground(document.querySelector('.game'),currentPicture);$('board').dataset.topic=topic;letterAnimations?.begin(topic==='letters');flow.start(topic);companion.clear();flow.entry();done=false;busy=false;order=scramble();const pic=currentPicture,vertical=true;
  // Fun rounds now play inside the same blue board as every other game.
 // Grow a Garden plays in the garden itself (no board); the other fun rounds use the board.
@@ -290,6 +290,7 @@ document.querySelector('.game').classList.toggle('activity-scene',!!pic.fun&&pic
  $('next').disabled=false;$('board').setAttribute('aria-busy','false');$('board').className='board '+(vertical?'vertical':'horizontal');$('board').setAttribute('aria-label',`${pic.rule} Drag a whole picture onto another to swap their positions.`);$('confetti').replaceChildren();$('board').replaceChildren();pieces=[];
  if(topic==='differences'){
   const token=roundToken;activeRound=new DifferenceRound({element:$('board'),picture:pic,sound,tell,onActivity:idleSchedule,isPaused:()=>navigationLoading||screenUnavailable()||document.hidden||$('pause-dialog').open,onWrong:()=>{if(flow.mistake())visualHint();},onMatch:matchCelebration,onComplete:()=>{if(token===roundToken&&!done)finish();}});
+  /* hand tutorial: taps one changed spot on the right-hand picture */{const r=activeRound;handGuide=new HandGuide({root:$('board'),active:()=>r.allowed(),paused:()=>navigationLoading||screenUnavailable()||document.hidden||$('pause-dialog').open,pair:()=>{const id=[...r.progress.changed].find(i=>!r.progress.found.has(i));const b=id!=null&&r.buttons[1].get(id)?.[0];return b?{to:b,tap:true}:null;}});}
   updateLearningUI();$('task-rule').textContent=pic.rule;tell(pic.intro,{speak:false});layoutArt();idleSchedule();introduce();say(pic.rule);return;
  }
  if(topic==='count-groups'){
@@ -298,7 +299,7 @@ document.querySelector('.game').classList.toggle('activity-scene',!!pic.fun&&pic
   countingGuide=new CountingGuide(activeRound,{paused:()=>navigationLoading||screenUnavailable()||document.hidden||$('pause-dialog').open,reduced});activeRound.guide=countingGuide;
   updateLearningUI();$('task-rule').textContent=pic.rule;tell(pic.intro,{speak:false});layoutArt();idleSchedule();introduce();say(pic.rule);return;
  }
- if(topic==='assembly'){const token=roundToken;activeRound=new AssemblyRound({element:$('board'),picture:pic,onRead:()=>readCard(pic),director,sound,tell,reduced,onActivity:idleSchedule,isPaused:()=>navigationLoading||screenUnavailable()||document.hidden||$('pause-dialog').open,onWrong:()=>{if(flow.mistake())visualHint();},onMatch:matchCelebration,onComplete:()=>{if(token===roundToken&&!done)finish();}});updateLearningUI();$('task-rule').textContent=pic.rule;tell(pic.intro,{speak:false});layoutArt();idleSchedule();introduce();say(pic.rule);return;}
+ if(topic==='assembly'){const token=roundToken;activeRound=new AssemblyRound({element:$('board'),picture:pic,onRead:()=>readCard(pic),director,sound,tell,reduced,onActivity:idleSchedule,isPaused:()=>navigationLoading||screenUnavailable()||document.hidden||$('pause-dialog').open,onWrong:()=>{if(flow.mistake())visualHint();},onMatch:matchCelebration,onComplete:()=>{if(token===roundToken&&!done)finish();}});/* hand tutorial: carries a piece onto its shadow */{const r=activeRound;handGuide=new HandGuide({root:$('board'),active:()=>r.allowed(),paused:()=>navigationLoading||screenUnavailable()||document.hidden||$('pause-dialog').open,pair:()=>{const id=[0,1,2].find(i=>!r.placed.has(i)&&r.sources[i]&&r.zones[i]);return id==null?null:{from:r.sources[id],to:r.zones[id]};}});}updateLearningUI();$('task-rule').textContent=pic.rule;tell(pic.intro,{speak:false});layoutArt();idleSchedule();introduce();say(pic.rule);return;}
 
  for(let id=0;id<3;id++){
   const card=pic.cards[id],piece=document.createElement('button');piece.className='piece';piece.dataset.cardIndex=String(id);piece.type='button';piece.style.width='29.333334%';piece.style.height='61%';const grip=document.createElement('span');grip.className='card-grip';grip.setAttribute('aria-hidden','true');piece.append(grip);

@@ -1,11 +1,12 @@
 import{shuffled}from'./content.mjs';
 // Sticker art and room decorations from DUPE GAMES UI (3) and (4).
+import{HandGuide}from'../hand-guide.mjs?v=1';
 const ROOT='assets/art/sticker-room/';
 // Every round picks its animals and accessories at random from all six of each.
 const FRIEND_POOL=['panda','elephant','bunny','giraffe','lion','fox'],ACCESSORY_POOL=['hat','mask','crown','glasses','headphones','flower'];
 const names={panda:'Panda',elephant:'Elephant',bunny:'Bunny',giraffe:'Giraffe',lion:'Lion',fox:'Fox',hat:'cowboy hat',mask:'party mask',crown:'crown',glasses:'funny glasses',headphones:'headphones',flower:'flower clip'};
 function image(file){const img=new Image();img.src=ROOT+file;img.alt='';img.draggable=false;return img;}
-export function stickerArt(friend,accessory){const art=document.createElement('span');art.className='figma-sticker-art';art.dataset.friend=friend;art.setAttribute('aria-hidden','true');art.append(image(friend+'.webp'));if(accessory){const extra=image(accessory+'.webp');extra.className='sticker-worn sticker-worn-'+accessory;art.append(extra);}return art;}
+export function stickerArt(friend,accessory){const art=document.createElement('span');art.className='figma-sticker-art';art.dataset.friend=friend;art.setAttribute('aria-hidden','true');art.append(image(friend+'.webp'));if(accessory){art.dataset.wear=accessory;/* arcade-ui.css fits each animal+accessory pair inside its square */const extra=image(accessory+'.webp');extra.className='sticker-worn sticker-worn-'+accessory;art.append(extra);/* headphones: band behind the head, cups in front over the ears */if(accessory==='headphones'){const cups=image('headphones.webp');cups.className='sticker-worn sticker-worn-headphones sticker-worn-cups';art.append(cups);}}return art;}
 export class StickerStudio{
  constructor(round){
   this.round=round;this.room=round.element.closest('.game');this.room.classList.add('sticker-room');
@@ -34,7 +35,9 @@ export class StickerStudio{
   for(const key of shuffled([...cells.keys()],round.random).slice(0,3)){
    const[row,col]=key.split(':').map(Number),item={kind:'figma-sticker',friend:FRIENDS[row],accessory:ACCESSORIES[col],row,col,label:names[FRIENDS[row]]+' with '+names[ACCESSORIES[col]]},button=document.createElement('button');button.type='button';button.className='variant-card sticker-piece';button.setAttribute('aria-label',item.label);button.append(stickerArt(item.friend,item.accessory));round.source(button,key,item);tray.append(button);
   }
+  /* hand tutorial: carries the first sticker on the note to its square (row = animal, column = accessory) */
+  this.guide=new HandGuide({root:body,active:()=>round.active()&&round.answers.size<3,paused:()=>round.isPaused(),pair:()=>{const s=[...tray.querySelectorAll('.sticker-piece')].find(b=>!b.disabled);return s?{from:s,to:cells.get(s.dataset.source)}:null;}});
  }
  select(item){if(item?.accessory&&item!==this.spoken){this.spoken=item;this.round.narrate({hat:'accessory_cowboy_hat',mask:'accessory_party_mask',crown:'accessory_crown'}[item.accessory]??'')}if(!item)this.spoken=null;this.headers.forEach(({row,col},i)=>{row.classList.toggle('sticker-guiding',i===item?.row);col.classList.toggle('sticker-guiding',i===item?.col);});}
- destroy(){this.room.classList.remove('sticker-room');}
+ destroy(){this.guide?.destroy();this.room.classList.remove('sticker-room');}
 }
