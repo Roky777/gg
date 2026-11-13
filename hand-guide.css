@@ -1,8 +1,0 @@
-/* Hand tutorial (hand-guide.mjs): same hand and dotted sky-blue path as the connection guide, plus
-   a white/sky ripple where the piece goes or the spot to tap (no orange). */
-.hand-guide{position:absolute;inset:0;z-index:40;pointer-events:none;overflow:visible}
-.hand-guide[hidden]{display:none}
-.hand-guide svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.hand-guide path{fill:none;stroke:#55b8dc;stroke-width:4;stroke-dasharray:4 9;stroke-linecap:round;opacity:0}
-.hand-guide-hand{position:absolute;left:0;top:0;z-index:2;width:clamp(40px,7cqw,72px);height:auto;aspect-ratio:1;max-width:none;max-height:none;pointer-events:none;opacity:0;filter:drop-shadow(0 4px 6px #0003);transform-origin:15% 17%}
-.hand-guide-ring{position:absolute;left:0;top:0;z-index:1;width:clamp(44px,8cqw,84px);aspect-ratio:1;margin:calc(clamp(44px,8cqw,84px) / -2) 0 0 calc(clamp(44px,8cqw,84px) / -2);border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 3px #4fb3e8aa,0 0 16px #6fcaf7aa;opacity:0;pointer-events:none}

@@ -1,0 +1,1 @@
+if(new URLSearchParams(location.search).get("debug")==="1"){const e=new URL("../debug.html",import.meta.url),a=new URLSearchParams(location.search).get("game");a&&e.searchParams.set("game",a),location.replace(e.href)}

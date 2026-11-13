@@ -1,5 +1,5 @@
-# Sparky Learning Games
+# Sparky Picture Play
 
-Open index.html through a static web server. No install or build service is needed. The default route plays all 12 active games. Use ?debug=1 for the developer selector.
+Upload the complete contents to your static host. Open the root index.html. The launch page uses <base href="./sparky-picture-play/">, matching the supplied Brainmatch ZIP structure. Keep the game folder intact. No server-side install is needed. JavaScript files use .js for standard S3 MIME handling.
 
-Unrecorded dialogue remains silent. Original source artwork, reviews and authoring data are excluded from this runtime build.
+The game contains 12 learning variants and optional play breaks. ?debug=1 opens the game selector. Only supplied voice recordings play.

@@ -1,7 +1,0 @@
-/* One planned source scene per board. Outdoor skies are cloud-free;
-   the masked atmosphere layer supplies the only clouds. No legacy decorations. */
-.game{background-image:none}
-.game[data-scene-mode=background]{background-image:var(--scene-background);background-size:cover;background-position:center;background-repeat:no-repeat}
-.game[data-scene-mode=background] .garden-details{display:none}
-.game[data-scene-surface=floor]>.mascot::after{display:none}
-.game[data-scene-surface=floor] .finish-footing{background:radial-gradient(ellipse at 25% 40%,#33456930 0%,#33456920 24%,transparent 47%),radial-gradient(ellipse at 77% 40%,#33456930 0%,#33456920 24%,transparent 47%)}
