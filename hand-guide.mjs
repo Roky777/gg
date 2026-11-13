@@ -2,7 +2,7 @@
 // Same hand art and dotted path as the connection guide. It only demonstrates: it never answers,
 // never captures input, stops the moment the child touches the board and comes back when the
 // child is idle again. pair() returns {from,to} (carry a piece) or {to,tap:true} (tap a spot).
-const HAND='assets/art/toy-board/connection-hand.webp';
+const HAND='assets/art/toy-board/connection-hand-play.webp';
 export class HandGuide{
  constructor({root,pair,active=()=>true,paused=()=>false,first=1400,again=12000,afterTouch=9000,repeats=2}){
   Object.assign(this,{root,pair,active,paused,again,afterTouch,repeats});this.shows=0;this.animations=[];this.timers=new Set();

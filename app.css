@@ -933,16 +933,16 @@ body.compact-screen dialog[open],body.compact-screen dialog::backdrop{visibility
 .game .counting-board .quantity-numbers .number-chip:nth-child(3){top:62.5%}
 .game .counting-board .quantity-numbers .number-chip:nth-child(4){top:83.5%}
 .game:not(.feeding-room):not(.sticker-room) .puzzle-frame .variant-body{inset:12% 7% 14%!important}
-.game:not(.feeding-room):not(.sticker-room) .puzzle-frame :is(.variant-card,.story-slot,.board .piece,.quantity-row,.assembly-choice){--skin-border:clamp(10px,1.6vw,24px);border:var(--skin-border) solid transparent!important;border-image:url('assets/art/toy-board/card.webp') 25% fill stretch!important;border-image-width:1!important;background:transparent!important;box-shadow:none!important}
-.game:not(.feeding-room):not(.sticker-room) .puzzle-frame :is(.variant-card.selected,.story-slot.selected,.piece.selected,.piece.target,.assembly-choice.selected){border-image-source:url('assets/art/toy-board/card-selected.webp')!important;box-shadow:none!important}
-.game:not(.feeding-room):not(.sticker-room) .puzzle-frame :is(.variant-card.matched,.story-slot.matched,.piece.in-place,.quantity-row.answered){border-image-source:url('assets/art/toy-board/card-correct.webp')!important;box-shadow:none!important}
-.game .puzzle-frame .variant-columns [data-target]:not(.matched):not(.selected){border-image-source:url('assets/art/toy-board/card.webp')!important}
+.game:not(.feeding-room):not(.sticker-room) .puzzle-frame :is(.variant-card,.story-slot,.board .piece,.quantity-row,.assembly-choice){--skin-border:clamp(10px,1.6vw,24px);border:var(--skin-border) solid transparent!important;border-image:url('assets/art/toy-board/card-play.webp') 25% fill stretch!important;border-image-width:1!important;background:transparent!important;box-shadow:none!important}
+.game:not(.feeding-room):not(.sticker-room) .puzzle-frame :is(.variant-card.selected,.story-slot.selected,.piece.selected,.piece.target,.assembly-choice.selected){border-image-source:url('assets/art/toy-board/card-selected-play.webp')!important;box-shadow:none!important}
+.game:not(.feeding-room):not(.sticker-room) .puzzle-frame :is(.variant-card.matched,.story-slot.matched,.piece.in-place,.quantity-row.answered){border-image-source:url('assets/art/toy-board/card-correct-play.webp')!important;box-shadow:none!important}
+.game .puzzle-frame .variant-columns [data-target]:not(.matched):not(.selected){border-image-source:url('assets/art/toy-board/card-play.webp')!important}
 /* The illustrated edge replaces the former CSS selection rings. */
 .game:not(.feeding-room):not(.sticker-room) .puzzle-frame :is(.variant-card,.story-slot,.piece,.assembly-choice):hover{box-shadow:none!important}
 /* Fit the actual inset, with the same raster card material on assembly props. */
-.game:not(.activity-scene) .puzzle-frame .assembly-art{left:7%!important;top:49%!important;width:auto!important;height:74%!important;aspect-ratio:1;background:none!important;border:clamp(10px,1.6vw,24px) solid transparent!important;border-image:url('assets/art/toy-board/card.webp') 25% fill stretch!important;box-shadow:none!important;clip-path:none!important}
+.game:not(.activity-scene) .puzzle-frame .assembly-art{left:7%!important;top:49%!important;width:auto!important;height:74%!important;aspect-ratio:1;background:none!important;border:clamp(10px,1.6vw,24px) solid transparent!important;border-image:url('assets/art/toy-board/card-play.webp') 25% fill stretch!important;box-shadow:none!important;clip-path:none!important}
 .game .puzzle-frame .assembly-art .assembly-surface{inset:6%}
-.game:not(.activity-scene) .puzzle-frame .assembly-tray{top:49%!important;right:8%!important;width:25%!important;height:70%!important;aspect-ratio:auto;transform:translateY(-50%);background:none!important;border:clamp(10px,1.6vw,24px) solid transparent!important;border-image:url('assets/art/toy-board/card.webp') 25% fill stretch!important;padding:0;box-shadow:none!important}
+.game:not(.activity-scene) .puzzle-frame .assembly-tray{top:49%!important;right:8%!important;width:25%!important;height:70%!important;aspect-ratio:auto;transform:translateY(-50%);background:none!important;border:clamp(10px,1.6vw,24px) solid transparent!important;border-image:url('assets/art/toy-board/card-play.webp') 25% fill stretch!important;padding:0;box-shadow:none!important}
 .game .puzzle-frame .assembly-tray .assembly-choice{position:absolute!important;--skin-border:clamp(6px,.9vw,12px)!important}
 /* Actual round toy assets. Square hit boxes and contain preserve the circle. */
 .game .puzzle-frame .variant-columns .variant-column{display:grid;grid-template-rows:repeat(3,minmax(0,1fr));justify-items:center;gap:3%}
@@ -971,8 +971,8 @@ body.compact-screen dialog[open],body.compact-screen dialog::backdrop{visibility
 #board .focused-level .variant-column{position:absolute;inset:0;display:block;pointer-events:none}
 #board .focused-level .variant-card{position:absolute;pointer-events:auto;display:flex;align-items:center;justify-content:center;max-width:none;min-width:44px;min-height:44px;translate:-50% -50%;height:auto;aspect-ratio:1;padding:0;border:0!important;--skin-border:0px;border-radius:50%;background-image:url('assets/art/toy-board/token-blue.webp')!important}
 #board .focused-level .variant-card[hidden]{display:none!important}
-.game #board .focused-level [data-source].level-current{--challenge-rim:clamp(10px,2.4cqw,24px);left:24cqw;top:34cqh;width:40cqw;height:60cqh;aspect-ratio:auto;z-index:2;border-radius:18px;background:none!important;border:var(--challenge-rim) solid transparent!important;border-image:url('assets/art/toy-board/card-selected.webp') 12% fill stretch!important;border-image-width:1!important}
-.game #board .focused-level [data-source].level-current.matched{background:none!important;border-image-source:url('assets/art/toy-board/card-correct.webp')!important}
+.game #board .focused-level [data-source].level-current{--challenge-rim:clamp(10px,2.4cqw,24px);left:24cqw;top:34cqh;width:40cqw;height:60cqh;aspect-ratio:auto;z-index:2;border-radius:18px;background:none!important;border:var(--challenge-rim) solid transparent!important;border-image:url('assets/art/toy-board/card-selected-play.webp') 12% fill stretch!important;border-image-width:1!important}
+.game #board .focused-level [data-source].level-current.matched{background:none!important;border-image-source:url('assets/art/toy-board/card-correct-play.webp')!important}
 #board .focused-level [data-target]{width:min(18cqw,35cqh);background-image:url('assets/art/toy-board/token-blue.webp')!important}
 #board .focused-level [data-target]:nth-child(1){left:70cqw;top:18cqh}
 #board .focused-level [data-target]:nth-child(2){left:87cqw;top:50cqh}
@@ -1024,8 +1024,8 @@ body.compact-screen dialog[open],body.compact-screen dialog::backdrop{visibility
 /* Keep complete rounded row artwork clear of the shell's curved opening.
    Paint the rim separately so its corners do not squeeze the counting area. */
 .game .puzzle-frame .counting-board .quantity-row{--skin-border:0px!important;min-height:0;overflow:visible;border:0!important;border-image:none!important;isolation:isolate}
-.game .counting-board .quantity-row::before{content:'';position:absolute;inset:0;border:7px solid transparent;border-image:url('assets/art/toy-board/card.webp') 12% fill stretch;pointer-events:none;z-index:-1}
-.game .counting-board .quantity-row.answered::before{border-image-source:url('assets/art/toy-board/card-correct.webp')}
+.game .counting-board .quantity-row::before{content:'';position:absolute;inset:0;border:7px solid transparent;border-image:url('assets/art/toy-board/card-play.webp') 12% fill stretch;pointer-events:none;z-index:-1}
+.game .counting-board .quantity-row.answered::before{border-image-source:url('assets/art/toy-board/card-correct-play.webp')}
 .game .counting-board .quantity-objects{inset:5% calc(max(18%,44px) + 6px) 5% 3%;gap:3% 2%;grid-template-columns:repeat(var(--object-columns,5),minmax(0,1fr))}
 .game .counting-board .quantity-dock{right:1%;min-width:44px;min-height:44px;width:var(--answer-size);height:var(--answer-size);padding:0;overflow:visible;background-color:transparent!important;background-size:var(--answer-size) var(--answer-size)!important;background-position:center;background-repeat:no-repeat;box-shadow:none!important}
 .game .counting-board .quantity-dock>.number-art{inset:50% auto auto 50%;translate:-50% -50%;width:var(--answer-size);height:var(--answer-size)}
@@ -1035,7 +1035,7 @@ body.compact-screen dialog[open],body.compact-screen dialog::backdrop{visibility
 /* Fit the entire photo frame into the cream opening, with equal clear margins. */
 .game .puzzle-frame .board.differences-board{inset:12% 7% 14%;width:auto;height:auto;overflow:visible}
 .game .difference-pictures{inset:0;display:flex;align-items:center;justify-content:center;gap:5%;overflow:visible}
-.game .difference-panel{box-sizing:border-box;width:var(--difference-width);flex:0 0 var(--difference-width);height:auto;padding:0;border:6px solid transparent;border-image:url('assets/art/toy-board/card.webp') 12% fill stretch;background:none;clip-path:none;box-shadow:none}
+.game .difference-panel{box-sizing:border-box;width:var(--difference-width);flex:0 0 var(--difference-width);height:auto;padding:0;border:6px solid transparent;border-image:url('assets/art/toy-board/card-play.webp') 12% fill stretch;background:none;clip-path:none;box-shadow:none}
 .game .difference-image-wrap{width:100%;height:auto;aspect-ratio:3/4;margin:0;overflow:hidden;border-radius:8px}
 .game .difference-photo{width:100%;height:100%;object-fit:contain}
 /* Three strips must be large enough to recognise and separately grab. */
@@ -1053,8 +1053,8 @@ body.compact-screen dialog[open],body.compact-screen dialog::backdrop{visibility
 .game #board .variant-group>img{grid-column:auto!important;grid-row:auto;min-width:0;min-height:0;width:100%;height:100%;object-fit:contain}
 .game #board .focused-level .variant-card>.variant-group{width:76%;height:76%;max-width:76%;max-height:76%}
 .game #board .focused-level .level-current>.variant-group{width:92%;height:88%;max-width:92%;max-height:88%}
-.game #board[data-variant=equal-groups] .focused-level [data-target]{width:28cqw;height:28cqh;aspect-ratio:auto;border-radius:12px;background:none!important;border:4px solid transparent!important;border-image:url('assets/art/toy-board/card.webp') 12% fill stretch!important}
-.game #board[data-variant=equal-groups] .focused-level [data-target].matched{border-image-source:url('assets/art/toy-board/card-correct.webp')!important}
+.game #board[data-variant=equal-groups] .focused-level [data-target]{width:28cqw;height:28cqh;aspect-ratio:auto;border-radius:12px;background:none!important;border:4px solid transparent!important;border-image:url('assets/art/toy-board/card-play.webp') 12% fill stretch!important}
+.game #board[data-variant=equal-groups] .focused-level [data-target].matched{border-image-source:url('assets/art/toy-board/card-correct-play.webp')!important}
 .game #board[data-variant=equal-groups] .focused-level [data-target]>.variant-group{width:94%;height:94%;max-width:94%;max-height:94%}
 .game #board[data-variant=equal-groups] .focused-level [data-target]:nth-child(1){left:73cqw;top:17cqh}
 .game #board[data-variant=equal-groups] .focused-level [data-target]:nth-child(2){left:86cqw;top:50cqh}
@@ -1099,20 +1099,20 @@ body.compact-screen dialog[open],body.compact-screen dialog::backdrop{visibility
 /* Letter homes and movable picture tiles have separate visual jobs. */
 .game .puzzle-frame #board.vertical:is([data-topic=letters],[data-topic=numbers]){position:absolute;inset:13% 7% 12%;width:auto;height:auto;margin:0}
 .game #board.vertical:is([data-topic=letters],[data-topic=numbers]) .slot-targets{inset:0 0 auto;height:24%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:center;z-index:2;pointer-events:none}
-.game #board.vertical .slot-target{box-sizing:border-box;width:72%;height:92%;min-width:0;justify-self:center;padding:0;border:6px solid transparent!important;border-image:url('assets/art/toy-board/card-selected.webp') 12% fill stretch!important;background:none!important;border-radius:14px;transition:filter .2s}
+.game #board.vertical .slot-target{box-sizing:border-box;width:72%;height:92%;min-width:0;justify-self:center;padding:0;border:6px solid transparent!important;border-image:url('assets/art/toy-board/card-selected-play.webp') 12% fill stretch!important;background:none!important;border-radius:14px;transition:filter .2s}
 .game #board.vertical .slot-target>.learning-type-image{height:90%;width:80%;max-width:100%}
 .game #board.vertical .picture-sockets{display:none}
-.game #board.vertical .picture-sockets>span{margin:0 1%;border:5px solid transparent;border-image:url('assets/art/toy-board/card.webp') 12% fill stretch;background:none;opacity:.38;border-radius:14px}
+.game #board.vertical .picture-sockets>span{margin:0 1%;border:5px solid transparent;border-image:url('assets/art/toy-board/card-play.webp') 12% fill stretch;background:none;opacity:.38;border-radius:14px}
 .game #board.vertical .piece .card-grip{width:26%;height:9px;top:4%;opacity:.85}
 .game #board.vertical .piece .card-letter{top:9%;height:19%}
 .game #board.vertical .piece .card-art{top:31%;height:62%;left:9%;width:82%}
-.game #board.vertical .slot-target.ordering-home-filled{border-image-source:url('assets/art/toy-board/card-correct.webp')!important;filter:none}
-.game #board.vertical .picture-sockets>span.ordering-home-filled{border-image-source:url('assets/art/toy-board/card-correct.webp');opacity:.7}
+.game #board.vertical .slot-target.ordering-home-filled{border-image-source:url('assets/art/toy-board/card-correct-play.webp')!important;filter:none}
+.game #board.vertical .picture-sockets>span.ordering-home-filled{border-image-source:url('assets/art/toy-board/card-correct-play.webp');opacity:.7}
 .game #board.vertical .slot-target.ordering-destination{filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 7px #6fcaf7)}
 .game #board.vertical .piece.ordering-invite{filter:brightness(1.06)}
 .ordering-guide{position:absolute;inset:0;z-index:10;pointer-events:none}
 .ordering-guide[hidden]{display:none}
-.game #board .ordering-demo-card{position:absolute;box-sizing:border-box;margin:0;padding:0;border:clamp(8px,1.6vw,24px) solid transparent;border-image:url('assets/art/toy-board/card-selected.webp') 12% fill stretch;background:none;border-radius:14px;pointer-events:none;box-shadow:0 8px 15px #165c7b30;opacity:0}
+.game #board .ordering-demo-card{position:absolute;box-sizing:border-box;margin:0;padding:0;border:clamp(8px,1.6vw,24px) solid transparent;border-image:url('assets/art/toy-board/card-selected-play.webp') 12% fill stretch;background:none;border-radius:14px;pointer-events:none;box-shadow:0 8px 15px #165c7b30;opacity:0}
 .ordering-demo-card .card-name{display:none}
 .game #board .ordering-demo-card .card-letter{top:9%;height:19%;left:0;width:100%;display:flex;align-items:center;justify-content:center}
 .game #board .ordering-demo-card .card-art{top:31%;height:62%;left:9%;width:82%}
@@ -1228,8 +1228,7 @@ html:not([data-sparky=ready]):not([data-sparky=poster]) #mascot{opacity:0}
 
 
 /* top-banner.css */
-/* Top banner (top-banner.js): the pack's golden banner (1600x533); text lives in its cream
-   panel (x 13-87%, y 30-80%). Starts fully above the screen, lands just under the top edge. */
+/* Animated lesson plaque; final asset proportions and text layout live in arcade-ui.css. */
 .game>.top-banner{--land:max(6px,calc(var(--stage-w,900px)*.006));position:absolute;left:50%;top:var(--land);z-index:40;width:clamp(300px,calc(var(--stage-w,900px)*.42),680px);aspect-ratio:1600/533;container-type:inline-size;transform:translate(-50%,calc(-100% - var(--land) - 12px));pointer-events:none;will-change:transform}
 .game>.top-banner[hidden]{display:none}
 /* Drop: fall, overshoot, squash on landing, small rebound, rest. */
@@ -1249,7 +1248,7 @@ html:not([data-sparky=ready]):not([data-sparky=poster]) #mascot{opacity:0}
 @keyframes tb-swing{0%{rotate:0deg}22%{rotate:1.8deg}45%{rotate:-1.1deg}68%{rotate:.5deg}100%{rotate:0deg}}
 .top-banner .tb-art{position:absolute;inset:0;width:100%;height:100%;display:block}
 /* Shine sweeps across the banner art only (masked by the art itself). */
-.top-banner .tb-shine{position:absolute;inset:0;-webkit-mask:url('assets/art/loading/carnival2/banner-golden.webp') center/100% 100% no-repeat;mask:url('assets/art/loading/carnival2/banner-golden.webp') center/100% 100% no-repeat;background:linear-gradient(105deg,#fff0 40%,#fffbe6d0 50%,#fff0 60%) 0 0/300% 100% no-repeat;background-position:110% 0;opacity:0}
+.top-banner .tb-shine{position:absolute;inset:0;-webkit-mask:url('assets/art/arcade2/lesson-banner-v1.webp') center/100% 100% no-repeat;mask:url('assets/art/arcade2/lesson-banner-v1.webp') center/100% 100% no-repeat;background:linear-gradient(105deg,#fff0 40%,#fffbe6d0 50%,#fff0 60%) 0 0/300% 100% no-repeat;background-position:110% 0;opacity:0}
 .top-banner.in .tb-shine{animation:tb-shine .85s ease-in-out .62s both}
 @keyframes tb-shine{0%{opacity:1;background-position:110% 0}100%{opacity:1;background-position:-10% 0}}
 /* Text is placed inside the measured cream panel (x 16-84%, y 33-77% of the art): title centred at 46%, instruction pill at 67%. */
@@ -1828,4 +1827,54 @@ html,body{overflow:hidden}
 .top-banner .tb-svg{top:43%;height:11.8cqw;max-width:66cqw}
 .top-banner .tb-svg svg{max-width:66cqw}
 .top-banner .tb-rule{top:66.5%;max-width:70cqw;padding:.3cqw 2.4cqw .42cqw;line-height:1.1;font-size:3.6cqw;font-weight:900;letter-spacing:.01em;color:#3b1580;background:linear-gradient(#fffdf6,#fff3d6);box-shadow:inset 0 .2cqw 0 #fff,0 0 0 .3cqw #f0b94a,0 .35cqw .5cqw #8a4a0030}
+/* Phone polish: larger controls use safe screen edges, not the cropped stage edge. */
+.game{--layout-board-left:22%}
+.game>.mascot{left:2.5%!important}
+.game>.game-button.game-button{width:clamp(64px,6.4%,88px)!important;min-width:64px!important;min-height:64px!important}
+.game>.game-button.sound{left:calc(12px - var(--safe-left))!important;top:calc(12px - var(--safe-top))!important}
+.game>.game-button.exit{right:calc(12px - var(--safe-right))!important;top:calc(12px - var(--safe-top))!important}
+.game>.game-button.next{right:calc(12px - var(--safe-right))!important;bottom:calc(10px - var(--safe-bottom))!important}
+.loading-retry{position:absolute;z-index:10;inset:auto 10% 8%;padding:16px;text-align:center;border-radius:24px;background:#fff9eb;color:#4a1d96;font-weight:900;box-shadow:0 6px 20px #26104740}
+.loading-retry button{min-height:52px;min-width:150px;border:3px solid #ffd262;border-radius:18px;background:#6437a9;color:white;font:inherit;padding:8px 24px;cursor:pointer}
+.loading[data-failed] .load-meter{display:none}
+
+/* A calm lesson header in the same materials as the board. The content is real
+   text with a clear title/instruction hierarchy, without outlines or star bursts. */
+.game>.top-banner{width:clamp(320px,calc(var(--stage-w,900px)*.54),700px);aspect-ratio:1280/262;left:57%;--land:calc(9px + var(--clip-top,0px));top:var(--land)}
+.top-banner .tb-svg{top:34%;height:auto;width:82cqw;max-width:none;font-size:clamp(18px,5.4cqw,30px);line-height:1.1;font-weight:1000;color:#235775;text-align:center;white-space:nowrap;letter-spacing:0;animation:none!important;text-shadow:0 1px #fff}
+.top-banner .tb-rule{top:68%;width:82cqw;max-width:82cqw;padding:0;background:none;box-shadow:none;white-space:nowrap;text-align:center;line-height:1.15;color:#417087;font-weight:800;animation:none!important}
+.top-banner.no-rule .tb-svg{top:50%;height:auto}
+.top-banner .tb-shine,.top-banner .tb-burst{display:none}
+.top-banner.in .tb-swing{animation:none}
+.game>.top-banner.in{animation:lesson-enter .24s ease-out forwards}
+.game>.top-banner.out{animation:lesson-leave .18s ease-in forwards}
+@keyframes lesson-enter{from{opacity:0;transform:translate(-50%,-8px)}to{opacity:1;transform:translate(-50%,0)}}
+@keyframes lesson-leave{from{opacity:1;transform:translate(-50%,0)}to{opacity:0;transform:translate(-50%,-6px)}}
+@media(prefers-reduced-motion:reduce){.game>.top-banner.in{animation:none;opacity:1;transform:translate(-50%,0)}.game>.top-banner.out{animation:none;opacity:0}}
+
+/* The Arcade ribbon echoes the home logo's purple, gold and glossy highlights.
+   Both live text lines sit on the continuous ribbon face. */
+.game>.top-banner{width:clamp(320px,calc(var(--stage-w,900px)*.52),700px);aspect-ratio:1280/272;--land:calc(4px + var(--clip-top,0px))}
+.top-banner .tb-art{inset:auto;left:0;top:0;width:100%;height:auto}
+.top-banner .tb-svg{top:22%;width:76cqw;font-size:clamp(19px,5.8cqw,34px);background:linear-gradient(#fffbd1 0%,#ffef68 42%,#ffbb23 100%);background-clip:text;-webkit-background-clip:text;color:transparent;-webkit-text-stroke:.25px #fff3ab;text-shadow:none;filter:drop-shadow(0 1.5px 0 #651676)}
+.top-banner .tb-rule{top:49.5%;width:80cqw;max-width:80cqw;color:#fff8ff;font-weight:900;text-shadow:0 1px 1px #4b0c75}
+.top-banner.no-rule .tb-svg{top:35%}
+/* Keep the lettering clear of the ribbon's upper gold piping. */
+.top-banner .tb-svg{top:25%}
+.top-banner .tb-rule{top:52.5%}
+
+/* One curved heading follows the ribbon; the supporting description is removed. */
+.top-banner .tb-svg{inset:0;top:0;left:0;translate:none;width:100%;height:100%;max-width:none;background:none;color:inherit;-webkit-text-stroke:0;filter:drop-shadow(0 1px 0 #57136b)}
+.top-banner .tb-svg svg{display:block;width:100%;height:100%;max-width:none;overflow:visible}
+
+/* Ribbon performance uses bounded compositor animations; never an idle render loop. */
+.game>.top-banner.in,.game>.top-banner.out{animation:none;transform:translate(-50%,0);opacity:1}
+.top-banner .tb-polish{position:absolute;inset:0;pointer-events:none;overflow:hidden;mask:url('assets/art/arcade2/lesson-ribbon-gloss-v4.webp') center/100% 100% no-repeat;-webkit-mask:url('assets/art/arcade2/lesson-ribbon-gloss-v4.webp') center/100% 100% no-repeat}
+.top-banner .tb-light-pass{position:absolute;left:0;top:-35%;width:13%;height:170%;opacity:0;background:linear-gradient(90deg,#fff0,#fff9d9bd 48%,#ffffffed 52%,#fff0);will-change:transform,opacity}
+.top-banner .tb-glints{position:absolute;inset:0;pointer-events:none}
+.top-banner .tb-glints svg{position:absolute;height:auto;aspect-ratio:1;opacity:0;overflow:visible;filter:drop-shadow(0 0 2px #fff4a0)}
+@media(prefers-reduced-motion:reduce){.top-banner .tb-polish,.top-banner .tb-glints{display:none}}
+
+/* Count and Match centres over the painted counting board, excluding its number tray. */
+.game>.top-banner.board-aligned{left:var(--banner-board-center);width:var(--banner-board-width)}
 

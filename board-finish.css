@@ -7,8 +7,8 @@
 /* Keep complete rounded row artwork clear of the shell's curved opening.
    Paint the rim separately so its corners do not squeeze the counting area. */
 .game .puzzle-frame .counting-board .quantity-row{--skin-border:0px!important;min-height:0;overflow:visible;border:0!important;border-image:none!important;isolation:isolate}
-.game .counting-board .quantity-row::before{content:'';position:absolute;inset:0;border:7px solid transparent;border-image:url('assets/art/toy-board/card.webp') 12% fill stretch;pointer-events:none;z-index:-1}
-.game .counting-board .quantity-row.answered::before{border-image-source:url('assets/art/toy-board/card-correct.webp')}
+.game .counting-board .quantity-row::before{content:'';position:absolute;inset:0;border:7px solid transparent;border-image:url('assets/art/toy-board/card-play.webp') 12% fill stretch;pointer-events:none;z-index:-1}
+.game .counting-board .quantity-row.answered::before{border-image-source:url('assets/art/toy-board/card-correct-play.webp')}
 .game .counting-board .quantity-objects{inset:5% calc(max(18%,44px) + 6px) 5% 3%;gap:3% 2%;grid-template-columns:repeat(var(--object-columns,5),minmax(0,1fr))}
 .game .counting-board .quantity-dock{right:1%;min-width:44px;min-height:44px;width:var(--answer-size);height:var(--answer-size);padding:0;overflow:visible;background-color:transparent!important;background-size:var(--answer-size) var(--answer-size)!important;background-position:center;background-repeat:no-repeat;box-shadow:none!important}
 .game .counting-board .quantity-dock>.number-art{inset:50% auto auto 50%;translate:-50% -50%;width:var(--answer-size);height:var(--answer-size)}
@@ -18,7 +18,7 @@
 /* Fit the entire photo frame into the cream opening, with equal clear margins. */
 .game .puzzle-frame .board.differences-board{inset:12% 7% 14%;width:auto;height:auto;overflow:visible}
 .game .difference-pictures{inset:0;display:flex;align-items:center;justify-content:center;gap:5%;overflow:visible}
-.game .difference-panel{box-sizing:border-box;width:var(--difference-width);flex:0 0 var(--difference-width);height:auto;padding:0;border:6px solid transparent;border-image:url('assets/art/toy-board/card.webp') 12% fill stretch;background:none;clip-path:none;box-shadow:none}
+.game .difference-panel{box-sizing:border-box;width:var(--difference-width);flex:0 0 var(--difference-width);height:auto;padding:0;border:6px solid transparent;border-image:url('assets/art/toy-board/card-play.webp') 12% fill stretch;background:none;clip-path:none;box-shadow:none}
 .game .difference-image-wrap{width:100%;height:auto;aspect-ratio:3/4;margin:0;overflow:hidden;border-radius:8px}
 .game .difference-photo{width:100%;height:100%;object-fit:contain}
 /* Three strips must be large enough to recognise and separately grab. */
@@ -36,8 +36,8 @@
 .game #board .variant-group>img{grid-column:auto!important;grid-row:auto;min-width:0;min-height:0;width:100%;height:100%;object-fit:contain}
 .game #board .focused-level .variant-card>.variant-group{width:76%;height:76%;max-width:76%;max-height:76%}
 .game #board .focused-level .level-current>.variant-group{width:92%;height:88%;max-width:92%;max-height:88%}
-.game #board[data-variant=equal-groups] .focused-level [data-target]{width:28cqw;height:28cqh;aspect-ratio:auto;border-radius:12px;background:none!important;border:4px solid transparent!important;border-image:url('assets/art/toy-board/card.webp') 12% fill stretch!important}
-.game #board[data-variant=equal-groups] .focused-level [data-target].matched{border-image-source:url('assets/art/toy-board/card-correct.webp')!important}
+.game #board[data-variant=equal-groups] .focused-level [data-target]{width:28cqw;height:28cqh;aspect-ratio:auto;border-radius:12px;background:none!important;border:4px solid transparent!important;border-image:url('assets/art/toy-board/card-play.webp') 12% fill stretch!important}
+.game #board[data-variant=equal-groups] .focused-level [data-target].matched{border-image-source:url('assets/art/toy-board/card-correct-play.webp')!important}
 .game #board[data-variant=equal-groups] .focused-level [data-target]>.variant-group{width:94%;height:94%;max-width:94%;max-height:94%}
 .game #board[data-variant=equal-groups] .focused-level [data-target]:nth-child(1){left:73cqw;top:17cqh}
 .game #board[data-variant=equal-groups] .focused-level [data-target]:nth-child(2){left:86cqw;top:50cqh}

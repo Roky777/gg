@@ -1,9 +1,10 @@
-import{OrderingGuide}from'./ordering-guide.mjs';
-import{CountingGuide}from'./counting-guide.mjs?v=3';
+import{DecodedArtCache}from'./decoded-art-cache.mjs';
+import{OrderingGuide}from'./ordering-guide.mjs?v=2';
+import{CountingGuide}from'./counting-guide.mjs?v=4';
 let orderingGuide=null,countingGuide=null,handGuide=null;
 import{renderLearningType,learningTypeAsset}from'./learning-type.mjs';
 import{applySceneBackground,backgroundFor}from'./scene-backgrounds.mjs?v=2';
-import{GamePlaylist}from'./game-playlist.mjs';
+import{GamePlaylist,randomPlaylistStart}from'./game-playlist.mjs?v=random-start-2';
 import {cardReadings,bindCardReading} from './card-audio.js?v=polish-52';
 import {BreakSchedule,createPlayBreak,makeFunBoard,FUN_KINDS} from './play-breaks.js?v=target-2';
 import {reviewVoices,pictureVoice,RECORDINGS,recordingFor} from './voice-cues.js?v=lip-sync-40';
@@ -11,18 +12,18 @@ import {syncLayout} from './responsive-layout.js?v=board-finish-14';
 import {CompanionPose} from './companion-pose.js?v=companion-57';
 import {PlayFlow,ModeDeck} from './play-flow.js?v=clips-4';
 import {solved,swap,scramble,slotAt,swapFeedback} from './model.js?v=lip-sync-40';
-import {MascotDirector,CLIPS} from './mascot-director.js?v=clips-12';
-import {GameAudio} from './game-audio.js?v=activities-53';
+import {MascotDirector,CLIPS} from './mascot-director.js?v=clips-13';
+import {GameAudio} from './game-audio.js?v=phone-55';
 import {makeBoard} from './puzzle-generator.js?v=drag-only-47';
-import {LearningVoice} from './learning-voice.js?v=one-voice-2';
+import {LearningVoice,cancelAllVoices} from './learning-voice.js?v=one-voice-3';
 import {AssemblyRound,createAssemblyBoard} from './assembly-game.js?v=polish-52';
 import {AssemblyDeck} from './assembly-catalog.js?v=lip-sync-40';
 import {CountingRound,makeCountingBoard,COUNT_WORDS} from './counting-game.js?v=drop-pocket-16';
-import {RoundBanner,ROUND_INTROS} from './round-banner.js?v=top-1';import {TopBanner} from './top-banner.js?v=16';
-import {DifferenceRound,createDifferenceBoard} from './differences-game.js?v=red-contours-55';import {HandGuide} from './hand-guide.mjs?v=1';
+import {RoundBanner,ROUND_INTROS} from './round-banner.js?v=top-1';import {TopBanner} from './top-banner.js?v=23';
+import {DifferenceRound,createDifferenceBoard} from './differences-game.js?v=red-contours-55';import {HandGuide} from './hand-guide.mjs?v=2';
 import {VARIANTS,makeVariantBoard,freshMatchContent} from './variants/content.mjs';
 let VariantRoundController=null,variantRoundNumber=0,letterAnimations=null;
-async function prepareVariant(picture){if(picture.topic==='variants'&&!VariantRoundController)VariantRoundController=(await import('./variants/round.mjs?v=voice-8')).VariantRound;if(picture.topic==='letters'&&!letterAnimations){const{LetterCompanion}=await import('./letter-companion.mjs');letterAnimations=new LetterCompanion({director,companion,reduced});}}
+async function prepareVariant(picture){if(picture.topic==='variants'&&!VariantRoundController)VariantRoundController=(await import('./variants/round.mjs?v=smooth-11')).VariantRound;if(picture.topic==='letters'&&!letterAnimations){const{LetterCompanion}=await import('./letter-companion.mjs');letterAnimations=new LetterCompanion({director,companion,reduced});}}
 const $=id=>document.getElementById(id),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 // Sparky's rig waits for the first board's art (at most 6 s) so the board opens sooner.
 // Sparky appears with the first board: a still of his idle pose (captured from the rig at its own
@@ -30,18 +31,18 @@ const $=id=>document.getElementById(id),reduced=matchMedia('(prefers-reduced-mot
 // Resolves once the rig has painted at least one live frame (worker renderer counts them).
 function sparkyDrawn(){return new Promise(resolve=>{const t=performance.now();(function check(){const rig=globalThis.sparkyRig;if(!rig||rig.framesShown===undefined?performance.now()-t>300:rig.framesShown>0)return resolve();if(performance.now()-t>3000)return resolve();requestAnimationFrame(check);})();});}
 function showSparkyPoster(){const img=new Image();img.src='assets/art/loading/sparky-poster.webp';img.decode().then(()=>{const root=document.documentElement;if(root.dataset.sparky==='ready')return;const c=$('mascot');c.width=img.naturalWidth;c.height=img.naturalHeight;c.getContext('2d').drawImage(img,0,0);root.dataset.sparky='poster';}).catch(()=>{});}
-let releaseSparky;const sparkyGate=new Promise(r=>{releaseSparky=r;setTimeout(r,6000)});
+let releaseSparky;const sparkyGate=new Promise(r=>{releaseSparky=r});
 const director=new MascotDirector($('mascot'),CLIPS,{reduced,after:sparkyGate});
 const companion=new CompanionPose({reduced});director.setPoseModifier((skeleton,frame)=>companion.apply(skeleton,frame));
 let order=[1,2,0],pieces=[],drag=null,done=false,busy=false,roundToken=0,soundOn=true,settle=null,celebration=null;
-const pictureImages=new Map(),pictureLoads=new Map();
 let upcomingBoard=null,prefetchTimer=null;
 // Offline cache (sw.js, built game only): files are kept on the device; once Sparky is in,
 // the rest of the game downloads in the background so later boards open at once.
 const offlineCache='serviceWorker' in navigator&&(location.protocol==='https:'&&!/^(127\.0\.0\.1|localhost)$/.test(location.hostname)||new URLSearchParams(location.search).has('sw'));
 if(offlineCache)navigator.serviceWorker.register('sw.js').catch(()=>{});
+const warmAllAssets=()=>!navigator.connection?.saveData&&!/^(slow-2g|2g|3g)$/.test(navigator.connection?.effectiveType||'')&&!matchMedia('(pointer:coarse)').matches;
 let warmStarted=false;
-function warmGame(){if(!offlineCache)return;navigator.serviceWorker.ready.then(reg=>{warmStarted=true;reg.active?.postMessage({type:'warm',full:!navigator.connection?.saveData})}).catch(()=>{});}
+function warmGame(){if(!offlineCache)return;navigator.serviceWorker.ready.then(reg=>{warmStarted=true;reg.active?.postMessage({type:'warm',full:warmAllAssets()})}).catch(()=>{});}
 function warmNextRound(){
  clearTimeout(prefetchTimer);
  prefetchTimer=setTimeout(()=>{
@@ -57,13 +58,13 @@ function warmNextRound(){
 // ---- Boards appear complete -------------------------------------------------------------
 // A board is shown only when every picture in it (and its scene) is decoded, so nothing
 // pops in while the child looks. Next boards are prepared ahead, so the wait is ~0.
-const ART=/\.(?:webp|png|svg|jpe?g)$/i,MATCH_GAMES=new Set(['count-connect','equal-groups','colour-match','word-picture','letter-case','letter-picture']),decodedArt=new Map();
+const ART=/\.(?:webp|png|svg|jpe?g)$/i,MATCH_GAMES=new Set(['count-connect','equal-groups','colour-match','word-picture','letter-case','letter-picture']),decodedArt=new DecodedArtCache({maxEntries:matchMedia('(pointer:coarse)').matches?64:96,maxPixels:matchMedia('(pointer:coarse)').matches?12_000_000:24_000_000});
 const artURL=p=>/^(?:assets\/|https?:|data:|blob:)/.test(p)?p:'assets/art/'+p;
-function preloadArt(src){let p=decodedArt.get(src);if(!p){const img=new Image();img.src=src;p=img.decode().catch(()=>{}).then(()=>img);decodedArt.set(src,p);if(decodedArt.size>400)decodedArt.delete(decodedArt.keys().next().value);}return p;}
+function preloadArt(src){return decodedArt.load(src);}
 function boardArt(pic){const out=new Set(),seen=new Set();(function walk(v,depth){if(v==null||depth>7)return;if(typeof v==='string'){if(v.length<240&&ART.test(v))out.add(artURL(v));else if(v.length<=12){const type=learningTypeAsset(v);if(type)out.add('assets/art/'+type);}return;}if(typeof v!=='object'||seen.has(v))return;seen.add(v);for(const k in v)walk(v[k],depth+1);})(pic,0);try{out.add('assets/art/'+backgroundFor(pic).image);}catch{}return[...out];}
 // Fixed pictures each kind of board builds in code (frames, trays, kitchen, sticker sheets),
 // recorded from the game itself (board-art.json), so they are ready before that board opens.
-const kindArt=fetch('board-art.json?v=2').then(r=>r.ok?r.json():{}).catch(()=>({}));
+const kindArt=fetch('board-art.json?v=3').then(r=>r.ok?r.json():{}).catch(()=>({}));
 function prepareBoardArt(pic){if(!pic)return Promise.resolve();const fixed=kindArt.then(map=>Promise.all((map[pic.variant||pic.topic]||[]).map(preloadArt)));if(pic?.topic==='variants'&&MATCH_GAMES.has(pic.variant)&&!pic.content){try{pic.content=freshMatchContent(pic.variant,pic.round);}catch(e){console.warn(e);}}return Promise.all([fixed,...boardArt(pic).map(preloadArt)]);}
 function cssArt(root){const urls=new Set();if(!root)return urls;for(const el of[root,...root.querySelectorAll('*')]){const bg=getComputedStyle(el).backgroundImage;if(bg&&bg!=='none')for(const m of bg.matchAll(/url\("?([^")]+)"?\)/g))if(!m[1].startsWith('data:'))urls.add(m[1]);}return urls;}
 async function boardReady(pic,limit=2500){
@@ -78,8 +79,8 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 async function warmStyleArt(){const urls=new Set();for(const sheet of document.styleSheets){let rules;try{rules=sheet.cssRules;}catch{continue;}let n=0;for(const rule of rules){if(++n%150===0)await sleep(0);/* small steps: never one long block */const text=rule.cssText;if(!text.includes('url('))continue;for(const m of text.matchAll(/url\("?([^")]+)"?\)/g))if(!m[1].startsWith('data:')&&/\/assets\/art\/|^assets\/art\//.test(new URL(m[1],sheet.href||location.href).href))urls.add(new URL(m[1],sheet.href||location.href).href);}}for(const url of urls){while(document.hidden||navigationLoading)await sleep(600);/* never compete with a board being prepared */try{await fetch(url,{priority:'low'});}catch{}}}
 async function loadOpeningArt(picture){
  // Decode only art used by the opening activity; later modes load on demand.
- const paths=[backgroundFor(picture).image,'toy-board/board.webp'];
- await Promise.all([document.fonts.ready,...paths.map(async path=>{const image=new Image();image.src='assets/art/'+path;await image.decode();})]);
+ const paths=[backgroundFor(picture).image,'toy-board/board.webp','loading/sparky-poster.webp'];
+ await Promise.all([Promise.race([document.fonts.ready,sleep(1800)]),...paths.map(async path=>{const image=new Image();image.src='assets/art/'+path;await image.decode();})]);
 }
 const assemblyDeck=new AssemblyDeck();
 let activeRound=null,assemblyEnabled=false,countingEnabled=false,countVoiceRow=null,groupWins=0,differencesEnabled=false,differenceDeck=null;
@@ -98,6 +99,7 @@ let bannerRound=-1;
 let introducedRound=-1;
 function introduce(){
  showTopBanner();
+ if($('pause-dialog').open||navigationLoading)return;
  // Every board (including Food Choices) opens with its recorded instruction.
  if(currentPicture?.variant){if(introducedRound!==roundToken&&voiceUnlocked&&soundOn&&activeRound?.narrate&&!activeRound.complete){introducedRound=roundToken;if(activeRound.feeding)activeRound.feeding.intro();else activeRound.narrate(currentPicture.rule);}return;}
  if(currentPicture?.fun){if(!activeRound?.announced&&voiceUnlocked&&soundOn&&activeRound){activeRound.announced=true;voice.say(currentPicture.intro,{volume:.85});}return;}
@@ -105,11 +107,12 @@ function introduce(){
  flow.offerIntro();
 }
 
-const playlist=new GamePlaylist();
 const isCombinedGame=()=>{const id=new URLSearchParams(location.search).get('game');return!id||id==='all';};
+const playlist=new GamePlaylist({startIndex:isCombinedGame()?randomPlaylistStart():0});
 async function loadPicture(pic){
- const loaded=await Promise.all(pic.cards.map(async card=>{if(pictureImages.has(card.image)){const cached=pictureImages.get(card.image);pictureImages.delete(card.image);pictureImages.set(card.image,cached);return cached;}let pending=pictureLoads.get(card.image);if(!pending){pending=(async()=>{const image=new Image();image.src=`assets/art/${card.image}`;await image.decode();pictureImages.set(card.image,image);while(pictureImages.size>24)pictureImages.delete(pictureImages.keys().next().value);return image;})();pictureLoads.set(card.image,pending);}try{return await pending;}finally{pictureLoads.delete(card.image);}}));return loaded;
+ return Promise.all(pic.cards.map(async card=>{const image=await preloadArt('assets/art/'+card.image);if(!image.naturalWidth)throw Error('Unable to decode picture: '+card.image);return image;}));
 }
+
 let idleTimer=null,reactionCount=0,idleCount=0,idleHelps=0,tapCount=0;
 let wins=0,topic='letters',voiceUnlocked=false,lastSpoken='',completed=new Set(),roundCount=0,navigationLoading=false,currentPicture=null,letterWins=0,numberWins=0,lastTopic=null,recentBoards=[];
 try{const saved=JSON.parse(localStorage.getItem('sparky-learning-pictures-v1')||'[]');if(Array.isArray(saved))completed=new Set(saved.filter(id=>typeof id==='string').slice(-200));}catch{}
@@ -157,7 +160,7 @@ async function advanceWhenQuiet(){const token=roundToken,t0=performance.now(),sp
 async function advance(){
  if(navigationLoading)return;navigationLoading=true;
  // Give the board swap and the background fade the phone's full attention: Sparky holds his pose briefly.
- if(director.active&&director.active!=='idle'&&!document.querySelector('.game.feeding-room'))void director.show('idle');/* blend whatever Sparky is doing back to rest (0.45 s mix), never freeze or cut it */flow.cancel();cancelReactions();const breakKind=breakSchedule.take(wins);const next=breakKind?makeFunBoard(breakKind):(upcomingBoard||newBoard());if(!breakKind)upcomingBoard=null;clearTimeout(prefetchTimer);roundBanner.hide({immediate:true});voice.cancel();clearTimeout(settle);clearDrag();activeRound?.cancelDrag();roundToken++;
+ if(director.active&&director.active!=='idle'&&!document.querySelector('.game.feeding-room'))void director.show('idle');/* blend whatever Sparky is doing back to rest (0.45 s mix), never freeze or cut it */flow.cancel();cancelReactions();const breakKind=breakSchedule.take(wins);const next=breakKind?makeFunBoard(breakKind):(upcomingBoard||newBoard());if(!breakKind)upcomingBoard=null;clearTimeout(prefetchTimer);roundBanner.hide({immediate:true});cancelAllVoices();clearTimeout(settle);clearDrag();activeRound?.cancelDrag();roundToken++;
  // The old board fades out while the next one (normally already prepared) is checked; the new
  // board is built out of sight and fades in only when every picture in it is ready.
  const gameEl=document.querySelector('.game');gameEl.classList.remove('board-arriving');const roomOf=p=>p?.variant==='food-sort'?'feeding':p?.variant==='accessory-grid'?'sticker':'board';const sceneSwap=!reduced&&roomOf(currentPicture)!==roomOf(next);/* changing room (Sparky sits/stands, the set changes): fade the whole scene */
@@ -230,18 +233,21 @@ function position(){
  const vertical=currentPicture.axis==='vertical';
  pieces.forEach((piece,id)=>{const slot=order.indexOf(id);piece.style.left=vertical?`${slot*100/3+2}%`:'0';piece.style.top=vertical?'30%':`${slot*100/3}%`;piece.setAttribute('aria-label',`${currentPicture.cards[id].label}, position ${slot+1} of 3; target ${currentPicture.targets[slot]}`);piece.classList.toggle('in-place',slot===id);$('board').querySelectorAll('.slot-target')[slot]?.classList.toggle('ordering-home-filled',slot===id);$('board').querySelectorAll('.picture-sockets>span')[slot]?.classList.toggle('ordering-home-filled',slot===id);});
 }
-function clearDrag(){if(drag){pieces[drag.id].classList.remove('dragging');pieces[drag.id].style.transform='';drag=null;}pieces.forEach(p=>p.classList.remove('target'));}
+let orderDragFrame=0,orderDragPoint=null;
+function clearDrag(){cancelAnimationFrame(orderDragFrame);orderDragFrame=0;orderDragPoint=null;if(drag){pieces[drag.id].classList.remove('dragging');pieces[drag.id].style.transform='';drag=null;}pieces.forEach(p=>p.classList.remove('target'));}
 // Keep a child's drag alive if a browser releases capture when the hint clears.
 // Global listeners are registered once; they only run for an active ordering drag.
-addEventListener('pointermove',e=>{
+function paintOrderingDrag(e){
  if(!drag||e.pointerId!==drag.pointer)return;const id=drag.id,piece=pieces[id],dx=e.clientX-drag.x,dy=e.clientY-drag.y;
  if(Math.hypot(dx,dy)>6)drag.moved=true;if(!drag.moved)return;
+ const rect=$('board').getBoundingClientRect();
  piece.classList.add('dragging');piece.style.transform=`translate(${dx}px,${dy}px)`;
- const rect=$('board').getBoundingClientRect();if(topic==='letters')letterAnimations?.track((e.clientX-rect.left)/rect.width,(e.clientY-rect.top)/rect.height);
+ if(topic==='letters')letterAnimations?.track((e.clientX-rect.left)/rect.width,(e.clientY-rect.top)/rect.height);
  drag.target=(e.clientX<rect.left||e.clientX>rect.right||e.clientY<rect.top||e.clientY>rect.bottom)?drag.slot:slotAt(e.clientX,e.clientY,rect,currentPicture.axis);
  pieces.forEach((p,n)=>p.classList.toggle('target',n!==id&&order.indexOf(n)===drag.target));
-});
-addEventListener('pointerup',e=>{if(!drag||e.pointerId!==drag.pointer)return;const{slot,target,moved}=drag;clearDrag();if(moved)exchange(slot,target)});
+}
+addEventListener('pointermove',e=>{if(!drag||e.pointerId!==drag.pointer)return;orderDragPoint={pointerId:e.pointerId,clientX:e.clientX,clientY:e.clientY};if(!orderDragFrame)orderDragFrame=requestAnimationFrame(()=>{orderDragFrame=0;const point=orderDragPoint;orderDragPoint=null;if(point)paintOrderingDrag(point);});});
+addEventListener('pointerup',e=>{if(!drag||e.pointerId!==drag.pointer)return;paintOrderingDrag(e);const{slot,target,moved}=drag;clearDrag();if(moved)exchange(slot,target)});
 addEventListener('pointercancel',clearDrag);addEventListener('blur',clearDrag);
 function confetti({small=false}={}){
  clearTimeout(celebration);$('confetti').replaceChildren();if(reduced)return;
@@ -333,12 +339,10 @@ function closePause(){$('pause-dialog').close();if(voiceUnlocked&&currentPicture
 // Pause dialog has two views: the start screen ('home': logo, Sparky, PLAY) and the pause card
 // ('card': home / play / sound). Both keep the game paused; PLAY resumes.
 function homeView(view,fromCard){const d=$('pause-dialog');d.dataset.view=view;d.querySelector('.home-back').hidden=!fromCard;d.focus({preventScroll:true});/* no ring on PLAY when the screen opens; Tab still reaches every button */}
-// The start screen opens as soon as the first board is built, while Sparky and the scenery finish
-// getting ready behind it. PLAY waits for that (a ring spins on the button), so the heavy start-up
-// work never lands in the middle of play on a slow phone.
-let gameWarm=null,gameWarmDone=true;
-async function playFromHome(){const b=$('resume');if(!gameWarmDone&&gameWarm){if(b.classList.contains('home-wait'))return;b.classList.add('home-wait');sound('tap');await gameWarm;b.classList.remove('home-wait');if(!$('pause-dialog').open)return;}closePause();}
-function pause(view='card'){reviewActive=false;flow.pause();companion.clear();roundBanner.hide({immediate:true});activeRound?.pause?.();voice.cancel();cancelReactions();clearDrag();activeRound?.cancelDrag();if(!$('pause-dialog').open){sound('tap');gameAudio.setPaused(true);director.pause();$('pause-dialog').showModal();}homeView(view==='home'?'home':'card',false);}
+// The board and a decoded Sparky poster are ready before Home is shown. Let PLAY respond
+// in the same gesture; the worker replaces the poster once its first frame is available.
+function playFromHome(){closePause();}
+function pause(view='card'){reviewActive=false;flow.pause();companion.clear();roundBanner.hide({immediate:true});activeRound?.pause?.();cancelAllVoices();cancelReactions();clearDrag();activeRound?.cancelDrag();if(!$('pause-dialog').open){sound('tap');gameAudio.setPaused(true);director.pause();$('pause-dialog').showModal();}homeView(view==='home'?'home':'card',false);}
 $('mascot-button').onclick=()=>{
  if(topic==='variants'){if(!$('pause-dialog').open&&!navigationLoading)activeRound?.hint();return;}
  if($('pause-dialog').open||navigationLoading)return;if(currentPicture?.fun){if(soundOn){voiceUnlocked=true;voice.unlock();voice.say(currentPicture.intro);}return;}idleSchedule();sound('tap');companion.faceChild();flow.requestedSpeech();
@@ -349,9 +353,9 @@ $('mascot-button').onclick=()=>{
 $('exit').onclick=()=>pause('card');$('resume').onclick=playFromHome;$('card-play').onclick=closePause;$('card-home').onclick=()=>{sound('tap');homeView('home',true);};document.querySelector('#pause-dialog .home-back').onclick=()=>{sound('tap');homeView('card',false);};$('card-sound').onclick=()=>$('sound').click();$('pause-dialog').addEventListener('cancel',e=>{e.preventDefault();closePause();});
 $('next').onclick=advance;
 function muteUI(){$('sound').setAttribute('aria-label',soundOn?'Mute sound':'Turn sound on');$('sound').setAttribute('aria-pressed',String(!soundOn));const art='assets/art/arcade2/btn-sound-'+(soundOn?'on':'off')+'.webp';$('sound').querySelector('img').src=art;const card=$('card-sound');if(card){card.querySelector('img').src=art;card.setAttribute('aria-label',$('sound').getAttribute('aria-label'));card.setAttribute('aria-pressed',String(!soundOn));}}
-$('sound').onclick=()=>{soundOn=!soundOn;try{localStorage.setItem('sparky-swap-sound',soundOn?'on':'off');}catch{}muteUI();gameAudio.setEnabled(soundOn);voice.setEnabled(soundOn);activeRound?.setSound?.(soundOn);if(soundOn){sound('tap');introduce();}};muteUI();voice.setEnabled(soundOn);
+$('sound').onclick=()=>{soundOn=!soundOn;try{localStorage.setItem('sparky-swap-sound',soundOn?'on':'off');}catch{}muteUI();gameAudio.setEnabled(soundOn);if(!soundOn)cancelAllVoices();voice.setEnabled(soundOn);activeRound?.setSound?.(soundOn);if(soundOn){sound('tap');introduce();}};muteUI();voice.setEnabled(soundOn);
 addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('pause-dialog').open){e.preventDefault();pause('card');}});
-document.addEventListener('visibilitychange',()=>{if(document.hidden)activeRound?.pause?.();clearDrag();activeRound?.cancelDrag();gameAudio.setHidden(document.hidden);if(document.hidden){flow.pause();companion.clear();roundBanner.hide({immediate:true});voice.cancel();clearTimeout(idleTimer);director.pause();}else if(!$('pause-dialog').open&&!screenUnavailable()){director.resume();activeRound?.resume?.();flow.resume();idleSchedule();}});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)activeRound?.pause?.();clearDrag();activeRound?.cancelDrag();gameAudio.setHidden(document.hidden);if(document.hidden){flow.pause();companion.clear();roundBanner.hide({immediate:true});cancelAllVoices();clearTimeout(idleTimer);director.pause();}else if(!$('pause-dialog').open&&!screenUnavailable()){director.resume();activeRound?.resume?.();flow.resume();idleSchedule();}});
 const portraitScreen=matchMedia('(orientation:portrait)');
 function screenUnavailable(){return portraitScreen.matches||document.body.classList.contains('compact-screen');}
 let orientationBlocked=false;
@@ -368,7 +372,7 @@ portraitScreen.addEventListener('change',syncOrientation);
 const refreshLayout=()=>{clearDrag();activeRound?.cancelDrag();layoutArt();syncOrientation();};
 addEventListener('resize',refreshLayout);window.visualViewport?.addEventListener('resize',refreshLayout);
 if('ResizeObserver' in window)new ResizeObserver(()=>layoutArt()).observe($('board'));
-async function boot(){performance.mark('sparky:boot-start');const diffAsked=new URLSearchParams(location.search).get('game')==='differences';try{
+async function boot(){performance.mark('sparky:boot-start');const diffAsked=new URLSearchParams(location.search).get('game')==='differences'||isCombinedGame()&&playlist.startId==='differences';try{
  await Promise.race([window.sparkyLoadingArt||Promise.resolve(),sleep(2500)]);// loading screen pictures first, then the game's big downloads
  await Promise.all([
   (async()=>{try{const response=await fetch('assets/art/assembly/manifest.json?v=lip-sync-40');if(response.ok){const catalog=await response.json();assemblyEnabled=catalog.ready===true&&catalog.images?.length===40;}}catch{}})(),
@@ -379,12 +383,12 @@ async function boot(){performance.mark('sparky:boot-start');const diffAsked=new 
  // download) fades in when it arrives. Feeding drives Sparky directly, so it waits.
  // Sparky downloads alongside the board. The loading screen stays until the board is complete
   // and Sparky has drawn his first live frame (at most 25 s; then his still picture stands in).
-  const needsSparky=first.variant==='food-sort';releaseSparky();const sparky=director.ready.then(()=>director.show('idle'));
+  const needsSparky=first.variant==='food-sort';const sparky=director.ready.then(()=>director.show('idle'));
   const sparkyLive=Promise.race([sparky.then(()=>sparkyDrawn()).then(()=>{document.documentElement.dataset.sparky='ready';return true;}),sleep(25000).then(()=>false)]).catch(()=>false);
- await Promise.all([loadPicture(first),loadOpeningArt(first),prepareVariant(first),Promise.race([prepareBoardArt(first),sleep(5000)])]);roundCount=1;start(first);
- await boardReady(first,5000);/* then give Sparky up to 4 s more; on slow lines his still picture stands in until he is live */const homeFirst=!new URLSearchParams(location.search).get('game');/* the start screen covers the board: no need to hold the loading screen for live Sparky */const live=needsSparky?await sparkyLive:await Promise.race([sparkyLive,sleep(homeFirst?0:4000).then(()=>false)]);if(live)document.documentElement.dataset.sparky='ready';else if(!needsSparky)showSparkyPoster();if(homeFirst&&!live){gameWarmDone=false;gameWarm=Promise.race([Promise.all([sparkyLive,sparkyLive.then(()=>sceneDrawn(8000))]),sleep(25000)]).then(()=>{gameWarmDone=true;});}$('loading').hidden=true;setTimeout(veilEl,2500);if(!new URLSearchParams(location.search).get('game'))pause('home');
- sparky.then(()=>{document.documentElement.dataset.sparky='ready'},e=>console.error('Sparky could not load',e));sparky.finally(()=>setTimeout(warmGame,1500));setTimeout(()=>{if(!navigator.connection?.saveData)void warmStyleArt();},12000);setTimeout(warmGame,30000);performance.mark('sparky:ready');performance.measure('sparky:boot','sparky:boot-start','sparky:ready');syncOrientation();warmNextRound();
- }catch(e){$('loading').querySelector('p').textContent='Could not load the game. Please refresh.';console.error(e);}}
+ await Promise.all([loadPicture(first),loadOpeningArt(first),prepareVariant(first),Promise.race([prepareBoardArt(first),sleep(5000)])]);gameAudio.prepare();releaseSparky();roundCount=1;start(first);
+ await boardReady(first,5000);/* then give Sparky up to 4 s more; on slow lines his still picture stands in until he is live */const homeFirst=!new URLSearchParams(location.search).get('game');/* the start screen covers the board: no need to hold the loading screen for live Sparky */const live=needsSparky?await sparkyLive:await Promise.race([sparkyLive,sleep(homeFirst?0:4000).then(()=>false)]);if(live)document.documentElement.dataset.sparky='ready';else if(!needsSparky)showSparkyPoster();$('loading').hidden=true;setTimeout(veilEl,2500);if(!new URLSearchParams(location.search).get('game'))pause('home');
+ sparky.then(()=>{document.documentElement.dataset.sparky='ready'},e=>console.error('Sparky could not load',e));sparky.then(()=>setTimeout(warmGame,1500),()=>{});setTimeout(()=>{if(warmAllAssets())void warmStyleArt();},12000);setTimeout(warmGame,30000);performance.mark('sparky:ready');performance.measure('sparky:boot','sparky:boot-start','sparky:ready');syncOrientation();warmNextRound();
+ }catch(e){const loading=$('loading');loading.dataset.failed='true';const message=document.createElement('div');message.className='loading-retry';message.setAttribute('role','alert');const label=document.createElement('p');label.textContent='Let us try that again!';const retry=document.createElement('button');retry.type='button';retry.textContent='Try again';retry.onclick=()=>location.reload();message.append(label,retry);loading.append(message);console.error(e);}}
 
-if(location.hostname==='127.0.0.1'||location.hostname==='localhost')window.sparkyReview={async startVariant(id,round=0,content=null){clearTimeout(prefetchTimer);upcomingBoard=null;const picture=makeVariantBoard(id,round);if(content)picture.content=content;await prepareVariant(picture);const url=new URL(location.href);url.searchParams.set('game',id);history.replaceState(null,'',url);variantRoundNumber=round+1;start(picture);syncOrientation();return activeRound;},get current(){return activeRound},get picture(){return currentPicture},get navigating(){return navigationLoading},get breaks(){return breakSchedule}};
+if(location.hostname==='127.0.0.1'||location.hostname==='localhost')window.sparkyReview={async startVariant(id,round=0,content=null){clearTimeout(prefetchTimer);upcomingBoard=null;const picture=makeVariantBoard(id,round);if(content)picture.content=content;await prepareVariant(picture);const url=new URL(location.href);url.searchParams.set('game',id);history.replaceState(null,'',url);variantRoundNumber=round+1;start(picture);syncOrientation();return activeRound;},get artCache(){return decodedArt.stats},get current(){return activeRound},get picture(){return currentPicture},get navigating(){return navigationLoading},get breaks(){return breakSchedule}};
 boot();

@@ -1,6 +1,6 @@
 /** A brief asset-based demonstration. It never feeds food or changes progress. */
 export class FeedingGuide{
- constructor(feeding){this.feeding=feeding;this.hand=new Image();this.hand.src='assets/art/toy-board/connection-hand.webp';this.hand.alt='';this.hand.className='feeding-demo-hand';this.hand.hidden=true;feeding.room.append(this.hand);}
+ constructor(feeding){this.feeding=feeding;this.hand=new Image();this.hand.src='assets/art/toy-board/connection-hand-play.webp';this.hand.alt='';this.hand.className='feeding-demo-hand';this.hand.hidden=true;feeding.room.append(this.hand);}
  show(foodButton,method){
   this.stop();const f=this.feeding;if(f.pending||f.round.reduced||!f.round.active()||f.round.drag)return;
   const tool=f.tools.get(method),nodes=tool?[tool,foodButton,f.target]:[foodButton,f.target];if(nodes.some(n=>!n))return;

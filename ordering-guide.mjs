@@ -18,7 +18,7 @@ export class OrderingGuide{
   this.source=source;this.header=header;source.classList.add('ordering-invite');header.classList.add('ordering-destination');
   const root=this.board.getBoundingClientRect(),a=source.getBoundingClientRect(),b=destination.getBoundingClientRect();
   const ghost=source.cloneNode(true);ghost.className='ordering-demo-card';ghost.removeAttribute('aria-label');ghost.removeAttribute('data-card-index');ghost.disabled=true;ghost.tabIndex=-1;ghost.style.cssText=`left:${a.left-root.left}px;top:${a.top-root.top}px;width:${a.width}px;height:${a.height}px`;
-  const hand=new Image();hand.src='assets/art/toy-board/connection-hand.webp';hand.alt='';hand.draggable=false;hand.className='ordering-demo-hand';
+  const hand=new Image();hand.src='assets/art/toy-board/connection-hand-play.webp';hand.alt='';hand.draggable=false;hand.className='ordering-demo-hand';
   this.layer.replaceChildren(ghost,hand);this.layer.hidden=false;
   const startX=a.left-root.left+a.width*.45,startY=a.top-root.top+a.height*.57;
   hand.style.left=startX+'px';hand.style.top=startY+'px';

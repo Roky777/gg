@@ -9,7 +9,9 @@ export function createSpeechAnimation(data){
 /* Shared renderer: one WebGL context for any number of visible preview canvases. */
 export function applyRigPose(v,time){
  const elapsed=v.fixedTime??Math.max(0,time-v.start);
- const dt=v.fixedTime===null?Math.max(0,time-v.previousTime):0;
+ // Seeking controls the current clip's sample, not the transition clock. The rig
+ // clock already freezes on pause; keeping dt=0 here left mixingFrom chains alive.
+ const dt=Math.max(0,time-v.previousTime);
  v.previousTime=time;v.state.update(dt);v.entry.trackTime=elapsed;
  v.skeleton.setToSetupPose();v.state.apply(v.skeleton);
  for(const [slot,attachment] of v.preservedAttachments)slot.setAttachment(attachment);

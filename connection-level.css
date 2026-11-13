@@ -3,8 +3,8 @@
 #board .focused-level .variant-column{position:absolute;inset:0;display:block;pointer-events:none}
 #board .focused-level .variant-card{position:absolute;pointer-events:auto;display:flex;align-items:center;justify-content:center;max-width:none;min-width:44px;min-height:44px;translate:-50% -50%;height:auto;aspect-ratio:1;padding:0;border:0!important;--skin-border:0px;border-radius:50%;background-image:url('assets/art/toy-board/token-blue.webp')!important}
 #board .focused-level .variant-card[hidden]{display:none!important}
-.game #board .focused-level [data-source].level-current{--challenge-rim:clamp(10px,2.4cqw,24px);left:24cqw;top:34cqh;width:40cqw;height:60cqh;aspect-ratio:auto;z-index:2;border-radius:18px;background:none!important;border:var(--challenge-rim) solid transparent!important;border-image:url('assets/art/toy-board/card-selected.webp') 12% fill stretch!important;border-image-width:1!important}
-.game #board .focused-level [data-source].level-current.matched{background:none!important;border-image-source:url('assets/art/toy-board/card-correct.webp')!important}
+.game #board .focused-level [data-source].level-current{--challenge-rim:clamp(10px,2.4cqw,24px);left:24cqw;top:34cqh;width:40cqw;height:60cqh;aspect-ratio:auto;z-index:2;border-radius:18px;background:none!important;border:var(--challenge-rim) solid transparent!important;border-image:url('assets/art/toy-board/card-selected-play.webp') 12% fill stretch!important;border-image-width:1!important}
+.game #board .focused-level [data-source].level-current.matched{background:none!important;border-image-source:url('assets/art/toy-board/card-correct-play.webp')!important}
 #board .focused-level [data-target]{width:min(18cqw,35cqh);background-image:url('assets/art/toy-board/token-blue.webp')!important}
 #board .focused-level [data-target]:nth-child(1){left:70cqw;top:18cqh}
 #board .focused-level [data-target]:nth-child(2){left:87cqw;top:50cqh}

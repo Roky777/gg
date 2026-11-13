@@ -1,14 +1,14 @@
-import{LearningVoice}from'../learning-voice.js?v=one-voice-2';
+import{LearningVoice}from'../learning-voice.js?v=one-voice-3';
 import{recordingFor}from'../voice-cues.js?v=lip-sync-40';
 import{renderLearningType}from'../learning-type.mjs';
-import{PairConnections}from'./pair-connections.mjs';
-import{ConnectionLevel}from'./connection-level.mjs';
+import{PairConnections}from'./pair-connections.mjs?v=2';
+import{ConnectionLevel}from'./connection-level.mjs?v=2';
 import{StickerStudio}from'./sticker-studio.mjs?v=5';
 import{VARIANTS,STORIES,matchContent,freshMatchContent,shuffled,randomFor}from'./content.mjs';
 import{artNode}from'./art.mjs';
 import{ProductionPlayer}from'../production-player.mjs';
 import{letterClipById}from'../animation-studio/letter-clips.mjs';
-import{FoodChoices}from'./food-choices.mjs?v=voice-3';
+import{FoodChoices}from'./food-choices.mjs?v=smooth-6';
 import{positionFoodDrag}from'./feeding-drag.mjs';
 // Recorded Hinglish voice use (recorded-only: an id without a file stays silent).
 // Help cycles through the game's own hint, then how to tap, then how to draw a line.
@@ -41,24 +41,30 @@ export class VariantRound{
    if(Math.hypot(event.clientX-d.x,event.clientY-d.y)>8)d.moved=true;
    if(!d.moved)return;
    event.preventDefault();
-   const feeding=this.spec.id==='food-sort'&&['food','utensil'].includes(item.kind);if(feeding)this.feeding.trackDrag(item,event.clientX,event.clientY);
-   if(!this.ghost){
-    if(feeding){this.ghost=this.feeding.createDrag(item,button);button.classList.add('food-being-dragged');}
-    else{this.ghost=button.cloneNode(true);this.ghost.classList.add('variant-drag-ghost');this.ghost.setAttribute('aria-hidden','true');this.ghost.style.width=button.getBoundingClientRect().width+'px';}
-    document.body.append(this.ghost);
-   }
-   if(feeding)positionFoodDrag(this.ghost,event.clientX,event.clientY,this.feeding.target.getBoundingClientRect());
-   else{this.ghost.style.left=event.clientX+'px';this.ghost.style.top=event.clientY+'px';}
+   this.dragPoint={clientX:event.clientX,clientY:event.clientY,pointerId:event.pointerId};
+   if(!this.dragFrame)this.dragFrame=requestAnimationFrame(()=>{this.dragFrame=null;this.flushDrag()});
   });
   this.listen(button,'pointerup',event=>{
    const d=this.drag;if(!d||d.id!==event.pointerId)return;
+   if(d.moved){this.dragPoint={clientX:event.clientX,clientY:event.clientY,pointerId:event.pointerId};this.flushDrag();}
    this.cancelDrag();
    if(d.moved){if(this.feeding){this.feeding.drop(item,button,event.clientX,event.clientY);return;}this.select(button,key,item);const target=document.elementFromPoint(event.clientX,event.clientY)?.closest('[data-target]');if(target&&this.body.contains(target))target.click();}
   });
   this.listen(button,'pointercancel',()=>this.cancelDrag());
   this.listen(button,'lostpointercapture',()=>{if(this.drag?.button===button)this.cancelDrag();});
  }
- cancelDrag(){this.connections?.cancel();this.drag?.button.classList.remove('food-being-dragged');this.feeding?.releaseFood();this.ghost?.remove();this.ghost=null;this.drag=null}
+ flushDrag(){cancelAnimationFrame(this.dragFrame);this.dragFrame=null;const event=this.dragPoint;this.dragPoint=null;if(event)this.paintDrag(event);}
+ paintDrag(event){const d=this.drag;if(!d||d.id!==event.pointerId)return;const{item,button}=d;
+   const feeding=this.spec.id==='food-sort'&&['food','utensil'].includes(item.kind);if(feeding)this.feeding.trackDrag(item,event.clientX,event.clientY);
+   if(!this.ghost){
+    if(feeding){this.ghost=this.feeding.createDrag(item,button);button.classList.add('food-being-dragged');}
+    else{this.ghost=button.cloneNode(true);this.ghost.classList.add('variant-drag-ghost');this.ghost.setAttribute('aria-hidden','true');this.ghost.style.width=button.getBoundingClientRect().width+'px';}
+    document.body.append(this.ghost);
+   }
+   if(feeding)positionFoodDrag(this.ghost,event.clientX,event.clientY,this.feeding.mouthBounds());
+   else{this.ghost.style.left=event.clientX+'px';this.ghost.style.top=event.clientY+'px';}
+ }
+ cancelDrag(){cancelAnimationFrame(this.dragFrame);this.dragFrame=null;this.dragPoint=null;this.connections?.cancel();this.drag?.button.classList.remove('food-being-dragged');this.feeding?.releaseFood();this.ghost?.remove();this.ghost=null;this.drag=null}
  wrong(message='Have another look. You can try again.'){this.sound('wrong');this.onWrong();if(!this.feeding){this.misses=(this.misses??0)+1;this.narrate(this.misses===1?'retry_01':this.misses===2?(HINT_VOICE[this.spec.id]??'retry_02'):'clue_offer');if(this.misses>=3)this.focus?.guide?.show?.();}this.feedback.textContent=message;void this.player.play(letterClipById.get('LM04')).catch(()=>{})}
  acknowledge(button,notify=true){button.classList.remove('selected');button.classList.add('matched');button.disabled=true;if(notify){this.sound('match');this.onMatch();void this.player.play(letterClipById.get('LM03')).catch(()=>{})}}
  done(){if(this.complete||this.destroyed)return;this.complete=true;this.cancelDrag();if(!this.feeding){this.player.stop();const win=WIN_VOICE[this.spec.id];if(win)this.narrate(win[winTurn++%win.length]);}this.feedback.textContent='You did it!';this.onComplete()}

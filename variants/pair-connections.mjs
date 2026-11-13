@@ -5,7 +5,7 @@ export class PairConnections{
   const r=this.round;button.dataset.source=key;
   r.listen(button,'click',()=>{if(this.suppressed===button&&performance.now()<this.suppressUntil){this.suppressed=null;return;}this.clearFailure();r.select(button,key,item);});
   r.listen(button,'pointerdown',e=>{if(!r.active()||button.disabled||e.button!==0)return;r.onActivity();this.clearFailure();this.drag={button,key,item,id:e.pointerId,x:e.clientX,y:e.clientY,moved:false};button.setPointerCapture?.(e.pointerId);});
-  r.listen(button,'pointermove',e=>{const d=this.drag;if(!d||d.id!==e.pointerId)return;if(Math.hypot(e.clientX-d.x,e.clientY-d.y)>8)d.moved=true;if(!d.moved)return;e.preventDefault();d.point={x:e.clientX,y:e.clientY};d.target=this.targetAt(e.clientX,e.clientY);this.render();});
+  r.listen(button,'pointermove',e=>{const d=this.drag;if(!d||d.id!==e.pointerId)return;if(Math.hypot(e.clientX-d.x,e.clientY-d.y)>8)d.moved=true;if(!d.moved)return;e.preventDefault();d.point={x:e.clientX,y:e.clientY};d.target=this.targetAt(e.clientX,e.clientY);if(!this.renderFrame)this.renderFrame=requestAnimationFrame(()=>{this.renderFrame=0;this.render()});});
   r.listen(button,'pointerup',e=>{const d=this.drag;if(!d||d.id!==e.pointerId)return;this.drag=null;if(d.moved){this.suppressed=button;this.suppressUntil=performance.now()+200;const target=this.targetAt(e.clientX,e.clientY);r.select(button,key,item);if(target)r.tryPair(target,target.dataset.target);}this.render();});
   for(const event of['pointercancel','lostpointercapture'])r.listen(button,event,e=>{if(this.drag?.id===e.pointerId)this.cancel();});
  }
@@ -14,6 +14,7 @@ export class PairConnections{
  clearFailure(){clearTimeout(this.timer);this.failed=null;this.render();}
  cancel(){this.drag=null;this.clearFailure();}
  render(){
+  cancelAnimationFrame(this.renderFrame);this.renderFrame=0;
   const r=this.round,svg=r.lineSvg;if(!svg||r.destroyed)return;const box=r.body.getBoundingClientRect();svg.replaceChildren();svg.setAttribute('viewBox',`0 0 ${box.width||1} ${box.height||1}`);
   const line=(a,b,state,point)=>{
    const left=a.getBoundingClientRect(),right=b?.getBoundingClientRect(),x1=left.right-box.left,y1=left.top+left.height/2-box.top,x2=right?right.left-box.left:point.x-box.left,y2=right?right.top+right.height/2-box.top:point.y-box.top,curve=Math.max(18,Math.abs(x2-x1)*.42),group=document.createElementNS(SVG,'g');group.setAttribute('class','connection-'+state);
@@ -26,5 +27,5 @@ export class PairConnections{
   if(this.failed)line(...this.failed,'wrong');
   const d=this.drag;if(d?.moved&&d.point)line(d.button,d.target,d.target?(d.key===d.target.dataset.target?'correct':'wrong'):'draft',d.point);
  }
- destroy(){clearTimeout(this.timer);this.drag=null;this.failed=null;}
+ destroy(){cancelAnimationFrame(this.renderFrame);clearTimeout(this.timer);this.drag=null;this.failed=null;}
 }

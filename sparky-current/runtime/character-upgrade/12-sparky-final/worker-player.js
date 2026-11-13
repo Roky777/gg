@@ -1,4 +1,4 @@
-import { applyRigPose, createSpeechAnimation } from './player.js?v=perf-4';
+import { applyRigPose, createSpeechAnimation } from './player.js?v=perf-5';
 import { attachmentTable, packPose, anchorSkeleton } from './rig-wire.js?v=1';
 const SVG_PAGES = ['./feeding-mouth.svg', './limbs-v2/limb-parts.svg'];
 

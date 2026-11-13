@@ -3,7 +3,7 @@ export class ConnectionGuide {
  constructor(focus){
   this.focus=focus;this.round=focus.round;this.animations=[];
   this.element=document.createElement('div');this.element.className='connection-guide';this.element.hidden=true;this.element.setAttribute('aria-hidden','true');
-  this.element.innerHTML='<svg><path/></svg><img class="connection-guide-hand" src="assets/art/toy-board/connection-hand.webp" alt="" draggable="false">';
+  this.element.innerHTML='<svg><path/></svg><img class="connection-guide-hand" src="assets/art/toy-board/connection-hand-play.webp" alt="" draggable="false">';
   this.round.body.append(this.element);
   for(const event of ['pointerdown','keydown'])this.round.listen(this.round.element,event,()=>{this.stop();this.schedule(9000);});
   this.round.listen(window,'resize',()=>{this.stop();this.schedule(6500);});

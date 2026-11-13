@@ -232,3 +232,53 @@
 .top-banner .tb-svg{top:43%;height:11.8cqw;max-width:66cqw}
 .top-banner .tb-svg svg{max-width:66cqw}
 .top-banner .tb-rule{top:66.5%;max-width:70cqw;padding:.3cqw 2.4cqw .42cqw;line-height:1.1;font-size:3.6cqw;font-weight:900;letter-spacing:.01em;color:#3b1580;background:linear-gradient(#fffdf6,#fff3d6);box-shadow:inset 0 .2cqw 0 #fff,0 0 0 .3cqw #f0b94a,0 .35cqw .5cqw #8a4a0030}
+/* Phone polish: larger controls use safe screen edges, not the cropped stage edge. */
+.game{--layout-board-left:22%}
+.game>.mascot{left:2.5%!important}
+.game>.game-button.game-button{width:clamp(64px,6.4%,88px)!important;min-width:64px!important;min-height:64px!important}
+.game>.game-button.sound{left:calc(12px - var(--safe-left))!important;top:calc(12px - var(--safe-top))!important}
+.game>.game-button.exit{right:calc(12px - var(--safe-right))!important;top:calc(12px - var(--safe-top))!important}
+.game>.game-button.next{right:calc(12px - var(--safe-right))!important;bottom:calc(10px - var(--safe-bottom))!important}
+.loading-retry{position:absolute;z-index:10;inset:auto 10% 8%;padding:16px;text-align:center;border-radius:24px;background:#fff9eb;color:#4a1d96;font-weight:900;box-shadow:0 6px 20px #26104740}
+.loading-retry button{min-height:52px;min-width:150px;border:3px solid #ffd262;border-radius:18px;background:#6437a9;color:white;font:inherit;padding:8px 24px;cursor:pointer}
+.loading[data-failed] .load-meter{display:none}
+
+/* A calm lesson header in the same materials as the board. The content is real
+   text with a clear title/instruction hierarchy, without outlines or star bursts. */
+.game>.top-banner{width:clamp(320px,calc(var(--stage-w,900px)*.54),700px);aspect-ratio:1280/262;left:57%;--land:calc(9px + var(--clip-top,0px));top:var(--land)}
+.top-banner .tb-svg{top:34%;height:auto;width:82cqw;max-width:none;font-size:clamp(18px,5.4cqw,30px);line-height:1.1;font-weight:1000;color:#235775;text-align:center;white-space:nowrap;letter-spacing:0;animation:none!important;text-shadow:0 1px #fff}
+.top-banner .tb-rule{top:68%;width:82cqw;max-width:82cqw;padding:0;background:none;box-shadow:none;white-space:nowrap;text-align:center;line-height:1.15;color:#417087;font-weight:800;animation:none!important}
+.top-banner.no-rule .tb-svg{top:50%;height:auto}
+.top-banner .tb-shine,.top-banner .tb-burst{display:none}
+.top-banner.in .tb-swing{animation:none}
+.game>.top-banner.in{animation:lesson-enter .24s ease-out forwards}
+.game>.top-banner.out{animation:lesson-leave .18s ease-in forwards}
+@keyframes lesson-enter{from{opacity:0;transform:translate(-50%,-8px)}to{opacity:1;transform:translate(-50%,0)}}
+@keyframes lesson-leave{from{opacity:1;transform:translate(-50%,0)}to{opacity:0;transform:translate(-50%,-6px)}}
+@media(prefers-reduced-motion:reduce){.game>.top-banner.in{animation:none;opacity:1;transform:translate(-50%,0)}.game>.top-banner.out{animation:none;opacity:0}}
+
+/* The Arcade ribbon echoes the home logo's purple, gold and glossy highlights.
+   Both live text lines sit on the continuous ribbon face. */
+.game>.top-banner{width:clamp(320px,calc(var(--stage-w,900px)*.52),700px);aspect-ratio:1280/272;--land:calc(4px + var(--clip-top,0px))}
+.top-banner .tb-art{inset:auto;left:0;top:0;width:100%;height:auto}
+.top-banner .tb-svg{top:22%;width:76cqw;font-size:clamp(19px,5.8cqw,34px);background:linear-gradient(#fffbd1 0%,#ffef68 42%,#ffbb23 100%);background-clip:text;-webkit-background-clip:text;color:transparent;-webkit-text-stroke:.25px #fff3ab;text-shadow:none;filter:drop-shadow(0 1.5px 0 #651676)}
+.top-banner .tb-rule{top:49.5%;width:80cqw;max-width:80cqw;color:#fff8ff;font-weight:900;text-shadow:0 1px 1px #4b0c75}
+.top-banner.no-rule .tb-svg{top:35%}
+/* Keep the lettering clear of the ribbon's upper gold piping. */
+.top-banner .tb-svg{top:25%}
+.top-banner .tb-rule{top:52.5%}
+
+/* One curved heading follows the ribbon; the supporting description is removed. */
+.top-banner .tb-svg{inset:0;top:0;left:0;translate:none;width:100%;height:100%;max-width:none;background:none;color:inherit;-webkit-text-stroke:0;filter:drop-shadow(0 1px 0 #57136b)}
+.top-banner .tb-svg svg{display:block;width:100%;height:100%;max-width:none;overflow:visible}
+
+/* Ribbon performance uses bounded compositor animations; never an idle render loop. */
+.game>.top-banner.in,.game>.top-banner.out{animation:none;transform:translate(-50%,0);opacity:1}
+.top-banner .tb-polish{position:absolute;inset:0;pointer-events:none;overflow:hidden;mask:url('assets/art/arcade2/lesson-ribbon-gloss-v4.webp') center/100% 100% no-repeat;-webkit-mask:url('assets/art/arcade2/lesson-ribbon-gloss-v4.webp') center/100% 100% no-repeat}
+.top-banner .tb-light-pass{position:absolute;left:0;top:-35%;width:13%;height:170%;opacity:0;background:linear-gradient(90deg,#fff0,#fff9d9bd 48%,#ffffffed 52%,#fff0);will-change:transform,opacity}
+.top-banner .tb-glints{position:absolute;inset:0;pointer-events:none}
+.top-banner .tb-glints svg{position:absolute;height:auto;aspect-ratio:1;opacity:0;overflow:visible;filter:drop-shadow(0 0 2px #fff4a0)}
+@media(prefers-reduced-motion:reduce){.top-banner .tb-polish,.top-banner .tb-glints{display:none}}
+
+/* Count and Match centres over the painted counting board, excluding its number tray. */
+.game>.top-banner.board-aligned{left:var(--banner-board-center);width:var(--banner-board-width)}

@@ -1,7 +1,7 @@
 // Counting board hand tutorial: a hand carries the correct number from the tray
 // to the first empty "?" pocket. It only demonstrates; it never places an answer
 // and never takes input (pointer-events:none).
-const HAND='assets/art/toy-board/connection-hand.webp';
+const HAND='assets/art/toy-board/connection-hand-play.webp';
 const FIRST_DELAY=1500,IDLE_DELAY=9000,REPEAT_DELAY=11000,MAX_UNANSWERED_REPEATS=3;
 export class CountingGuide{
  constructor(round,{paused=()=>false,reduced=false}={}){

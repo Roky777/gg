@@ -1,6 +1,6 @@
 // One readable challenge, three choices, then a quiet handoff to the next.
 // Existing answer validation and connection input remain owned by VariantRound.
-import {ConnectionGuide} from './connection-guide.mjs';
+import {ConnectionGuide} from './connection-guide.mjs?v=2';
 export class ConnectionLevel {
  constructor(round,data){
   this.round=round;this.sources=[...round.left.children];this.choices=[...round.right.children];

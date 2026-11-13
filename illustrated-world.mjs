@@ -8,7 +8,7 @@ const game=document.querySelector('.game'),dialog=document.getElementById('pause
 const canvas=document.createElement('canvas');canvas.className='illustrated-world';canvas.setAttribute('aria-hidden','true');canvas.hidden=true;game.prepend(canvas);
 const atmosphere=document.createElement('div');atmosphere.className='scene-atmosphere';atmosphere.setAttribute('aria-hidden','true');atmosphere.hidden=true;canvas.after(atmosphere);
 const cloudSpecs=[{phase:.26,duration:84,width:16,top:2.5,opacity:.96},{phase:.73,duration:110,width:12,top:3.5,opacity:.86},{phase:1.08,duration:96,width:18,top:7.5,opacity:.95}];
-const clouds=cloudSpecs.map(spec=>{const node=new Image();node.src='assets/art/worlds-v2/cloud.webp';node.alt='';node.draggable=false;node.style.cssText=`width:${spec.width}%;top:${spec.top}%;opacity:${spec.opacity}`;atmosphere.append(node);return{...spec,node,x:0};});
+const clouds=cloudSpecs.map(spec=>{const node=new Image();node.src='assets/art/worlds-v2/cloud-play.webp';node.alt='';node.draggable=false;node.style.cssText=`width:${spec.width}%;top:${spec.top}%;opacity:${spec.opacity}`;atmosphere.append(node);return{...spec,node,x:0};});
 let worldWidth=1;
 // Stage placement inside the full-screen canvas, as fractions of the canvas.
 let layout={x:0,y:0,top:0,w:1,h:1,aspect:16/9},maskKey='';
@@ -28,7 +28,7 @@ const mirror=x=>{x=Math.abs(x);return x>1?2-x:x;};
 // the picture shows as much as the screen allows and zooms in only as far as that needs.
 function fitWorld(){
  const screen=(layout.cw||1)/(layout.ch||1),art=image?image.naturalWidth/image.naturalHeight:16/9,r=art/screen,pan=current()?.pan??0,m=.006,z=1.012,st=layout.aspect||16/9;
- const cs=[art>st?st/art:1,art>st?1:art/st],dx=.5+(.13+pan-.5)*cs[0]/z,dy=.5+(.14-.5)*cs[1]/z,ux=layout.x+.13*layout.w,uy=layout.y+.14*layout.h;
+ const cs=[art>st?st/art:1,art>st?1:art/st],dx=.5+(.1125+pan-.5)*cs[0]/z,dy=.5+(.14-.5)*cs[1]/z,ux=layout.x+.1125*layout.w,uy=layout.y+.14*layout.h;
  const widest=Math.min(1-2*m,(1-2*m)/r);let kx=Math.min(widest,cs[0]/z/(layout.w||1));
  if(ux<1)kx=Math.min(kx,(1-m-dx)/(1-ux));if(ux>0)kx=Math.min(kx,(dx-m)/ux);
  if(uy<1)kx=Math.min(kx,(1-m-dy)/(1-uy)/r);if(uy>0)kx=Math.min(kx,(dy-m)/uy/r);
@@ -39,6 +39,13 @@ function fitWorld(){
 // Masks are cached per scene and layout (boards reuse the same few scenes), and a new one is
 // built in idle time after the board has arrived, never during the board change itself.
 const maskCache=new Map();let maskJob=0;
+let skyWorker=null,skyWorkerFailed=false,skyRequest=0;const skyPending=new Map();
+function prepareSkyMask(payload){
+ if(skyWorkerFailed||typeof Worker!=='function'||typeof OffscreenCanvas!=='function')return Promise.reject(Error('Mask worker unavailable'));
+ if(!skyWorker){try{skyWorker=new Worker(new URL('./sky-mask-worker.mjs',import.meta.url),{type:'module'});skyWorker.onmessage=({data})=>{const job=skyPending.get(data.id);if(!job)return;clearTimeout(job.timer);skyPending.delete(data.id);data.error?job.reject(Error(data.error)):job.resolve(data.blob);};skyWorker.onerror=()=>{skyWorkerFailed=true;skyWorker.terminate();skyWorker=null;for(const job of skyPending.values()){clearTimeout(job.timer);job.reject(Error('Mask worker failed'));}skyPending.clear();};}catch(error){skyWorkerFailed=true;return Promise.reject(error);}}
+ const id=++skyRequest;return new Promise((resolve,reject)=>{const timer=setTimeout(()=>{skyPending.delete(id);reject(Error('Mask preparation timeout'));},8000);skyPending.set(id,{resolve,reject,timer});skyWorker.postMessage({...payload,id},[payload.src.buffer]);});
+}
+function rememberMask(key,url){maskCache.set(key,url);if(maskCache.size>24){const oldest=maskCache.keys().next().value,old=maskCache.get(oldest);maskCache.delete(oldest);const blob=old?.match(/blob:[^")]+/)?.[0];if(blob)URL.revokeObjectURL(blob);}atmosphere.style.maskImage=url;atmosphere.style.visibility='';}
 function updateSkyMask(){
  if(!current()?.life?.clouds||!image){atmosphere.style.maskImage='none';maskKey='';return;}
  const key=sceneName+'|'+(current()?.pan??0)+'|'+[layout.x,layout.top,layout.w,layout.h,(layout.cw||1)/(layout.ch||1)].map(n=>n.toFixed(3)).join(',');if(key===maskKey)return;
@@ -55,6 +62,8 @@ async function buildSkyMask(key){if(key===maskKey)return;maskKey=key;const job=m
  const scale=Math.max(art.width/image.naturalWidth,art.height/image.naturalHeight),w=image.naturalWidth*scale,h=image.naturalHeight*scale;actx.drawImage(image,(art.width-w)/2,(art.height-h)/2,w,h);
  const src=actx.getImageData(0,0,art.width,art.height).data;
  const mw=384,mh=Math.max(1,Math.round(384*(layout.ch||432)/(layout.cw||768)));
+ // Keep pixel classification and PNG encoding away from active input and animation.
+ try{const blob=await prepareSkyMask({src:new Uint8ClampedArray(src),sw:art.width,sh:art.height,mw,mh,fw:fitWorld()});if(gone())return;rememberMask(key,`url("${URL.createObjectURL(blob)}")`);return;}catch{} // The cooperative fallback supports older browsers.
  const mask=document.createElement('canvas');mask.width=mw;mask.height=mh;const ctx=mask.getContext('2d',{willReadFrequently:true});/* software canvas: encoding a GPU canvas waits for the GPU (seconds while Sparky and the scenery draw) */const pixels=ctx.createImageData(mw,mh),clamp=n=>Math.max(0,Math.min(1,n));
  const fw=fitWorld();/* screen pixel -> artwork, exactly as the shader does */
  for(let j=0;j<mh;j++){if(j&&j%24===0){await breath();if(gone())return;}const sy=1-(fw.ky*(1-(j+.5)/mh)+fw.by);const ay=Math.min(art.height-1,Math.max(0,Math.floor(clamp(sy)*art.height)));
@@ -65,7 +74,7 @@ async function buildSkyMask(key){if(key===maskKey)return;maskKey=key;const job=m
  // white awning) so a passing cloud never shows through as dots; open sky keeps its shape.
  const alpha=new Uint8ClampedArray(mw*mh);for(let k=0;k<alpha.length;k++)alpha[k]=pixels.data[k*4+3];
  for(let j=0;j<mh;j++){if(j&&j%24===0){await breath();if(gone())return;}for(let i=0;i<mw;i++){let m=255;for(let dj=-1;dj<=1;dj++)for(let di=-1;di<=1;di++){const y=Math.min(mh-1,Math.max(0,j+dj)),x=Math.min(mw-1,Math.max(0,i+di)),v=alpha[y*mw+x];if(v<m)m=v}pixels.data[(j*mw+i)*4+3]=m}}
- ctx.putImageData(pixels,0,0);/* toBlob looked asynchronous but blocked a slow phone for seconds; a small data URL is quick */const url=`url("${mask.toDataURL('image/png')}")`;maskCache.set(key,url);if(maskCache.size>24)maskCache.delete(maskCache.keys().next().value);atmosphere.style.maskImage=url;atmosphere.style.visibility='';
+ ctx.putImageData(pixels,0,0);/* toBlob looked asynchronous but blocked a slow phone for seconds; a small data URL is quick */const url=`url("${mask.toDataURL('image/png')}")`;rememberMask(key,url);
 }
 let gl,program,buffer,texture,image,sceneName='',serial=0,raf=0,last=0,time=0,frames=0,lost=false,failed=false,ready=false;
 let pointer={x:0,y:0},target={x:0,y:0},locations;

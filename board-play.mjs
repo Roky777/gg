@@ -31,6 +31,16 @@ function burst(x,y,kind,tight=false){
   joyAnimations.add(anim);anim.finished.catch(()=>{}).finally(()=>{joyAnimations.delete(anim);node.remove();});
  }
 }
+// A small star carries the successful connection from source to receiver. Sample the
+// actual SVG path in screen space; no extra render loop or hit-target movement.
+function connectionStar(path){
+ if(reduced.matches||paused()||joy.childElementCount>=56)return;
+ const matrix=path.getScreenCTM();if(!matrix)return;
+ const length=path.getTotalLength(),box=stage.getBoundingClientRect(),star=particle('star',FILL.star);
+ Object.assign(star.style,{left:'0',top:'0',width:Math.max(12,box.height*.035)+'px'});joy.append(star);
+ const keys=Array.from({length:13},(_,i)=>{const point=path.getPointAtLength(length*i/12),p=new DOMPoint(point.x,point.y).matrixTransform(matrix);return{offset:i/12,opacity:i===0||i===12?0:1,transform:`translate(${p.x-box.left}px,${p.y-box.top}px) translate(-50%,-50%) rotate(${i*12}deg)`};});
+ const a=star.animate(keys,{duration:560,easing:'ease-in-out'});joyAnimations.add(a);a.finished.catch(()=>{}).finally(()=>{joyAnimations.delete(a);star.remove();});
+}
 function sparkle(node){const b=node.getBoundingClientRect();if(!b.width)return;burst(b.left+b.width/2,b.top+b.height*.45,'match');}
 // The finished-board confetti (24 pieces; matches use 12) marks a completed board.
 let partied=-1e9;
@@ -44,7 +54,7 @@ new MutationObserver(()=>{const c=document.getElementById('confetti');if(c.child
  return [];
 }
 function updateProgress(){const nodes=targets(),earned=n=>n.matches('.matched,.answered,.filled,.in-place,.found');
- if(!matchTextures.length&&board.querySelector('.variant-columns'))for(const name of ['token-blue','token-correct','card-selected','card-correct']){const img=new Image();img.src=`assets/art/toy-board/${name}.webp`;matchTextures.push(img);img.decode().catch(()=>{});}
+ if(!matchTextures.length&&board.querySelector('.variant-columns'))for(const name of ['token-blue','token-correct','card-selected-play','card-correct-play']){const img=new Image();img.src=`assets/art/toy-board/${name}.webp`;matchTextures.push(img);img.decode().catch(()=>{});}
  taskCount=nodes.length;earnedCount=nodes.filter(earned).length;
  if(nodes.length&&nodes.every(earned))frame.classList.add('board-play-complete');else frame.classList.remove('board-play-complete');
 }
@@ -63,7 +73,7 @@ new MutationObserver(records=>{
    animate(node,[{filter:'brightness(1.14)'},{filter:'brightness(1)'}],{duration:460,easing:'ease-out'});
    // One burst for a pair, on its receiving side; source and target settle together.
    if(!node.hasAttribute('data-source')&&!node.closest('.challenge-collection')){sparkle(node);
-    if(node.hasAttribute('data-target')){const path=board.querySelector('.connection-correct:last-child path');if(path){const length=path.getTotalLength();animate(path,[{strokeDasharray:`${length} ${length}`,strokeDashoffset:length},{strokeDasharray:`${length} ${length}`,strokeDashoffset:0}],{duration:320,easing:'cubic-bezier(.2,.7,.3,1)'});}}
+    if(node.hasAttribute('data-target')){const path=board.querySelector('.connection-correct:last-child path');if(path){connectionStar(path);const length=path.getTotalLength();animate(path,[{strokeDasharray:`${length} ${length}`,strokeDashoffset:length},{strokeDasharray:`${length} ${length}`,strokeDashoffset:0}],{duration:320,easing:'cubic-bezier(.2,.7,.3,1)'});}}
    }
   }
  }
